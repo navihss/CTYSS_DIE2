@@ -1,0 +1,70 @@
+* {
+font-family:sans-serif;
+list-style:none;
+text-decoration:none;
+margin:0;
+padding:0;
+}
+
+/*especificamos que solo los li que sean descendientes directos del primer ul tengan float: left, 
+esto es para que solo el menu principal sea horizontal y los submenús se mantengan en vertical*/
+.nav > li {
+float:left;
+}
+
+/*Por defecto todos los submenús no serán visibles*/
+/*Todos los submenús tendrán un ancho minimo de 140px para que no se vean desiguales y llevaran position: absolute para que no afecten el ancho del menu principal.*/
+.nav li ul {
+display:none;
+position:absolute;
+min-width:140px;
+}
+
+/*muestre el submenu oculto*/
+.nav li:hover > ul {
+display:block;
+z-index: 1;
+}
+
+/*mostramos los submenús de segundo nivel
+haciendo que estos se muestren a la derecha de su respectivo ancestro li
+Los submenús de segundo nivel tendran right: -140px igual que el min-width definido para los submenus, para empujarlos hacia la derecha, 
+ademas tendra top: 0 esto es para que se posicione al mismo nivel que su ancestro li que tiene position: relative.
+Esto afectara todos los submenús de segundo nivel en adelante*/
+.nav li ul li {
+position:relative;
+z-index: 1;
+}
+.nav li ul li ul {
+right:-140px;
+top:0;
+}
+
+.nav li a {
+background:#295b70;
+color:#FFF;
+display:block;
+border:1px solid;
+padding:10px 12px;
+text-align: left;
+}
+
+.nav li a:hover {
+    background: #8eba37;
+}
+
+/*por defecto ocultamos la flechita en todos los elementos del menu*/
+.nav li .flecha{
+font-size: 9px;
+padding-left: 6px;
+display: none;
+}
+
+/*con la psuedo-clase CSS3 :not en combinación con :last-child 
+excluimos a todos los elementos del menu que no contengan submenus 
+(todos los <a> que no sean :last-child) y solo afectar a los span.flecha*/
+
+.nav li a:not(:last-child) .flecha {
+display: inline;
+}
+
