@@ -17,13 +17,7 @@ Objetivo:       Interfaz para los Pendientes del Profesor
 
 <html>
     <head>
-<!--        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="css/jquery-ui.css" rel="stylesheet">
-        <link rel="stylesheet" type="text/css" href="menu/estilo_menu.css" /> 
-        <script src="js/jquery-1.12.4.min.js"></script>
-        <script src="js/jquery-ui.min.js"></script>-->
+
         <script src="js/expresiones_reg.js"></script> 
         <script src="js/ruta_documentos.js"></script> 
         
@@ -54,22 +48,6 @@ Objetivo:       Interfaz para los Pendientes del Profesor
                                    var $link_irA = '';
                                    $link_irA ='<a class="IrA link_pdf" href="#" data-archivo=\'profesor_Aceptar_Alumnos.php\'>Ver Pendientes</a>';
 
-//                                   var $btn_Revisar = '';
-//                                   var $tramita_Baja = '';
-//                                   if (value['id_documento'] == 5){
-//                                       $tramita_Baja = 'SI';
-//                                   }
-//                                   $btn_Revisar = '<button class="btn_Revisar btnOpcion" data-id_inscripcion=\'' + value['id_inscripcion'] + '\' ' + 
-//                                            ' data-id_alumno = \'' + value['id_alumno'] + '\' ' +
-//                                            ' data-id_profesor = \'' + value['id_profesor'] + '\' ' +
-//                                            ' data-id_propuesta = \'' + value['id_propuesta'] + '\' ' +
-//                                            ' data-titulo_propuesta = \'' + value['titulo_propuesta'] + '\' ' +
-//                                            ' data-correo_alumno = \'' + value['email_usuario'] + '\' ' +
-//                                            ' data-id_carrera = \'' + value['id_carrera'] + '\' ' +
-//                                            ' data-id_estatus =' + value['id_estatus'] + 
-//                                            ' data-id_version =' + value['numero_version'] + 
-//                                            ' data-descripcion_corta_archivo = \'' + value['descripcion_para_nom_archivo'] + '\' ' +
-//                                            ' data-id_documento =' + value['id_documento'] + '>Revisar Doc</button>';
 
                                    html_table += '<TR>';
                                    html_table += '<TD>Aceptaciones y Bajas</TD>';
@@ -165,28 +143,13 @@ Objetivo:       Interfaz para los Pendientes del Profesor
                         that.off("keydown");
                     }
                 }
-/*
-                $('.entrada_Dato').focus(function(e){
-                    e.preventDefault();
-                    f5($(document),false);
-                });
-                $('.entrada_Dato').blur(function(e){
-                    e.preventDefault();
-                    f5($(document),true);
-                });
-                
-                f5($(document),true); */
+
 
                 Obtener_Inscripciones_Pendientes(id_usuario);
             });
                         
         </script>
-        
-<!--    </head>
-    <body>
-        <header>
-            Mi Pefil
-        </header>-->
+
         <div>
             <div class="encabezado_Formulario">
                 <div class="descripcion_Modulo">
@@ -209,6 +172,3 @@ Objetivo:       Interfaz para los Pendientes del Profesor
             Procesando su transacción....!<br>
             Espere por favor.
         </div>
-        
-<!--    </body>
-</html>-->

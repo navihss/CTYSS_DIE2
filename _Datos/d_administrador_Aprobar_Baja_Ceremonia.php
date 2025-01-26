@@ -1,5 +1,5 @@
 <?php
-
+use App\Database\Connection;
 /**
  * Definición de la Capa de Datos para la Autorización la baja de ceremonia
  * Metodos
@@ -7,7 +7,7 @@
  * Septiembre 2016
  */
     header('Content-Type: text/html; charset=UTF-8');
-    require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Datos/Conexion.php');
+    require_once __DIR__ . '/../app/Database/Connection.php';
     require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Datos/d_Usuario_Bitacora.php');
     require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Entidades/Bitacora.php');
     require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Datos/d_mail.php');
@@ -19,7 +19,7 @@ class d_administrador_Aprobar_Baja_Ceremonia {
   //Obtenemos las Solicitudes de Baja de Ceremonia pendientes de Autorizar 
     function Obtener_Solicitudes_De_Baja(){
         try{                    
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
 
             if( $cnn === false )
@@ -86,7 +86,7 @@ class d_administrador_Aprobar_Baja_Ceremonia {
         $descripcion_Correo = '';
                 
         try{    
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
                            
             if( $conn === false )
@@ -161,12 +161,6 @@ class d_administrador_Aprobar_Baja_Ceremonia {
                     $mensaje_Transacciones .= "Error en la sentencia SQL para Cambiar el Estatus de la Ceremonia.<br/>"  . $error[2];
                     throw new Exception($mensaje_Transacciones);        
                 }                                        
-
-//            $conn->rollBack();
-//            $jsondata['success'] = false;
-//            $jsondata['data']['message'] = $mensaje_Transacciones;
-//            echo json_encode($jsondata);
-//            exit();   
                 
             $conn->commit();
             

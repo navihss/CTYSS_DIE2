@@ -1,4 +1,5 @@
 <?php
+use App\Database\Connection;
 /**
  * Definición de la Capa de Datos para la Clase Alumno Mi Fecha Titulacion
  * Metodos
@@ -6,7 +7,7 @@
  * Agosto 2024
  */
     header('Content-Type: text/html; charset=UTF-8');
-    require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Datos/Conexion.php');
+    require_once __DIR__ . '/../app/Database/Connection.php';
     require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/zonaHoraria.php');
     
 class d_Alumno_Mi_Fecha_Titulacion {
@@ -14,7 +15,7 @@ class d_Alumno_Mi_Fecha_Titulacion {
     function Obtener_Fecha_Titulacion($id_alumno){
         
         try{                    
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
 
             if( $cnn === false )

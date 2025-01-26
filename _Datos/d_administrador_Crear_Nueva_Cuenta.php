@@ -1,5 +1,5 @@
 <?php
-
+use App\Database\Connection;
 /**
  * Definición de la Capa de Datos para Agregar una Nueva Cuenta de Usuario
  * Metodos
@@ -14,7 +14,7 @@ require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Entidades/Profesor.php');
 require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Entidades/Alumno.php');
 require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Entidades/Usuario.php');
 require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Datos/d_Usuario.php');
-require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Datos/Conexion.php');
+require_once __DIR__ . '/../app/Database/Connection.php';
 require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/zonaHoraria.php');
 require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Datos/d_Usuario_Bitacora.php');
 require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Entidades/Bitacora.php');
@@ -30,7 +30,7 @@ class d_administrador_Crear_Nueva_Cuenta {
         $nom_Nuevo_Usuario = '';
         
         try{                   
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
 
             if( $conn === false )
@@ -206,18 +206,6 @@ class d_administrador_Crear_Nueva_Cuenta {
                     $mensaje_Transacciones .= "Error en la sentencia SQL para Agregar la entidad " . $desc_Tipo_Usuario . ".<br/>"  . $error[2] .'<br>';
                     throw new Exception($mensaje_Transacciones);                                
                 }   
-                    
-                /*Ejecutamos el Query*/
-//                $result = 0;
-//                $result = $stmt->execute($params2);   
-//                
-//                if( $result > 0 ) {                
-//                     $mensaje_Transacciones .= ("Transacción con éxito en ". $desc_Tipo_Usuario .".<br/>");                        
-//                } else {
-//                     $mensaje_Transacciones .= ("Transacción sin éxito en ". $desc_Tipo_Usuario .".<br/>");
-//                    throw new Exception($mensaje_Transacciones);             
-//                }                  
-                
                 $conn->commit();
 
                 //  Obtener una revisión del tipo de usuario que se está insertando en la base de datos:
@@ -273,7 +261,7 @@ class d_administrador_Crear_Nueva_Cuenta {
         $desc_Tipo_Usuario = '';
                 
         try{                   
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
 
             if( $conn === false )
@@ -483,7 +471,7 @@ class d_administrador_Crear_Nueva_Cuenta {
         $desc_Tipo_Usuario ='';
 
         try{                  
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
     
             if( $conn === false )
@@ -582,7 +570,7 @@ class d_administrador_Crear_Nueva_Cuenta {
     function Obtener_Tipos_Usuario(){
       
         try{                    
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
 
             if( $cnn === false )
@@ -596,7 +584,6 @@ class d_administrador_Crear_Nueva_Cuenta {
                         ORDER BY descripcion_tipo_usuario;";
                         
             /* Valor de los parámetros. */
-//            $params = array($id_ss);
             /* Preparamos la sentencia a ejecutar */
             $stmt = $conn->prepare($tsql);
             /*Verificamos el contenido de la ejecución*/                        
@@ -641,7 +628,7 @@ class d_administrador_Crear_Nueva_Cuenta {
     function Existe_Clave_Usuario($clave, $id_division){
     
         try{                    
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
 
             if( $cnn === false )
@@ -733,7 +720,7 @@ class d_administrador_Crear_Nueva_Cuenta {
                 
         try{    
             
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
                                      
             if( $conn === false )
@@ -808,6 +795,3 @@ class d_administrador_Crear_Nueva_Cuenta {
     }      
     
 }
-
-//$obj = new d_administrador_Crear_Nueva_Cuenta();
-//echo $obj->Obtener_Usuario('laura56', 4);

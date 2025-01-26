@@ -146,16 +146,6 @@ Objetivo:       Interfaz para aprobar los Reportes Bimestrales
                         that.off("keydown");
                     }
                 }
-        
-                /*$('.entrada_Dato').focus(function(e){
-                    e.preventDefault();
-                    f5($(document),false);
-                });
-                $('.entrada_Dato').blur(function(e){
-                    e.preventDefault();
-                    f5($(document),true);
-                }); */
-
                 
         		Obtener_Reportes_Estadisticas("00");
 

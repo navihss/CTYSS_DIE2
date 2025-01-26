@@ -17,15 +17,6 @@ Objetivo:       Interfaz para modificar los datos del Administrador
     
 ?>
 
-<!--<html>
-    <head>-->
-<!--        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="css/jquery-ui.css" rel="stylesheet">
-        <link rel="stylesheet" type="text/css" href="menu/estilo_menu.css" /> 
-        <script src="js/jquery-1.12.4.min.js"></script>
-        <script src="js/jquery-ui.min.js"></script>-->    
         <script src="js/expresiones_reg.js"></script>
         
         <script>
@@ -129,9 +120,6 @@ Objetivo:       Interfaz para modificar los datos del Administrador
                     $('#aviso_Genero').hide();
                     $('#aviso_Grado').hide();
                     $('#aviso_Correo_Electronico').hide();
-
-//                    var miExpReg = /^[a-zA-Z áéíóúñÁÉÍÓÚÑ]{1,50}$/;
-//                    var miExpReg_Mail = /^[_a-zA-Z0-9-]+(.[_a-zA-Z0-9-]+)*@[a-zA-Z0-9-]+(.[a-zA-Z0-9-]+)*(.[a-zA-Z]{2,4})$/;
 
                     if (!nombre.match(miExpReg_Nombre))
                     {
@@ -287,9 +275,6 @@ Objetivo:       Interfaz para modificar los datos del Administrador
                    resizable : false,
                    draggable : false,
                    dialogClass : 'no-close'
-//                   show : 'slideDown',
-//                   hide: 'slideUp',
-//                   dialogClass : 'ui-state-highlight'
                 });  
 
                 function f5(that,val){
@@ -314,26 +299,11 @@ Objetivo:       Interfaz para modificar los datos del Administrador
 
                 muestra_Perfil($('#Id_Usuario').val(),$('#id_Tipo_Usuario').val());
 
-                /*$('.entrada_Dato').focus(function(e){
-                    e.preventDefault();
-                    f5($(document),false);
-                });
-                $('.entrada_Dato').blur(function(e){
-                    e.preventDefault();
-                    f5($(document),true);
-                });
-
-                f5($(document),true); */
                               
                 $(':text:first').focus();
             });
         </script>
-        
-<!--    </head>
-    <body>
-        <header>
-            Mi Pefil
-        </header>-->
+
         <div>
             <div class="encabezado_Formulario">
                 <div class="descripcion_Modulo">
@@ -414,6 +384,3 @@ Objetivo:       Interfaz para modificar los datos del Administrador
             Procesando su transacción....!<br>
             Espere por favor.
         </div>
-        
-<!--    </body>
-</html>-->

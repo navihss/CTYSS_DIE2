@@ -17,13 +17,7 @@ Objetivo:       Interfaz para los Pendientes del Coordinador y Jefe de Dpto
 
 <html>
     <head>
-<!--        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="css/jquery-ui.css" rel="stylesheet">
-        <link rel="stylesheet" type="text/css" href="menu/estilo_menu.css" /> 
-        <script src="js/jquery-1.12.4.min.js"></script>
-        <script src="js/jquery-ui.min.js"></script>-->
+
         <script src="js/expresiones_reg.js"></script> 
         <script src="js/ruta_documentos.js"></script> 
         
@@ -106,6 +100,9 @@ Objetivo:       Interfaz para los Pendientes del Coordinador y Jefe de Dpto
                            }
                        })
                             .fail(function(jqXHR,textStatus,errorThrown){
+                                console.log(jqXHR.responseText);
+                                console.log(textStatus);
+                                console.log(errorThrown);
                                 var html_table = '<TABLE>';
                                 var html_table = '<TABLE style="width:30%;" class="tabla_Registros">';
                                 html_table += '<TR><TH>Pendientes</TH>\n\
@@ -182,27 +179,13 @@ Objetivo:       Interfaz para los Pendientes del Coordinador y Jefe de Dpto
                     }
                 }
 
-                /*$('.entrada_Dato').focus(function(e){
-                    e.preventDefault();
-                    f5($(document),false);
-                });
-                $('.entrada_Dato').blur(function(e){
-                    e.preventDefault();
-                    f5($(document),true);
-                });
-                
-                f5($(document),true);*/
+
 
                 Obtener_CeremoniasJurados_Por_Autorizar(id_usuario);
             });
                         
         </script>
-        
-<!--    </head>
-    <body>
-        <header>
-            Mi Pefil
-        </header>-->
+
         <div>
             <div class="encabezado_Formulario">
                 <div class="descripcion_Modulo">
@@ -225,6 +208,3 @@ Objetivo:       Interfaz para los Pendientes del Coordinador y Jefe de Dpto
             Procesando su transacción....!<br>
             Espere por favor.
         </div>
-        <!--Se quita el botón de home-->
-<!--    </body>
-</html>-->

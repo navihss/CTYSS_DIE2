@@ -20,12 +20,6 @@ require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/zonaHoraria.php');
 
     $tipo_Movimiento = $_POST['Tipo_Movimiento'];
 
-    //$jsondata = array();
-    //$jsondata['success'] = false;
-    //$jsondata['data']['message'] = 'dentro de la capa de datos ' . $id_Usuario . ',  '. $tipo_Movimiento . ', ' . $id_Carrera;
-    //echo json_encode($jsondata);
-    //exit();
-
     $obj_d_Alumno_Mis_Reportes = new d_Alumno_Mis_Reportes();
 
     switch ($tipo_Movimiento){

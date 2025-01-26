@@ -44,10 +44,7 @@ require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/zonaHoraria.php');
             $correo_administrador = $_POST['correo_administrador'];
             $id_alumno = $_POST['id_alumno'];
             $correo_usr = $_POST['correo_usr'];
-//$jsondata['success'] = false;
-//$jsondata['data']['message'] = 'dentro de la capa de negocio ' ;
-//echo json_encode($jsondata);
-//exit();
+
             
             echo $obj_d_Admin_RB->Agregar_Reporte($id_ss, $numero_reporte_bi, $fecha_prog_inicio, $fecha_prog_fin, $horas_obligatorias, $nota,
                     $id_administrador, $correo_administrador,$id_alumno,$correo_usr, $id_division);

@@ -10,7 +10,7 @@ if(!isset($_SESSION["id_tipo_usuario"]) and !isset($_SESSION["id_usuario"])) {
 ?>
 <html>
 <head>
-  <link href="css/bitacora.css" rel="stylesheet">
+  <link href="public/assets/css/bitacora.css" rel="stylesheet">
   <script src="js/expresiones_reg.js"></script>
 
   <script>
@@ -120,11 +120,6 @@ if(!isset($_SESSION["id_tipo_usuario"]) and !isset($_SESSION["id_usuario"])) {
             html_table += '<TD style="text-align:left;">' + value['tipo'] + '</TD>';
             html_table += '</TR>';
           });
-
-
-          //$('#ventanaAviso').html(respuesta.data.mm);
-          //$('#ventanaAvisos').dialog('open'); 
-
 
         } else {
           html_table = html_table + '<TR><TD colspan="14" style="text-align: center;"><b>' + respuesta.data.message + '</b></TD></TR>';
@@ -237,17 +232,7 @@ if(!isset($_SESSION["id_tipo_usuario"]) and !isset($_SESSION["id_usuario"])) {
       that.off("keydown");
     }
   }
-  
-  /*$('.entrada_Dato').focus(function(e){
-    e.preventDefault();
-    f5($(document),false);
-  });
-  $('.entrada_Dato').blur(function(e){
-    e.preventDefault();
-    f5($(document),true);
-  });  
-  f5($(document),true); */
-  //  ./Fin de funciones auxiliares.
+
   
   //  Colocar valores por defecto a las fechas.
   var fecha_Completa = new Date();

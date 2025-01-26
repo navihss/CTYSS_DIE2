@@ -21,13 +21,6 @@ Objetivo:       Interfaz para Aprobar los documentos para el Servicio Social de 
 <html>
     <head>
 
-<!--        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="css/jquery-ui.css" rel="stylesheet">
-        <link rel="stylesheet" type="text/css" href="menu/estilo_menu.css" /> 
-        <script src="js/jquery-1.12.4.min.js"></script>
-        <script src="js/jquery-ui.min.js"></script>-->
         <script src="js/expresiones_reg.js"></script>
         
         <script>
@@ -82,7 +75,6 @@ Objetivo:       Interfaz para Aprobar los documentos para el Servicio Social de 
                                //Llenamos los datos del documento mostrado
                                $.each(respuesta.data.registros, function( key, value ) {                                    
                                    $('#fecha_envio_doc').val(value['fecha_recepcion_doc']);
-//                                   $('#estatus_doc').val(value['descripcion_estatus']);
                                    $('#id_estatus_doc').val(value['id_estatus']);
                                    $('#id_version_doc').val(value['id_version']);
                                    $('#id_documento').val(value['id_documento']);
@@ -127,7 +119,6 @@ Objetivo:       Interfaz para Aprobar los documentos para el Servicio Social de 
                                $('#ventanaAvisos').dialog('open');                                               
 
                                $('#fecha_envio_doc').val('');
-//                               $('#estatus_doc').val('');
                                $('#id_version_doc').val(0);
                                $('#id_documento').val(0);
 
@@ -162,7 +153,6 @@ Objetivo:       Interfaz para Aprobar los documentos para el Servicio Social de 
                 $('#tabla_Servicios_Sociales').on("click", "button.btn_MostrarDocs", function(e){
                     e.preventDefault();
                     $('#fecha_envio_doc').val($(this).data(''));
-//                    $('#estatus_doc').val($(this).data(''));
                     $('#id_version_doc').val($(this).data(''));
                     $('#id_documento').val($(this).data(''));
         
@@ -178,7 +168,6 @@ Objetivo:       Interfaz para Aprobar los documentos para el Servicio Social de 
                     $('#duracion').val($(this).data('duracion_meses_ss'));
                     $('#avance_creditos').val($(this).data('avance_creditos_ss'));
                     $('#porcentaje_avance').val($(this).data('avance_porcentaje_ss'));
-//                    $('#tipo_remuneracion').val($(this).data('descripcion_tipo_remuneracion'));
                     $('#jefe_inmediato').val($(this).data('jefe_inmediato_ss'));
                     $('#correo_user').val($(this).data('correo'));
                     $('#carrera_user').val($(this).data('id_carrera'));
@@ -589,11 +578,6 @@ Objetivo:       Interfaz para Aprobar los documentos para el Servicio Social de 
             
         </script>
         
-<!--    </head>
-    <body>
-        <header>
-            Mi Pefil
-        </header>-->
         <div>
             <div class="encabezado_Formulario">
                 <div class="descripcion_Modulo">
@@ -705,7 +689,6 @@ Objetivo:       Interfaz para Aprobar los documentos para el Servicio Social de 
                         title="SOLO puede Capturar los siguientes carácteres: A-Z 0-9 , ; : ¿? ( )' - _ #" autocomplete="off"></textarea>
                 </p>                             
             </div>
-            <!--<span style="margin-top: 5px; color: #990000;">Desea dar el estatus de "Aceptado" al Documento seleccionado ?</span>         -->
             
         </div>
         <div id="ventanaConfirmaRechazo">
@@ -715,7 +698,6 @@ Objetivo:       Interfaz para Aprobar los documentos para el Servicio Social de 
                           maxlength="500" placeholder="" onkeyup="javascript:this.value=this.value.toUpperCase();"
                         title="SOLO puede Capturar los siguientes carácteres: A-Z 0-9 , ; : ¿? ( )' - _ #" autocomplete="off"></textarea>
             </p>             
-            <!--<span style="margin-top: 5px; color: #990000;">Desea dar el estatus de "Rechazado" al Documento seleccionado ?</span>         -->
             
         </div>
         <div id="ventanaConfirmaVoBo">
@@ -735,6 +717,3 @@ Objetivo:       Interfaz para Aprobar los documentos para el Servicio Social de 
             Procesando su transacción....!<br>
             Espere por favor.
         </div>
-        
-<!--    </body>
-</html>-->

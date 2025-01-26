@@ -16,16 +16,6 @@ Objetivo:       Interfaz para los Docs del Usuario
         }    
 ?>
 
-<!--<html>
-    <head>-->
-<!--        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="css/jquery-ui.css" rel="stylesheet">
-        <link rel="stylesheet" type="text/css" href="menu/estilo_menu.css" /> 
-        <script src="js/jquery-1.12.4.min.js"></script>
-        <script src="js/jquery-ui.min.js"></script>-->
-        <!--<script src="js/ruta_documentos.js"></script>-->  
         
         <script>
             $( document ).ready(function() {
@@ -373,12 +363,7 @@ Objetivo:       Interfaz para los Docs del Usuario
             $('#ventanaSubirArchivo_Doc').hide();
             });//fin document.ready
         </script>
-        
-<!--    </head>
-    <body>
-        <header>
-            Mi Pefil
-        </header>-->
+
         <div>
             <div class="encabezado_Formulario">
                 <div class="descripcion_Modulo">
@@ -448,6 +433,3 @@ Objetivo:       Interfaz para los Docs del Usuario
         </div>
             
         </div>
-        <!--Se elimina botón de home mostrado en la parte inferior-->
-<!--    </body>
-</html>-->

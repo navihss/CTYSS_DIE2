@@ -19,13 +19,7 @@ Objetivo:       Interfaz para la captura del Servicio Social y los Documentos pa
 
 <html>
     <head>
-<!--        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="css/jquery-ui.css" rel="stylesheet">
-        <link rel="stylesheet" type="text/css" href="menu/estilo_menu.css" /> 
-        <script src="js/jquery-1.12.4.min.js"></script>
-        <script src="js/jquery-ui.min.js"></script>-->
+
         <script src="js/expresiones_reg.js"></script>
         <script src="js/ruta_documentos.js"></script>        
         
@@ -61,7 +55,6 @@ Objetivo:       Interfaz para la captura del Servicio Social y los Documentos pa
                         $('#docs_de_envio').attr("value", 'BAJA_SERVICIO_SOCIAL');
                         $('#ventanaSubirArchivo').dialog('open');
                     }
-//                    $('#ventanaConfirmacionBorrar').text('Desea dar de Baja el Servicio Social ' + $(this).data("id_ss") + '?');
                      
                 });
 
@@ -215,9 +208,6 @@ Objetivo:       Interfaz para la captura del Servicio Social y los Documentos pa
                 function deshabilitaControles(){
                     $('#fecha_Inicio').prop('disabled',true);
                     $('#duracion').prop('disabled',true);
-//                    $('#Tipo_Remuneracion').prop('disabled',true);
-//                    $('#percepcion_Mensual').prop('disabled',true);
-//                    $('#otro_Tipo_Remuneracion').prop('disabled',true);
                     $('#clave_Programa').prop('disabled',true);
                     $('#numero_Creditos').prop('disabled',true);
                     $('#porcentaje_Avance').prop('disabled',true);
@@ -227,7 +217,6 @@ Objetivo:       Interfaz para la captura del Servicio Social y los Documentos pa
                 
                 //VALIDACIONES 
                 function validaDatos(){
-//                    $('#Actualizar_Mi_Pefil_Alumno').prop('disable',true);
                     var datosValidos = true;
                     var clave = $('#clave').val();
                     var fechaInicio = $('#fecha_Inicio').val();
@@ -357,7 +346,6 @@ Objetivo:       Interfaz para la captura del Servicio Social y los Documentos pa
                             return datosValidos;
                         }
                     }
-//                    $('#Actualizar_Mi_Pefil_Alumno').prop('disable',false);
                     return datosValidos;
                 };
 
@@ -387,8 +375,6 @@ Objetivo:       Interfaz para la captura del Servicio Social y los Documentos pa
                         url : "validaProgramaServicioSocial.php"
                     })
                             .done(function(respuesta,textStatus,jqXHR){
-//                                $('#ventanaProcesando').dialog('close');                        
-//                                $('#De_Alta_OK').val("0");
                                 $("#cargandoAjax").css("display", "none");
                                 $('#aviso_Clave_Programa').hide();
                                 $('#descripcion_Programa').hide();
@@ -401,23 +387,18 @@ Objetivo:       Interfaz para la captura del Servicio Social y los Documentos pa
                                     var descripcion = arr_resultado[1];
                                     $('#aviso_Clave_Programa').html(mensaje);
                                     $('#descripcion_Programa').html(descripcion);
-//                                    $('#clave_Programa').prop('value','');
-//                                    $('#enviar').prop('disabled', true);
                                 }
                                 else if (respuesta.success == 'NOEXISTE'){
                                     $('#aviso_Clave_Programa').show();
                                     $('#aviso_Clave_Programa').text(respuesta.data.message);
                                     $('#clave_Programa').prop('value','');
-//                                    $('#enviar').prop('disabled', false);
                                 }
                                 else
                                 {
-//                                    $('#enviar').prop('disabled', true);
                                     $('#aviso_Clave_Programa').show();                                    
                                     $('#ventanaAviso').html(respuesta.data.message);                                                                        
                                     $('#clave_Programa').val('');
                                     $('#aviso_Clave_Programa').prop('value','');
-//                                    $('#enviar').prop('disabled', false);
                                     $('#ventanaAvisos').dialog('open');
                                 }                                                    
                             })
@@ -425,7 +406,6 @@ Objetivo:       Interfaz para la captura del Servicio Social y los Documentos pa
                                         $("#cargandoAjax").css("display", "none");
                                         $('#aviso_Clave_Programa').hide();
                                         $('#clave_Programa').val('');
-//                                        $('#enviar').prop('disabled', true);
 
                                         $('#ventanaAviso').html('La solicitud ha fallado. ' + textStatus + '. ' + errorThrown);
                                         $('#ventanaAvisos').dialog('open');                            
@@ -456,7 +436,6 @@ Objetivo:       Interfaz para la captura del Servicio Social y los Documentos pa
                             $('#Tipo_Remuneracion').html(html_options);
                         }
                         else {
-//                            $('#Actualizar_Mi_Pefil_Alumno').prop('disable',true);
                             $('#ventanaAviso').html(respuesta.data.message);
                             $('#ventanaAvisos').dialog('open');                                                                    
                         }
@@ -527,7 +506,6 @@ Objetivo:       Interfaz para la captura del Servicio Social y los Documentos pa
                        url : "_Negocio/n_Alumno_Mi_Servicio.php"
                     })
                        .done(function(respuesta,textStatus,jqXHR){
-//                            var finicio='';
                             if (respuesta.success == true){
                                //recorremos cada registro
                                $.each(respuesta.data.registros, function( key, value ) {
@@ -658,8 +636,6 @@ Objetivo:       Interfaz para la captura del Servicio Social y los Documentos pa
                                         html_table = html_table + '<TD style="text-align:right;">' + $btn_Borrar + $btn_Editar + $btn_EnviarDocs + '</TD>';
                                    }
                                    
-//                                   html_table = html_table + '<TD><button data-id_alumno=\'' + $('#Id_Usuario').val() + '\' ' + 
-//                                            'data-id_SS=\'' + value['id_ss'] + '\' data-id_carrera=' + id_carrera +'>Borrar</button></TD>';
                                    html_table = html_table + '</TR>';
                                });
                                html_table = html_table + '</TABLE>';
@@ -799,7 +775,6 @@ Objetivo:       Interfaz para la captura del Servicio Social y los Documentos pa
                    title: 'Servicio Social',
                    modal : true,
                    autoOpen : false,
-//                   resizable : true,
                    draggable : true,
                    height : 'auto',
                    width : '600',
@@ -894,8 +869,6 @@ Objetivo:       Interfaz para la captura del Servicio Social y los Documentos pa
                                         buttons:{
                                              "Aceptar" : function() {                            
                                                     $(this).dialog('close');
-//                                                    $('#ventanaProcesando').dialog({ dialogClass: 'no-close' });
-//                                                    $('#ventanaProcesando').dialog({ dialogClass: 'no-titlebar'});
                                                     $('#ventanaProcesando').dialog('open');
                                                     var nota = $('#nota').val();
                                                     nvo_id_estatus= $('#nvo_id_estatus').val();
@@ -1122,16 +1095,6 @@ Objetivo:       Interfaz para la captura del Servicio Social y los Documentos pa
                     }
                 }
 
-                /*$('.entrada_Dato').focus(function(e){
-                    e.preventDefault();
-                    f5($(document),false);
-                });
-                $('.entrada_Dato').blur(function(e){
-                    e.preventDefault();
-                    f5($(document),true);
-                });
-
-                f5($(document),true); */
                 Obtener_Carreras_Del_Alumno();
                 $('#ventanaSubirArchivo').hide();
                 $('#ventanaSolicitarBaja').hide();
@@ -1139,12 +1102,7 @@ Objetivo:       Interfaz para la captura del Servicio Social y los Documentos pa
             });
                         
         </script>
-        
-<!--    </head>
-    <body>
-        <header>
-            Mi Pefil
-        </header>-->
+
     <div>
         <div>
             <div class="encabezado_Formulario">
@@ -1309,31 +1267,6 @@ Objetivo:       Interfaz para la captura del Servicio Social y los Documentos pa
                       maxlength="500" placeholder="" onkeyup="javascript:this.value=this.value.toUpperCase();"
                 title="SOLO puede Capturar los siguientes carácteres: A-Z 0-9 , ; : ¿? ( )' - _ #" autocomplete="off"></textarea>
         </div>
-<!--        <div id='ventanaSolicitarBaja'>
-                <form action="" method="post" enctype="multipart/form-data" id="frmSubirBaja" name="frmSubirBja">
-                    <p>
-                        <label id='lblTitulo_SubirBaja'></label>
-                        <div style="display: inline-block;">
-                            <input type="file" name="fileSolicitudBaja" id="fileSolicitudBaja" accept=".pdf" required class="tag_file"> 
-                            <input type="submit" name="enviarSolicitudBaja" id="enviarSolicitudBaja" value="Enviar" class="btn_Herramientas">
-                            <input type="hidden" id="id_ss_baja_doc" name="id_ss_baja_doc" value="">
-                            <input type="hidden" id="id_documento_baja_doc" name="id_documento_baja_doc" value="">
-                            <input type="hidden" id="id_usuario_baja_doc" name="id_usuario_baja_doc" value="">
-                            <input type="hidden" id="desc_corta_baja_doc" name="desc_corta_baja_doc" value="">
-                            <input type="hidden" id="id_carrera_baja_doc" name="id_carrera_baja_doc" value="">                            
-                        </div>   
-                    </p>
-                </form>
-                <div id='loading' class="resultado_Carga_De_Archivo"><h1>Cargando el Archivo...</h1></div>
-                
-                <div id="message" class="informacion_Archivo_A_Cargar"></div>
-            
-            <span style="font-weight: bold; margin-top: 5px">Debe de indicar los Motivos por los que Solicita la baja este Servicio Social.</span>
-            <textarea id="nota_Solicitud_Baja" class="notaVoBo entrada_Dato" style="margin-top: 5px;"
-                      maxlength="500" placeholder="" onkeyup="javascript:this.value=this.value.toUpperCase();"
-                title="SOLO puede Capturar los siguientes carácteres: A-Z 0-9 , ; : ¿? ( )' - _ #" autocomplete="off"></textarea>
-        </div>-->
-    
         <div id="ventanaConfirmacion">
             <span id="MensajeConfirma"></span>
         </div>
@@ -1349,5 +1282,3 @@ Objetivo:       Interfaz para la captura del Servicio Social y los Documentos pa
             Procesando su transacción....!<br>
             Espere por favor.
         </div>
-<!--    </body>
-</html>-->

@@ -18,14 +18,8 @@ Objetivo:       Interfaz para consultar la Bitácora
 
 <html>
     <head>
-<!--        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="css/jquery-ui.css" rel="stylesheet">
-        <link rel="stylesheet" type="text/css" href="menu/estilo_menu.css" /> 
-        <script src="js/jquery-1.12.4.min.js"></script>
-        <script src="js/jquery-ui.min.js"></script>-->
-        <link href="css/bitacora.css" rel="stylesheet">
+
+        <link href="public/assets/css/bitacora.css" rel="stylesheet">
         
         <script>
             $( document ).ready(function() {
@@ -285,25 +279,15 @@ Objetivo:       Interfaz para consultar la Bitácora
                         that.off("keydown");
                     }
                 }
-                /*
-                $('.entrada_Dato').focus(function(e){
-                    e.preventDefault();
-                    f5($(document),false);
-                });
-                $('.entrada_Dato').blur(function(e){
-                    e.preventDefault();
-                    f5($(document),true);
-                }); */
+
                 
                 Obtener_Temas($('#Id_Tipo_User').val());
                 llena_Catalogo('lst_Tipos_Evento', 'CATALOGO_GENERALES', 'tipo_evento', 
                     'id_tipo_evento as id, descripcion_tipo_evento as descripcion', 
                     '', 'id_tipo_evento');
-                
-                //f5($(document),true);
+
                 
                 var fecha_Completa = new Date()
-                //Thu May 19 2011 17:25:38 GMT+1000 {}
                 var mes_Dos_Digitos = fecha_Completa.getMonth()+1;
                 mes_Dos_Digitos = mes_Dos_Digitos < 10 ? '0'+mes_Dos_Digitos : ''+mes_Dos_Digitos;
                 var dia_Dos_Digitos = fecha_Completa.getDate();
@@ -327,10 +311,7 @@ Objetivo:       Interfaz para consultar la Bitácora
                         
         </script>
         
-<!--    </head>
-    <body>
-        <header>
-        </header>-->
+
         <div>
             <div>
                 <div class="encabezado_Formulario">
@@ -415,11 +396,7 @@ Objetivo:       Interfaz para consultar la Bitácora
                     <input type="hidden" id="Id_Tipo_User" name="Id_Tipo_User" value="<?php echo $_SESSION['id_tipo_usuario']; ?>">
                     <input type="hidden" id="Tipo_Movimiento" name="Tipo_Movimiento" value="0">
 
-<!--                    <div style="text-align : center; padding-top: 35px;">
-                            <input type="submit" name="btn_Buscar" id="btn_Buscar" value="Buscar" class="btn" style="width: 150px;">
-                            <input type="button" name="btn_cerrar" id="btn_cerrar" value="Cerrar" class="btn" style="width: 150px;">
 
-                    </div>   -->
                 </form>
 
             </div>            
@@ -432,5 +409,3 @@ Objetivo:       Interfaz para consultar la Bitácora
             Procesando su transacción....!<br>
             Espere por favor.
         </div>
-<!--    </body>
-</html>-->

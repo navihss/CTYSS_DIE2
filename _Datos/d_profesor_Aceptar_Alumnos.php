@@ -1,4 +1,5 @@
 <?php
+use App\Database\Connection;
 /**
  * Definición de la Capa de Datos para Aceptar Alumnos en una propuesta
  * Metodos
@@ -6,7 +7,7 @@
  * Julio 2016
  */
 header('Content-Type: text/html; charset=UTF-8');
-require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Datos/Conexion.php');
+require_once __DIR__ . '/../app/Database/Connection.php';
 require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/zonaHoraria.php');
 require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Datos/d_Usuario_Bitacora.php');
 require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Entidades/Bitacora.php');
@@ -19,7 +20,7 @@ class d_profesor_Aceptar_Alumnos {
     function Obtener_Inscripciones_Por_Autorizar($id_estatus, $id_profesor){
       
         try{                    
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
 
             if( $cnn === false )
@@ -89,7 +90,7 @@ class d_profesor_Aceptar_Alumnos {
     function Obtener_Total_Inscripciones_Por_Autorizar($id_estatus, $id_profesor){
       
         try{                    
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
 
             if( $cnn === false )
@@ -156,7 +157,7 @@ class d_profesor_Aceptar_Alumnos {
 
         try{    
             
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
                 
             if( $conn === false )
@@ -220,7 +221,7 @@ class d_profesor_Aceptar_Alumnos {
 
         try{    
             
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
                 
             if( $conn === false )
@@ -280,7 +281,7 @@ class d_profesor_Aceptar_Alumnos {
   
         try{    
             
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
                 
             if( $conn === false )
@@ -399,13 +400,8 @@ class d_profesor_Aceptar_Alumnos {
             //Actualizamos el estatus de la inscripción del alumno
             if ($id_estatus ==3){ //3. Aceptado
                 $id_tipo_evento = 25; //aprobación
-                if($id_documento ==5){ //5.Baja de Inscripción
-//                    $obj_d_prof_Acep_Alum = new d_profesor_Aceptar_Alumnos();
-//                    $resultado_baja = $obj_d_prof_Acep_Alum->Borrar_Propuesta($id_propuesta, $id_carrera);
-//                    if($resultado_baja !=''){
-//                        $mensaje_Transacciones .= "No se pudo Actualizar las Vacantes de la Propuesta.<br>";
-//                        throw new Exception($mensaje_Transacciones);                                                                                      
-//                    }
+                if($id_documento ==5){ //5.Baja de Inscripción                                                                                    
+
                     $descripcion_evento = "La Solicitud de Baja del Alumno con Versión de Doc. " . $id_version .  
                             " *** No. de Cta. " . $id_alumno . 
                             " *** No. de Inscripción ". $id_inscripcion . 
@@ -509,12 +505,7 @@ class d_profesor_Aceptar_Alumnos {
                             "<br> *** Carrera " . $id_carrera .
                             "<br> Ha sido <b>RECHAZADA</b> <br>*** Propuesta " .
                             $id_propuesta . "<br> *** Con Título " .$titulo_propuesta . "<br> --- " . $nota;
-                    
-//                    $tsql3=" UPDATE inscripcion_propuesta SET "
-//                            . "id_estatus = ?, "
-//                            . "fecha_baja = ? "
-//                            . "WHERE id_inscripcion = ?;";
-//                    $params3 = array(6, date('d-m-Y H:i:s'), $id_inscripcion);                    
+                                      
                 }
                 else{
                     $descripcion_evento = "Su Historial Académico con Versión de Doc. " . $id_version .  
@@ -530,10 +521,6 @@ class d_profesor_Aceptar_Alumnos {
                         " Ha sido <b>RECHAZADO</b> <br>*** Propuesta " . 
                         $id_propuesta . "<br> *** Con Título " .$titulo_propuesta . "<br>--- " . $nota;
                     
-//                    $tsql3=" UPDATE inscripcion_propuesta SET "
-//                            . "id_estatus = ? "
-//                            . "WHERE id_inscripcion = ?;";
-//                    $params3 = array($id_estatus, $id_inscripcion);
                 }                 
                 
                 /* Query parametrizado. */
@@ -596,14 +583,6 @@ class d_profesor_Aceptar_Alumnos {
                 }
             }
 
-//            if ($id_estatus ==3 && $id_documento ==5){ //3. Aceptado 5. baja
-//                $obj_d_prof_Acep_Alum = new d_profesor_Aceptar_Alumnos();
-//                $resultado_baja = $obj_d_prof_Acep_Alum->Borrar_Propuesta($id_propuesta, $id_carrera);
-//                if($resultado_baja !=''){
-//                    $mensaje_Transacciones .= "No se pudo Actualizar las Vacantes de la Propuesta.<br>";
-//                    throw new Exception($mensaje_Transacciones);                                                                                      
-//                }
-//            }
             
             $conn->commit();
 
@@ -670,10 +649,3 @@ class d_profesor_Aceptar_Alumnos {
     //FIN ACTUALIZAMOS EL ESTATUS DE LA INSCRIPCION DEL ALUMNO
     
 }
-
-//$obj = new d_profesor_Aceptar_Alumnos();
-//$x = $obj->vacantes_Propuesta('3', '1101');
-//echo $x;
-
-//$obj = new d_profesor_Aceptar_Alumnos();
-//$x = $obj->Obtener_Total_Inscripciones_Por_Autorizar(10, 'ehernandez');

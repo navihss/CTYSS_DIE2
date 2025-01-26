@@ -5,10 +5,11 @@
  * @author Rogelio Reyes Mendoza
  * Agosto 2016
  */
+use App\Database\Connection;
 
 header('Content-Type: text/html; charset=UTF-8');
 
-require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Datos/Conexion.php');
+require_once __DIR__ . '/../app/Database/Connection.php';
 require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/zonaHoraria.php');
 require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Datos/d_Usuario_Bitacora.php');
 require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Entidades/Bitacora.php');
@@ -19,19 +20,13 @@ class d_administrador_admon_Contadores {
     function Obtener_Ultimo_Contador_SS(){
       
         try{                    
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
 
             if( $cnn === false )
             {
                 throw new Exception($cnn->getError());
             }
-
-//            $tsql = "SELECT anio, mes, consecutivo
-//                    FROM servicio_social_contador
-//                    WHERE anio = (SELECT max(anio)
-//                                    FROM servicio_social_contador)
-//                    ORDER BY anio, mes, consecutivo;";
 
             $tsql = "SELECT anio, mes, consecutivo
                     FROM servicio_social_contador
@@ -83,7 +78,7 @@ class d_administrador_admon_Contadores {
     function Existe_Periodo($nom_tabla, $periodo){
       
         try{                    
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
 
             if( $cnn === false )
@@ -139,19 +134,13 @@ class d_administrador_admon_Contadores {
     function Obtener_Ultimo_Contador_Propuestas(){
       
         try{                    
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
 
             if( $cnn === false )
             {
                 throw new Exception($cnn->getError());
             }
-            
-//            $tsql = "SELECT anio, semestre, consecutivo
-//                    FROM propuesta_profesor_contador
-//                    WHERE anio = (SELECT max(anio)
-//                                    FROM propuesta_profesor_contador)
-//                    ORDER BY anio, semestre, consecutivo;";
 
             $tsql = "SELECT anio, semestre, consecutivo
                     FROM propuesta_profesor_contador
@@ -203,19 +192,13 @@ class d_administrador_admon_Contadores {
     function Obtener_Ultimo_Ceremonia(){
       
         try{                    
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
 
             if( $cnn === false )
             {
                 throw new Exception($cnn->getError());
             }
-
-//            $tsql = "SELECT anio, semestre, consecutivo
-//                    FROM inscripcion_ceremonia_contador
-//                    WHERE anio = (SELECT max(anio)
-//                                    FROM inscripcion_ceremonia_contador)
-//                    ORDER BY anio, semestre, consecutivo;";
 
             $tsql = "SELECT anio, semestre, consecutivo
                     FROM inscripcion_ceremonia_contador
@@ -270,7 +253,7 @@ class d_administrador_admon_Contadores {
                 
         try{    
             
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
                            
             if( $conn === false )
@@ -359,7 +342,7 @@ class d_administrador_admon_Contadores {
                 
         try{    
             
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
                            
             if( $conn === false )
@@ -448,7 +431,7 @@ class d_administrador_admon_Contadores {
                 
         try{    
             
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
                            
             if( $conn === false )
@@ -533,6 +516,3 @@ class d_administrador_admon_Contadores {
     }
     
 }
-//
-//$obj = new d_administrador_admon_Contadores();
-//echo $obj->Existe_Periodo('servicio_social_contador', 2016);

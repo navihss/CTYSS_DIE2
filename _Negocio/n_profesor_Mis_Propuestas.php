@@ -40,11 +40,6 @@ switch ($tipo_Movimiento){
   case "OBTENER_PROPUESTAS_AUT_CARRERA":
         $id_carrera = $_POST['id_carrera'];   
 
-//$jsondata = array();
-//$jsondata['success'] = false;
-//$jsondata['data']['message'] = 'dentro de la capa de neg ' . $id_carrera;
-//echo json_encode($jsondata);
-//exit();      
         echo $obj_d_profesor_MP->Obtener_Propuestas_Autorizadas($id_carrera);
         break;        
     case "AGREGAR":

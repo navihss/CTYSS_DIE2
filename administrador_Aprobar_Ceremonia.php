@@ -21,13 +21,6 @@ Objetivo:       Interfaz para Aprobar los documentos para Ceremonia
 <html>
     <head>
 
-<!--        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="css/jquery-ui.css" rel="stylesheet">
-        <link rel="stylesheet" type="text/css" href="menu/estilo_menu.css" /> 
-        <script src="js/jquery-1.12.4.min.js"></script>
-        <script src="js/jquery-ui.min.js"></script>-->
         <script src="js/expresiones_reg.js"></script>
         
         <script>
@@ -261,9 +254,6 @@ Objetivo:       Interfaz para Aprobar los documentos para Ceremonia
                                                         todos_revisados = 1;
                                                     }
                                                     actualiza_Estatus_Documento(3, $('#nota_admin_a').val(), todos_revisados); //3.Aceptado
-
-//                                                    deshabilitar_Botones(true);
-//                                                    $(this).dialog('close');
                                                  },
                                                  "Cancelar" : function(){
                                                     $(this).dialog('close');
@@ -327,11 +317,6 @@ Objetivo:       Interfaz para Aprobar los documentos para Ceremonia
                                                     $('#desc_documento').val($('#'+control_radio).data('descripcion_documento'));
 
                                                     actualiza_Estatus_Documento(4, $('#nota_admin').val(), 0); //Rechazado
-
-//                                                    deshabilitar_Botones(true);   
-
-
-//                                                    $(this).dialog('close');
 
                                                  },
                                                  "Cancelar" : function(){
@@ -488,11 +473,6 @@ Objetivo:       Interfaz para Aprobar los documentos para Ceremonia
             
         </script>
         
-<!--    </head>
-    <body>
-        <header>
-            Mi Pefil
-        </header>-->
         <div>              
             <div class="encabezado_Formulario">
                 <div class="descripcion_Modulo">
@@ -550,6 +530,3 @@ Objetivo:       Interfaz para Aprobar los documentos para Ceremonia
             Procesando su transacción....!<br>
             Espere por favor.
         </div>
-        
-<!--    </body>
-</html>-->

@@ -18,13 +18,6 @@ Objetivo:       Interfaz para Jurado Definitivo del Alumno
 
 <html>
     <head>
-<!--        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="css/jquery-ui.css" rel="stylesheet">
-        <link rel="stylesheet" type="text/css" href="menu/estilo_menu.css" /> 
-        <script src="js/jquery-1.12.4.min.js"></script>
-        <script src="js/jquery-ui.min.js"></script>-->
         <script src="js/expresiones_reg.js"></script>
         
         <script>
@@ -200,8 +193,6 @@ Objetivo:       Interfaz para Jurado Definitivo del Alumno
                     $('#ventanaBuscarProfesor').dialog({
                        buttons:{
                             "Aceptar" : function() {
-//                                $('#ventanaProcesando').dialog({ dialogClass: 'no-close' });
-//                                $('#ventanaProcesando').dialog({ dialogClass: 'no-titlebar'});
                                 $('#ventanaProcesando').dialog('open');   
 
                                 //OBTENEMOS A QUIEN SELECCIONO
@@ -385,7 +376,6 @@ Objetivo:       Interfaz para Jurado Definitivo del Alumno
                    title: 'Jurado Definitivo',
                    modal : true,
                    autoOpen : false,
-//                   resizable : true,
                    draggable : true,
                    height : 'auto',
                    width : '700',
@@ -426,8 +416,6 @@ Objetivo:       Interfaz para Jurado Definitivo del Alumno
                    buttons:{
                         "Aceptar" : function() {
                             $(this).dialog('close');
-//                            $('#ventanaProcesando').dialog({ dialogClass: 'no-close' });
-//                            $('#ventanaProcesando').dialog({ dialogClass: 'no-titlebar'});
                             $('#ventanaProcesando').dialog('open');
                             
                             // Por Ajax Actualizamos el Jurado Definitivo
@@ -444,7 +432,6 @@ Objetivo:       Interfaz para Jurado Definitivo del Alumno
                             });
 
                             cadena_id_Sinodales_Def = cadena_id_Sinodales_Def.substr(0,cadena_id_Sinodales_Def.length -1);
-                            //console.log(cadena_id_Sinodales_Def);
 
                             $('#lista_Definitivos').val(cadena_id_Sinodales_Def);
                             
@@ -557,15 +544,6 @@ Objetivo:       Interfaz para Jurado Definitivo del Alumno
                         that.off("keydown");
                     }
                 }
-                /*$('.entrada_Dato').focus(function(e){
-                    e.preventDefault();
-                    f5($(document),false);
-                });
-                $('.entrada_Dato').blur(function(e){
-                    e.preventDefault();
-                    f5($(document),true);
-                });                
-                f5($(document),true); */
                 $('#ventanaBuscarProfesor').hide();
                 $('#ventanaNotas').hide();
                 Obtener_Jurados_Pendientes();
@@ -574,11 +552,7 @@ Objetivo:       Interfaz para Jurado Definitivo del Alumno
                         
         </script>
         
-<!--    </head>
-    <body>
-        <header>
-            Mi Pefil
-        </header>-->
+
         <div>
             <div class="encabezado_Formulario">
                 <div class="descripcion_Modulo">
@@ -631,6 +605,3 @@ Objetivo:       Interfaz para Jurado Definitivo del Alumno
             Procesando su transacción....!<br>
             Espere por favor.
         </div>
-<!--    </body>
-</html>-->
-

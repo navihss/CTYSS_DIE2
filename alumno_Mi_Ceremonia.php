@@ -17,13 +17,7 @@ Objetivo:       Interfaz para la inscripción a Titulación por Ceremonia
 
 <html>
     <head>
-<!--        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="css/jquery-ui.css" rel="stylesheet">
-        <link rel="stylesheet" type="text/css" href="menu/estilo_menu.css" /> 
-        <script src="js/jquery-1.12.4.min.js"></script>
-        <script src="js/jquery-ui.min.js"></script>-->
+
         <script src="js/expresiones_reg.js"></script>
         <script src="js/ruta_documentos.js"></script>        
         
@@ -148,94 +142,7 @@ Objetivo:       Interfaz para la inscripción a Titulación por Ceremonia
                                     console.log(id_ceremonia);
                                     console.log(tipo);
                                     console.log(condicion);
-                                    /*
-                                    $('#fechaEstimadaTitulacionMotivo').dialog({
-                                      buttons:{
-                                          "Confirmar datos" : function() {
-                                              if(!$('#fechaEstimada').val().match(miExpReg_Fecha) || !$('#motivoTitulacion').val().match(miExpReg_Nota_Rechazo)){
-                                                $('#ventanaAviso').html('No puede dejar estos campos vacíos. Sólo debe usar los siguientes carácteres: A-Z 0-9 , . ; : ¿? ( ) - _ #.');
-                                                $('#ventanaAvisos').dialog('open');
-                                              } else {
-                                                
-                                                var fechaEstimada = $('#fechaEstimada').val();
-                                                var motivoTitulacion = $('#motivoTitulacion').val();
-
-                                                var today =  $.datepicker.formatDate("dd/mm/yyyy", new Date());
-
-                                                if(fechaEstimada < today) {
-                                                  $('#ventanaAviso').html('Sólo puede seleccionar fechas futuras.');
-                                                  $('#ventanaAvisos').dialog('open');
-                                                  return;
-                                                }
-
-                                                $(this).dialog('close');
-
-                                                var datosTitulacion = {Tipo_Movimiento : 'ACTUALIZAR_FECHA_ESTIMADA', 
-                                                id_ceremonia : id_ceremonia, 
-                                                fechaEstimada : fechaEstimada, 
-                                                motivoTitulacion : motivoTitulacion
-                                                }; 
-
-                                                $.ajax({
-                                                  data: datosTitulacion,
-                                                  type: "POST",
-                                                  dataType: "json",
-                                                  url: "_Negocio/n_Alumno_Mi_Ceremonia.php"
-                                                }).done(function(respuesta,textStatus,jqXHR){
-                                                   $('#ventanaAviso').html('Información capturada correctamente.');
-                                                  $('#ventanaAvisos').dialog('open');
-                                                }).fail(function(respuesta,textStatus,errorThrown){
-                                                  $('#ventanaAviso').html('Ocurrió un error al procesar la información. ' + errorThrown + respuesta + textStatus);
-                                                $('#ventanaAvisos').dialog('open');
-                                                });
-                                              }
-                                          }                     
-                                     },
-                                     title: 'Requerimos tu atención',
-                                     modal : true,
-                                     autoOpen : true,
-                                     resizable : true,
-                                     draggable : true,
-                                     width : '500',
-                                     height : '230',
-                                     position : {at: 'center'},
-                                     dialogClass : 'no-close',
-                                     show : 'slide',
-                                     hide : 'slide',
-                                     closeOnEscape : false,
-                                     open : function(e) {
-                                      e.preventDefault();
-                                       var customHTML = "<p>Para tu ceremonia con número de registro <b>" + id_ceremonia + "</b> por <b>" + tipo + "</b> requerimos que llenes la siguiente información: <br>";
-                                       $('#mensajeFechaEstimadaTitulacion').html(customHTML);
-                                       $.datepicker.regional['es'] = {
-                                          closeText: 'Cerrar',  
-                                          prevText: 'Previo',  
-                                          nextText: 'Próximo', 
-                                          monthNames: ['Enero','Febrero','Marzo','Abril','Mayo','Junio',                           
-                                                      'Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'], 
-                                          monthNamesShort: ['Ene','Feb','Mar','Abr','May','Jun', 
-                                          'Jul','Ago','Sep','Oct','Nov','Dic'], 
-                                          monthStatus: 'Ver otro mes', yearStatus: 'Ver otro año', 
-                                          dayNames: ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'], 
-                                          dayNamesShort: ['Dom','Lun','Mar','Mie','Jue','Vie','Sáb'], 
-                                          dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sa'], 
-                                          dateFormat: 'dd/mm/yy', firstDay: 0,  
-                                          initStatus: 'Selecciona la fecha', isRTL: false
-                                         };
-
-                                         $.datepicker.setDefaults($.datepicker.regional['es']);
-                                         
-                                         $('#fechaEstimada').datepicker({
-                                              changeYear : true,
-                                              changeMonth : true,
-                                              yearRange : '1920:2050',
-                                              onSelect : function(date){
-                                                  $("#fechaEstimada ~ .ui-datepicker").hide();
-                                              }
-
-                                         });
-                                     }
-                                  }); */
+                                    
                                    }
                                });
                                html_table = html_table + '</TABLE>';
@@ -661,8 +568,6 @@ Objetivo:       Interfaz para la inscripción a Titulación por Ceremonia
                     $('#statusArticulo').hide();
                     $('#statusRevista').hide();
 
-//                    var miExpReg_Texto1 = /^[a-zA-Z áéíóúñÁÉÍÓÚÑ0-9\.\,\;\:\?\¿\(\)\-\_\#\n]{1,500}$/;
-//                    var miExpReg_Texto2= /^[a-zA-Z áéíóúñÁÉÍÓÚÑ0-9\.\,\;\:\?\¿\(\)\-\_\#\n]{1,100}$/;
                            switch($('#id_tipo_propuesta').val()){
                                case '7': 
                                     if (!titulo_articulo.match(miExpReg_Direccion))
@@ -744,7 +649,6 @@ Objetivo:       Interfaz para la inscripción a Titulación por Ceremonia
                                    $(this).dialog('close');
                                    break;
                            }
-                    //$('#Actualizar_Mi_Pefil_Alumno').prop('disable',false);
                     return datosValidos;
                 };
                 
@@ -815,7 +719,6 @@ Objetivo:       Interfaz para la inscripción a Titulación por Ceremonia
 
                                     }
                                    
-//                                   html_table = html_table + '<TD style ="text-align:left;">' + value['descripcion_documento'] + '</TD>';
                                    html_table = html_table + '<TD style="text-align:center;">' + value['version'] + '</TD>';
                                    html_table = html_table + '<TD style="text-align:left;">' + esNulo(value['fecha_recepcion']) + '</TD>';
                                    html_table = html_table + '<TD>' + value['descripcion_estatus'] + '</TD>';
@@ -1033,14 +936,6 @@ Objetivo:       Interfaz para la inscripción a Titulación por Ceremonia
                     }
                 }
 
-                /*$('.entrada_Dato').focus(function(e){
-                    e.preventDefault();
-                    f5($(document),false);
-                });
-                $('.entrada_Dato').blur(function(e){
-                    e.preventDefault();
-                    f5($(document),true);
-                }); */
 
                 Obtener_Carreras_Del_Alumno();
                 //f5($(document),true);
@@ -1055,11 +950,7 @@ Objetivo:       Interfaz para la inscripción a Titulación por Ceremonia
                         
         </script>
         
-<!--    </head>
-    <body>
-        <header>
-            Mi Pefil
-        </header>-->
+
         <div>                
             <div class="encabezado_Formulario">
                 <div class="descripcion_Modulo">
@@ -1229,6 +1120,3 @@ Objetivo:       Interfaz para la inscripción a Titulación por Ceremonia
             Procesando su transacción....!<br>
             Espere por favor.
         </div>
-        
-<!--    </body>
-</html>-->

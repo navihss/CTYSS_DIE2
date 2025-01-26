@@ -5,10 +5,10 @@
  * @author Rogelio Reyes Mendoza
  * Agosto 2016
  */
-
+use App\Database\Connection;
 header('Content-Type: text/html; charset=UTF-8');
 
-require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Datos/Conexion.php');
+require_once __DIR__ . '/../app/Database/Connection.php';
 require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/zonaHoraria.php');
 require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Datos/d_Usuario_Bitacora.php');
 require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Entidades/Bitacora.php');
@@ -22,14 +22,9 @@ class d_administrador_admon_Coord_Dptos {
         $nom_Area ='';
         $jsondata = array();
                 
-        try{    
+        try{
 
-//             $jsondata['success'] = false;
-//            $jsondata['data']['message'] = 'en da';
-//            echo json_encode($jsondata);
-//            exit();  
-            
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
                 
             if( $conn === false )
@@ -161,7 +156,7 @@ class d_administrador_admon_Coord_Dptos {
     function Obtener_Area_Jefes_Actuales($tipo_catalogo, $id_division){
       
         try{                    
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
 
             if( $cnn === false )
@@ -258,7 +253,6 @@ class d_administrador_admon_Coord_Dptos {
                         }
                     }
                     else{
-//                        $mensaje_Transacciones = "No hay información de ". $titulo_area . ".";
                         $jsondata['data']['jefes_actuales'] = array();                                                                                                        
                     }
                 }
@@ -288,6 +282,3 @@ class d_administrador_admon_Coord_Dptos {
     //********************************************************************* 
     
 }
-
-//$obj = new d_administrador_admon_Coord_Dptos();
-//echo $obj->Obtener_Area_Jefes_Actuales('C');

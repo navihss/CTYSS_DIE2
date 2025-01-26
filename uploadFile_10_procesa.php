@@ -42,7 +42,6 @@ if(isset($_FILES["file"]["type"]))
                 }
 //            else{
                 $sourcePath = $_FILES['file']['tmp_name']; // Path del archivo subido
-//                $targetPath = "Docs/Servicio_Social/" . $_FILES['file']['name']; // Path destino para el archivo
                 
                 if(move_uploaded_file($sourcePath,'Docs/Docs_Profesores/' . utf8_decode($archivo_nuevo))) // Movemos el archivo subido a la carpeta especificada
                     {
@@ -72,11 +71,7 @@ if(isset($_FILES["file"]["type"]))
                             unlink($archivo_nuevo);
                             echo "<span id='success' style='color:red;'><b>El Archivo No se recibido correctamente. Vuelva a intentarlo!!<br>" . 
                                  $array->data->message . "<b></span><br/><br>";                                                        
-                        }
-        //                echo "<br/><b>Nombre del archivo:</b> " . $_FILES["file"]["name"] . "<br>";
-        //                echo "<b>Tipo:</b> " . $_FILES["file"]["type"] . "<br>";
-        //                echo "<b>Tamaño:</b> " . ($_FILES["file"]["size"] / 1024) . " kB<br>";
-        //                echo "<b>Archivo Temporal:</b> " . $_FILES["file"]["tmp_name"] . "<br>";                    
+                        }             
                     }        
                 else{
                         //Actualizamos el estatus del documento a 2. Sin Enviar

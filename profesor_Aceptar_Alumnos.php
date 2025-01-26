@@ -17,13 +17,7 @@ Objetivo:       Interfaz para Aceptar a los Alumnos en una Propuesta
 
 <html>
     <head>
-<!--        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="css/jquery-ui.css" rel="stylesheet">
-        <link rel="stylesheet" type="text/css" href="menu/estilo_menu.css" /> 
-        <script src="js/jquery-1.12.4.min.js"></script>
-        <script src="js/jquery-ui.min.js"></script>-->
+
         <script src="js/expresiones_reg.js"></script>        
         
         <script>
@@ -180,22 +174,14 @@ Objetivo:       Interfaz para Aceptar a los Alumnos en una Propuesta
                     Obtener_DatosGeneralesDelAlumno($idInscripcion, '');
                     
                     var tituloAdjuntar = '';
-//                    if(id_documento ==5){
-//                        tituloAdjuntar = 'Baja_Inscripcion_' + id_alumno +  "_" + $('#id_version_insc').val() + ".pdf";
-//                        tituloAdjuntar =id_alumno + "_" + 
-//                             $('#id_carrera').val() + "_" +
-//                             $('#id_propuesta').val() + "_" +
-//                             $('#id_version_insc').val() + "_" +
-//                             $('#descripcion_corta_archivo').val() + ".pdf";                                                
-//                    }
-//                    else{
+
                         tituloAdjuntar =id_alumno + "_" + 
                              $('#id_carrera').val() + "_" +
                              $('#id_propuesta').val() + "_" +
                              $('#id_version_insc').val() + "_" +
                              $('#descripcion_corta_archivo').val() + ".pdf";                        
-//                    }                                                                               
-                                        
+
+                             
                     $('#ventanaRevisarInscripcionPDF').dialog({                      
                         open : function(){
                                $('#ventanaRevisarInscripcionPDF').dialog("option","title", tituloAdjuntar);
@@ -245,7 +231,6 @@ Objetivo:       Interfaz para Aceptar a los Alumnos en una Propuesta
                 $('#btn_cerrar_Ins').on('click',function(e){
                     e.preventDefault();
                     $('#message').empty();
-//                    $('#ventanaReporteBimestralPDF').dialog('destroy');
                     $(".ui-dialog-content").dialog("close");
                     Obtener_Inscripciones_Pendientes($('#Id_Usuario').val()); //
                 });
@@ -515,17 +500,7 @@ Objetivo:       Interfaz para Aceptar a los Alumnos en una Propuesta
                         that.off("keydown");
                     }
                 }
-                /*
-                $('.entrada_Dato').focus(function(e){
-                    e.preventDefault();
-                    f5($(document),false);
-                });
-                $('.entrada_Dato').blur(function(e){
-                    e.preventDefault();
-                    f5($(document),true);
-                });
 
-                f5($(document),true); */
 
                 Obtener_Inscripciones_Pendientes($('#Id_Usuario').val());
                 $('#ventanaRevisarInscripcionPDF').hide();
@@ -535,11 +510,7 @@ Objetivo:       Interfaz para Aceptar a los Alumnos en una Propuesta
                         
         </script>
         
-<!--    </head>
-    <body>
-        <header>
-            Mi Pefil
-        </header>-->
+
         <div>
             <div class="encabezado_Formulario">
                 <div class="descripcion_Modulo">
@@ -642,6 +613,3 @@ Objetivo:       Interfaz para Aceptar a los Alumnos en una Propuesta
             Procesando su transacción....!<br>
             Espere por favor.
         </div>
-        <!--Se elimina botón de home mostrado en la parte inferior-->
-<!--    </body>
-</html>-->

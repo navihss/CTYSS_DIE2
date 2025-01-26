@@ -62,9 +62,7 @@ if(isset($_FILES["file"]["type"]))
                     if ($array->success){
                         $resultado_Bitacora ='';
                         $resultado_Bitacora = $obj_Bitacora->Agregar($obj_miBitacora);
-                        $resultado_Bitacora ='Propuesta enviada satisfactoriamente, verificar el estatus de su propuesta en 10 días hábiles';
-                        //echo "<span id='success' style='color:red;'><b>Archivo recibido correctamente...!!<br>" . 
-                        //$array->data->message . "<b>" . $resultado_Bitacora . "</span><br/><br>";                            
+                        $resultado_Bitacora ='Propuesta enviada satisfactoriamente, verificar el estatus de su propuesta en 10 días hábiles';               
                         echo "<span id='success' style='color:red;'><b><br>" . 
                         $array->data->message . "<b>" . $resultado_Bitacora . "</span><br/><br>";                            
                     }

@@ -17,13 +17,7 @@ Objetivo:       Interfaz para aprobar las Propuestas de los Profesores
 
 <html>
     <head>
-<!--        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="css/jquery-ui.css" rel="stylesheet">
-        <link rel="stylesheet" type="text/css" href="menu/estilo_menu.css" /> 
-        <script src="js/jquery-1.12.4.min.js"></script>
-        <script src="js/jquery-ui.min.js"></script>-->
+
         <script src="js/expresiones_reg.js"></script>        
         
         <script>
@@ -89,6 +83,9 @@ Objetivo:       Interfaz para aprobar las Propuestas de los Profesores
                            }
                        })
                             .fail(function(jqXHR,textStatus,errorThrown){
+                                console.log(jqXHR.responseText);
+                                console.log(textStatus);
+                                console.log(errorThrown);
                                 var html_table = '<TABLE class="tabla_Registros">';
                                 html_table += '<TR><TH>Propuesta</TH>\n\
                                              <TH>Profesor</TH>\n\
@@ -283,6 +280,9 @@ Objetivo:       Interfaz para aprobar las Propuestas de los Profesores
                            }
                        })
                         .fail(function(jqXHR,textStatus,errorThrown){
+                                console.log(jqXHR.responseText);
+                                console.log(textStatus);
+                                console.log(errorThrown);
 								var html_table = '<table class="tabla_Registros"><caption> Clave de la Propuesta: ' + id_propuesta_bitacora + '</caption>';
 								html_table = html_table + '<tr><th>Título</th><th>Versión</th><th>Fecha Generada</th><th>Estatus</th><th>Nota</th><th>Profesor</th><th>Tipo Propuesta</tr>';
                                 html_table = html_table + '<tr><td colspan="7">' + textStatus + '. ' + errorThrown + '</td></tr>';
@@ -355,72 +355,7 @@ Objetivo:       Interfaz para aprobar las Propuestas de los Profesores
                                 $('#tabla_Propuesta').html($propuesta_html);
                                 $('#ventanaProcesando').dialog('close');                                                          
                             } 
-                        /*Comentamos codigo para que no traiga el indice y solo muestre el pdf del documento.
-                        //Valida si va por el indice en ves de dejar el documento pdf-
-                        if (respuesta["data"]["registros"]["Propuesta_ProfesorId_Tipo_Propuesta"] != "2" ) {
-
-                        } else {
-                        var datos = {
-                            Tipo_Movimiento : 'TRAER_INDICE',
-                            id_propuesta: id_propuesta
-                            };
-
-
-                        console.log($(this).data('id_propuesta'));
-                        console.log(datos);
-
-                        $.ajax({
-                           data : datos,
-                           type : "POST",
-                           dataType : "json",
-                           url : "_Negocio/n_administrador_Asignar_Coordinadores.php"
-                        }).done(function(respuesta,textStatus,jqXHR){
-                          console.log(respuesta);
-
-                          var html_table = '<TABLE  class="tabla_Registros" style="width:100%;">';
-                          html_table += '<TR><TH>ÍNDICE</TH></TR>';
-                         if (respuesta.success == true){
-                             //recorremos cada registro
-                             $.each(respuesta.data.registros, function( key, value ) {
-
-                                 html_table += '<TR>';
-                                 html_table += '<TD>' + value['indice'] + '</TD>';
-                                 html_table = html_table + '</TR>';
-                             });
-                             html_table = html_table + '</TABLE>';
-
-                             //console.log(value['indice']);
-
-                             var new_Object = $('#obj_PDF_doc').clone(false);
-                             new_Object.attr("type", null);
-                               new_Object.attr("data", null);
-                             $("#obj_PDF_doc").replaceWith(new_Object);
-                             $('#obj_PDF_doc').empty();
-                             $('#obj_PDF_doc').html(html_table);                                
-                         }
-                         else 
-                         {
-                             html_table = html_table + '<TR><TD>No hay índice por mostrar.</TD></TR>';
-                             html_table = html_table + '</TABLE>';
-
-                             var new_Object = $('#obj_PDF_doc').clone(false);
-                             $("#obj_PDF_doc").replaceWith(new_Object);
-                             new_Object.attr("type", null);
-                               new_Object.attr("data", null);
-
-                             $('#obj_PDF_doc').empty();
-                             $('#obj_PDF_doc').html(html_table);
-                        }
-
-                        }).fail(function(jqXHR,textStatus,errorThrown) {
-                        $('#ventanaAviso').html('La solicitud ha fallado.<br>' + textStatus + '. ' + errorThrown);
-                        $('#ventanaAvisos').dialog('open');
-                        });
-
-
-                    } //Llave de condicion para traer el indice
-                    */
-
+                       
                     })
                     .fail(function(jqXHR,textStatus,errorThrown){
                                 $propuesta_html = '<TABLE>'+
@@ -428,70 +363,7 @@ Objetivo:       Interfaz para aprobar las Propuestas de los Profesores
                                 $('#tabla_Propuesta').html($propuesta_html);
                                 $('#ventanaProcesando').dialog('close');                                                                            
                     });                                            
-                    /*$('#ventanaProcesando').dialog('open');        
-                    var datos = {Tipo_Movimiento : 'SELECCIONAR',
-                               id_propuesta : id_propuesta
-                           };
-                    $.ajax({
-                       data : datos,
-                       type : "POST",
-                       dataType : "json",
-                       url : "_Negocio/n_profesor_Mis_Propuestas.php"
-                    })
-                       .done(function(respuesta,textStatus,jqXHR){
-                            if (respuesta.success == true){
-                               var $propuesta_html = '';
-                               var dias_de_asesoria = '';
-                                var horarios_asesoria = respuesta.data.registros.Propuesta_Profesorhorarios;
-                                var arr_horarios = horarios_asesoria.split("|");
-                                var elementos_horarios_arr = arr_horarios.length;
-                                
-                                for (i=0; i<elementos_horarios_arr; i++){
-                                    arr_desc_dia_horario = arr_horarios[i].split(",");
-                                    desc_dia = arr_desc_dia_horario[2];
-                                    desc_horario = arr_desc_dia_horario[3];
-                                    dias_de_asesoria += desc_dia + "->"+ desc_horario + "<br>";
-                                }
-                               $propuesta_html += '<TABLE class="tabla_Registros">' +
-                                                  '<CAPTION>Datos de la Propuesta</CAPTION>' +
-                                                  '<TR><TD><b>Propuesta</b></TD><TD>' + respuesta.data.registros.Propuesta_ProfesorId_Propuesta + '</TD></TR>' +
-                                                  '<TR><TD><b>Fecha registrada</b></TD><TD>' + respuesta.data.registros.Propuesta_ProfesorFecha_Registrada + '</TD></TR>' +
-                                                  '<TR><TD colspan=2><b>Tipo:</b><br>' + respuesta.data.registros.Propuesta_Profesordescripcion_tipo_propuesta + '</TD></TR>' +
-                                                  '<TR><TD colspan=2><b>Título:</b><br>' + respuesta.data.registros.Propuesta_ProfesorTitulo + '</TD></TR>' +
-                                                  '<TR><TD colspan=2><b>Horario para Asesorías:</b><br>' + dias_de_asesoria +  '</TD></TR>' + 
-                                                  '<TR><TD colspan=2><b>En colaboración:</b><br>' + respuesta.data.registros.Propuesta_ProfesorOrganismos_Colaboradores + '</TD></TR>' +
-                                                  '<TR><TD colspan =2><b>Requerimientos de la Propuesta</b></TD></TR>';
-                                $('#fecha_registrada').val(respuesta.data.registros.Propuesta_ProfesorFecha_Registrada);                  
-                                var carreras_n_alumnos = respuesta.data.registros.Propuesta_Profesorrequerimiento_alumnos;
-                                var arr_c_a = carreras_n_alumnos.split("|");
-                                var elementos_arr = arr_c_a.length;
-                                var carrera_desc ='';
-                                var n_alumnos = '';
-                                
-                                for (i=0; i<elementos_arr; i++){
-                                    carr_alum = arr_c_a[i].split(",");
-                                    id_carrera = carr_alum[0];
-                                    carrera_desc = carr_alum[1];
-                                    n_alumnos = carr_alum[2];
-                                    $propuesta_html += "<TR><TD>" + carrera_desc + '</TD><TD>' + n_alumnos + '</TD></TR>';
-                                }
-                                $propuesta_html += '</TABLE>';
-                                $('#tabla_Propuesta').html($propuesta_html);
-                                $('#ventanaProcesando').dialog('close');                          
-                           }
-                            else {
-                                $propuesta_html = '<TABLE>'+
-                                                  '<TR><TD>Asesoría</TD><TD>' + respuesta.data.message + '</TD></TR></TABLE>';
-                                $('#tabla_Propuesta').html($propuesta_html);
-                                $('#ventanaProcesando').dialog('close');                                                          
-                            }                                                                   
-                       })
-                            .fail(function(jqXHR,textStatus,errorThrown){
-                                $propuesta_html = '<TABLE>'+
-                                                  '<TR><TD>Asesoría</TD><TD>La solicitud ha fallado.<br>' + textStatus + '. ' + errorThrown + '</TD></TR></TABLE>';
-                                $('#tabla_Propuesta').html($propuesta_html);
-                                $('#ventanaProcesando').dialog('close');                                                                            
-                            });*/                                                                            
+                                                                                  
                 }                
                 //FIN MOSTRAMOS LOS DATOS DE LA PROPUESTA
                 
@@ -617,7 +489,6 @@ Objetivo:       Interfaz para aprobar las Propuestas de los Profesores
                                             buttons:{
                                                  "Aceptar" : function() {
                                                     $(this).dialog('close');
-//                                                    $('#ventanaProcesando').dialog('open');
                                                     var id_propuesta_doc = $('#id_propuesta_doc').val();
                                                     var id_documento_doc = $('#id_documento_doc').val();
                                                     var id_version_doc = $('#id_version_doc').val();
@@ -743,7 +614,6 @@ Objetivo:       Interfaz para aprobar las Propuestas de los Profesores
                    },
                    open : function(){
                        //Obtenemos los documentos compatidos del Profesor
-                        //$('#ventanaProcesando').dialog('open'); 
 
                         var datos = {Tipo_Movimiento : 'TRAER_INDICE_COMPLETO',
                            id_propuesta: $('#id_propuesta_doc').val()
@@ -776,7 +646,7 @@ Objetivo:       Interfaz para aprobar las Propuestas de los Profesores
                              });
                              html_table = html_table + '</TABLE>';
 
-                             //console.log(value['indice']);
+
                              $('#tabla_DocsProfesor').empty();
                              $('#tabla_DocsProfesor').html(html_table);
                              $('#ventanaProcesando').dialog('close');                                
@@ -799,56 +669,6 @@ Objetivo:       Interfaz para aprobar las Propuestas de los Profesores
 
 
 
-                        /* $.ajax({
-                           data : datos,
-                           type : "POST",
-                           dataType : "json",
-                           url : "_Negocio/n_profesor_Mis_Docs.php"
-                        })
-                           .done(function(respuesta,textStatus,jqXHR){
-                                var html_table = '<TABLE class="tabla_Registros">';
-                                html_table += '<TR><TH>Documento</TH></TR>';                               
-                               if (respuesta.success == true){
-                                   //recorremos cada registro
-                                    var nom_archivo = '';
-                                    var fecha_= '';
-                                    var ruta_doc = '';
-                                    var archivos_HTML = '';
-                                    
-                                   $.each(respuesta.data.registros, function( key, value ) {
-                                       if (value['compartido']==1)
-                                       {
-                                           html_table += '<TR><TD>';
-                                           nom_archivo = value['nombre_archivo'];
-                                           fecha_=new Date();
-                                           ruta_doc= 'Docs/Docs_Profesores/'+nom_archivo+'?'+ fecha_;
-                                           archivos_HTML = "<a href='"+ruta_doc+"' target='_blank'>"+nom_archivo+"</a>";
-                                           html_table += archivos_HTML + '</TD></TR>';
-                                       }
-                                   });
-                                   $('#ventanaProcesando').dialog('close');
-                                    html_table = html_table + '</TABLE>';
-                                    $('#tabla_DocsProfesor').empty();
-                                    $('#tabla_DocsProfesor').html(html_table);                                   
-                               }
-                               else
-                               {
-                                   $('#ventanaProcesando').dialog('close');
-                                    html_table = html_table + '<TR><TD>' + respuesta.data.message + '</TD></TR>';
-                                    html_table = html_table + '</TABLE>'
-                                    $('#tabla_DocsProfesor').empty();
-                                    $('#tabla_DocsProfesor').html(html_table);                                   
-                               }
-                           })
-                                   .fail(function(jqXHR,textStatus,errorThrown){
-                                        $('#ventanaProcesando').dialog('close');
-                                        var html_table = '<TABLE class="tabla_Registros">';
-                                        html_table += '<TR><TH>Documento</TH></TR>';
-                                        html_table = html_table + '<TR><TD>' + textStatus + '. ' + errorThrown + '</TD></TR>';
-                                        html_table = html_table + '</TABLE>';
-                                        $('#tabla_DocsProfesor').empty();
-                                        $('#tabla_DocsProfesor').html(html_table);                                
-                                   });*/                        
                    },
                    title: 'Documentos Compartidos por el Profesor',
                    modal : true,
@@ -915,17 +735,7 @@ Objetivo:       Interfaz para aprobar las Propuestas de los Profesores
                         that.off("keydown");
                     }
                 }
-                /*$('.entrada_Dato').focus(function(e){
-                    e.preventDefault();
-                    f5($(document),false);
-                });
-                $('.entrada_Dato').blur(function(e){
-                    e.preventDefault();
-                    f5($(document),true);
-                });
-                
-                
-                f5($(document),true); */
+
                 Obtener_Propuestas_Por_Autorizar(9, $('#Id_Usuario').val());
                 $('#ventanaConfirmar_Aceptacion_Doc').hide();
                 $('#ventanaConfirmar_Rechazo_Doc').hide();
@@ -933,12 +743,7 @@ Objetivo:       Interfaz para aprobar las Propuestas de los Profesores
             });
                         
         </script>
-        
-<!--    </head>
-    <body>
-        <header>
-            Mi Pefil
-        </header>-->
+
         <div>
             <div class="encabezado_Formulario">
                 <div class="descripcion_Modulo">
@@ -1011,6 +816,3 @@ Objetivo:       Interfaz para aprobar las Propuestas de los Profesores
             Espere por favor.
         </div>
         
-        <!--Se quita el botón de home-->
-<!--    </body>
-</html>-->

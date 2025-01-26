@@ -5,8 +5,8 @@
  * @author Rogelio Reyes Mendoza
  * Junio 2016
  */
-
-require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Datos/Conexion.php');
+use App\Database\Connection;
+require_once __DIR__ . '/../app/Database/Connection.php';
 require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Datos/d_Usuario_Bitacora.php');
 require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Entidades/Bitacora.php');
 
@@ -19,7 +19,7 @@ class d_Alumno_Carrera {
         $jsondata = array();
 
         try{                  
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
     
             if( $conn === false )
@@ -81,7 +81,7 @@ class d_Alumno_Carrera {
         $jsondata = array();
 
         try{                  
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
     
             if( $conn === false )
@@ -143,7 +143,7 @@ class d_Alumno_Carrera {
         $jsondata = array();
                 
         try{                   
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
                 
             if( $conn === false )
@@ -209,7 +209,7 @@ class d_Alumno_Carrera {
         $jsondata = array();
                 
         try{                   
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
                 
             if( $conn === false )
@@ -252,7 +252,4 @@ class d_Alumno_Carrera {
     }
     
 }
-////
-//$obj_d = new d_Alumno_Carrera();
-//echo $obj_d->Seleccionar_Carrera('x');
 ?>

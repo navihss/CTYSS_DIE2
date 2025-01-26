@@ -1,7 +1,7 @@
 <?php
-
+use App\Database\Connection;
 header('Content-Type: text/html; charset=UTF-8');
-require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Datos/Conexion.php');
+require_once __DIR__ . '/../app/Database/Connection.php';
 require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/zonaHoraria.php');
 
 class d_administrador_admon_datos_alumno {
@@ -9,7 +9,7 @@ class d_administrador_admon_datos_alumno {
     function Obtener_Datos_Alumno($id_numero_cuenta){
       
         try{                    
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
 
             if( $cnn === false )

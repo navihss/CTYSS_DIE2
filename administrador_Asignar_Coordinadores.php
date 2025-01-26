@@ -18,13 +18,6 @@ Objetivo:       Interfaz para aprobar las propuestas de profesor
 
 <html>
     <head>
-<!--        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="css/jquery-ui.css" rel="stylesheet">
-        <link rel="stylesheet" type="text/css" href="menu/estilo_menu.css" /> 
-        <script src="js/jquery-1.12.4.min.js"></script>
-        <script src="js/jquery-ui.min.js"></script>-->
         <script src="js/expresiones_reg.js"></script>        
         
         <script>
@@ -305,75 +298,7 @@ Objetivo:       Interfaz para aprobar las propuestas de profesor
                                 $('#tabla_Propuesta').html($propuesta_html);
                                 $('#ventanaProcesando').dialog('close');                                                          
                             } 
-
-                        //Comentar codigo para que por el momento no tome el tipo de propuesta.
-                        /*
-                        if (respuesta["data"]["registros"]["Propuesta_ProfesorId_Tipo_Propuesta"] != "2" ) {
-                            console.log('La propueesta si es diferente de 2');
-
-                        } else {
-                            console.log('La propuesta es igual a 2')
-                       var datos = {
-                          Tipo_Movimiento : 'TRAER_INDICE',
-                          id_propuesta: id_propuesta
-                        };
-                        
-
-
-                        console.log($(this).data('id_propuesta'));
-                        console.log(datos);
-
-                        $.ajax({
-                           data : datos,
-                           type : "POST",
-                           dataType : "json",
-                           url : "_Negocio/n_administrador_Asignar_Coordinadores.php"
-                        }).done(function(respuesta,textStatus,jqXHR){
-                          console.log(respuesta);
-
-                          var html_table = '<TABLE  class="tabla_Registros" style="width:100%;">';
-                          html_table += '<TR><TH>ÍNDICE</TH></TR>';
-                         if (respuesta.success == true){
-                             //recorremos cada registro
-                             $.each(respuesta.data.registros, function( key, value ) {
-
-                                 html_table += '<TR>';
-                                 html_table += '<TD>' + value['indice'] + '</TD>';
-                                 html_table = html_table + '</TR>';
-                             });
-                             html_table = html_table + '</TABLE>';
-
-                             //console.log(value['indice']);
-
-                             var new_Object = $('#obj_PDF_doc').clone(false);
-                             new_Object.attr("type", null);
-                               new_Object.attr("data", null);
-                             $("#obj_PDF_doc").replaceWith(new_Object);
-                             $('#obj_PDF_doc').empty();
-                             $('#obj_PDF_doc').html(html_table);                                
-                         }
-                         else {
-                             html_table = html_table + '<TR><TD>No hay índice por mostrar.</TD></TR>';
-                             html_table = html_table + '</TABLE>';
-
-                             var new_Object = $('#obj_PDF_doc').clone(false);
-                             $("#obj_PDF_doc").replaceWith(new_Object);
-                             new_Object.attr("type", null);
-                               new_Object.attr("data", null);
-
-                             $('#obj_PDF_doc').empty();
-                             $('#obj_PDF_doc').html(html_table);
-                         }
-
-                        }).fail(function(jqXHR,textStatus,errorThrown) {
-                          $('#ventanaAviso').html('La solicitud ha fallado.<br>' + textStatus + '. ' + errorThrown);
-                          $('#ventanaAvisos').dialog('open');
-                        });
-
-
-                        }
-                        */
-                                                                                              
+                                                            
                        })
                             .fail(function(jqXHR,textStatus,errorThrown){
                                 $propuesta_html = '<TABLE>'+
@@ -512,11 +437,6 @@ Objetivo:       Interfaz para aprobar las propuestas de profesor
                                 sel_Coordinaciones = sel_Coordinaciones.substr(0, sel_Coordinaciones.length-1);
                                 sel_Departamentos = sel_Departamentos.substr(0, sel_Departamentos.length-1);
 
-                                /*if(!$('#nota_admin_a').val().match(miExpReg_Nota_Aceptacion)){
-                                    $('#ventanaAviso').html('En la Nota SOLO puede Capturar los siguientes carácteres: A-Z 0-9 , . ; : ¿? ( ) - _ #');
-                                    $('#ventanaAvisos').dialog('open');
-                                }*/
-                                //else{
                                     $('#ventanaMensajeConfirma').text('Desea Aceptar este Documento y envíarlo a Coordinación/Depto. ?');
                                     $('#ventanaConfirmaVoBo').dialog({
                                         buttons:{
@@ -587,11 +507,7 @@ Objetivo:       Interfaz para aprobar las propuestas de profesor
                     $('#ventanaConfirmar_Rechazo_Doc').dialog({
                         buttons:{
                              "Aceptar" : function() {
-                                /*if(!$('#nota_admin').val().match(miExpReg_Nota_Rechazo)){
-                                    $('#ventanaAviso').html('En la Nota SOLO puede Capturar los siguientes carácteres: A-Z 0-9 , . ; : ¿? ( ) - _ #');
-                                    $('#ventanaAvisos').dialog('open');
-                                }*/
-                                //else{  
+
                                     $('#ventanaMensajeConfirma').text('Desea Rechazar este Documento ?');
                                     $('#ventanaConfirmaVoBo').dialog({
                                         buttons:{
@@ -693,13 +609,11 @@ Objetivo:       Interfaz para aprobar las propuestas de profesor
 
                                $('#ventanaAviso').html(respuesta.data.message);
                                $('#ventanaAvisos').dialog('open'); 
-//                               return true;
                             }
                             else{
                                $('#ventanaProcesando').dialog('close');
                                $('#ventanaAviso').html(respuesta.data.message);
                                $('#ventanaAvisos').dialog('open');                                   
-//                               return false;
                             }
                         })
                                 .fail(function(jqXHR,textStatus,errorThrown){
@@ -731,7 +645,6 @@ Objetivo:       Interfaz para aprobar las propuestas de profesor
                    open : function(){
 
                     //Obtenemos los documentos compatidos del Profesor
-                        //$('#ventanaProcesando').dialog('open');
                                                //Obtenemos los documentos compatidos del Profesor
                         var datos = {Tipo_Movimiento : 'TRAER_INDICE_COMPLETO',
                            id_propuesta: $('#id_propuesta_doc').val()
@@ -783,73 +696,7 @@ Objetivo:       Interfaz para aprobar las propuestas de profesor
           $('#ventanaAviso').html('La solicitud ha fallado.<br>' + textStatus + '. ' + errorThrown);
           $('#ventanaAvisos').dialog('open');
         });                                    
-                       //  var datos = {Tipo_Movimiento : 'MIS_DOCUMENTOS',
-                       //     id_propuesta: $('#id_propuesta_doc').val(),
-                       //     id_usuario: $('#id_profesor_doc').val()
-                       //  };
-
-                       // $.ajax({
-                       //     data : datos,
-                       //     type : "POST",
-                       //     dataType : "json",
-                       //     url : "_Negocio/n_profesor_Mis_Docs.php"
-                       //  })
-                       //     .done(function(respuesta,textStatus,jqXHR){
-                       //          var html_table = '<TABLE class="tabla_Registros">';
-                       //          html_table += '<TR><TH>Documento</TH></TR>';
-                       //          console.log("YYYYYYYYYYYYYYYYYYYYYYYYYYYYY");
-                       //          console.log(respuesta);
-                       //         if (respuesta.success == true){
-                       //             //recorremos cada registro
-                       //              var nom_archivo = '';
-                       //              var fecha_= '';
-                       //              var ruta_doc = '';
-                       //              var archivos_HTML = '';
-                                    
-                       //             $.each(respuesta.data.registros, function( key, value ) {
-                       //                 if (value['compartido']==1)
-                       //                 {
-                       //                     html_table += '<TR><TD>';
-                       //                     nom_archivo = value['nombre_archivo'];
-                       //                     fecha_=new Date();
-                       //                     ruta_doc= 'Docs/Docs_Profesores/'+nom_archivo+'?'+ fecha_;
-                       //                     archivos_HTML = "<a href='"+ruta_doc+"' target='_blank'>"+nom_archivo+"</a>";
-                       //                     html_table += archivos_HTML + '</TD></TR>';
-                       //                 }
-                       //             });
-                       //             $('#ventanaProcesando').dialog('close');
-                       //              html_table = html_table + '</TABLE>';
-                       //              $('#tabla_DocsProfesor').empty();
-                       //              $('#tabla_DocsProfesor').html(html_table);                                   
-                       //         }
-                       //         else
-                       //         {
-                       //             $('#ventanaProcesando').dialog('close');
-                       //              html_table = html_table + '<TR><TD>' + respuesta.data.message + '</TD></TR>';
-                       //              html_table = html_table + '</TABLE>'
-                       //              $('#tabla_DocsProfesor').empty();
-                       //              $('#tabla_DocsProfesor').html(html_table);                                   
-                       //         }
-                       //     })
-                       //     .fail(function(jqXHR,textStatus,errorThrown){
-
-                       //      console.log("ZZZZZZZZZZZZZZZZZ");
-                       //          console.log(respuesta);
-                       //          $('#ventanaProcesando').dialog('close');
-                       //          var html_table = '<TABLE class="tabla_Registros">';
-                       //          html_table += '<TR><TH>Documento</TH></TR>';
-                       //          html_table = html_table + '<TR><TD>' + textStatus + '. ' + errorThrown + '</TD></TR>';
-                       //          html_table = html_table + '</TABLE>';
-                       //          $('#tabla_DocsProfesor').empty();
-                       //          $('#tabla_DocsProfesor').html(html_table);                                
-                       //     });
-
-                    // }).fail(function(jqXHR,textStatus,errorThrown) {
-                    //   $('#ventanaAviso').html('La solicitud ha fallado.<br>' + textStatus + '. ' + errorThrown);
-                    //   $('#ventanaAvisos').dialog('open');
-                    // }); 
-                        //console.log(datos);
-
+                       
                    },
                    title: 'Documentos Compartidos por el Profesor',
                    modal : true,
@@ -901,15 +748,6 @@ Objetivo:       Interfaz para aprobar las propuestas de profesor
                     }                            
                 }
 
-                /*$('.entrada_Dato').focus(function(e){
-                    e.preventDefault();
-                    f5($(document),false);
-                });
-                $('.entrada_Dato').blur(function(e){
-                    e.preventDefault();
-                    f5($(document),true);
-                });*/
-
                 function f5(that,val){
                     if(val)
                     {
@@ -927,14 +765,9 @@ Objetivo:       Interfaz para aprobar las propuestas de profesor
                 }
                 
                 Obtener_Propuestas_Por_Autorizar(2);
-//                llena_Catalogo('Coordinaciones', 'CATALOGO_GENERALES', 'coordinaciones', 
-//                'id_coordinacion as id, descripcion_coordinacion as descripcion', '', 'descripcion_coordinacion'); 
-//                llena_Catalogo('Departamentos', 'CATALOGO_GENERALES', 'departamentos', 
-//                'id_departamento as id, descripcion_departamento as descripcion', '', 'descripcion_departamento'); 
 
                 cargar_Catalogo('Coordinaciones', 'OBTENER_COORDINACIONES', 'coordinaciones');
                 cargar_Catalogo('Departamentos', 'OBTENER_DEPARTAMENTOS', 'departamentos');
-                //f5($(document),true);
                 $('#ventanaConfirmar_Aceptacion_Doc').hide();
                 $('#ventanaConfirmar_Rechazo_Doc').hide();
                 $('#ventanaDocumentoPDF').hide();
@@ -942,11 +775,7 @@ Objetivo:       Interfaz para aprobar las propuestas de profesor
                         
         </script>
         
-<!--    </head>
-    <body>
-        <header>
-            Mi Pefil
-        </header>-->
+
         <div>
             <div class="encabezado_Formulario">
                 <div class="descripcion_Modulo">
@@ -1040,5 +869,3 @@ Objetivo:       Interfaz para aprobar las propuestas de profesor
             Procesando su transacción....!<br>
             Espere por favor.
         </div>
-<!--    </body>
-</html>-->

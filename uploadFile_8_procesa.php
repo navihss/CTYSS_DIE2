@@ -18,16 +18,9 @@ if(isset($_SESSION["id_division"])){
    
 if(isset($_FILES["file"]["type"]))
 {
-//    $validextensions = array("jpeg", "jpg", "png", "pdf");
     $validextensions = array("pdf");
     $temporary = explode(".", $_FILES["file"]["name"]);
     $file_extension = end($temporary);
-//    if ((($_FILES["file"]["type"] == "image/png") || 
-//            ($_FILES["file"]["type"] == "image/jpg") || 
-//            ($_FILES["file"]["type"] == "image/jpeg") ||
-//            ($_FILES["file"]["type"] == "application/pdf")) && 
-//            ($_FILES["file"]["size"] < 300000) && //Aprox. 300kb puede ser subido.
-//            in_array($file_extension, $validextensions)) {
     if ($_FILES["file"]["type"] == "application/pdf" && 
             ($_FILES["file"]["size"] < 500000000) && //Approx. 300kb puede ser subido.
             in_array($file_extension, $validextensions)) {
@@ -36,21 +29,15 @@ if(isset($_FILES["file"]["type"]))
             echo "Código de Error: " . $_FILES["file"]["error"] . "<br/><br/>";
         }
         else{
-//              $archivo = 'Docs/Servicio_Social/' . $_FILES["file"]["name"];
               $archivo = 'Docs/Solicitud_Baja_Servicio_Social/' . 
                       $_POST['id_usuario_doc'] . '_' .
                       $_POST['id_carrera_doc'] .'_' .
                       $_POST['id_ss_doc'] .'_' .
                       $_POST['desc_corta_doc'] . '.pdf';
-//            if (file_exists("Docs/Servicio_Social/" . $_FILES["file"]["name"])) {
               if (file_exists($archivo)) {
-                //echo "<span id='invalid' style='color:red;'><b>". $_FILES["file"]["name"] . " Este archivo ya existe actualmente!.</b></span><br><br>";
-                //Boorrar el archivo que existe actualmente
                 unlink($archivo);
             }
-//            else{
                 $sourcePath = $_FILES['file']['tmp_name']; // Path del archivo subido
-//                $targetPath = "Docs/Servicio_Social/" . $_FILES['file']['name']; // Path destino para el archivo
                 
                 if(move_uploaded_file($sourcePath,$archivo)) // Movemos el archivo subido a la carpeta especificada
                     {
@@ -88,10 +75,7 @@ if(isset($_FILES["file"]["type"]))
                             echo "<span id='success' style='color:red;'><b>El Archivo No se recibido correctamente. Vuelva a intentarlo!!<br>" . 
                                  $array->data->message . "<b></span><br/><br>";                                                        
                         }
-        //                echo "<br/><b>Nombre del archivo:</b> " . $_FILES["file"]["name"] . "<br>";
-        //                echo "<b>Tipo:</b> " . $_FILES["file"]["type"] . "<br>";
-        //                echo "<b>Tamaño:</b> " . ($_FILES["file"]["size"] / 1024) . " kB<br>";
-        //                echo "<b>Archivo Temporal:</b> " . $_FILES["file"]["tmp_name"] . "<br>";                    
+              
                     }        
                 else{
                         //Actualizamos el estatus del documento a 2. Sin Enviar

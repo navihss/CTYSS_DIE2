@@ -1,5 +1,5 @@
 <?php
-
+use App\Database\Connection;
 /**
  * Definición de la Capa de Datos para los Días de Asesoría
  * Metodos
@@ -7,7 +7,7 @@
  * Octubre 2016
  */
 header('Content-Type: text/html; charset=UTF-8');
-require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Datos/Conexion.php');
+require_once __DIR__ . '/../app/Database/Connection.php';
 
 class d_horarios_asesoria {
 
@@ -19,7 +19,7 @@ class d_horarios_asesoria {
                 
         try{    
             
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
                 
             if( $conn === false )
@@ -89,6 +89,3 @@ class d_horarios_asesoria {
     }  
     
 }
-//
-//$obj = new d_horarios_asesoria();
-//echo $obj->Obtener();

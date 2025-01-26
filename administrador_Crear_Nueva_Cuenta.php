@@ -16,16 +16,7 @@ Objetivo:       Interfaz para dar de alta a un Nuevo Usuario
         }
     
 ?>
-
-<!--<html>
-    <head>-->
-<!--        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="css/jquery-ui.css" rel="stylesheet">
-        <link rel="stylesheet" type="text/css" href="menu/estilo_menu.css" /> 
-        <script src="js/jquery-1.12.4.min.js"></script>
-        <script src="js/jquery-ui.min.js"></script>-->    
+ 
         <script src="js/expresiones_reg.js"></script>
         
         <script>
@@ -180,11 +171,6 @@ Objetivo:       Interfaz para dar de alta a un Nuevo Usuario
                     $('#statusClave').hide();                    
                     $('#statusContrasena').hide();
 
-//                    var miExpReg_Letras = /^[a-zA-Z áéíóúñÁÉÍÓÚÑ]{1,50}$/;
-//                    var miExpReg_Contrasena = /^[a-zA-Z0-9]{1,15}$/;
-//                    var miExpReg_Mail = /^[_a-zA-Z0-9-]+(.[_a-zA-Z0-9-]+)*@[a-zA-Z0-9-]+(.[a-zA-Z0-9-]+)*(.[a-zA-Z]{2,4})$/;
-//                    var miExpReg_NoCta = /^[0-9]{9}$/;
-//                    var miExpReg_ClaveOtroUsuario  = /^[a-zA-Z0-9]{1,18}$/
                     var miExpReg_ClaveDeUsuario  = '';
 
                     if (tipo_Usuario =='5'){ //alumno
@@ -318,8 +304,6 @@ Objetivo:       Interfaz para dar de alta a un Nuevo Usuario
                         url : "_Negocio/n_administrador_Crear_Nueva_Cuenta.php"
                     })
                             .done(function(respuesta,textStatus,jqXHR){
-//                                $('#ventanaProcesando').dialog('close');                        
-//                                $('#De_Alta_OK').val("0");
                                 $("#cargandoAjax").css("display", "none");
                                 $("#statusClave").hide();
                                 if (respuesta.success == 'EXISTE'){ // Ya Existe La Cuenta
@@ -328,22 +312,18 @@ Objetivo:       Interfaz para dar de alta a un Nuevo Usuario
                                     $('#clave').prop('value','');
                                     $('#contrasena').val('');
                                     $('#clave').focus();
-//                                    $('#enviar').prop('disabled', true);
                                 }
                                 else if (respuesta.success == 'NOEXISTE'){
                                     $('#statusClave').show();
                                     $('#statusClave').text('Disponible');
                                     obtener_Clave();
-//                                    $('#enviar').prop('disabled', false);
                                 }
                                 else
                                 {
-//                                    $('#enviar').prop('disabled', true);
                                     $('#statusClave').show();
                                     $('#statusClave').text('');
                                     $('#ventanaAviso').html(respuesta.data.message);                                                                        
                                     $('#clave').val('');
-//                                    $('#enviar').prop('disabled', false);
                                     $('#ventanaAvisos').dialog('open');
                                 }                                                    
                             })
@@ -351,7 +331,6 @@ Objetivo:       Interfaz para dar de alta a un Nuevo Usuario
                                         $("#cargandoAjax").css("display", "none");
                                         $('#statusClave').hide();
                                         $('#clave').prop('value','');
-//                                        $('#enviar').prop('disabled', true);
 
                                         $('#ventanaAviso').html('La solicitud ha fallado. ' + textStatus + '. ' + errorThrown);
                                         $('#ventanaAvisos').dialog('open');                            
@@ -374,7 +353,6 @@ Objetivo:       Interfaz para dar de alta a un Nuevo Usuario
                                     }
                                     else{
                                         $('#contrasena').val('');
-    //                                    $('#ventanaProcesando').dialog('close');
                                         $('#ventanaAviso').html('No se pudo obtener una CLAVE válida.');
                                         $('#ventanaAvisos').dialog('open');                                        
                                         
@@ -436,8 +414,6 @@ Objetivo:       Interfaz para dar de alta a un Nuevo Usuario
                    buttons:{
                         "Aceptar" : function() {
                             $(this).dialog('close');
-//                            $('#ventanaProcesando').dialog({ dialogClass: 'no-close' });
-//                            $('#ventanaProcesando').dialog({ dialogClass: 'no-titlebar'});
                             $('#ventanaProcesando').dialog('open');
                             
                             // Por Ajax insertamos al Usuario               
@@ -513,9 +489,6 @@ Objetivo:       Interfaz para dar de alta a un Nuevo Usuario
                    draggable : false,
                    dialogClass : 'no-close no-titlebar',
                    closeOnEscape : false
-//                   show : 'slideDown',
-//                   hide: 'slideUp',
-//                   dialogClass : 'ui-state-highlight'
                 });  
 
                 function f5(that,val){
@@ -534,19 +507,8 @@ Objetivo:       Interfaz para dar de alta a un Nuevo Usuario
                     }
                 }
 
-                /*$('.entrada_Dato').focus(function(e){
-                    e.preventDefault();
-                    f5($(document),false);
-                });
-                $('.entrada_Dato').blur(function(e){
-                    e.preventDefault();
-                    f5($(document),true);
-                });
-
-                f5($(document),true); */
                 var id_division = ('<?php echo $_SESSION["id_division"]?>');
                 var filterByDivision = 'id_division = ' + id_division;
-                // $('#nombre').val(filterByDivision);
 
                 llena_Catalogo('tipo_Usuario', 'CATALOGO_GENERALES', 'tipo_usuario', 
                 'id_tipo_usuario as id, descripcion_tipo_usuario as descripcion', 
@@ -586,12 +548,7 @@ Objetivo:       Interfaz para dar de alta a un Nuevo Usuario
 
             });
         </script>
-        
-<!--    </head>
-    <body>
-        <header>
-            Mi Pefil
-        </header>-->
+
         <div>
             <div class="encabezado_Formulario">
                 <div class="descripcion_Modulo">
@@ -730,6 +687,3 @@ Objetivo:       Interfaz para dar de alta a un Nuevo Usuario
             Procesando su transacción....!<br>
             Espere por favor.
         </div>
-        
-<!--    </body>
-</html>-->

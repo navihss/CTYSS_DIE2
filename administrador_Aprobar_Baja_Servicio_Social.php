@@ -19,13 +19,7 @@ Objetivo:       Interfaz para aprobar las Solicitudes de Baja de Servicio Social
 -->
 <html>
     <head>
-<!--        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="css/jquery-ui.css" rel="stylesheet">
-        <link rel="stylesheet" type="text/css" href="menu/estilo_menu.css" /> 
-        <script src="js/jquery-1.12.4.min.js"></script>
-        <script src="js/jquery-ui.min.js"></script>-->
+
         <script src="js/expresiones_reg.js"></script>        
         
         <script>
@@ -622,14 +616,6 @@ Objetivo:       Interfaz para aprobar las Solicitudes de Baja de Servicio Social
                         that.off("keydown");
                     }
                 }
-                /*$('.entrada_Dato').focus(function(e){
-                    e.preventDefault();
-                    f5($(document),false);
-                });
-                $('.entrada_Dato').blur(function(e){
-                    e.preventDefault();
-                    f5($(document),true);
-                }); */
 
                 llena_Catalogo('selec_Tipo_Baja', 'CATALOGO_GENERALES', 'tipos_baja', 
                     'id_tipo_baja as id, descripcion_tipo_baja as descripcion', 
@@ -646,11 +632,6 @@ Objetivo:       Interfaz para aprobar las Solicitudes de Baja de Servicio Social
                         
         </script>
         
-<!--    </head>
-    <body>
-        <header>
-            Mi Pefil
-        </header>-->
         <div>
             <div class="encabezado_Formulario">
                 <div class="descripcion_Modulo">
@@ -778,5 +759,3 @@ Objetivo:       Interfaz para aprobar las Solicitudes de Baja de Servicio Social
             Procesando su transacción....!<br>
             Espere por favor.
         </div>
-<!--    </body>
-</html>-->

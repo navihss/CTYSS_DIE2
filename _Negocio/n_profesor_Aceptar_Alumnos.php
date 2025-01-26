@@ -58,11 +58,7 @@ switch ($tipo_Movimiento){
         $correo_alumno = $_POST['correo_alumno'];       
         $id_carrera = $_POST['id_carrera'];
         $desc_corta_archivo = $_POST['desc_corta_archivo'];
-//                     $jsondata['success'] = false;
-//            $jsondata['data']['message'] = 'negocio' . ' '.$id_inscripcion.' '.$id_documento.' '.$id_version.' '. $id_estatus.' '.$nota;
-//            echo json_encode($jsondata);   
-//            exit();
-            
+
         echo $obj_d_profesor_AA->Actualizar_Estatus_Doc_Enviado($id_inscripcion, $id_documento, $id_version, 
                 $id_estatus, $nota, $id_alumno,$id_propuesta, $titulo_propuesta, $id_profesor, $correo_alumno,
                 $id_carrera, $desc_corta_archivo, $id_division);

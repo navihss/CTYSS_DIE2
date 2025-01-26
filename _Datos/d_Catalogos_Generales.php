@@ -1,5 +1,5 @@
 <?php
-
+use App\Database\Connection;
 /**
  * Definición de la Capa de Datos para la Clase Catalogos Generales
  * Metodos
@@ -9,14 +9,14 @@
 
 header('Content-Type: text/html; charset=UTF-8');
 
-require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Datos/Conexion.php');
+require_once __DIR__ . '/../app/Database/Connection.php';
 
 class d_Catalogos_Generales {
 
     function Obtener($tabla_Catalogo, $Campos, $Condicion, $OrderBy){
         
         try{                    
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
 
             if( $cnn === false )
@@ -78,7 +78,7 @@ class d_Catalogos_Generales {
     function Obtener_Coordinaciones($id_division){
         
         try{                    
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
 
             if( $cnn === false )
@@ -140,7 +140,7 @@ class d_Catalogos_Generales {
     function Obtener_Departamentos($id_division){
         
         try{                    
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
 
             if( $cnn === false )
@@ -202,7 +202,7 @@ class d_Catalogos_Generales {
     function Obtener_Coordinadores_Activos($textoBuscar, $id_area){
         
         try{                    
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
 
             if( $cnn === false )
@@ -263,7 +263,7 @@ class d_Catalogos_Generales {
     function Obtener_Jefes_Dpto_Activos($textoBuscar, $id_area){
         
         try{                    
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
 
             if( $cnn === false )
@@ -271,14 +271,6 @@ class d_Catalogos_Generales {
                 throw new Exception($cnn->getError());
             }
             
-//            $tsql = "SELECT a.id_jefe_departamento as id, a.id_departamento, c.descripcion_grado_estudio,
-//                            (b.nombre_usuario || ' ' || b.apellido_paterno_usuario || ' ' || b.apellido_materno_usuario) as nombre
-//                    FROM jefes_departamento a
-//                            INNER JOIN usuarios b ON a.id_jefe_departamento = b.id_usuario
-//                            INNER JOIN grados_estudio c ON a.id_grado_estudio = c.id_grado_estudio
-//                    WHERE (b.nombre_usuario || ' ' || b.apellido_paterno_usuario || ' ' || b.apellido_materno_usuario) ILIKE '%" . $textoBuscar . "%'
-//                            AND b.activo_usuario = '1' AND a.id_departamento = ?
-//                    ORDER BY nombre;";
 
             $tsql = "SELECT a.id_jefe_departamento as id, a.id_departamento, c.descripcion_grado_estudio,
                             (b.nombre_usuario || ' ' || b.apellido_paterno_usuario || ' ' || b.apellido_materno_usuario) as nombre
@@ -333,8 +325,6 @@ class d_Catalogos_Generales {
     
 } //Fin de la Clase
 
-//$ob=new d_Catalogos_Generales();
-//echo $ob->Obtener_Jefes_Dpto_Activos('', 30)
        
 ?>
 

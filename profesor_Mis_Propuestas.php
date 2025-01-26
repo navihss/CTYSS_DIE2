@@ -17,13 +17,7 @@ Objetivo:       Interfaz para las Propuestas del Profesor
 
 <html>
     <head>
-<!--        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="css/jquery-ui.css" rel="stylesheet">
-        <link rel="stylesheet" type="text/css" href="menu/estilo_menu.css" /> 
-        <script src="js/jquery-1.12.4.min.js"></script>
-        <script src="js/jquery-ui.min.js"></script>-->
+
         <script src="js/expresiones_reg.js"></script> 
         <script src="js/ruta_documentos.js"></script> 
         
@@ -170,9 +164,7 @@ Objetivo:       Interfaz para las Propuestas del Profesor
                                    var $btn_Enviar_Doc = '';
                                    var $link_Info_Alumnos_Inscritos = '';
                                    $link_Info_Alumnos_Inscritos ='<a class="aDagosGrales link_pdf" href="#" data-id_propuesta =\'' + value["id_propuesta"] + '\'>Ver Lista</a>';
-                                   
-//                                   var myDate = new Date(Date.parse(value['fecha_registrada'])); 
-//                                   myDate.setFullYear(myDate.getFullYear() + 1); 
+
 
                                    if(value['id_estatus'] == 2){
                                         $btn_Borrar = '<button class="btn_Borrar_Propuesta btnOpcion" data-id_propuesta=\'' + value['id_propuesta'] + '\' ' + 
@@ -188,15 +180,7 @@ Objetivo:       Interfaz para las Propuestas del Profesor
                                             ' data-id_profesor = \'' + value['id_profesor'] + '\' ' +
                                             ' data-id_estatus =' + value['id_estatus'] + 
                                             ' data-id_tipo_propuesta =' + value['id_tipo_propuesta'] + '>Editar</button>';
-                                   //if (value['id_estatus'] < 3) {
-                                    //Se comenta codigo donde capturaba formulario y ahora mostrara para adjuntar archivo
-                                    /*
-                                   $btn_Enviar_Doc = '<button class="btn_Enviar btnOpcion" style="margin-top:4px;" data-id_propuesta=\'' + value['id_propuesta'] + '\' ' + 
-                                            ' data-id_profesor = \'' + value['id_profesor'] + '\' ' +
-                                            ' data-id_estatus =' + value['id_estatus'] + 
-                                            ' data-id_tipo_propuesta =' + value['id_tipo_propuesta'] + '>Adjuntar Propuesta</button>';
-                                            */
-                                   //}
+
                                    $btn_Enviar_Doc = '<button class="btn_Enviar btnOpcion" style="margin-top:4px;" data-id_propuesta=\'' + value['id_propuesta'] + '\' ' + 
                                             ' data-id_profesor = \'' + value['id_profesor'] + '\' ' +
                                             ' data-id_estatus =' + value['id_estatus'] + 
@@ -208,7 +192,6 @@ Objetivo:       Interfaz para las Propuestas del Profesor
                                    html_table += '<TD>' + esNulo(value['fecha_aceptacion']) + '</TD>';
                                    html_table += '<TD>' + value['descripcion_estatus'] + '</TD>';
                                    html_table += '<TD>' + esNulo(value['fecha_vigencia']) + '</TD>';  
-//                                   html_table += '<TD>' + esNulo(myDate) + '</TD>';  
                                    html_table += '<TD>' + $link_Info_Alumnos_Inscritos + '</TD>';
                                    html_table += '<TD style="text-align:right;">' + $btn_Borrar + $btn_Editar + $btn_Enviar_Doc + '</TD>';
                                    html_table = html_table + '</TR>';
@@ -436,7 +419,6 @@ Objetivo:       Interfaz para las Propuestas del Profesor
                         ' WHERE a.id_propuesta = \'' + id_propuesta + '\')', 'descripcion_carrera');
 //                    
                     Obtener_Propuesta(id_propuesta);
-//                    deshabilitaControles();
                     $('#ventana_Propuesta').dialog('open');
                 });
                 //FIN BOTON EDITAR PROPUESTA
@@ -454,7 +436,6 @@ Objetivo:       Interfaz para las Propuestas del Profesor
                        url : "_Negocio/n_profesor_Mis_Propuestas.php"
                     })
                        .done(function(respuesta,textStatus,jqXHR){
-//                            var finicio='';
                             if (respuesta.success == true){
                                //recorremos cada registro
                                 $('#id_propuesta').val(respuesta.data.registros.Propuesta_ProfesorId_Propuesta);
@@ -601,7 +582,6 @@ Objetivo:       Interfaz para las Propuestas del Profesor
                    title: 'Propuesta',
                    modal : true,
                    autoOpen : false,
-//                   resizable : true,
                    draggable : true,
                    height : 'auto',
                    width : '800',
@@ -612,12 +592,6 @@ Objetivo:       Interfaz para las Propuestas del Profesor
                    position : {at: 'center top'},
                    open : function(){
                        $("#btn_Guardar").button("option", "disabled", false);
-//                       if($('#Id_Estatus_Propuesta').val()==2 || $('#Id_Estatus_Propuesta').val()==0 ){
-//                            $("#btn_Guardar").button("option", "disabled", false);
-//                        }
-//                        else{
-//                            $("#btn_Guardar").button("option", "disabled", true);
-//                        }                            
                    },
                    close : function(){
                             $('#ventana_Propuesta input[type=text], textarea').each(function(){
@@ -664,9 +638,6 @@ Objetivo:       Interfaz para las Propuestas del Profesor
                     $('#aviso_Requerimientos').hide();
                     $('#aviso_Horarios').hide();
                     $('#aviso_Organismos').hide();
-
-//        var miExpReg_Nota = /^[a-zA-Z áéíóúñÁÉÍÓÚÑ0-9\.\,\;\:\?\¿\(\)\-\_\#\n]{0,500}$/;
-//        var miExpReg_Titulo = /^[a-zA-Z áéíóúñÁÉÍÓÚÑ0-9\.\,\;\:\?\¿\(\)\-\_\#]{1,500}$/;
 
                     if (id_propuesta =='')
                     {
@@ -841,125 +812,6 @@ Objetivo:       Interfaz para las Propuestas del Profesor
                     $('#ventanaDocumentosEnviados').dialog('open');
                 });
 
-                //OBTENEMOS LOS DOCUMENTOS ENVIADOS 
-                /*
-                function Obtener_Mis_Documentos_Enviados(id_propuesta){
-
-                    var pkey = id_propuesta;                                  
-                    
-                    var datos = {Tipo_Movimiento : 'DOCUMENTOS_ENVIADOS',
-                               id_propuesta : $('#Id_Propuesta').val()
-                           };
-                    $.ajax({
-                       data : datos,
-                       type : "POST",
-                       dataType : "json",
-                       url : "_Negocio/n_profesor_Mis_Propuestas.php"
-                    })
-                       .done(function(respuesta,textStatus,jqXHR){
-                        if (respuesta["data"]["registros"][0]["id_tipo_propuesta"] !=2){
-
-                          var html_table = '<TABLE class="tabla_Registros"><CAPTION> Clave de la Propuesta: ' + id_propuesta + '</CAPTION>';
-                           html_table = html_table + '<TR><TH>Título</TH><TH>Versión</TH><TH>Fecha Enviado</TH><TH>Estatus</TH><TH>Nota de Admin.</TH><TH>Acción</TH></TR>';
-                           if (respuesta.success == true){
-                               //recorremos cada registro
-                               $.each(respuesta.data.registros, function( key, value ) {
-                                    var $btn_EnviarDocs='';
-                                    var $btn_Ver_VoBo ='';
-                                    
-                                    if (value['id_estatus']==4 || value['id_estatus']==3){
-                                       $btn_Ver_VoBo = '<button class="btn_Ver_VoBo btnOpcion" data-id_profesor =\'' + 
-                                               value['id_profesor'] + '\' data-id_documento=' + value['id_documento'] +  
-                                            ' data-id_propuesta=\'' + value['id_propuesta'] + '\' data-id_estatus=' + value['id_estatus'] +
-                                            ' data-desc_documento=\'' + value['descripcion_documento'] + 
-                                            '\' data-desc_documento_corta = \'' + value['descripcion_para_nom_archivo'] + '\' data-id_version=' + 
-                                            value['version_propuesta']  +
-                                            '>Ver VoBo</button>';                                                                            
-                                    }
-                                    if (value['id_estatus']==1){
-                                       $btn_EnviarDocs = '<button class="btn_Adjuntar btnOpcion" data-id_profesor =\'' + 
-                                               value['id_profesor'] + '\' data-id_documento=' + value['id_documento'] +  
-                                            ' data-id_propuesta=\'' + value['id_propuesta'] + '\' data-id_estatus=' + value['id_estatus'] +
-                                            ' data-desc_documento=\'' + value['descripcion_documento'] + 
-                                            '\' data-desc_documento_corta = \'' + value['descripcion_para_nom_archivo'] + '\' data-id_version=' + 
-                                            value['version_propuesta']  +
-                                            '>Adjuntar Doc</button>';                                    
-                                    }
-                                   
-                                   if (value['fecha_recepcion_doc']){
-                                       $dato_fecha = '<TD>' + value['fecha_recepcion_doc'] + '</TD>';
-                                   }
-                                   else{
-                                       $dato_fecha = '<TD></TD>';
-                                   }
-                                   if (value['nota']){
-                                       $dato_nota = '<TD>' + value['nota'] + '</TD>';
-                                   }
-                                   else{
-                                       $dato_nota = '<TD></TD>';
-                                   }
-                                   nom_file= value['id_profesor']+'_'+
-                                           value['id_propuesta']+'_'+
-                                           value['version_propuesta']+'_'+
-                                           value['descripcion_para_nom_archivo']+'.pdf';
-                                   fecha_=new Date();
-                                   ruta_doc= ruta_docs_propuestas_profesor+nom_file+'?'+ fecha_;
-
-                                   html_table = html_table + '<TR>';
-                                   if(value['id_estatus'] == 2 || value['id_estatus']==3){
-                                   html_table = html_table + '<TD style="text-align:left;"><a class="link_pdf" target="_blank" href="' + 
-                                           ruta_doc +'">' + value['titulo_propuesta'] + '</a></TD>';
-                                    }
-                                    else{
-                                        html_table = html_table + '<TD style="text-align:left;">' + value['titulo_propuesta'] + '</TD>';
-
-                                    }
-                                   html_table = html_table + '<TD style="text-align:left;">' + value['version_propuesta'] + '</TD>';
-                                   html_table = html_table + $dato_fecha;
-                                   html_table = html_table + '<TD>' + value['descripcion_estatus'] + '</TD>';
-                                   html_table = html_table + $dato_nota;
-                                   html_table = html_table + '<TD style="text-align:center;">' + $btn_EnviarDocs + $btn_Ver_VoBo + '</TD>';                                   
-                                   html_table = html_table + '</TR>';
-                               });
-                               html_table = html_table + '</TABLE>';
-                               $('#tabla_Mis_Docs').empty();
-                               $('#tabla_Mis_Docs').html(html_table);                                
-                               }
-                           else {
-                               html_table = html_table + '<TR><TD colspan="6">' + respuesta.data.message + '</TD></TR>';
-                               html_table = html_table + '</TABLE>'
-                               $('#tabla_Mis_Docs').empty();
-                               $('#tabla_Mis_Docs').html(html_table);
-                           }
-
-                        } else {
-                          var html_table = '<div id="ventana_Propuesta_adj_prop" name="ventana_Propuesta_adj_prop" class="contenido_Formulario"><form id="frm_Propuesta" name="frm_Propuesta" method="post" action="profesor_Envio_Propuesta.php"><div id=tabs><p><label for="prop_objetivo" class="label">Objetivo:</label><textarea type="text" placeholder="Ingresar objetivo" name="objetivo_prop" id="prop_objetivo" value = "" style="max-height: 2em; max-width: 510px;" maxlength="500" style="text-transform:uppercase;" title="Capture únicamente letras, números y los caráctres , ; . : ¿? ( ) - # _" ></textarea></p><p><label for="prop_problema" class="label">Definición del problema:</label><textarea type="text" name="definicion_prob" placeholder="Problema a resolver" id="prop_problema" value = "" style="max-height: 2em; max-width: 510px;" maxlength="500" placeholder="" style="text-transform:uppercase;" title="Capture únicamente letras, números y los caráctres , ; . : ¿? ( ) - # _" ></textarea></p><p><label for="id_propuesta" class="label">Método:</label><textarea type="text" name="metodo" placeholder="Método a utilizar" id="prop_metodo" value = "" style="max-height: 2em; max-width: 510px;" maxlength="500" placeholder="" style="text-transform:uppercase;" title="Capture únicamente letras, números y los caráctres , ; . : ¿? ( ) - # _" ></textarea></p><p><label for="id_propuesta" class="label">Temas a utilizar:</label><textarea type="text" name="temas_prop" id="prop_temas" placeholder="Ingresar temas de la carrera a utilizar" value = "" style="max-height: 2em; max-width: 510px;" maxlength="500" style="text-transform:uppercase;" title="Capture únicamente letras, números y los caráctres , ; . : ¿? ( ) - # _" ></textarea></p><p style="height: 100px;"><label for="id_propuesta" class="label">Índice:</label><textarea type="text" rows="5" placeholder="Desglosar índice" name="indice_prop" id="prop_indice" style="text-transform:uppercase; height: auto;" title="Capture únicamente letras, números y los caráctres , ; . : ¿? ( ) - # _" ></textarea></p><p><label for="id_propuesta" class="label">Resultados Esperados:</label><textarea type="text" name="resultados_prop" rows="5" id="prop_resultados" value = "" maxlength="500" placeholder="" style="text-transform:uppercase;" title="Capture únicamente letras, números y los caráctres , ; . : ¿? ( ) - # _" ></textarea></p><p hidden><label for="id_propuesta" class="label">Id:</label><textarea type="text" name="pkey_propuesta" id="pkey_propuesta" placeholder="'+pkey+'" value = "' + pkey + '" style="max-height: 2em; max-width: 510px;" maxlength="500;" style="text-transform:uppercase;" title="Capture únicamente letras, números y los caráctres , ; . : ¿? ( ) - # _" >'+pkey+'</textarea></p>';
-
-                          if (respuesta.success == true){
-                              html_table = html_table + '</div><button class="ui-button ui-corner-all ui-widge btnEnviar" id="btnEnviar" type="submit" value="Enviar">Enviar</button></form></div>'
-                              $('#tabla_Mis_Docs').empty();
-                               $('#tabla_Mis_Docs').html(html_table);
-                           }
-                           else {
-                               html_table = html_table + '<TR><TD colspan="6">' + respuesta.data.message + '</TD></TR>';
-                               html_table = html_table + '</TABLE><div><p>Esto es una prueba</p></div>'
-                               $('#tabla_Mis_Docs').empty();
-                               $('#tabla_Mis_Docs').html(html_table);
-                           }
-                        }
-                        
-
-                       })
-                            .fail(function(jqXHR,textStatus,errorThrown){
-                                var html_table = '<TABLE class="tabla_Registros"><CAPTION> Clave de Servicio Social: ' + id_ss + '</CAPTION>';
-                                html_table = html_table + '<TR><TH>Título</TH><TH>Versión</TH><TH>Fecha Enviado</TH><TH>Estatus</TH><TH>Nota de Admin.</TH><TH>Acción</TH></TR>';
-                                html_table = html_table + '<TR><TD colspan="6">' + textStatus + '. ' + errorThrown + '</TD></TR>';
-                                html_table = html_table + '</TABLE>';
-                                $('#tabla_Mis_Docs').empty();
-                                $('#tabla_Mis_Docs').html(html_table);                                
-                            });                       
-                } */
-                //fin Obtenemos los Documentos Enviados para Autorizar la Propuesta
 
                 //FUNCION PARA OBTENER LOS DOCUMENTOS ENVIADOS Y SE CAMBIA PARA PODER ADJUNTAR UN PDF
                 //OBTENEMOS LOS DOCUMENTOS ENVIADOS PARA AUTORIZAR EL SERVICIO SOCIAL
@@ -1162,9 +1014,6 @@ Objetivo:       Interfaz para las Propuestas del Profesor
                             '</b>. Seleccione su archivo <b>' + $(this).data('desc_documento') + 
                             ',</b> en formato PDF. <b>(Tamaño máximo 5MB)</b><br><br>';
                     $('#lblTitulo_SubirArchivo').html(tituloAdjuntar);
-//                    $('#lblTitulo_SubirArchivo').attr("data-id_ss", $(this).data('id_ss'));
-//                    $('#lblTitulo_SubirArchivo').attr("data-id_documento", $(this).data('id_documento'));
-//                    $('#lblTitulo_SubirArchivo').attr("data-id_version", $(this).data('id_version'));
                     $('#id_propuesta_prof').attr("value", $(this).data('id_propuesta'));
                     $('#id_documento_prof').attr("value", $(this).data('id_documento'));
                     $('#id_version_prof').attr("value", $(this).data('id_version'));
@@ -1320,16 +1169,6 @@ Objetivo:       Interfaz para las Propuestas del Profesor
                     }
                 }
 
-                /*$('.entrada_Dato').focus(function(e){
-                    e.preventDefault();
-                    f5($(document),false);
-                });
-                $('.entrada_Dato').blur(function(e){
-                    e.preventDefault();
-                    f5($(document),true);
-                });
-                
-                f5($(document),true); */
                 llena_Catalogo('tipo_propuesta', 'CATALOGO_GENERALES', 'tipos_propuesta', 
                         'id_tipo_propuesta as id, descripcion_tipo_propuesta as descripcion', 
                         'id_tipo_titulacion = 1', 'descripcion_tipo_propuesta');                
@@ -1384,20 +1223,11 @@ Objetivo:       Interfaz para las Propuestas del Profesor
                         
         </script>
         
-<!--    </head>
-    <body>
-        <header>
-            Mi Pefil
-        </header>-->
         <div>
             <div class="encabezado_Formulario">
                 <div class="descripcion_Modulo">
                     <p>Mis Propuestas</p>
-                </div>
- <!-- GMK Habilitar               <div class="barra_Herramientas">
-                    <input type="button" id="btn_Agregar" name="btn_Agregar" value="Agregar" class="btn_Herramientas"/>
-                </div>   
--->                                                                                
+                </div>                  
             </div>
             <div id="tabla_Propuestas" class="tabla_Registros">
             </div>
@@ -1577,6 +1407,3 @@ Objetivo:       Interfaz para las Propuestas del Profesor
             Procesando su transacción....!<br>
             Espere por favor.
         </div>
-        
-<!--    </body>
-</html>-->

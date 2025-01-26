@@ -5,8 +5,9 @@
  * @author Rogelio Reyes Mendoza
  * Junio 2016
  */
+use App\Database\Connection;
     header('Content-Type: text/html; charset=UTF-8');
-    require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Datos/Conexion.php');
+    require_once __DIR__ . '/../app/Database/Connection.php';
     require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Entidades/Servicio_Social.php');
     require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/zonaHoraria.php');
     require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Datos/d_Usuario_Bitacora.php');
@@ -19,7 +20,7 @@ class d_Alumno_Mi_Servicio {
     function Obtener_SS_Todos($id_alumno, $id_carrera){
         
         try{                    
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
 
             if( $cnn === false )
@@ -27,12 +28,6 @@ class d_Alumno_Mi_Servicio {
                 throw new Exception($cnn->getError());
             }
            
-//            $tsql = "SELECT a.id_ss, a.fecha_inicio_ss, a.duracion_meses_ss, b.descripcion_estatus, a.id_estatus " .
-//                    "FROM servicio_social a INNER JOIN estatus b " .
-//                    "ON a.id_estatus = b.id_estatus " .
-//                    "WHERE a.id_alumno = ? AND a.id_carrera = ? " .
-//                    "ORDER BY id_ss;";
-
             $tsql ="SELECT a.id_ss, a.fecha_inicio_ss, a.duracion_meses_ss, b.descripcion_estatus, a.id_estatus, a.nota_baja,
                         (SELECT count(id_documento)
                         FROM servicio_social_docs 
@@ -87,7 +82,7 @@ class d_Alumno_Mi_Servicio {
     function Obtener_Total_SS($id_estatus, $id_alumno){
         
         try{                    
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
 
             if( $cnn === false )
@@ -146,7 +141,7 @@ class d_Alumno_Mi_Servicio {
     function Obtener_SS_Id($id_ss){
       
         try{                    
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
 
             if( $cnn === false )
@@ -215,7 +210,7 @@ class d_Alumno_Mi_Servicio {
     function Obtener_Datos_Grales($id_ss){
       
         try{                    
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
 
             if( $cnn === false )
@@ -283,7 +278,7 @@ class d_Alumno_Mi_Servicio {
     function Obtener_Mis_Documentos($id_ss){
       
         try{                    
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
 
             if( $cnn === false )
@@ -291,10 +286,6 @@ class d_Alumno_Mi_Servicio {
                 throw new Exception($cnn->getError());
             }
 
-//           $jsondata['success'] = false;
-//           $jsondata['data']= array('message'=>'en obtener ss id');
-//           echo json_encode($jsondata);
-//           exit();  
            
             $tsql = "SELECT a.id_ss, a.id_documento, a.id_estatus, d.id_carrera, " .
                     "c.descripcion_documento, c.descripcion_para_nom_archivo, a.id_version, " .
@@ -409,7 +400,7 @@ class d_Alumno_Mi_Servicio {
                 
         try{    
             
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
                 
             $obj_SS = new Servicio_Social();
@@ -420,10 +411,7 @@ class d_Alumno_Mi_Servicio {
             $anio = date("Y", strtotime($fecha_inicio));
             $mes = date("m", strtotime($fecha_inicio));
             
-            
-//            $anio = date("Y", strtotime($obj_SS->get_Fecha_Inicio()));
-//            $mes = date("m", strtotime($obj_SS->get_Fecha_Inicio()));
-            
+        
             if( $conn === false )
             {
                 throw new Exception($cnn->getError());     
@@ -441,17 +429,12 @@ class d_Alumno_Mi_Servicio {
                     throw new Exception($mensaje_Transacciones);                    
                 }                   
                 /* Query para obtener el consecutivo PROVISIONAL del Servicio Social */
-//                $tsql1=" SELECT consecutivo + 1 as siguiente_digito
-//                        FROM servicio_social_contador
-//                        WHERE anio = ? AND mes = ?;
-//                    ";
                 $tsql1=" SELECT consecutivo + 1 as siguiente_digito
                         FROM folios_provisionales
                         WHERE proceso = ?;
                     ";
                 
                 /* Valor de los parámetros. */
-//                $params1 = array($anio,$mes);
                 $params1 = array('servicio_social');
 
                 /* Preparamos la sentencia a ejecutar */
@@ -466,9 +449,6 @@ class d_Alumno_Mi_Servicio {
                         if($stmt1->rowCount() > 0){                        
                             $row = $stmt1->fetch(PDO::FETCH_ASSOC);
                             $nuevoConsecutivo = $row['siguiente_digito'];
-//                            $consecutivo = str_pad($row['siguiente_digito'],3,"0",STR_PAD_LEFT);
-//                            $clave_SS = date("Y", strtotime($obj_SS->get_Fecha_Inicio())) . "". 
-//                                    date("m", strtotime($obj_SS->get_Fecha_Inicio())) . "-" .$consecutivo;
                             $clave_SS = $nuevoConsecutivo;
                         }
                         else{
@@ -633,9 +613,6 @@ class d_Alumno_Mi_Servicio {
 
                 //Incrementamos el Contador PROVISIONAL para el Servicio Social en la BD
 //              /* Query parametrizado para el incremento del Contador mensual del servicio social. */
-//                $tsql5=" UPDATE servicio_social_contador SET
-//                        consecutivo = " . $nuevoConsecutivo . " " .
-//                        "WHERE anio = ?  AND mes = ?;";
                 $tsql5=" UPDATE folios_provisionales SET
                 consecutivo = " . $nuevoConsecutivo . " " .
                 "WHERE proceso = ?;";
@@ -710,7 +687,7 @@ class d_Alumno_Mi_Servicio {
                 
         try{    
             
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
                 
             $obj_SS = new Servicio_Social();
@@ -794,7 +771,7 @@ class d_Alumno_Mi_Servicio {
         $jsondata = array();
                 
         try{    
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
                            
             if( $conn === false )
@@ -906,7 +883,7 @@ class d_Alumno_Mi_Servicio {
         $jsondata = array();
                 
         try{    
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
                            
             if( $conn === false )
@@ -963,7 +940,7 @@ class d_Alumno_Mi_Servicio {
                 
         try{    
             
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
                 
             if( $conn === false )
@@ -1032,7 +1009,7 @@ class d_Alumno_Mi_Servicio {
                 
         try{    
             
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
                 
             if( $conn === false )
@@ -1092,18 +1069,9 @@ class d_Alumno_Mi_Servicio {
         $documentos_servicio_social='';
         $clave_SS='';
         
-//        $obj_d_Alumno_Mi_Servicio = new d_Alumno_Mi_Servicio();
-//        $respuesta =  ($obj_d_Alumno_Mi_Servicio->N_Documentos_Aceptados($id_ss));
-        
-//           $jsondata['success'] = true;
-//           $jsondata['data']= array('message'=> $respuesta);
-//           echo json_encode($jsondata);
-//           exit();
-
-//        if($respuesta == 2){
             //Actualiamos el estatus del Servicio Social como Aceptado
             try{    
-                $cnn = new Conexion();
+                $cnn = new Connection();
                 $conn = $cnn->getConexion();
 
                 if( $conn === false )
@@ -1386,13 +1354,6 @@ class d_Alumno_Mi_Servicio {
                 echo json_encode($jsondata);
                 exit();   
             }               
-//        }
-//        else{
-//            $jsondata['success'] = true;
-//            $jsondata['data']['message'] = 'Hay Documentos PENDIENTES por ACEPTAR, para que el Servicio Social sea ACEPTADO.';
-//            echo json_encode($jsondata);
-//            exit();                             
-//        }
     }
 
     function Actualizar_Termino_Servicio_Social($id_SS, $id_estatus, $id_Usr_Destinatario, $correo_usr, $carrera_usr, $id_administrador, $id_division){
@@ -1402,7 +1363,7 @@ class d_Alumno_Mi_Servicio {
                 
         try{    
             
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
                 
             if( $conn === false )
@@ -1526,7 +1487,7 @@ class d_Alumno_Mi_Servicio {
                 
         try{    
                               
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
                 
             if( $conn === false )
@@ -1654,53 +1615,6 @@ class d_Alumno_Mi_Servicio {
                 }
             }
 
-            /*
-            //A BITACORA EL MOVIMIENTO DE ACT DEL ESTATUS DEL DOC
-            $obj_Bitacora = new d_Usuario_Bitacora();
-            $obj_miBitacora = new Bitacora();
-
-            $descripcionEvento = $descripcion_evento . ' --- ' . $nota;
-            $obj_miBitacora->set_Fecha_Evento(date('d-m-Y H:i:s'));
-            $obj_miBitacora->set_Id_Tema_Bitacora($id_tema_evento);
-            $obj_miBitacora->set_Id_Tipo_Evento($id_tipo_evento);
-            $obj_miBitacora->set_Id_Usuario_Genera($id_administrador);
-            $obj_miBitacora->set_Id_Usuario_Destinatario($id_Usr_Destinatario);
-            $obj_miBitacora->set_Descripcion_Evento($descripcionEvento);
-            $obj_miBitacora->set_Id_Division($id_division);
-
-            $resultado_Bitacora ='';
-            $resultado_Bitacora = $obj_Bitacora->Agregar($obj_miBitacora);            
-            sleep(1);
-
-            $obj_miBitacora = new Bitacora();
-            
-            //A BITACORA EL MAIL ENVIADO
-            $descripcionEvento = $descripcion_Correo . ' --- ' . $nota;
-            $obj_miBitacora->set_Fecha_Evento(date('d-m-Y H:i:s'));
-            $obj_miBitacora->set_Id_Tema_Bitacora($id_tema_evento);
-            $obj_miBitacora->set_Id_Tipo_Evento(50);
-            $obj_miBitacora->set_Id_Usuario_Genera($id_administrador);
-            $obj_miBitacora->set_Id_Usuario_Destinatario($id_Usr_Destinatario);
-            $obj_miBitacora->set_Descripcion_Evento($descripcionEvento);
-            $obj_miBitacora->set_Id_Division($id_division);
-
-            $resultado_Bitacora ='';
-            $resultado_Bitacora = $obj_Bitacora->Agregar($obj_miBitacora);  
-            sleep(1);
-            */
-            
-            //MANDAMOS EL MAIL
-            /*
-            $obj = new d_mail();
-            $mi_mail = new Mail();
-            $mensaje= $descripcion_Correo . ' --- ' . $nota;
-                                   
-            $mi_mail->set_Correo_Destinatarios($correo_usr);
-            $mi_mail->set_Correo_Copia_Oculta('');
-            $mi_mail->set_Asunto('AVISO APROBACIÓN DE DOCUMENTOS PARA SERVICIO SOCIAL');
-            $mi_mail->set_Mensaje($mensaje);
-            $respuesta_mail = $obj->Envair_Mail($mi_mail);
-            */
             $conn = null;
             $jsondata['success'] = true;
             //$jsondata['data']['message'] = $mensaje_Transacciones . $resultado_Bitacora; 
@@ -1721,39 +1635,5 @@ class d_Alumno_Mi_Servicio {
     
 }
 
-//para probar el metodo Agregar
-//$obj_ = new d_Alumno_Mi_Servicio();
-//                               
-//$objServicioSocial = new Servicio_Social();
-//$objServicioSocial->set_Fecha_Inicio(date('Y-m-d',strtotime('25-06-2016')));
-//$objServicioSocial->set_Duracion_Meses(7);
-////$objServicioSocial->set_Fecha_Inicio('2016-06-25');
-//$fecha_termino=strtotime ( '+' . $objServicioSocial->get_Duracion_Meses() . ' month', strtotime ($objServicioSocial->get_Fecha_Inicio()));  
-//$objServicioSocial->set_Id_SS(110);
-//$objServicioSocial->set_Fecha_Termino(date('Y-m-j',$fecha_termino));
-//$objServicioSocial->set_Avance_Creditos(200);
-//$objServicioSocial->set_Avance_Porcentaje(80.5);
-//$objServicioSocial->set_Promedio(8.5);
-//$objServicioSocial->set_Jefe_Inmediato('erika padilla');
-//$objServicioSocial->set_Percepcion_Mensual(150.80);
-//$objServicioSocial->set_Id_Programa("2015-10/39-287");
-//$objServicioSocial->set_Id_Tipo_Remuneracion(6);
-//$objServicioSocial->set_Id_Tipo_Baja(5);    
-//$objServicioSocial->set_Id_Estatus(5);
-//$objServicioSocial->set_Id_Carrera(110);
-//$objServicioSocial->set_Id_Alumno('086198516');
-//
-//echo $obj_->Agregar($objServicioSocial);
-
-//$obj = new d_Alumno_Mi_Servicio();
-//echo $obj->N_Documentos_Aceptados('100');
-//echo $obj->Actualizar_Aceptacion_Doc_('100', 2, 1, 3, 'admin', '');
-//echo $obj->Actualizar_Estatus_Servicio_Social('100', '2016-03-28');
-
-//$obj =  new d_Alumno_Mi_Servicio();
-//echo $obj->Obtener_Datos_Grales('201603-021');
-
-//$obj = new d_Alumno_Mi_Servicio();
-//print_r($obj->calcular_Fechas_RptBim(date('Y-m-d',strtotime('2016-03-28')), 9));
 
 ?>

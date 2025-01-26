@@ -16,15 +16,6 @@ Objetivo:       Interfaz para Cambiar la Contraseña del Alumno
         }    
 ?>
 
-<!--<html>
-    <head>-->
-<!--        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="css/jquery-ui.css" rel="stylesheet">
-        <link rel="stylesheet" type="text/css" href="menu/estilo_menu.css" /> 
-        <script src="js/jquery-1.12.4.min.js"></script>
-        <script src="js/jquery-ui.min.js"></script>-->    
         <script src="js/expresiones_reg.js"></script>
 
         <script>
@@ -40,10 +31,6 @@ Objetivo:       Interfaz para Cambiar la Contraseña del Alumno
                     $('#statusClave').hide();                    
                     $('#statusContrasena').hide();
                     $('#statusContrasena2').hide();
-
-//                    var miExpReg_Contrasena = /^[a-zA0-9]{1,15}$/;
-//                    var miExpReg_Clave = /^[0-9]{1,18}$/;
-
 
                     if (!clave.match(miExpReg_NoCta))
                     {
@@ -127,8 +114,6 @@ Objetivo:       Interfaz para Cambiar la Contraseña del Alumno
                    buttons:{
                         "Aceptar" : function() {
                             $(this).dialog('close');
-//                            $('#ventanaProcesando').dialog({ dialogClass: 'no-close' });
-//                            $('#ventanaProcesando').dialog({ dialogClass: 'no-titlebar'});
                             $('#ventanaProcesando').dialog('open');
                             // Por Ajax insertamos al Usuario               
                             var formDatos = $('#Alumno_Nva_Contrasena').serialize();
@@ -195,9 +180,6 @@ Objetivo:       Interfaz para Cambiar la Contraseña del Alumno
                    draggable : false,
                    dialogClass : 'no-close no-titlebar',
                    closeOnEscape : false
-//                   show : 'slideDown',
-//                   hide: 'slideUp',
-//                   dialogClass : 'ui-state-highlight'
                 });  
 
                 function f5(that,val){
@@ -215,25 +197,11 @@ Objetivo:       Interfaz para Cambiar la Contraseña del Alumno
                         that.off("keydown");
                     }
                 }
-                /*$('.entrada_Dato').focus(function(e){
-                    e.preventDefault();
-                    f5($(document),false);
-                });
-                $('.entrada_Dato').blur(function(e){
-                    e.preventDefault();
-                    f5($(document),true);
-                });
-                
-                f5($(document),true); */
 
             });
         </script>
         
-<!--    </head>
-    <body>
-        <header>
-            Mi Pefil
-        </header>-->
+
         <div>
             <form name="Alumno_Nva_Contrasena" id="Alumno_Nva_Contrasena" method="" action="">
                 <div class="encabezado_Formulario">
@@ -289,6 +257,3 @@ Objetivo:       Interfaz para Cambiar la Contraseña del Alumno
             Procesando su transacción....!<br>
             Espere por favor.
         </div>
-        
-<!--    </body>
-</html>-->

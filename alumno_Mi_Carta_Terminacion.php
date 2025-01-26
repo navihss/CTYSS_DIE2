@@ -17,13 +17,6 @@ Objetivo:       Interfaz para el envío de la Carta de Terminación
 
 <html>
     <head>
-<!--        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="css/jquery-ui.css" rel="stylesheet">
-        <link rel="stylesheet" type="text/css" href="menu/estilo_menu.css" /> 
-        <script src="js/jquery-1.12.4.min.js"></script>
-        <script src="js/jquery-ui.min.js"></script>-->
         <script src="js/ruta_documentos.js"></script>
         
         <script>
@@ -41,8 +34,7 @@ Objetivo:       Interfaz para el envío de la Carta de Terminación
                 
                 $('#tabla_Mi_Carta').on('click', "button.btn_Adjuntar", function(e){
                     e.preventDefault();
-//                    alert($(this).data('id_ss')+','+$(this).data('id_documento')+','+$(this).data('id_version')+','+
-//                           $(this).data('id_alumno')+ ','+$(this).data('desc_documento_corta'));
+
                     var tituloAdjuntar = 'Para el Servicio Social <b>' + $(this).data('id_ss') +
                             ', Versión ' + $(this).data('id_version') +
                             '</b>. Seleccione su archivo <b>' + $(this).data('desc_documento') + 
@@ -85,8 +77,7 @@ Objetivo:       Interfaz para el envío de la Carta de Terminación
                 
                 $('#frmSubirPDF_Carta').on('submit',function(e){
                     e.preventDefault();
-//                    alert($('#id_carrera_doc').val()+','+$('#desc_corta_doc').val());
-//                    return false;
+
                     $('#ventanaProcesando').dialog('open');
                     $('#loading').html('<h1>Loading...</h1>');
                     $('#loading').show();
@@ -187,8 +178,6 @@ Objetivo:       Interfaz para el envío de la Carta de Terminación
                                         $btn_EnviarDoc = '<button class="btn_EnviarDoc btnOpcion" data-id_alumno=\'' + $('#Id_Usuario').val() + '\' ' + 
                                             'data-id_SS=\'' + value['id_ss'] + '\' data-id_carrera=' + id_carrera +'>Enviar Doc</button>';
                                     
-//                                        $btn_EnviarDoc = '<button class="btn_EnviarDoc" data-id_alumno=\'' + $('#Id_Usuario').val() + '\' ' + 
-//                                            'data-id_SS=\'' + value['id_ss'] + '\' data-id_carrera=' + id_carrera  + '>Enviar Doc</button>';
                                 }
                                    html_table = html_table + '<TR>';
                                    html_table = html_table + '<TD>' + value['id_ss'] + '</TD>';
@@ -493,5 +482,3 @@ Objetivo:       Interfaz para el envío de la Carta de Terminación
             Procesando su transacción....!<br>
             Espere por favor.
         </div>
-<!--    </body>
-</html>-->

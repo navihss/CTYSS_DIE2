@@ -17,8 +17,8 @@
 
         <script src="js/jquery-1.12.4.min.js"></script>
         <script src="js/jquery-ui.min.js"></script>
-        <link href="css/jquery-ui.css" rel="stylesheet">                
-        <link href="css/acceso.css" rel="stylesheet">                
+        <link href="public/assets/css/jquery-ui.css" rel="stylesheet">                
+        <link href="public/assets/css/acceso.css" rel="stylesheet">                
         <script src="js/expresiones_reg.js"></script>
                
         <script type="text/javascript">
@@ -87,8 +87,6 @@
                 $('#login').submit(function(event){
                    event.preventDefault();
                    if (validaDatos()) {    
-//                        $('#ventanaProcesando').dialog({ dialogClass: 'no-close' });
-//                        $('#ventanaProcesando').dialog({ dialogClass: 'no-titlebar'});
                         $('#ventanaProcesando').dialog('open');
                        
                         var formData = $(this).serialize();                                                                      
@@ -102,12 +100,12 @@
                                 .done(function(respuesta,textStatus,jqXHR){
                                     $('#ventanaProcesando').dialog('close');
                                     if (respuesta.success == true){   
-					console.log(respuesta);
+					                    console.log(respuesta);
                                     	if (respuesta.fecha_titulacion == false){
                                             window.open('home.php','_self');
                                         }else{
                                             console.log('hay fecha');
-					    $('#ventanaAviso').html('Tus trámites en la Coordinación de Titulación y Servicio Social han concluido, da seguimiento en Servicios Escolares. <a href="http://escolar.ingenieria.unam.mx/titulacion/">Ir a Servicios Escolares.</a>');
+					                        $('#ventanaAviso').html('Tus trámites en la Coordinación de Titulación y Servicio Social han concluido, da seguimiento en Servicios Escolares. <a href="http://escolar.ingenieria.unam.mx/titulacion/">Ir a Servicios Escolares.</a>');
                                             $('#ventanaAvisos').dialog('open');
                                         }                                                                  
                                     }
@@ -117,6 +115,9 @@
                                     }                                    
                                 })
                                         .fail(function(jqXHR,textStatus,errorThrown){
+                                            console.log(jqXHR.responseText);
+                                            console.log(textStatus);
+                                            console.log(errorThrown);
                                             $('#ventanaProcesando').dialog('close');
                                             $('#ventanaAviso').html('La solicitud ha fallado <br>' + textStatus + '. ' + errorThrown);
                                             $('#ventanaAvisos').dialog('open');                            
@@ -159,13 +160,8 @@
                     <div id="divSubmit">
                         <input type="submit" name="submit" id="submit" value="Iniciar sesión" class="btn">
                     </div>
-                    <!-- <div class="opcionesDeCuenta" style="height: 30px;">
-                       <span>¿No tienes una cuenta? <a href="nuevaCuenta.php">Crea una</a></span>
-                        <span><a href="reenviarContrasena.php">Olvidé mi contraseña</a></span><br><br><br>                   
-                    </div> -->
                     <div class="" style="margin-top: 0px; height: 40px;">
                         <span><b>CTYSS_<i>mis</i>Tramites (Ver. 1.04)</b></span><br>
-                    <!--  <span><a href="reenviarContrasena.php">Olvidé mi contraseña</a></span><br><br><br> -->
                     </div>
                     
                     <input type="hidden" id="Id_Tipo_Usuario" name="Id_Tipo_Usuario" value="999">
@@ -174,9 +170,7 @@
                 </form>
             </div>
         </div>
-<!--        <div id="pie">
-            <h2>Dirección....</h2>
-        </div-->
+
         <div id="ventanaAvisos">
             <span id="ventanaAviso" name="ventanaAviso"></span>
         </div>

@@ -1,5 +1,5 @@
 <?php
-
+use App\Database\Connection;
 /**
  * Definición de la Capa de Datos para la Clase Aprobar Propuesta
  * Metodos
@@ -20,7 +20,7 @@ class d_coord_jdpto_Aprobar_Propuesta {
 
     function Traer_Indice($id_propuesta) {
         try{                    
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
 
             if( $cnn === false )
@@ -76,7 +76,7 @@ class d_coord_jdpto_Aprobar_Propuesta {
     
     function Traer_Indice_Completo($id_propuesta) {
         try{                    
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
 
             if( $cnn === false )
@@ -134,7 +134,7 @@ class d_coord_jdpto_Aprobar_Propuesta {
     function Obtener_Documentos_Por_Autorizar($id_estatus, $id_usuario){
       
         try{                    
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
 
             if( $cnn === false )
@@ -210,7 +210,7 @@ class d_coord_jdpto_Aprobar_Propuesta {
     function Obtener_Total_Documentos_Por_Autorizar($id_usuario){
       
         try{                    
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
 
             if( $cnn === false )
@@ -286,7 +286,7 @@ class d_coord_jdpto_Aprobar_Propuesta {
         $conn = '';
         $resultado = '';        
         try{                
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
                 
             if( $conn === false )
@@ -352,7 +352,7 @@ class d_coord_jdpto_Aprobar_Propuesta {
         $correos ='';
         
         try{                
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
                 
             if( $conn === false )
@@ -421,7 +421,7 @@ class d_coord_jdpto_Aprobar_Propuesta {
         $correos ='';
         
         try{                
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
                 
             if( $conn === false )
@@ -506,7 +506,7 @@ class d_coord_jdpto_Aprobar_Propuesta {
         $nombre_Profesor_Propuesta ='';
                 
         try{                
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
                 
             if( $conn === false )
@@ -1091,13 +1091,6 @@ class d_coord_jdpto_Aprobar_Propuesta {
 
                 $respuesta_mail = $obj->Envair_Mail($mi_mail);               
             }           
-
-//            $conn->rollBack();
-//            $conn = null;
-//            $jsondata['success'] = false;
-//            $jsondata['data']['message'] = $descripcion_evento1 . $resultado_Bitacora;
-//            echo json_encode($jsondata);
-//            exit();  
             
             $conn = null;
             $jsondata['success'] = true;
@@ -1118,11 +1111,3 @@ class d_coord_jdpto_Aprobar_Propuesta {
     
     
 }
-
-//$obj = new d_coord_jdpto_Aprobar_Propuesta();
-//print_r($obj->Obtener_Total_Documentos_Por_Autorizar('ELVA'));
-//echo $obj->Obtener_Usr_Mail_Propuesta_JDefinitivo('2016-2-004', 4, 1, '086198517');
-
-//$obj_ = new d_profesor_Mis_Propuestas();
-//$nom = $obj_->Obtener_Nombre_Profesor('4');
-//echo $nom;

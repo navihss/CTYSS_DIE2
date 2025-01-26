@@ -17,15 +17,6 @@ Objetivo:       Interfaz para Cambiar la Contraseña del Usuario
     
 ?>
 
-<!--<html>
-    <head>-->
-<!--        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="css/jquery-ui.css" rel="stylesheet">
-        <link rel="stylesheet" type="text/css" href="menu/estilo_menu.css" /> 
-        <script src="js/jquery-1.12.4.min.js"></script>
-        <script src="js/jquery-ui.min.js"></script>-->    
         <script src="js/expresiones_reg.js"></script>
         
         <script>
@@ -42,10 +33,6 @@ Objetivo:       Interfaz para Cambiar la Contraseña del Usuario
                     $('#statusClave').hide();                    
                     $('#statusContrasena').hide();
                     $('#statusContrasena2').hide();
-
-//                    var miExpReg_Contrasena = /^[a-zA-Z0-9]{1,15}$/;
-//                    var miExpReg_Clave = /^[a-zA-Z0-9]{1,18}$/;
-
 
                     if (!clave.match(miExpReg_Clave))
                     {
@@ -185,8 +172,6 @@ Objetivo:       Interfaz para Cambiar la Contraseña del Usuario
                    buttons:{
                         "Aceptar" : function() {
                             $(this).dialog('close');
-//                            $('#ventanaProcesando').dialog({ dialogClass: 'no-close' });
-//                            $('#ventanaProcesando').dialog({ dialogClass: 'no-titlebar'});
                             $('#ventanaProcesando').dialog('open');
                             // Por Ajax insertamos al Usuario               
                             var formDatos = $('#Administrador_Nva_Contrasena').serialize();
@@ -253,9 +238,6 @@ Objetivo:       Interfaz para Cambiar la Contraseña del Usuario
                    draggable : false,
                    dialogClass : 'no-close no-titlebar',
                    closeOnEscape : false
-//                   show : 'slideDown',
-//                   hide: 'slideUp',
-//                   dialogClass : 'ui-state-highlight'
                 });  
 
                 function f5(that,val){
@@ -273,27 +255,12 @@ Objetivo:       Interfaz para Cambiar la Contraseña del Usuario
                         that.off("keydown");
                     }
                 }
-                /*$('.entrada_Dato').focus(function(e){
-                    e.preventDefault();
-                    f5($(document),false);
-                });
-                $('.entrada_Dato').blur(function(e){
-                    e.preventDefault();
-                    f5($(document),true);
-                });
-                
-                f5($(document),true); */
                                
                 $(':text:first').focus();
 
             });
         </script>
-        
-<!--    </head>
-    <body>
-        <header>
-            Mi Pefil
-        </header>-->
+
         <div>
             <div class="encabezado_Formulario">
                 <div class="descripcion_Modulo">
@@ -354,6 +321,3 @@ Objetivo:       Interfaz para Cambiar la Contraseña del Usuario
             Procesando su transacción....!<br>
             Espere por favor.
         </div>
-        
-<!--    </body>
-</html>-->

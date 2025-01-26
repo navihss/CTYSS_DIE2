@@ -52,13 +52,10 @@ Objetivo:       Interfaz para aprobar los Reportes Bimestrales
 
 	                            var i =0;
                                $.each(respuesta.data.registros, function( key, value ) {
-                                   //alert(value['id_anio'])
 
                             	   array_anio[i] = value['id_anio'];
                             	   i++;
                                });
-
-                               //alert('array_anio.length'+ array_anio.length);
                                
                            } else {
 
@@ -160,12 +157,10 @@ Objetivo:       Interfaz para aprobar los Reportes Bimestrales
                                queryObject=datos_grafica.substring(0, datos_grafica.length -1)+"]";
                                queryObject = queryObject.trim();
                                queryObject = queryObject.replace(/'/g, '"');
-                               //queryObject = jQuery.parseJSON(JSON.stringify(queryObject));
                                queryObject = jQuery.parseJSON(queryObject);
                                console.log( "cadena: " + queryObject); 
 
                                
-                               //google.charts.load("current", {packages: ["bar"]});
                                google.charts.load("current", {packages: ["corechart"]});
                                google.charts.setOnLoadCallback(function(){ setTimeout(drawChart('grafica'+ id_anio ,id_anio, vision), 100)  });
                  
@@ -228,9 +223,6 @@ Objetivo:       Interfaz para aprobar los Reportes Bimestrales
 
                         var data = google.visualization.arrayToDataTable(queryObject);
 
-                        //var formatter = new google.visualization.NumberFormat({ pattern:'#.#' });
-                        //formatter.format(data, 1);
-                        //formatter.format(data, 2);  
 
                         var view = new google.visualization.DataView(data);
                        
@@ -250,8 +242,6 @@ Objetivo:       Interfaz para aprobar los Reportes Bimestrales
                             hAxis: {
                               title: titulo_opciones,
                               minValue: 0,
-                              //slantedText: true, 
-                              //slantedTextAngle: 90 //Angulo de la etiqueta 180 
                             },
                             vAxis: { 
                                 title: '# Alumnos',
@@ -268,14 +258,10 @@ Objetivo:       Interfaz para aprobar los Reportes Bimestrales
                         // Wait for the chart to finish drawing before calling the getImageURI() method.
                         google.visualization.events.addListener(chart, 'ready', function () {
                           chart_div.innerHTML = '<img src="' + chart.getImageURI() + '" >';
-                          //$('#chart_div').html('<img src="' + chart.getImageURI() + '" >'); 	
                           console.log(chart_div.innerHTML);
                         });
 
                         chart.draw(data, options);
-     
-                        /*var chart = new google.visualization.ColumnChart(document.getElementById('grafica'));
-                        chart.draw(data, options);*/
              
                       }
 
@@ -307,16 +293,6 @@ Objetivo:       Interfaz para aprobar los Reportes Bimestrales
                         that.off("keydown");
                     }
                 }
-        
-                /*$('.entrada_Dato').focus(function(e){
-                    e.preventDefault();
-                    f5($(document),false);
-                });
-                $('.entrada_Dato').blur(function(e){
-                    e.preventDefault();
-                    f5($(document),true);
-                }); */
-
 
             
 				//VALORES INICIALES DEL REPORTE
@@ -378,7 +354,6 @@ Objetivo:       Interfaz para aprobar los Reportes Bimestrales
 		                $('#id_contenido').html(html_table_cont);
 		                
 						Obtener_Reportes_Estadisticas('0',vision)
-						//console.log("html_table_cont:"+ html_table_cont);
 						
 					}else if(vision == 1 ){
 						// ESTADISTICA POR CARRERA,
@@ -405,7 +380,6 @@ Objetivo:       Interfaz para aprobar los Reportes Bimestrales
 						
 					}else if(vision == 2){
 						// ESTADISTICA DE TODOS LOS ANIOS
-						 //alert('array_anio.length'+ array_anio.length);
 						 
 		               	html_table_cont='<table width="100%" id="id_tabla" border="1">';
 		               	for(x=0 ; x < array_anio.length; x++){

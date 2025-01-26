@@ -1,9 +1,11 @@
 <?php
 
+use App\Database\Connection;
+
 header('Content-Type: text/html; charset=UTF-8');
 
 require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Entidades/Usuario.php');
-require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Datos/Conexion.php');
+require_once __DIR__ . '/../app/Database/Connection.php';
 require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Datos/d_Usuario.php');
 require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Datos/d_Usuario_Bitacora.php');
 require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Entidades/Bitacora.php');
@@ -115,7 +117,7 @@ class d_Usuario {
         $jsondata = array();
 
         try{        
-            $cnn = new Conexion();               
+            $cnn = new Connection();               
             $conn = $cnn->getConexion();
 
             if( $conn === false ){
@@ -218,11 +220,3 @@ class d_Usuario {
     
     
 } //Fin Clase
-
-//Para probar la Clase Usuario
-//$obj_Usuario = new d_Usuario();
-//echo $obj_Usuario->Iniciar_Sesion('086198516', '123');
-
-//Para probar Valida_NoCuenta
-//$obj_Usuario = new d_Usuario();
-//echo $obj_Usuario->Valida_NoCuenta('305167716', 10);

@@ -1,5 +1,5 @@
 <?php
-
+use App\Database\Connection;
 /**
  * Definición de la Capa de Datos para la Clase Mi Carta de Terminación
  * Metodos
@@ -7,7 +7,7 @@
  * Julio 2016
  */
     header('Content-Type: text/html; charset=UTF-8');
-    require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Datos/Conexion.php');
+    require_once __DIR__ . '/../app/Database/Connection.php';
     require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/zonaHoraria.php');
 
 class d_Alumno_Mi_Carta_Terminacion {
@@ -16,7 +16,7 @@ class d_Alumno_Mi_Carta_Terminacion {
     function Obtener_SS_Horas_Laboradas($id_alumno, $id_carrera){
         
         try{                    
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
 
             if( $cnn === false )
@@ -86,7 +86,7 @@ class d_Alumno_Mi_Carta_Terminacion {
     function Obtener_Mis_Documentos($id_ss){
       
         try{                    
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
 
             if( $cnn === false )
@@ -148,8 +148,3 @@ class d_Alumno_Mi_Carta_Terminacion {
     
       
 }
-//
-//$obj=new d_Alumno_Mi_Carta_Terminacion();
-//echo $obj->Obtener_Mis_Documentos('201603-021');
-//echo $obj->Obtener_SS_Todos('086198516', '110');
-

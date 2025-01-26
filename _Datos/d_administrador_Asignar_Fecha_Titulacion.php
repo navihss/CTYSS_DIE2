@@ -1,5 +1,5 @@
 <?php
-
+use App\Database\Connection;
 /**
  * Definición de la Capa de Datos para Asignar Fecha de titulacion a un usuario
  * Metodos
@@ -14,7 +14,7 @@ require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Entidades/Profesor.php');
 require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Entidades/Alumno.php');
 require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Entidades/Usuario.php');
 require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Datos/d_Usuario.php');
-require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Datos/Conexion.php');
+require_once __DIR__ . '/../app/Database/Connection.php';
 require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/zonaHoraria.php');
 require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Datos/d_Usuario_Bitacora.php');
 require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Entidades/Bitacora.php');
@@ -24,7 +24,7 @@ class d_administrador_Asignar_Fecha_Titulacion {
     function Existe_Clave_Usuario($clave, $id_division){
     
         try{                    
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
 
             if( $cnn === false )
@@ -93,7 +93,7 @@ class d_administrador_Asignar_Fecha_Titulacion {
     function Asignar_Fecha_Titulacion($id_usr, $id_carrera, $fecha_titulacion){
                 
         try{                   
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
   
             if( $conn === false )

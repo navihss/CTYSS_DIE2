@@ -17,13 +17,7 @@ Objetivo:       Interfaz para VoBo del Jurado del Alumno
 
 <html>
     <head>
-<!--        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="css/jquery-ui.css" rel="stylesheet">
-        <link rel="stylesheet" type="text/css" href="menu/estilo_menu.css" /> 
-        <script src="js/jquery-1.12.4.min.js"></script>
-        <script src="js/jquery-ui.min.js"></script>-->
+
         <script src="js/expresiones_reg.js"></script>        
         
         <script>
@@ -245,8 +239,6 @@ Objetivo:       Interfaz para VoBo del Jurado del Alumno
                    buttons:{
                         "Aceptar" : function() {
                             $(this).dialog('close');
-//                            $('#ventanaProcesando').dialog({ dialogClass: 'no-close' });
-//                            $('#ventanaProcesando').dialog({ dialogClass: 'no-titlebar'});
                             $('#ventanaProcesando').dialog('open');
                             
                             // Por Ajax Actualizamos el VoBo de los Sinodales
@@ -374,12 +366,7 @@ Objetivo:       Interfaz para VoBo del Jurado del Alumno
             });
                         
         </script>
-        
-<!--    </head>
-    <body>
-        <header>
-            Mi Pefil
-        </header>-->
+
         <div>
             <div class="encabezado_Formulario">
                 <div class="descripcion_Modulo">
@@ -416,7 +403,3 @@ Objetivo:       Interfaz para VoBo del Jurado del Alumno
             Procesando su transacción....!<br>
             Espere por favor.
         </div>
-        <!--Se quita el botón de home-->
-<!--    </body>
-</html>-->
-

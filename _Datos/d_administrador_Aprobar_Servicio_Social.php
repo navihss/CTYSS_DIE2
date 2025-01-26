@@ -1,5 +1,5 @@
 <?php
-
+use App\Database\Connection;
 /**
  * Definición de la Capa de Datos para la Autorización de las Cartas de Aceptación
  * Metodos
@@ -7,7 +7,7 @@
  * Julio 2016
  */
     header('Content-Type: text/html; charset=UTF-8');
-    require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Datos/Conexion.php');
+    require_once __DIR__ . '/../app/Database/Connection.php';
     require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/zonaHoraria.php');
 
 class d_administrador_Aprobar_Servicio_Social {
@@ -16,7 +16,7 @@ class d_administrador_Aprobar_Servicio_Social {
     //Carta de Aceptación e Historial Académico con estatus 2. Por Autorizar
     function Obtener_SS_Por_Estatus($id_estatus, $id_division){
         try{                    
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
 
             if( $cnn === false )
@@ -24,11 +24,6 @@ class d_administrador_Aprobar_Servicio_Social {
                 throw new Exception($cnn->getError());
             }
 
-//           $jsondata['success'] = false;
-//           $jsondata['data']= array('message'=>'en obtener ss id');
-//           echo json_encode($jsondata);
-//           exit();  
-           
             $tsql = "SELECT  a.id_estatus, a.id_ss, a.id_alumno,
                     (c.nombre_usuario || ' ' || c.apellido_paterno_usuario || ' ' || c.apellido_materno_usuario) as nombre, 
                     f.descripcion_carrera, d.descripcion_estatus, a.fecha_inicio_ss, a.duracion_meses_ss, 
@@ -92,7 +87,7 @@ class d_administrador_Aprobar_Servicio_Social {
     //OBTENERMOS TOTAL DE APROBACION DE SERVICIOS
     function Obtener_Total_SS($id_estatus, $id_division){
         try{
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
 
             if($cnn === false)
@@ -158,29 +153,14 @@ class d_administrador_Aprobar_Servicio_Social {
     function Obtener_Documento($id_ss, $id_documento, $id_estatus, $id_division){
       
         try{                    
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
 
             if( $cnn === false )
             {
                 throw new Exception($cnn->getError());
             }
-
-//           $jsondata['success'] = false;
-//           $jsondata['data']= array('message'=>'en obtener ss id');
-//           echo json_encode($jsondata);
-//           exit();  
-           
-//            $tsql = "SELECT a.id_ss, a.id_documento, a.id_estatus, c.id_alumno, a.id_version, 
-//                a.fecha_recepcion_doc, d.descripcion_documento, b.descripcion_estatus
-//                FROM servicio_social_docs a 
-//                        INNER JOIN estatus b ON a.id_estatus = b.id_estatus
-//                        INNER JOIN servicio_social c ON a.id_ss = c.id_ss
-//                        INNER JOIN documentos d ON a.id_documento = d.id_documento
-//                WHERE a.id_ss = ? AND a.id_estatus = ? AND a.id_documento = ?;";
-//                       
-//            /* Valor de los parámetros. */
-//            $params = array($id_ss, $id_estatus, $id_documento);
+            
             $tsql = "SELECT a.id_ss, a.id_documento, a.id_estatus, c.id_alumno, a.id_version, 
                 a.fecha_recepcion_doc, d.descripcion_documento, b.descripcion_estatus
                 FROM servicio_social_docs a 

@@ -5,9 +5,9 @@
  * @author Rogelio Reyes Mendoza
  * Julio 2016
  */
-
+use App\Database\Connection;
 header('Content-Type: text/html; charset=UTF-8');
-require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Datos/Conexion.php');
+require_once __DIR__ . '/../app/Database/Connection.php';
 require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/zonaHoraria.php');
 require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Datos/d_Usuario_Bitacora.php');
 require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Entidades/Bitacora.php');
@@ -22,7 +22,7 @@ class d_administrador_Aprobar_Reporte_Bimestral {
     function Obtener_Reportes_x_Autorizar($id_estatus, $id_division){
       
         try{                    
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
 
             if( $cnn === false )
@@ -89,7 +89,7 @@ class d_administrador_Aprobar_Reporte_Bimestral {
     //OBTENER TOTAL DE REPORTES PENDIENTES
     function Obtener_Total_Reportes_x_Autorizar($id_estatus, $id_division){
         try{                    
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
 
             if( $cnn === false )
@@ -166,7 +166,7 @@ class d_administrador_Aprobar_Reporte_Bimestral {
                 "<br>** Con Serv Soc " . $id_SS . " ** Y Carrera " . $carrera_usr . ' ha sido <b>ACEPTADO</b> <br>';
         
         try{                
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
                 
             if( $conn === false )
@@ -342,9 +342,5 @@ class d_administrador_Aprobar_Reporte_Bimestral {
     //FIN ACTUALIZAMOS EL ESTATUS DEL REPORTES BIMESTRAL
     
 }
-
-//    $obj = new d_administrador_Aprobar_Reporte_Bimestral();
-//    echo  $obj->Obtener_Reportes_x_Autorizar(2);
-
     
 ?>

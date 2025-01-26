@@ -1,5 +1,5 @@
 <?php
-
+use App\Database\Connection;
 /**
  * Definición de la Capa de Datos para la Clase Asignar Coordinadores
  * Metodos
@@ -8,7 +8,7 @@
  */
 
 header('Content-Type: text/html; charset=UTF-8');
-require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Datos/Conexion.php');
+require_once __DIR__ . '/../app/Database/Connection.php';
 require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Entidades/Propuesta_Profesor.php');
 require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/zonaHoraria.php');
 require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Datos/d_Usuario_Bitacora.php');
@@ -21,7 +21,7 @@ class d_administrador_Asignar_Coordinadores {
 
     function Traer_Indice($id_propuesta) {
         try{                    
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
 
             if( $cnn === false )
@@ -75,7 +75,7 @@ class d_administrador_Asignar_Coordinadores {
     }
     function Traer_Indice_Completo($id_propuesta) {
         try{                    
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
 
             if( $cnn === false )
@@ -132,7 +132,7 @@ class d_administrador_Asignar_Coordinadores {
     function Obtener_Documentos_Por_Autorizar($id_estatus, $id_division){
       
         try{                    
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
 
             if( $cnn === false )
@@ -230,7 +230,7 @@ class d_administrador_Asignar_Coordinadores {
         }
         
         try{                
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
                 
             if( $conn === false )
@@ -313,21 +313,7 @@ class d_administrador_Asignar_Coordinadores {
                                 INNER JOIN jefes_departamento b ON a.id_departamento = b.id_departamento
                                 INNER JOIN usuarios c ON b.id_usuario = c.id_usuario
                         WHERE b.actual_jefe = '1' AND a.id_departamento IN (". $departamentos . ")";                      
-//                elseif ($coordinaciones && !$departamentos){
-//                $tsql3=" SELECT a.id_coordinacion as id_organo, 
-//                            a.descripcion_coordinacion as descripcion_organo, b.id_usuario as clave_usuario, c.email_usuario
-//                        FROM Coordinaciones a
-//                            INNER JOIN jefes_coordinacion b ON a.id_coordinacion = b.id_coordinacion 
-//                            INNER JOIN usuarios c ON b.id_usuario = c.id_usuario
-//                        WHERE a.id_coordinacion IN (". $coordinaciones . ");";
-//                }
-//                elseif (!$coordinaciones && $departamentos){
-//                 $tsql3=" SELECT a.id_departamento as id_organo, a.descripcion_departamento as descripcion_organo, b.id_usuario as clave_usuario, c.email_usuario
-//                        FROM Departamentos a
-//                                INNER JOIN jefes_departamento b ON a.id_departamento = b.id_departamento
-//                                INNER JOIN usuarios c ON b.id_usuario = c.id_usuario
-//                        WHERE a.id_departamento IN (". $departamentos .")";        
-//                }
+
                 
                 /* Preparamos la sentencia a ejecutar */
                 $stmt3= $conn->prepare($tsql3);
@@ -349,10 +335,7 @@ class d_administrador_Asignar_Coordinadores {
                                 $destinatarios_de_correo .= $row['email_usuario'] . ',';
                                 $destinatarios_bitacora .= $row['clave_usuario'] . ',';
                                 $params4 = array($id_propuesta_doc, $id_documento_doc, $id_version_doc, $usuario_vobo,'', $id_estatus, $id_division);
-//                            $x= " INSERT INTO propuesta_VoBo(
-//                                            id_propuesta, id_documento, version_propuesta, id_usuario, 
-//                                            nota, id_estatus)
-//                                       VALUES (".$id_propuesta_doc .','.$id_documento_doc . ','. $id_version_doc.','.$usuario_vobo.',,'.$id_estatus.')';
+
                                 $stmt4 = $conn->prepare($tsql4);
                                 if($stmt4){
                                     $result4=$stmt4->execute($params4);
@@ -450,12 +433,6 @@ class d_administrador_Asignar_Coordinadores {
                 }                           
                 
             }
-
-//            $conn->rollBack();
-//            $jsondata['success'] = false;
-//            $jsondata['data']['message'] = $destinatarios_de_correo;
-//            echo json_encode($jsondata);
-//            exit();  
             
             $conn->commit();
             if($id_estatus==4){
@@ -534,7 +511,7 @@ class d_administrador_Asignar_Coordinadores {
     function Obtener_Bitacora_Propuestas($id_propuesta){
       
         try{                    
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
 
             if( $cnn === false )
@@ -597,6 +574,3 @@ class d_administrador_Asignar_Coordinadores {
 
     
 }
-//
-//$obj= new d_administrador_Asignar_Coordinadores();
-//echo $obj->Obtener_Documentos_Por_Autorizar(2);

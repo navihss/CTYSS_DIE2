@@ -18,12 +18,6 @@ if(!isset($_POST['Tipo_Movimiento'])){
 require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Datos/d_Alumno_Mi_Carta_Terminacion.php');
 require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/zonaHoraria.php');
 
-//    $jsondata = array();
-//    $jsondata['success'] = false;
-//    $jsondata['data']['message'] = 'dentro de la capa de datos ';
-//    echo json_encode($jsondata);
-//    exit();
-//    
     $tipo_Movimiento = $_POST['Tipo_Movimiento'];
 
     $obj_d_Alumno_Mi_CT = new d_Alumno_Mi_Carta_Terminacion();

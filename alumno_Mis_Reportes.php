@@ -17,13 +17,7 @@ Objetivo:       Interfaz para adjuntar los Reportes Bimestrales
 
 <html>
     <head>
-<!--        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="css/jquery-ui.css" rel="stylesheet">
-        <link rel="stylesheet" type="text/css" href="menu/estilo_menu.css" /> 
-        <script src="js/jquery-1.12.4.min.js"></script>
-        <script src="js/jquery-ui.min.js"></script>-->
+
         <script src="js/expresiones_reg.js"></script>        
         <script src="js/ruta_documentos.js"></script>        
         
@@ -143,7 +137,6 @@ Objetivo:       Interfaz para adjuntar los Reportes Bimestrales
                                var ocultar_btnEnviar_rpt = "";
                                $.each(respuesta.data.registros, function( key, value ) {
                                    $btn_EnviarRpt ='';
-//                                   ocultar_btnEnviar_rpt = "hidden";
                                    var fechaHoy_mayor = Puede_Enviar_Rpt(value['fecha_prog_fin']);
 
                                    if (fechaHoy_mayor == "true")
@@ -446,14 +439,6 @@ Objetivo:       Interfaz para adjuntar los Reportes Bimestrales
                     }; 
                 $.datepicker.setDefaults($.datepicker.regional['es']); 
 
-//                $('#fecha_Inicio_rpt').datepicker({
-//                    changeYear : true,
-//                    changeMonth : true,
-//                    yearRange : '1920:2050',
-//                    onSelect : function(date){
-//                        $("#fecha_Inicio_rpt ~ .ui-datepicker").hide();
-//                    }
-//                });
                 $('#fecha_Termino_rpt').datepicker({
                     changeYear : true,
                     changeMonth : true,
@@ -488,16 +473,7 @@ Objetivo:       Interfaz para adjuntar los Reportes Bimestrales
                         that.off("keydown");
                     }
                 }
-                
-                /*$('.entrada_Dato').focus(function(e){
-                    e.preventDefault();
-                    f5($(document),false);
-                });
-                $('.entrada_Dato').blur(function(e){
-                    e.preventDefault();
-                    f5($(document),true);
-                });*/
-                
+
                 Obtener_Carreras_Del_Alumno($('#Id_Usuario').val());
                 //f5($(document),true);
                 $('#ventanaSubirArchivo_Rpt').hide();
@@ -507,11 +483,7 @@ Objetivo:       Interfaz para adjuntar los Reportes Bimestrales
                         
         </script>
         
-<!--    </head>
-    <body>
-        <header>
-            Mi Pefil
-        </header>-->
+
         <div>
             <div>
                 <div class="encabezado_Formulario">
@@ -592,5 +564,3 @@ Objetivo:       Interfaz para adjuntar los Reportes Bimestrales
             Procesando su transacción....!<br>
             Espere por favor.
         </div>
-<!--    </body>
-</html>-->

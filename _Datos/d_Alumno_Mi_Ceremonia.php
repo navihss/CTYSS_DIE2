@@ -1,5 +1,5 @@
 <?php
-
+use App\Database\Connection;
 /**
  * Definición de la Capa de Datos para las Inscripciones a una Propuesta Por Ceremonia
  * Metodos
@@ -8,7 +8,7 @@
  */
 
 header('Content-Type: text/html; charset=UTF-8');
-require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Datos/Conexion.php');
+require_once __DIR__ . '/../app/Database/Connection.php';
 require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/zonaHoraria.php');
 require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Datos/d_Usuario_Bitacora.php');
 require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Entidades/Bitacora.php');
@@ -19,7 +19,7 @@ class d_Alumno_Mi_Ceremonia {
     function Obtener_Mis_Documentos($id_ceremonia){
       
         try{                    
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
 
             if( $cnn === false )
@@ -27,10 +27,6 @@ class d_Alumno_Mi_Ceremonia {
                 throw new Exception($cnn->getError());
             }
 
-//           $jsondata['success'] = false;
-//           $jsondata['data']= array('message'=>'en obtener ss id');
-//           echo json_encode($jsondata);
-//           exit();  
            
             $tsql = "SELECT a.id_ceremonia, a.id_documento, a.version, a.id_estatus, 
                     c.descripcion_documento, c.descripcion_para_nom_archivo,
@@ -94,7 +90,7 @@ class d_Alumno_Mi_Ceremonia {
     function Obtener_Ceremonia($id_ceremonia){
       
         try{                    
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
 
             if( $cnn === false )
@@ -162,7 +158,7 @@ class d_Alumno_Mi_Ceremonia {
     function Obtener_Mis_Ceremonias($id_alumno, $id_carrera){
       
         try{                    
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
 
             if( $cnn === false )
@@ -230,7 +226,7 @@ class d_Alumno_Mi_Ceremonia {
     function Obtener_Modalidades($id_alumno, $id_carrera){
       
         try{                    
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
 
             if( $cnn === false )
@@ -302,7 +298,7 @@ class d_Alumno_Mi_Ceremonia {
         $nuevoConsecutivo =0;
                 
         try{                
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
                            
             if( $conn === false )
@@ -519,7 +515,7 @@ class d_Alumno_Mi_Ceremonia {
                 
         try{    
             
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
                 
             $obj_Ceremonia = new Ceremonia();
@@ -548,11 +544,7 @@ class d_Alumno_Mi_Ceremonia {
                             $obj_Ceremonia->get_Nombre_Revista(),
                             $obj_Ceremonia->get_Id_Ceremonia());
                 /* Preparamos la sentencia a ejecutar */
-//             $jsondata = array();
-//    $jsondata['success'] = false;
-//    $jsondata['data']['message'] = $params;
-//    echo json_encode($jsondata);
-//    exit();                    
+
                 $stmt = $conn->prepare($tsql);
                 if($stmt){
                     /*Ejecutamos el Query*/                
@@ -615,7 +607,7 @@ class d_Alumno_Mi_Ceremonia {
         $jsondata = array();
 
         try {
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
 
             if($conn === false) {
@@ -677,7 +669,7 @@ class d_Alumno_Mi_Ceremonia {
                 
         try{    
             
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
                 
             if( $conn === false )
@@ -746,7 +738,7 @@ class d_Alumno_Mi_Ceremonia {
                 
         try{    
             
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
                 
             if( $conn === false )
@@ -868,7 +860,7 @@ class d_Alumno_Mi_Ceremonia {
         $jsondata = array();
                 
         try{    
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
                            
             if( $conn === false )
@@ -917,6 +909,3 @@ class d_Alumno_Mi_Ceremonia {
     }     
     
 }
-
-//$obj = new d_Alumno_Mi_Ceremonia();
-//echo $obj->Obtener_Modalidades('01', '110');

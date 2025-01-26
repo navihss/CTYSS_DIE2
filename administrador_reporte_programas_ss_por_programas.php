@@ -150,13 +150,11 @@ Objetivo:       Interfaz para aprobar los Reportes Bimestrales
                              
                             }
                             else {
-                                $('#ventanaAviso').html(respuesta.data.message);
-                                //$('#ventanaAvisos').dialog('open');                                                                    
+                                $('#ventanaAviso').html(respuesta.data.message);                                                      
                             }
                         })
                                 .fail(function(jqXHR,textStatus,errorThrown){
                                     $('#ventanaAviso').html('La solicitud ha fallado.<br>' + textStatus + '. ' + errorThrown);
-                                   //$('#ventanaAvisos').dialog('open');                            
                                 });                            
                 }     
                 //FIN LLENADO DE CATALOGO
@@ -191,13 +189,11 @@ Objetivo:       Interfaz para aprobar los Reportes Bimestrales
                              
                             }
                             else {
-                                $('#ventanaAviso').html(respuesta.data.message);
-                                //$('#ventanaAvisos').dialog('open');                                                                    
+                                $('#ventanaAviso').html(respuesta.data.message);                                                     
                             }
                         })
                                 .fail(function(jqXHR,textStatus,errorThrown){
                                     $('#ventanaAviso').html('La solicitud ha fallado.<br>' + textStatus + '. ' + errorThrown);
-                                   //$('#ventanaAvisos').dialog('open');                            
                                 });                            
                 }     
                 //FIN LLENADO DE CATALOGO
@@ -274,13 +270,11 @@ Objetivo:       Interfaz para aprobar los Reportes Bimestrales
                              
                             }
                             else {
-                                $('#ventanaAviso').html(respuesta.data.message);
-                                //$('#ventanaAvisos').dialog('open');                                                                    
+                                $('#ventanaAviso').html(respuesta.data.message);                                                    
                             }
                         })
                                 .fail(function(jqXHR,textStatus,errorThrown){
                                     $('#ventanaAviso').html('La solicitud ha fallado.<br>' + textStatus + '. ' + errorThrown);
-                                   //$('#ventanaAvisos').dialog('open');                            
                                 });                            
                 }     
                 //FIN LLENADO DE CATALOGO
@@ -355,15 +349,6 @@ Objetivo:       Interfaz para aprobar los Reportes Bimestrales
                         that.off("keydown");
                     }
                 }
-        
-                /*$('.entrada_Dato').focus(function(e){
-                    e.preventDefault();
-                    f5($(document),false);
-                });
-                $('.entrada_Dato').blur(function(e){
-                    e.preventDefault();
-                    f5($(document),true);
-                }); */
 
               //VALORES INICIALES
                 Obtener_Catalogo_Carrera('0');

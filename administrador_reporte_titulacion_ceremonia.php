@@ -17,14 +17,6 @@ Objetivo:       Interfaz para aprobar los Reportes Bimestrales
 ?>
 
     <head>
-    
-<!--        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="css/jquery-ui.css" rel="stylesheet">
-        <link rel="stylesheet" type="text/css" href="menu/estilo_menu.css" /> 
-        <script src="js/jquery-1.12.4.min.js"></script>
-        <script src="js/jquery-ui.min.js"></script>-->
         <script src="js/expresiones_reg.js"></script>
         
         <script>
@@ -179,13 +171,11 @@ Objetivo:       Interfaz para aprobar los Reportes Bimestrales
                              
                             }
                             else {
-                                $('#ventanaAviso').html(respuesta.data.message);
-                                //$('#ventanaAvisos').dialog('open');                                                                    
+                                $('#ventanaAviso').html(respuesta.data.message);                                                     
                             }
                         })
                                 .fail(function(jqXHR,textStatus,errorThrown){
                                     $('#ventanaAviso').html('La solicitud ha fallado.<br>' + textStatus + '. ' + errorThrown);
-                                   //$('#ventanaAvisos').dialog('open');                            
                                 });                            
                 }     
                 //FIN LLENADO DE CATALOGO
@@ -220,13 +210,11 @@ Objetivo:       Interfaz para aprobar los Reportes Bimestrales
                              
                             }
                             else {
-                                $('#ventanaAviso').html(respuesta.data.message);
-                                //$('#ventanaAvisos').dialog('open');                                                                    
+                                $('#ventanaAviso').html(respuesta.data.message);                                                         
                             }
                         })
                                 .fail(function(jqXHR,textStatus,errorThrown){
                                     $('#ventanaAviso').html('La solicitud ha fallado.<br>' + textStatus + '. ' + errorThrown);
-                                   //$('#ventanaAvisos').dialog('open');                            
                                 });                            
                 }     
                 //FIN LLENADO DE CATALOGO
@@ -289,16 +277,6 @@ Objetivo:       Interfaz para aprobar los Reportes Bimestrales
                         that.off("keydown");
                     }
                 }
-        
-                /*$('.entrada_Dato').focus(function(e){
-                    e.preventDefault();
-                    f5($(document),false);
-                });
-                $('.entrada_Dato').blur(function(e){
-                    e.preventDefault();
-                    f5($(document),true);
-                }); */
-
 
 				//VALORES INICIALES
                 Obtener_Catalogo_Carrera('0');

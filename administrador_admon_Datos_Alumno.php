@@ -176,5 +176,3 @@ Objetivo:       Interfaz para consultar datos de un alumno
             Procesando su transacción....!<br>
             Espere por favor.
         </div>
-<!--    </body>
-</html>-->

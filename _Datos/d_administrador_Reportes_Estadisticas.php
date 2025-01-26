@@ -5,9 +5,9 @@
  * @author Rogelio Reyes Mendoza
  * Julio 2016
  */
-
+use App\Database\Connection;
 header('Content-Type: text/html; charset=UTF-8');
-require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Datos/Conexion.php');
+require_once __DIR__ . '/../app/Database/Connection.php';
 require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/zonaHoraria.php');
 require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Datos/d_Usuario_Bitacora.php');
 require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Entidades/Bitacora.php');
@@ -22,7 +22,7 @@ class d_administrador_Reportes_Estadisticas {
     function Obtener_Reportes_No_Alumnos_Titulados($tx_profesor,$fecha_inicio){
       
         try{                    
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
 
             if( $cnn === false )
@@ -161,7 +161,7 @@ class d_administrador_Reportes_Estadisticas {
     function Obtener_Reportes_Anios(){
         
         try{
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
             
             if( $cnn === false )
@@ -219,7 +219,7 @@ class d_administrador_Reportes_Estadisticas {
     function Obtener_Reportes_No_Alumnos_Titulados_por_anio($id_anio,$vision){
         
         try{
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
             
             if( $cnn === false )
@@ -332,7 +332,7 @@ class d_administrador_Reportes_Estadisticas {
                                                     ){
         
         try{
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
             
             if( $cnn === false )
@@ -507,7 +507,7 @@ class d_administrador_Reportes_Estadisticas {
         ){
             
             try{
-                $cnn = new Conexion();
+                $cnn = new Connection();
                 $conn = $cnn->getConexion();
                 
                 if( $cnn === false )
@@ -664,7 +664,7 @@ class d_administrador_Reportes_Estadisticas {
     function Obtener_Catalogo_Genero(){
         
         try{
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
             
             if( $cnn === false )
@@ -721,7 +721,7 @@ class d_administrador_Reportes_Estadisticas {
     function Obtener_Catalogo_Estatus(){
         
         try{
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
             
             if( $cnn === false )
@@ -780,7 +780,7 @@ class d_administrador_Reportes_Estadisticas {
     function Obtener_Catalogo_Carrera(){
         
         try{
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
             
             if( $cnn === false )
@@ -843,7 +843,7 @@ class d_administrador_Reportes_Estadisticas {
     function Obtener_Catalogo_Dependencia(){
         
         try{
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
             
             if( $cnn === false )
@@ -905,7 +905,7 @@ class d_administrador_Reportes_Estadisticas {
     function Obtener_Catalogo_Tipo_Servicio(){
         
         try{
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
             
             if( $cnn === false )
@@ -962,7 +962,7 @@ class d_administrador_Reportes_Estadisticas {
     function Obtener_Catalogo_Recinto(){
         
         try{
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
             
             if( $cnn === false )
@@ -1019,7 +1019,7 @@ class d_administrador_Reportes_Estadisticas {
     function Obtener_Catalogo_Modalidad(){
         
         try{
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
             
             if( $cnn === false )
@@ -1077,7 +1077,7 @@ class d_administrador_Reportes_Estadisticas {
     function Obtener_Reportes_Formatos($tx_profesor, $tx_tipo_trabajo,$fecha_inicio){
         
         try{
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
             
             if( $cnn === false )
@@ -1186,7 +1186,7 @@ class d_administrador_Reportes_Estadisticas {
     function Obtener_Reportes_Titulacion_Alumnos($tx_sinodales,$fecha_inicio,$slc_alumnosProceso){
         
         try{
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
             
             if( $cnn === false )
@@ -1298,7 +1298,7 @@ class d_administrador_Reportes_Estadisticas {
     function Obtener_Reportes_Titulacion_Profesores($id_estatus){
         
         try{
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
             
             if( $cnn === false )
@@ -1392,7 +1392,7 @@ class d_administrador_Reportes_Estadisticas {
                                                     ){
                                                     
         try{
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
             
             if( $cnn === false )

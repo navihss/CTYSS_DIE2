@@ -18,13 +18,7 @@ Objetivo:       Interfaz para la captura de las carreras que cursa el Alumno
 
 <html>
     <head>
-<!--        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="css/jquery-ui.css" rel="stylesheet">
-        <link rel="stylesheet" type="text/css" href="menu/estilo_menu.css" /> 
-        <script src="js/jquery-1.12.4.min.js"></script>
-        <script src="js/jquery-ui.min.js"></script>-->
+
         
         <script>
             $( document ).ready(function() {
@@ -70,8 +64,6 @@ Objetivo:       Interfaz para la captura de las carreras que cursa el Alumno
                                    html_table = html_table + '<TD style="width:30%;">' + value['id_carrera'] + '</TD>';
                                    html_table = html_table + '<TD style="width:30%;text-align:left;">' + value['descripcion_carrera'] + '</TD>';
                                    html_table = html_table + '<TD>' + value['descripcion_estatus'] + '</TD>';
-//                                   html_table = html_table + '<TD style="text-align:center;"><button class="btnOpcion" data-id_alumno=\'' +  
-//                                            value['id_alumno'] + '\' data-id_carrera=' + value['id_carrera'] +'>Borrar</button></TD>';
                                    html_table = html_table + '</TR>';
                                });
                                html_table = html_table + '</TABLE>';
@@ -156,8 +148,6 @@ Objetivo:       Interfaz para la captura de las carreras que cursa el Alumno
                    buttons:{
                         "Aceptar" : function() {
                             $(this).dialog('close');
-//                            $('#ventanaProcesando').dialog({ dialogClass: 'no-close' });
-//                            $('#ventanaProcesando').dialog({ dialogClass: 'no-titlebar'});
                             $('#ventanaProcesando').dialog('open');
 //                            
                             // Por Ajax insertamos la Carrera Seleccionada
@@ -206,8 +196,6 @@ Objetivo:       Interfaz para la captura de las carreras que cursa el Alumno
                    buttons:{
                         "Aceptar" : function() {
                             $(this).dialog('close');
-//                            $('#ventanaProcesando').dialog({ dialogClass: 'no-close' });
-//                            $('#ventanaProcesando').dialog({ dialogClass: 'no-titlebar'});
                             $('#ventanaProcesando').dialog('open');
 //                            
                             // Por Ajax borramos el Alumno-Carrea Seleccionada
@@ -327,12 +315,7 @@ Objetivo:       Interfaz para la captura de las carreras que cursa el Alumno
             
                         
         </script>
-        
-<!--    </head>
-    <body>
-        <header>
-            Mi Pefil
-        </header>-->
+
         <div>
                 <div>
                     <div class="encabezado_Formulario">
@@ -372,6 +355,3 @@ Objetivo:       Interfaz para la captura de las carreras que cursa el Alumno
             Procesando su transacción....!<br>
             Espere por favor.
         </div>
-        
-<!--    </body>
-</html>-->

@@ -1,5 +1,5 @@
 <?php
-
+use App\Database\Connection;
 /**
  * Definición de la Capa de Datos para la Bitácora
  * Metodos
@@ -7,7 +7,7 @@
  * Agosto 2016
  */
     header('Content-Type: text/html; charset=UTF-8');
-    require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Datos/Conexion.php');
+    require_once __DIR__ . '/../app/Database/Connection.php';
     require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/zonaHoraria.php');
     require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Entidades/Bitacora.php');
     
@@ -21,7 +21,7 @@ class d_Usuario_Bitacora {
                 
         try{    
             
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
                            
             if( $conn === false )
@@ -76,26 +76,17 @@ class d_Usuario_Bitacora {
                         $error = $stmt2->errorInfo();
                         $mensaje_Transacciones .= "Error en la sentencia SQL para agregar el Movimiento a la Bitácora.<br/>"  . $error[2] .'<br>';
                         throw new Exception($mensaje_Transacciones);                                
-                }
-
-//                $jsondata['success'] = true;
-//                $jsondata['data']['message'] = $mensaje_Transacciones;
-//                echo json_encode($jsondata);
-//                exit();                 
+                }          
                 return $mensaje_Transacciones;
         }
         catch (Exception $ex){     
-//            $jsondata['success'] = false;
-//            $jsondata['data']['message'] = $ex->getMessage();
-//            echo json_encode($jsondata);
-//            exit();   
             return $ex->getMessage();
         }
     }
 
     function Generar_Reporte($tipo_usuario, $chk_Propuesta, $chk_Ceremonia, $fecha_inicio, $fecha_termino, $carreras) {
         try {
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
 
             if($cnn === false) {
@@ -208,7 +199,7 @@ class d_Usuario_Bitacora {
     //OBTENER BITACORA CON PARAMETROS
     function Obtener($objBitacora, $f_inicio, $f_termino, $tipo_usuario){
         try{                    
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
 
             if( $cnn === false )
@@ -296,10 +287,6 @@ class d_Usuario_Bitacora {
                       " . $filtro . " " .  
                       " ORDER BY a.fecha_evento;";
 
-//            $jsondata['success'] = false;
-//            $jsondata['data']['message'] = $tsql;
-//            echo json_encode($jsondata);
-//            exit(); 
             
             /* Preparamos la sentencia a ejecutar */
             $stmt = $conn->prepare($tsql);
@@ -346,7 +333,7 @@ class d_Usuario_Bitacora {
     function Obtener_Temas($tipo_usuario){
       
         try{                    
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
 
             if( $cnn === false )
@@ -403,25 +390,3 @@ class d_Usuario_Bitacora {
     //FIN OBTENER TEMAS POR TIPO DE USUARIO
     
 }
-
-//$obj_bit = new d_bitacora();
-//$obj_ = new Bitacora();
-//
-//$obj_->set_Descripcion_Evento('');
-//$obj_->set_Fecha_Evento(date('d-m-Y H:i:s'));
-//$obj_->set_Id_Tema_Bitacora('1,5');
-//$obj_->set_Id_Tipo_Evento('5,10');
-////$obj_->set_Id_Usuario_Destinatario('%0861%');
-//$obj_->set_Id_Usuario_Destinatario('');
-//$obj_->set_Id_Usuario_Genera('');
-//
-////$f_inicio ='2016-08-14';
-////$f_termino ='2016-08-14';
-//$f_inicio ='';
-//$f_termino ='';
-//$tipo_usuario='';
-//echo $obj_bit->Obtener($obj_, $f_inicio, $f_termino, $tipo_usuario);
-//
-//        
-//$obj = new d_bitacora();
-//echo $obj->Obtener_Temas(5);

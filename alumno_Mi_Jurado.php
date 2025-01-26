@@ -17,13 +17,6 @@ Objetivo:       Interfaz para la captura del Jurado
 
 <html>
     <head>
-<!--        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="css/jquery-ui.css" rel="stylesheet">
-        <link rel="stylesheet" type="text/css" href="menu/estilo_menu.css" /> 
-        <script src="js/jquery-1.12.4.min.js"></script>
-        <script src="js/jquery-ui.min.js"></script>-->
         <script src="js/expresiones_reg.js"></script>
         
         <script>
@@ -57,7 +50,6 @@ Objetivo:       Interfaz para la captura del Jurado
                                 Obtener_Mi_Propuesta($('#Id_Usuario').val(), $('#Id_Carrera').val());
                             }
                             else {
-//                                $('#Agregar_Jurado').prop('disable',true);
                                 $('#ventanaAviso').html(respuesta.data.message);
                                 $('#ventanaAvisos').dialog('open');                                                                    
                             }
@@ -191,11 +183,7 @@ Objetivo:       Interfaz para la captura del Jurado
                                html_table += '</TABLE>';                               
                                $('#tabla_Sinodales').html(html_table);
                                $('#ventanaProcesando').dialog('close');    
-                                
-//                               $.each(respuesta.data.registros, function( key, value ) {
-//                                   sinodal = "#Sinodal_" + (parseInt(key) + 1);
-//                                   $(sinodal).val(value['nombre_sinodal_propuesto']);
-//                               })
+
                            }
                             else {
                                    html_table = html_table + '<TR><TD style="text-align:center;" colspan="3">' + respuesta.data.message + '</TD></TR>';
@@ -235,56 +223,6 @@ Objetivo:       Interfaz para la captura del Jurado
                                        
                     return datosValidos;
                 
-//                    var datosValidos = true;
-//                    var sinodal1 = $('#Sinodal_1').val();
-//                    var sinodal2 = $('#Sinodal_2').val();
-//                    var sinodal3 = $('#Sinodal_3').val();
-//                    var sinodal4 = $('#Sinodal_4').val();
-//                    var sinodal5 = $('#Sinodal_5').val();
-//                    
-//                    $('#aviso_Sinodal1').hide();
-//                    $('#aviso_Sinodal2').hide();
-//                    $('#aviso_Sinodal3').hide();
-//                    $('#aviso_Sinodal4').hide();
-//                    $('#aviso_Sinodal5').hide();
-//                   
-//                    if (sinodal1 =='')
-//                    {
-//                        $('#aviso_Sinodal1').show();
-//                        datosValidos = false;
-//                    }
-//                    if (sinodal2 =='')
-//                    {
-//                        $('#aviso_Sinodal2').show();
-//                        datosValidos = false;
-//                    }
-//                    if (sinodal3 =='')
-//                    {
-//                        $('#aviso_Sinodal3').show();
-//                        datosValidos = false;
-//                    }
-//                    if (sinodal4 =='')
-//                    {
-//                        $('#aviso_Sinodal4').show();
-//                        datosValidos = false;
-//                    }
-//                    if (sinodal5 =='')
-//                    {
-//                        $('#aviso_Sinodal5').show();
-//                        datosValidos = false;
-//                    }
-//
-//                    if (sinodal1 =='' || sinodal2 =='' || sinodal3 =='' || sinodal4=='' 
-//                         || sinodal5 =='' )
-//                    {
-//                        $('#ventanaAviso').html('Debe capturar TODA la información Requerida.');
-//                        $('#ventanaAvisos').dialog('open');
-//                        
-//                        datosValidos = false;
-//                        return datosValidos;
-//                    }
-//                    
-//                    return datosValidos;
                 };
                 //FIN VALIDACIONES PARA GUARDAR
                 
@@ -312,7 +250,6 @@ Objetivo:       Interfaz para la captura del Jurado
                    title: 'Jurado',
                    modal : true,
                    autoOpen : false,
-//                   resizable : true,
                    draggable : true,
                    height : 'auto',
                    width : '750',
@@ -344,8 +281,6 @@ Objetivo:       Interfaz para la captura del Jurado
                    buttons:{
                         "Aceptar" : function() {
                             $(this).dialog('close');
-//                            $('#ventanaProcesando').dialog({ dialogClass: 'no-close' });
-//                            $('#ventanaProcesando').dialog({ dialogClass: 'no-titlebar'});
                             $('#ventanaProcesando').dialog('open');
                             
                             // Por Ajax Actualizamos a los Sinodales
@@ -359,7 +294,6 @@ Objetivo:       Interfaz para la captura del Jurado
                                 json_registros += i + ':' + nom_sinodal + '|';
                             }
                             json_registros = json_registros.substr(0,json_registros.length -1);
-//                            json_registros += '}';
                             $('#id_sinodales').val(json_registros);
 
                             var formDatos = $('#frm_MJ').serialize();
@@ -402,14 +336,6 @@ Objetivo:       Interfaz para la captura del Jurado
                    closeOnEscape : false   
                 });
 
-//                $('#Agregar_Servicio').click(function(e){
-//                    e.preventDefault();
-//                    $('#Tipo_Movimiento').val('AGREGAR');
-//                    habilitaControles();
-//                    $('#id_Estatus_ss').val(0);
-//                    $('#ventanaServicioSocial').dialog('open');
-//                });
-                                
                 $('#ventanaAvisos').dialog({
                    buttons:{
                         "Aceptar" : function() {
@@ -477,11 +403,6 @@ Objetivo:       Interfaz para la captura del Jurado
                         
         </script>
         
-<!--    </head>
-    <body>
-        <header>
-            Mi Pefil
-        </header>-->
         <div>
             <div class="encabezado_Formulario">
                 <div class="descripcion_Modulo">
@@ -523,5 +444,3 @@ Objetivo:       Interfaz para la captura del Jurado
             Procesando su transacción....!<br>
             Espere por favor.
         </div>
-<!--    </body>
-</html>-->

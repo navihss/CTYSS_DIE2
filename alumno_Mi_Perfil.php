@@ -18,13 +18,7 @@ Objetivo:       Interfaz para la captura de datos del Alumno
 
 <html>
     <head>
-<!--        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
-<!--        <script src="js/jquery-1.12.4.min.js"></script>
-        <script src="js/jquery-ui.min.js"></script>
-        <link href="css/jquery-ui.css" rel="stylesheet"> 
-        <link href="css/home.css" rel="stylesheet"> -->
+
         <script src="js/expresiones_reg.js"></script>
         
         <script>
@@ -141,7 +135,6 @@ Objetivo:       Interfaz para la captura de datos del Alumno
                 });
 
                 $( "#tabs" ).tabs();
-//                $(':text:first').focus();
                 
                
                 function validaDatos(){
@@ -176,14 +169,6 @@ Objetivo:       Interfaz para la captura de datos del Alumno
                     $('#aviso_Anio_Ingreso_FI').hide();
                     $('#aviso_Semestre_Ingreso_FI').hide();
 
-//                    var miExpReg = /^[a-zA-Z áéíóúñÁÉÍÓÚÑ]{1,50}$/;
-//                    var miExpReg_Mail = /^[_a-zA-Z0-9-]+(.[_a-zA-Z0-9-]+)*@[a-zA-Z0-9-]+(.[a-zA-Z0-9-]+)*(.[a-zA-Z]{2,4})$/;
-//                    var miExpReg_CP = /^[0-9]{5}$/;
-//                    var miExpReg_Anio = /^[0-9]{4}$/;
-//                    var miExpReg_Semestre = /^[1-2]{1}$/;
-//		    var miExpReg_Telefono_Letras = /^[a-zA-Z áéíóúñÁÉÍÓÚÑ0-9\.]{1,20}$/;
-//		    var miExpReg_Telefono_Celular = /^[0-9]{10}$/;
-//                    var miExpReg_Direccion = /^[a-zA-Z áéíóúñÁÉÍÓÚÑ0-9\#\.\.]{1,100}$/;
 
                     if (!nombre.match(miExpReg_Nombre))
                     {
@@ -387,10 +372,6 @@ Objetivo:       Interfaz para la captura de datos del Alumno
                    draggable : false,
                    closeOnEscape : false,
                    dialogClass : 'no-close no-titlebar'
-
-//                   show : 'slideDown',
-//                   hide: 'slideUp',
-//                   dialogClass : 'ui-state-highlight'
                 });  
 
                 function f5(that,val){
@@ -409,25 +390,9 @@ Objetivo:       Interfaz para la captura de datos del Alumno
                     }
                 }
                 
-                /*$('.entrada_Dato').focus(function(e){
-                    e.preventDefault();
-                    f5($(document),false);
-                });
-                $('.entrada_Dato').blur(function(e){
-                    e.preventDefault();
-                    f5($(document),true);
-                });
-                
-                f5($(document),true); */
-                
             });
         </script>
-        
-<!--    </head>
-    <body>
-        <header>
-            Mi Pefil
-        </header>-->
+       
         <div>
             <form name="Alumno_Mi_Perfil" id="Alumno_Mi_Perfil" method="" action="">
                 <div>
@@ -580,5 +545,3 @@ Objetivo:       Interfaz para la captura de datos del Alumno
             Espere por favor.
         </div>
         
-<!--    </body>
-</html>-->

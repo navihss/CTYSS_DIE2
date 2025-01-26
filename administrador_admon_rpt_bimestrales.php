@@ -18,13 +18,6 @@ Objetivo:       Interfaz para la admon. de los Reportes Bimestrales
 
 <html>
     <head>
-<!--        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="css/jquery-ui.css" rel="stylesheet">
-        <link rel="stylesheet" type="text/css" href="menu/estilo_menu.css" /> 
-        <script src="js/jquery-1.12.4.min.js"></script>
-        <script src="js/jquery-ui.min.js"></script>-->
         <script src="js/expresiones_reg.js"></script>        
         
         <script>
@@ -190,7 +183,6 @@ Objetivo:       Interfaz para la admon. de los Reportes Bimestrales
                     var fecha_prog_inicio = $(this).data('fecha_prog_inicio');
                     var fecha_prog_fin = $(this).data('fecha_prog_fin');
                     var horas_obligatorias = $(this).data('horas_obligatorias');
-//                    var id_alumno = $(this).data('id_alumno');
                                        
                     var id_Usr_Destinatario = $(this).data('id_alumno');
                     var correo_usr = $(this).data('correo_alumno');
@@ -212,7 +204,6 @@ Objetivo:       Interfaz para la admon. de los Reportes Bimestrales
                                             buttons:{
                                                  "Aceptar" : function() {
                                                     $(this).dialog('close');
-//                                                    $('#ventanaProcesando').dialog('open');
                                                     var nota=$("#nota_admin_r").val();
                                                         nota= nota.concat(". DE ACEPTADO A REENVIO AUTORIZADO");
 
@@ -359,8 +350,6 @@ Objetivo:       Interfaz para la admon. de los Reportes Bimestrales
                     var id_alumno = $(this).data('id_alumno');
                     var correo_usr = $(this).data('correo_alumno');
                     
-//                    var tituloAdjuntar = 'Reporte_Bimestral_' + id_alumno +  "_" + numero_reporte_bi + "_1.pdf";
-//                    $('#nom_Archivo').val(tituloAdjuntar);
                     $('#ventanaConfirmarAgregar_Rpt').dialog({
                         buttons:{
                              "Aceptar" : function() {
@@ -371,9 +360,6 @@ Objetivo:       Interfaz para la admon. de los Reportes Bimestrales
                                         buttons:{
                                              "Aceptar" : function() {
                                               $(this).dialog('close');
-//                                                            $('#ventanaProcesando').dialog('open');
-//                                                            $(this).dialog('close');
-//                                                            $('#ventanaProcesando').dialog('open');
                                                 var fecha_prog_inicio = $('#fecha_Inicio_rpt').val();
                                                 var fecha_prog_fin = $('#fecha_Termino_rpt').val();
                                                 var horas_obligatorias = $('#horas_obligatorias').val();
@@ -563,28 +549,11 @@ Objetivo:       Interfaz para la admon. de los Reportes Bimestrales
                 
                 $('#ventanaConfirmarRechazar_Rpt').hide();
                 $('#ventanaConfirmarAgregar_Rpt').hide();
-                
-                /*$('.entrada_Dato').focus(function(e){
-                    e.preventDefault();
-                    f5($(document),false);
-                });
-                $('.entrada_Dato').blur(function(e){
-                    e.preventDefault();
-                    f5($(document),true);
-                });
-                
-
-                f5($(document),true); */
            
             });
                         
         </script>
         
-<!--    </head>
-    <body>
-        <header>
-            Mi Pefil
-        </header>-->
         <div>
             <div class="encabezado_Formulario">
                 <div class="descripcion_Modulo">
@@ -660,5 +629,3 @@ Objetivo:       Interfaz para la admon. de los Reportes Bimestrales
             Procesando su transacción....!<br>
             Espere por favor.
         </div>
-<!--    </body>
-</html>-->

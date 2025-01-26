@@ -1,5 +1,5 @@
 <?php
-
+use App\Database\Connection;
 /**
  * Definición de la Capa de Datos para la Clase Mi Jurado
  * Metodos
@@ -7,7 +7,7 @@
  * Agosto 2016
  */
     header('Content-Type: text/html; charset=UTF-8');
-    require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Datos/Conexion.php');
+    require_once __DIR__ . '/../app/Database/Connection.php';
     require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/zonaHoraria.php');
     require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Datos/d_Usuario_Bitacora.php');
     require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Datos/d_coord_jdpto_Aprobar_Propuesta.php');
@@ -20,7 +20,7 @@ class d_Alumno_Mi_Jurado {
     function Obtener_Mi_Jurado($id_alumno, $id_carrera){
       
         try{                    
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
 
             if( $cnn === false )
@@ -89,7 +89,7 @@ class d_Alumno_Mi_Jurado {
     function Obtener_Sinodales($id_propuesta, $id_version){
       
         try{                    
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
 
             if( $cnn === false )
@@ -97,28 +97,6 @@ class d_Alumno_Mi_Jurado {
                 throw new Exception($cnn->getError());
             }
            
-//            $tsql = "SELECT id_propuesta, version, num_profesor, 
-//                    nombre_sinodal_propuesto
-//                    FROM sinodales
-//                    WHERE id_propuesta = ? AND version = ?
-//                    ORDER BY num_profesor";
-//                    //24-10-2016
-//            $tsql = "SELECT a.id_propuesta, a.version, a.num_profesor, 
-//                    a.nombre_sinodal_propuesto, a.id_profesor,
-//                    (d.descripcion_grado_estudio || ' ' || b.nombre_usuario || ' ' || b.apellido_paterno_usuario || ' ' || b.apellido_materno_usuario) as sinodal_definitivo
-//                    FROM sinodales a
-//			LEFT JOIN profesores c ON a.id_profesor = c.id_profesor
-//			LEFT JOIN usuarios b ON c.id_profesor = b.id_usuario
-//			LEFT JOIN grados_estudio d ON c.id_grado_estudio = d.id_grado_estudio
-//                    WHERE a.id_propuesta = ? AND a.version = ?
-//                    ORDER BY a.num_profesor";
-//            $tsql ="SELECT a.id_propuesta, a.version, a.num_profesor, 
-//                    a.nombre_sinodal_propuesto, a.id_usuario,
-//                    (b.nombre_usuario || ' ' || b.apellido_paterno_usuario || ' ' || b.apellido_materno_usuario) as sinodal_definitivo
-//                    FROM sinodales a
-//			LEFT JOIN usuarios b ON a.id_usuario = b.id_usuario
-//                    WHERE a.id_propuesta = ? AND a.version = ?
-//                    ORDER BY a.num_profesor;";
 
             $tsql = "SELECT aa.id_propuesta, aa.version, aa.num_profesor, 
                     aa.nombre_sinodal_propuesto, aa.id_usuario,                  
@@ -192,7 +170,7 @@ class d_Alumno_Mi_Jurado {
                 
         try{    
             
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
                 
             if( $conn === false )
@@ -412,6 +390,3 @@ class d_Alumno_Mi_Jurado {
     //FIN ACTUALIZAMOS LOS SINODALES
      
 }
-
-//$ob = new d_Alumno_Mi_Jurado();
-//echo $ob->Obtener_Sinodales('12', 1);

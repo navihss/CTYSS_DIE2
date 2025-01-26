@@ -16,15 +16,6 @@ Objetivo:       Interfaz para modificar los datos del Coordinador y Jefe de Dpto
         }    
 ?>
 
-<!--<html>
-    <head>-->
-<!--        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="css/jquery-ui.css" rel="stylesheet">
-        <link rel="stylesheet" type="text/css" href="menu/estilo_menu.css" /> 
-        <script src="js/jquery-1.12.4.min.js"></script>
-        <script src="js/jquery-ui.min.js"></script>-->    
         <script src="js/expresiones_reg.js"></script>
         
         <script>
@@ -131,9 +122,6 @@ Objetivo:       Interfaz para modificar los datos del Coordinador y Jefe de Dpto
                     var puesto = $('#puesto').val();                    
                     var genero = $('#genero').val();
 
-//                    var miExpReg = /^[a-zA-Z áéíóúñÁÉÍÓÚÑ]{1,50}$/;
-//                    var miExpReg_Mail = /^[_a-zA-Z0-9-]+(.[_a-zA-Z0-9-]+)*@[a-zA-Z0-9-]+(.[a-zA-Z0-9-]+)*(.[a-zA-Z]{2,4})$/;
-
                     $('#aviso_Nombre').hide();
                     $('#aviso_Apellido_Paterno').hide();
                     $('#aviso_Apellido_Materno').hide();
@@ -239,8 +227,6 @@ Objetivo:       Interfaz para modificar los datos del Coordinador y Jefe de Dpto
                    buttons:{
                         "Aceptar" : function() {
                             $(this).dialog('close');
-//                            $('#ventanaProcesando').dialog({ dialogClass: 'no-close' });
-//                            $('#ventanaProcesando').dialog({ dialogClass: 'no-titlebar'});
                             $('#ventanaProcesando').dialog('open');
                             
                             // Por Ajax actualizamos los datos del Usuario               
@@ -308,9 +294,6 @@ Objetivo:       Interfaz para modificar los datos del Coordinador y Jefe de Dpto
                    draggable : false,
                    dialogClass : 'no-close no-titlebar',
                    closeOnEscape : false
-//                   show : 'slideDown',
-//                   hide: 'slideUp',
-//                   dialogClass : 'ui-state-highlight'
                 });  
 
                 function f5(that,val){
@@ -329,14 +312,6 @@ Objetivo:       Interfaz para modificar los datos del Coordinador y Jefe de Dpto
                     }
                 }
 
-                /*$('.entrada_Dato').focus(function(e){
-                    e.preventDefault();
-                    f5($(document),false);
-                });
-                $('.entrada_Dato').blur(function(e){
-                    e.preventDefault();
-                    f5($(document),true);
-                }); */
 
                 if ($('#id_Tipo_Usuario').val() =='2'){
                     llena_Catalogo('coordinacion', 'CATALOGO_GENERALES', 'departamentos', 
@@ -360,17 +335,12 @@ Objetivo:       Interfaz para modificar los datos del Coordinador y Jefe de Dpto
 
                 muestra_Perfil($('#Id_Usuario').val(),$('#id_Tipo_Usuario').val());
 
-                //f5($(document),true);
                               
                 $(':text:first').focus();
             });
         </script>
         
-<!--    </head>
-    <body>
-        <header>
-            Mi Pefil
-        </header>-->
+
         <div>
             <form name="Coord_jDpto_Mi_Perfil" id="Coord_jDpto_Mi_Perfil" method="" action="">
                 <div class="encabezado_Formulario">
@@ -465,6 +435,3 @@ Objetivo:       Interfaz para modificar los datos del Coordinador y Jefe de Dpto
             Procesando su transacción....!<br>
             Espere por favor.
         </div>
-        <!--Se quita el botón de home-->
-<!--    </body>
-</html>-->

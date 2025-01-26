@@ -1,5 +1,5 @@
 <?php
-
+use App\Database\Connection;
 /**
  * Definición de la Capa de Datos para autorizar las Cartasde Terminación
  * Metodos
@@ -7,7 +7,7 @@
  * Julio 2016
  */
     header('Content-Type: text/html; charset=UTF-8');
-    require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Datos/Conexion.php');
+    require_once __DIR__ . '/../app/Database/Connection.php';
     require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/zonaHoraria.php');
     
 class d_administrador_Aprobar_Carta_Terminacion {
@@ -16,7 +16,7 @@ class d_administrador_Aprobar_Carta_Terminacion {
     function Obtener_SS_Horas_Laboradas($id_estatus_ss, $id_division){
         
         try{                    
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
 
             if( $cnn === false )
@@ -86,6 +86,3 @@ class d_administrador_Aprobar_Carta_Terminacion {
     } //Fin Obtener horas de Servicio Social
     
 }
-
-//$obj = new d_administrador_Aprobar_Carta_Terminacion();
-//echo $obj->Obtener_SS_Horas_Laboradas(2);

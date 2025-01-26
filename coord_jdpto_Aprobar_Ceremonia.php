@@ -20,13 +20,7 @@ Objetivo:       Interfaz para Aprobar los documentos para Ceremonia Coordinació
 <html>
     <head>
 
-<!--        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="css/jquery-ui.css" rel="stylesheet">
-        <link rel="stylesheet" type="text/css" href="menu/estilo_menu.css" /> 
-        <script src="js/jquery-1.12.4.min.js"></script>
-        <script src="js/jquery-ui.min.js"></script>-->
+
         <script src="js/expresiones_reg.js"></script>
         
         <script>
@@ -249,7 +243,6 @@ Objetivo:       Interfaz para Aprobar los documentos para Ceremonia Coordinació
                                             buttons:{
                                                  "Aceptar" : function() {
                                                     $(this).dialog('close');
-//                                                    $('#ventanaProcesando').dialog('open');
                                                     $('#'+control_span).text('Aceptado');
                                                     $('#'+control_span).data('id_estatus',3);
                                                     $('#radio_'+$('#id_documento_ceremonia').val()).data('id_estatus',3);
@@ -272,8 +265,6 @@ Objetivo:       Interfaz para Aprobar los documentos para Ceremonia Coordinació
                                                     actualiza_Estatus_Documento(3, $('#nota_admin_a').val(), 
                                                         todos_revisados, rechazados, datos_archivos); //3.Aceptado
 
-//                                                    deshabilitar_Botones(true);
-//                                                    $(this).dialog('close');
 
                                                  },
                                                  "Cancelar" : function(){
@@ -326,7 +317,6 @@ Objetivo:       Interfaz para Aprobar los documentos para Ceremonia Coordinació
                                             buttons:{
                                                  "Aceptar" : function() {
                                                     $(this).dialog('close');
-//                                                    $('#ventanaProcesando').dialog('open');
                                                     $('#'+control_span).text('Rechazado');
                                                     $('#'+control_span).data('id_estatus',4);
 
@@ -350,10 +340,6 @@ Objetivo:       Interfaz para Aprobar los documentos para Ceremonia Coordinació
                                                     actualiza_Estatus_Documento(4, $('#nota_admin').val(), 
                                                         todos_revisados, rechazados, datos_archivos); //Rechazado
 
-//                                                    deshabilitar_Botones(true);   
-
-
-//                                                    $(this).dialog('close');
 
                                                  },
                                                  "Cancelar" : function(){
@@ -539,12 +525,7 @@ Objetivo:       Interfaz para Aprobar los documentos para Ceremonia Coordinació
                         
             
         </script>
-        
-<!--    </head>
-    <body>
-        <header>
-            Mi Pefil
-        </header>-->
+
         <div>
             <div class="encabezado_Formulario">
                 <div class="descripcion_Modulo">
@@ -604,6 +585,3 @@ Objetivo:       Interfaz para Aprobar los documentos para Ceremonia Coordinació
             Procesando su transacción....!<br>
             Espere por favor.
         </div>
-        <!--Se quita el botón de home-->
-<!--    </body>
-</html>-->

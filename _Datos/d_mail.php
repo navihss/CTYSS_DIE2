@@ -1,5 +1,5 @@
 <?php
-
+use App\Database\Connection;
 /**
  * Definición de la Capa de Datos para enviar Mails
  * Metodos
@@ -7,7 +7,7 @@
  * Agosto 2016
  */
     header('Content-Type: text/html; charset=UTF-8');
-    require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Datos/Conexion.php');
+    require_once __DIR__ . '/../app/Database/Connection.php';
     require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/zonaHoraria.php');
     require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/Php_Mailer524/class.phpmailer.php');
     require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/Php_Mailer524/class.smtp.php');
@@ -88,18 +88,3 @@ class d_mail {
     } //Fin Enviar Mail
     
 }
-
-//$obj = new d_mail();
-//$mi_mail = new Mail();
-//$mensaje= "
-//        <table style='border : 1px solid blue;'>
-//        <tr><td><b>Dear user,</b></td></tr>
-//        <tr style='border : 1px solid blue;'><td>Click on the following link to reset your password:</td></tr>
-//        <tr><td>http://www.example.com/users/lostpassword.php?</td></tr></table>";
-//
-//
-//
-//$mi_mail->set_Correo_Destinatarios('rogelioreyesm@prodigy.net.mx');
-//$mi_mail->set_Asunto('Prueba');
-//$mi_mail->set_Mensaje($mensaje);
-//echo $obj->Envair_Mail($mi_mail);

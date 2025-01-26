@@ -15,16 +15,7 @@ Objetivo:       Interfaz para modificar los datos del Profesor
     header('Location: index.php');
         }    
 ?>
-
-<!--<html>
-    <head>-->
-<!--        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="css/jquery-ui.css" rel="stylesheet">
-        <link rel="stylesheet" type="text/css" href="menu/estilo_menu.css" /> 
-        <script src="js/jquery-1.12.4.min.js"></script>
-        <script src="js/jquery-ui.min.js"></script>-->    
+ 
         <script src="js/expresiones_reg.js"></script>
         
         <script>
@@ -195,18 +186,6 @@ Objetivo:       Interfaz para modificar los datos del Profesor
                     $('#aviso_CURP').hide();
                     $('#aviso_dependencia_laboral').hide();
                     $('#aviso_Anio_Ingreso_FI').hide();
-
-//                    var miExpReg = /^[a-zA-Z áéíóúñÁÉÍÓÚÑ]{1,50}$/;
-//                    var miExpReg_RFC = /^[a-zA-Z0-9]{1,13}$/;
-//                    var miExpReg_CURP = /^[a-zA-Z0-9]{1,18}$/;
-//                    var miExpReg_Mail = /^[_a-zA-Z0-9-]+(.[_a-zA-Z0-9-]+)*@[a-zA-Z0-9-]+(.[a-zA-Z0-9-]+)*(.[a-zA-Z]{2,4})$/;
-//                    var miExpReg_CP = /^[0-9]{5}$/;
-//                    var miExpReg_DependenciaLaboral = /^[a-zA-Z áéíóúñÁÉÍÓÚÑ]{1,100}$/;
-//		    var miExpReg_Telefono_Letras = /^[a-zA-Z áéíóúñÁÉÍÓÚÑ0-9\.]{1,20}$/;
-                    
-//                    var miExpReg_Extension = /^[0-9]{1,5}$/;
-//		    var miExpReg_Telefono_Celular = /^[0-9]{10}$/; 
-//                    var miExpReg_Direccion = /^[a-zA-Z áéíóúñÁÉÍÓÚÑ0-9\#\.\.]{1,100}$/;
 
                     if (!nombre.match(miExpReg_Nombre))
                     {
@@ -448,9 +427,7 @@ Objetivo:       Interfaz para modificar los datos del Profesor
                    draggable : false,
                    dialogClass : 'no-close no-titlebar',
                    closeOnEscape : false
-//                   show : 'slideDown',
-//                   hide: 'slideUp',
-//                   dialogClass : 'ui-state-highlight'
+
                 });  
 
                 function f5(that,val){
@@ -468,15 +445,7 @@ Objetivo:       Interfaz para modificar los datos del Profesor
                         that.off("keydown");
                     }
                 }
-                /*
-                $('.entrada_Dato').focus(function(e){
-                    e.preventDefault();
-                    f5($(document),false);
-                });
-                $('.entrada_Dato').blur(function(e){
-                    e.preventDefault();
-                    f5($(document),true);
-                });*/
+
 
                 llena_Catalogo('estado', 'CATALOGO_GENERALES', 'estados_republica', 
                 'id_estado_republica as id, descripcion_estado_republica as descripcion', 
@@ -490,7 +459,6 @@ Objetivo:       Interfaz para modificar los datos del Profesor
 
                 llena_Catalogo('division', 'CATALOGO_GENERALES', 'division_categoria','id_div_cat as id, id_division as descripcion','','id_division');
 
-                //f5($(document),true);
                     
                 Obtener_Mi_Perfil();
                 
@@ -499,12 +467,7 @@ Objetivo:       Interfaz para modificar los datos del Profesor
                 $( "#tabs" ).tabs();
             });
         </script>
-        
-<!--    </head>
-    <body>
-        <header>
-            Mi Pefil
-        </header>-->
+
         <div>
             <div class="encabezado_Formulario">
                 <div class="descripcion_Modulo">
@@ -681,6 +644,3 @@ Objetivo:       Interfaz para modificar los datos del Profesor
             Procesando su transacción....!<br>
             Espere por favor.
         </div>
-        
-<!--    </body>
-</html>-->

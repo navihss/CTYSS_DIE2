@@ -18,13 +18,6 @@ Objetivo:       Interfaz para la admon. de los Programas de Serv Social
 
 <html>
     <head>
-<!--        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="css/jquery-ui.css" rel="stylesheet">
-        <link rel="stylesheet" type="text/css" href="menu/estilo_menu.css" /> 
-        <script src="js/jquery-1.12.4.min.js"></script>
-        <script src="js/jquery-ui.min.js"></script>-->
         <script src="js/expresiones_reg.js"></script>        
         
         <script>
@@ -275,15 +268,6 @@ Objetivo:       Interfaz para la admon. de los Programas de Serv Social
                                                 .done(function(respuesta,textStatus,jqXHR){
                                                     $('#ventanaProcesando').dialog('close');
                                                     if (respuesta.success == true){
-//                                                        $('#frm_programa input[type=text], textarea').each(function(){
-//                                                            $(this).val('');
-//                                                        });
-//                                                        $('#frm_programa span').each(function(){
-//                                                            $(this).hide();
-//                                                        });                                        
-//                                                        $('#aviso_Aplican tbody').html('');
-//
-//                                                        $('#De_Alta_OK').val("1");
                                                           $('#Tipo_Movimiento').val("ACTUALIZAR");
                                                           $('#id_programa_SS').prop('disabled','disabled');
                                                     }
@@ -638,32 +622,14 @@ Objetivo:       Interfaz para la admon. de los Programas de Serv Social
                         'id_carrera as id, descripcion_carrera as descripcion', 
                         '', 'descripcion_carrera');                
 
-                /*$('.entrada_Dato').focus(function(e){
-                    e.preventDefault();
-                    f5($(document),false);
-                });
-                $('.entrada_Dato').blur(function(e){
-                    e.preventDefault();
-                    f5($(document),true);
-                });*/
-                
                 $("#tabs").tabs();
                 $('#ventanaPrograma').hide();
                 $('#ventanaConfirmaVoBo').hide();
-                
-
-                //f5($(document),true);
-
 
             });
                         
         </script>
         
-<!--    </head>
-    <body>
-        <header>
-            Mi Pefil
-        </header>-->
         <div>            
             <div class="encabezado_Formulario">
                 <div class="descripcion_Modulo">
@@ -877,5 +843,3 @@ Objetivo:       Interfaz para la admon. de los Programas de Serv Social
             Procesando su transacción....!<br>
             Espere por favor.
         </div>
-<!--    </body>
-</html>-->

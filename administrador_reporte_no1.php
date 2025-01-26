@@ -17,14 +17,6 @@ Objetivo:       Interfaz para aprobar los Reportes Bimestrales
 ?>
 
     <head>
-    
-<!--        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="css/jquery-ui.css" rel="stylesheet">
-        <link rel="stylesheet" type="text/css" href="menu/estilo_menu.css" /> 
-        <script src="js/jquery-1.12.4.min.js"></script>
-        <script src="js/jquery-ui.min.js"></script>-->
         <script src="js/expresiones_reg.js"></script>
         
         <script>
@@ -105,8 +97,7 @@ Objetivo:       Interfaz para aprobar los Reportes Bimestrales
                                });
                                html_table = html_table + '</TABLE>';
                                $('#tabla_Reportes_Bimestrales').empty();
-                               $('#tabla_Reportes_Bimestrales').html(html_table);      
-//                                $("#datos_a_enviar").val(html_table);                          
+                               $('#tabla_Reportes_Bimestrales').html(html_table);                
                                }
                            else {
                                html_table = html_table + '<TR><TD colspan="13">' + respuesta.data.message + '</TD></TR>';
@@ -165,17 +156,6 @@ Objetivo:       Interfaz para aprobar los Reportes Bimestrales
                         that.off("keydown");
                     }
                 }
-        
-                /*$('.entrada_Dato').focus(function(e){
-                    e.preventDefault();
-                    f5($(document),false);
-                });
-                $('.entrada_Dato').blur(function(e){
-                    e.preventDefault();
-                    f5($(document),true);
-                }); */
-
-                
         		Obtener_Reportes_Estadisticas(2);
 
 

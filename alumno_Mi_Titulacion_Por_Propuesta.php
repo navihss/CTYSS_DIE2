@@ -17,13 +17,7 @@ Objetivo:       Interfaz para la inscripción a Propuestas de Titulación
 
 <html>
     <head>
-<!--        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="css/jquery-ui.css" rel="stylesheet">
-        <link rel="stylesheet" type="text/css" href="menu/estilo_menu.css" /> 
-        <script src="js/jquery-1.12.4.min.js"></script>
-        <script src="js/jquery-ui.min.js"></script>-->
+
         <script src="js/expresiones_reg.js"></script>
         <script src="js/ruta_documentos.js"></script>        
         
@@ -143,8 +137,7 @@ Objetivo:       Interfaz para la inscripción a Propuestas de Titulación
                                         html_table = html_table + '<TD style="text-align:left;">' + value['titulo_propuesta'] + '</TD>';
 
                                     }
-                                   
-//                                   html_table += '<TD style="text-align:left;">' + value['titulo_propuesta'] + '</TD>';
+
                                    html_table += '<TD>' + value['descripcion_tipo_propuesta'] + '</TD>';
                                    html_table += '<TD style="text-align:left;">' + value['nom_profesor'] + '</TD>';
                                    html_table += '<TD>' + esNulo(value['fecha_inscripcion']) + '</TD>';
@@ -159,101 +152,7 @@ Objetivo:       Interfaz para la inscripción a Propuestas de Titulación
                                     var id_inscripcion = value['id_inscripcion'];
 
                                     console.log(id_inscripcion);
-                                    /*
-                                    $('#fechaEstimadaTitulacionMotivo').dialog({
-                                      buttons:{
-                                          "Confirmar datos" : function() {
-                                              if(!$('#fechaEstimada').val().match(miExpReg_Fecha) || !$('#motivoTitulacion').val().match(miExpReg_Nota_Rechazo)){
-                                                $('#ventanaAviso').html('No puede dejar estos campos vacíos. Sólo debe usar los siguientes carácteres: A-Z 0-9 , . ; : ¿? ( ) - _ #.');
-                                                $('#ventanaAvisos').dialog('open');
-                                              } else {
-                                                console.log("OK");
-                                                console.log($(this));
-
-                                                var fechaEstimada = $('#fechaEstimada').val();
-                                                var motivoTitulacion = $('#motivoTitulacion').val();
-
-                                                var today =  $.datepicker.formatDate("dd/mm/yyyy", new Date());
-
-                                                if(fechaEstimada < today) {
-                                                  $('#ventanaAviso').html('Sólo puede seleccionar fechas futuras.');
-                                                  $('#ventanaAvisos').dialog('open');
-                                                  return;
-                                                }
-
-                                                var datosTitulacion = {Tipo_Movimiento : 'ACTUALIZAR_FECHA_ESTIMADA', 
-                                                id_inscripcion : id_inscripcion, 
-                                                fechaEstimada : fechaEstimada, 
-                                                motivoTitulacion : motivoTitulacion
-                                                }; 
-
-                                                $(this).dialog('close');
-
-                                                $.ajax({
-                                                  data: datosTitulacion,
-                                                  type: "POST",
-                                                  dataType: "json",
-                                                  url: "_Negocio/n_Alumno_Mi_Titulacion_Por_Propuesta.php"
-                                                }).done(function(respuesta,textStatus,jqXHR){
-                                                   $('#ventanaAviso').html('Información capturada correctamente.');
-                                                  $('#ventanaAvisos').dialog('open');
-                                                }).fail(function(respuesta,textStatus,errorThrown){
-                                                  $('#ventanaAviso').html('Ocurrió un error al procesar la información. ' + errorThrown + respuesta + textStatus);
-                                                  $('#ventanaAvisos').dialog('open');
-                                                });
-                                              }
-                                          }                     
-                                     },
-                                     title: 'Requerimos tu atención',
-                                     modal : true,
-                                     autoOpen : true,
-                                     resizable : true,
-                                     draggable : true,
-                                     width : '500',
-                                     height : '230',
-                                     position : {at: 'center'},
-                                     dialogClass : 'no-close',
-                                     show : 'slide',
-                                     hide : 'slide',
-                                     closeOnEscape : false,
-                                     open : function(e) {
-                                        e.preventDefault();
-                                         var customHTML = "<p>Para tu propuesta con número de inscripción <b> " + id_inscripcion + "</b> requerimos que llenes la siguiente información: <br>";
-                                         $('#mensajeFechaEstimadaTitulacion').html(customHTML);
-
-
-                                         $.datepicker.regional['es'] = {
-                                          closeText: 'Cerrar',  
-                                          prevText: 'Previo',  
-                                          nextText: 'Próximo', 
-                                          monthNames: ['Enero','Febrero','Marzo','Abril','Mayo','Junio',                           
-                                                      'Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'], 
-                                          monthNamesShort: ['Ene','Feb','Mar','Abr','May','Jun', 
-                                          'Jul','Ago','Sep','Oct','Nov','Dic'], 
-                                          monthStatus: 'Ver otro mes', yearStatus: 'Ver otro año', 
-                                          dayNames: ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'], 
-                                          dayNamesShort: ['Dom','Lun','Mar','Mie','Jue','Vie','Sáb'], 
-                                          dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sa'], 
-                                          dateFormat: 'dd/mm/yy', firstDay: 0,  
-                                          initStatus: 'Selecciona la fecha', isRTL: false
-                                         };
-
-                                         $.datepicker.setDefaults($.datepicker.regional['es']);
-                                         
-                                         $('#fechaEstimada').datepicker({
-                                              changeYear : true,
-                                              changeMonth : true,
-                                              yearRange : '1920:2050',
-                                              onSelect : function(date){
-                                                  $("#fechaEstimada ~ .ui-datepicker").hide();
-                                              }
-
-                                         });
-                                         // FIN FECHA TITULACION
-                                       }
-                                    });
-                                    */
-
+                                    
                                    }
 
                                });
@@ -891,14 +790,6 @@ Objetivo:       Interfaz para la inscripción a Propuestas de Titulación
                     }
                 }
 
-                /*$('.entrada_Dato').focus(function(e){
-                    e.preventDefault();
-                    f5($(document),false);
-                });
-                $('.entrada_Dato').blur(function(e){
-                    e.preventDefault();
-                    f5($(document),true);
-                });*/
                 
                 Obtener_Carreras_Del_Alumno();
                 //f5($(document),true);
@@ -911,12 +802,7 @@ Objetivo:       Interfaz para la inscripción a Propuestas de Titulación
             });
                         
         </script>
-        
-<!--    </head>
-    <body>
-        <header>
-            Mi Pefil
-        </header>-->
+
         <div>
             <div class="encabezado_Formulario">
                 <div class="descripcion_Modulo">
@@ -1049,5 +935,3 @@ Objetivo:       Interfaz para la inscripción a Propuestas de Titulación
             Procesando su transacción....!<br>
             Espere por favor.
         </div>
-<!--    </body>
-</html>-->

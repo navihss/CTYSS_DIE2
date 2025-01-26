@@ -18,13 +18,6 @@ Objetivo:       Interfaz para la admon del Catálogo Coordinaciones / Departamen
 
 <html>
     <head>
-<!--        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="css/jquery-ui.css" rel="stylesheet">
-        <link rel="stylesheet" type="text/css" href="menu/estilo_menu.css" /> 
-        <script src="js/jquery-1.12.4.min.js"></script>
-        <script src="js/jquery-ui.min.js"></script>-->
         <script src="js/expresiones_reg.js"></script>        
         
         <script>
@@ -84,8 +77,7 @@ Objetivo:       Interfaz para la admon del Catálogo Coordinaciones / Departamen
                                    html_table += '<TR><TD style="vertical-align:text-top;width:250px;">' + value['descripcion_carrera'] + '</TD>';
                                    html_table += '<TD style="vertical-align:text-top;width:250px;">' + value['descripcion'] + '</TD>';
                                    html_table += '<TD><input type="text" class="input_Parametro" style="width:450px;" value="" ' + nombre_textarea + ' readonly>' + '</TD>';
-                                   // Se comenta la siguiente linea ya que esta en espera de definicion 2024Ene27
-                                   // html_table += '<TD style="text-align:center; vertical-align:text-top;width:150px;">' + btn_Buscar + '</TD></TR>';
+
                                    html_table += '<TD style="text-align:center; vertical-align:text-top;width:150px;"></TD></TR>';
                                });
 
@@ -149,9 +141,7 @@ Objetivo:       Interfaz para la admon del Catálogo Coordinaciones / Departamen
                     $('#ventanaBuscar').dialog({
                        buttons:{
                             "Aceptar" : function() {
-//                                $(this).dialog('close');
-//                                $('#ventanaProcesando').dialog({ dialogClass: 'no-close' });
-//                                $('#ventanaProcesando').dialog({ dialogClass: 'no-titlebar'});
+
                                 $('#ventanaProcesando').dialog('open');   
 
                                 //OBTENEMOS A QUIEN SELECCIONO
@@ -408,26 +398,12 @@ Objetivo:       Interfaz para la admon del Catálogo Coordinaciones / Departamen
                         that.off("keydown");
                     }
                 }
-                /*$('.entrada_Dato').focus(function(e){
-                    e.preventDefault();
-                    f5($(document),false);
-                });
-                $('.entrada_Dato').blur(function(e){
-                    e.preventDefault();
-                    f5($(document),true);
-                });
-                
-                f5($(document),true); */
+
                 $('#ventanaBuscar').hide();
             });
                         
         </script>
         
-<!--    </head>
-    <body>
-        <header>
-            Mi Pefil
-        </header>-->
         <div>
             <div class="encabezado_Formulario">
                 <div class="descripcion_Modulo">
@@ -482,7 +458,3 @@ Objetivo:       Interfaz para la admon del Catálogo Coordinaciones / Departamen
             Procesando su transacción....!<br>
             Espere por favor.
         </div>
-<!--    </body>
-</html>-->
-
-

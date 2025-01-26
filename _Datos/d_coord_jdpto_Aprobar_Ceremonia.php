@@ -1,5 +1,5 @@
 <?php
-
+use App\Database\Connection;
 /**
  * Definición de la Capa de Datos para la Clase Aprobar Ceremonia
  * Metodos
@@ -8,7 +8,7 @@
  */
 
 header('Content-Type: text/html; charset=UTF-8');
-require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Datos/Conexion.php');
+require_once __DIR__ . '/../app/Database/Connection.php';
 require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Datos/d_Usuario_Bitacora.php');
 require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Datos/d_coord_jdpto_Aprobar_Propuesta.php');
 require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Entidades/Bitacora.php');
@@ -22,7 +22,7 @@ class d_coord_jdpto_Aprobar_Ceremonia {
     function Obtener_Ceremonias_Por_Autorizar($id_usuario){
       
         try{                    
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
 
             if( $cnn === false )
@@ -93,7 +93,7 @@ class d_coord_jdpto_Aprobar_Ceremonia {
     function Obtener_Total_Ceremonias_Por_Autorizar($id_usuario){
       
         try{                    
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
 
             if( $cnn === false )
@@ -164,7 +164,7 @@ class d_coord_jdpto_Aprobar_Ceremonia {
     function Obtener_Documentos_Por_Autorizar($id_ceremonia, $id_estatus){
       
         try{                    
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
 
             if( $cnn === false )
@@ -241,7 +241,7 @@ class d_coord_jdpto_Aprobar_Ceremonia {
         $correos ='';
         
         try{                
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
                 
             if( $conn === false )
@@ -322,7 +322,7 @@ class d_coord_jdpto_Aprobar_Ceremonia {
         
         try{    
                               
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
                 
             if( $conn === false )

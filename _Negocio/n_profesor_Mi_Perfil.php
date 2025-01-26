@@ -27,12 +27,6 @@ require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/zonaHoraria.php');
 $tipo_Movimiento = $_POST['Tipo_Movimiento'];
 $tipo_Usuario = $_POST['Id_Tipo_Usuario'];
 
-//$id_Usuario = 'x';
-//$jsondata = array();
-//$jsondata['success'] = true;
-//$jsondata['data']['message'] = 'dentro de la capa de negocio ' . date_default_timezone_get() . ', ' . $obj_Alumno->get_Fecha_Alta();
-//echo json_encode($jsondata);
-//exit();
                 
 switch ($tipo_Usuario){
     case 5: //Usuario-Alumno
@@ -63,11 +57,7 @@ switch ($tipo_Usuario){
                 $obj_Alumno->set_Apellido_Paterno(($_POST['apellidoPaterno']));
                 $obj_Alumno->set_Apellido_Materno(($_POST['apellidoMaterno']));
                 $obj_Alumno->set_Id_Tipo_Usuario(5);
-//                $Fec = new DateTime(date('Y-n-j'));
-//                $fecha = $Fec->format("d-m-Y");
-//                $obj_Alumno->set_Fecha_Alta($fecha);
-                
-//                $obj_Alumno->set_Fecha_Alta(date('Y-n-j'));
+
                 $obj_Alumno->set_Fecha_Alta(date('d-m-Y H:i:s'));                
 
                                
@@ -75,13 +65,6 @@ switch ($tipo_Usuario){
                 $obj_Alumno->set_Id_Genero($_POST['genero']);
                 $obj_Alumno->set_Activo(1);
 
-//                $jsondata = array();
-//                $jsondata['success'] = true;
-//                $jsondata['data']['message'] = 'dentro de la capa de negocio tipo_mov, tipo_usuario ' . $tipo_Movimiento . ', ' . $tipo_Usuario;
-//                echo json_encode($jsondata);
-//                exit();
-                
-//                $jsondata["data"]["users"] = array();
                 echo $obj_d_Alumno->Agregar($obj_Alumno, $id_division);
                 
                 break;

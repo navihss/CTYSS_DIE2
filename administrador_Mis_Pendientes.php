@@ -169,26 +169,10 @@
                     }
                 }
 
-                /*$('.entrada_Dato').focus(function(e){
-                    e.preventDefault();
-                    f5($(document),false);
-                });
-                $('.entrada_Dato').blur(function(e){
-                    e.preventDefault();
-                    f5($(document),true);
-                });
-                
-                f5($(document),true); */
-
                 Obtener_Pendientes(id_usuario);
         });
     </script>
 
-<!--</head>
-<body>
-	<header>
-       Mi Perfil
-    </header>-->
     <div>
         <div class="encabezado_Formulario">
             <div class="descripcion_Modulo">
@@ -210,5 +194,3 @@
         Procesando su transacción....!<br>
         Espere por favor.
     </div>
-<!--     </body>
-</html>-->

@@ -66,11 +66,7 @@ switch ($tipo_Usuario){
                 $obj_Alumno->set_Id_Tipo_Usuario(5);
                 $obj_Alumno->set_Id_Tipo_Baja(5);
                 $obj_Alumno->set_Id_Carrera($_POST['carrera']);
-//                $Fec = new DateTime(date('Y-n-j'));
-//                $fecha = $Fec->format("d-m-Y");
-//                $obj_Alumno->set_Fecha_Alta($fecha);
-                
-//                $obj_Alumno->set_Fecha_Alta(date('Y-n-j'));
+
                 $obj_Alumno->set_Fecha_Alta(date('d-m-Y H:i:s'));                
 
                                

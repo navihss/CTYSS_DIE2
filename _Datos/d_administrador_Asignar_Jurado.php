@@ -1,5 +1,5 @@
 <?php
-
+use App\Database\Connection;
 /**
  * Definición de la Capa de Datos para la Clase Jurado Definitivo
  * Metodos
@@ -8,7 +8,7 @@
  */
 
 header('Content-Type: text/html; charset=UTF-8');
-require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Datos/Conexion.php');
+require_once __DIR__ . '/../app/Database/Connection.php';
 require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Datos/d_Usuario_Bitacora.php');
 require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Datos/d_coord_jdpto_Aprobar_Propuesta.php');
 require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Entidades/Bitacora.php');
@@ -23,7 +23,7 @@ class d_administrador_Asignar_Jurado {
     function Obtener_Jurados_Por_Autorizar(){
       
         try{                    
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
 
             if( $cnn === false )
@@ -95,7 +95,7 @@ class d_administrador_Asignar_Jurado {
     function Obtener_Jurado_Seleccionado($id_propuesta, $id_version){
       
         try{                    
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
 
             if( $cnn === false )
@@ -211,21 +211,13 @@ class d_administrador_Asignar_Jurado {
     function Obtener_Profesores($textoBuscar){
       
         try{                    
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
 
             if( $cnn === false )
             {
                 throw new Exception($cnn->getError());
             }
-
-//            $tsql ="SELECT a.id_usuario, es_externo, c.descripcion_grado_estudio, a.id_grado_estudio,
-//                (b.nombre_usuario || ' ' || b.apellido_paterno_usuario || ' ' || b.apellido_materno_usuario) as nombre
-//                FROM profesores a
-//                        INNER JOIN usuarios b ON a.id_profesor = b.id_usuario
-//                        INNER JOIN grados_estudio c ON a.id_grado_estudio = c.id_grado_estudio
-//                WHERE (b.nombre_usuario || ' ' || b.apellido_paterno_usuario || ' ' || b.apellido_materno_usuario) ILIKE '%" . $textoBuscar . "%'
-//                ORDER BY nombre;";
             
             $tsql ="SELECT a.id_usuario, es_externo, c.descripcion_grado_estudio, a.id_grado_estudio,
                                     (b.nombre_usuario || ' ' || b.apellido_paterno_usuario || ' ' || b.apellido_materno_usuario) as nombre
@@ -304,7 +296,7 @@ class d_administrador_Asignar_Jurado {
         $nombre_definitivos = '';
         
         try{                
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
                 
             if( $conn === false )
@@ -526,6 +518,3 @@ class d_administrador_Asignar_Jurado {
     //FIN ACTUALIZAMOS EL JURADO DEFINITIVO
     
 }
-
-//$obj = new d_administrador_Asignar_Jurado();
-//echo $obj->Obtener_Profesores('Sandra');

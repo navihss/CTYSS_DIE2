@@ -47,9 +47,6 @@ if($tipo == 'pdf'){
     $dompdf = new Dompdf();
     // Cargamos el contenido HTML.
     $dompdf->load_html(utf8_decode( $style.$_POST['datos_a_enviar'] ));
-//     $dompdf->set_paper('letter', 'landscape');
-    // Definimos el tama�o y orientaci�n del papel que queremos.
-//     $dompdf->set_paper("A4", "portrait");
 
     if($numero_reporte == 1){
         $paper_size = array(0,0,3000,660);
@@ -70,14 +67,7 @@ if($tipo == 'pdf'){
     $dompdf->stream($nombre_documento.".pdf");
 
 } else{
-    
-    /*header("Content-type: application/vnd.ms-$tipo");
-    header("Content-Disposition: attachment; filename=numero_alumnos_titulados".$extension);
-    header("Pragma: no-cache");
-    header("Expires: 0");  
-    */
-    
-    
+
     header('Pragma: public');
     header('Expires: Sat, 26 Jul 1997 05:00:00 GMT'); // Date in the past
     header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT');
@@ -106,8 +96,6 @@ if($tipo != 'pdf'){
     }
     if($tipo == 'excel'){
         
-        
-       // echo "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:excel' xmlns='http://www.w3.org/TR/REC-html40'>";
         echo "<html xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:x=\"urn:schemas-microsoft-com:office:excel\" xmlns=\"http://www.w3.org/TR/REC-html40\">";
     }
 ?>    

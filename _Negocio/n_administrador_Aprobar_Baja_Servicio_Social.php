@@ -42,11 +42,6 @@ switch ($tipo_Movimiento){
         $id_administrador = $_POST['id_administrador'];        
         $correo_usr = $_POST['correo_usr'];
 
-//            $jsondata['success'] = false;
-//            $jsondata['data']['message'] = $id_ss.','.$id_usuario.','.$id_estatus.','.
-//                    $id_tipo_baja.','.$nota.','.$id_carrera.','.$docs_aprobados.','.$id_administrador.','.$correo_usr;
-//            echo json_encode($jsondata);
-//            exit(); 
         echo $obj_d_Admon_Aprobar_Baja_SS->Actualizar_Estatus_SS($id_ss, $id_usuario, $id_estatus, 
                 $id_tipo_baja, $nota, $id_carrera, $docs_aprobados, $id_administrador, $correo_usr, $id_division);
         break;    

@@ -296,9 +296,6 @@ Objetivo:       Interfaz para asignar fecha de titulacion a un usuario
                         <p>
                             <label for="fechaTitulacion" class="label">Fecha de Titulación:</label>
                             <input type="text" name="fechaTitulacion" id="fechaTitulacion" autocomplete="off"  title="dd/mm/aaaa" class="alumno_ent"/>
-                            <!-- <input type="password" name="contrasena" id="contrasena" maxlength="15" placeholder="" class="entrada_Dato"
-                           title="Capture únicamente letras y números, sin espacios" autocomplete="off"/>                                        -->
-                            <!-- <span id="statusContrasena"  class="dato_Invalido"><img src="css/images/error.ico"/></span> -->
                         </p>
 
                         <div style="padding-top: 20px;">

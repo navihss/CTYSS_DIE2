@@ -18,13 +18,7 @@ Objetivo:       Interfaz para aprobar los Reportes Bimestrales
 
 <html>
     <head>
-<!--        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="css/jquery-ui.css" rel="stylesheet">
-        <link rel="stylesheet" type="text/css" href="menu/estilo_menu.css" /> 
-        <script src="js/jquery-1.12.4.min.js"></script>
-        <script src="js/jquery-ui.min.js"></script>-->
+
         <script src="js/expresiones_reg.js"></script>
         
         <script>
@@ -137,7 +131,6 @@ Objetivo:       Interfaz para aprobar los Reportes Bimestrales
                     $('#id_carrera_rpt').attr("value", $(this).data('id_carrera'));
                     $('#desc_doc_rpt').attr("value", $(this).data('desc_doc'));
                     
-//                    var tituloAdjuntar = 'Reporte_Bimestral_' + id_alumno +  "_" + $('#numero_reporte_rpt').val() + "_" + $('#id_version_rpt').val() + ".pdf";
                     var tituloAdjuntar = id_alumno + "_" + 
                             $('#id_carrera_rpt').val() + "_" +
                             $('#id_ss_rpt').val() + "_" +
@@ -635,15 +628,6 @@ Objetivo:       Interfaz para aprobar los Reportes Bimestrales
                     }
                 }
         
-                /*$('.entrada_Dato').focus(function(e){
-                    e.preventDefault();
-                    f5($(document),false);
-                });
-                $('.entrada_Dato').blur(function(e){
-                    e.preventDefault();
-                    f5($(document),true);
-                }); */
-        
                 Obtener_Reportes_Bimestrales(2);
                 //f5($(document),true);
                 $('#ventanaReporteBimestralPDF').hide();
@@ -655,11 +639,6 @@ Objetivo:       Interfaz para aprobar los Reportes Bimestrales
                         
         </script>
         
-<!--    </head>
-    <body>
-        <header>
-            Mi Pefil
-        </header>-->
         <div>
             <div class="encabezado_Formulario">
                 <div class="descripcion_Modulo">
@@ -790,5 +769,3 @@ Objetivo:       Interfaz para aprobar los Reportes Bimestrales
             Procesando su transacción....!<br>
             Espere por favor.
         </div>
-<!--    </body>
-</html>-->

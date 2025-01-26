@@ -1,5 +1,6 @@
 <?php  
-    require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Datos/Conexion.php');
+use App\Database\Connection;
+    require_once __DIR__ . '/../app/Database/Connection.php';
            
     $clavePrograma=$_POST['clavePrograma'];
     $claveCarrera=$_POST['claveCarrera'];
@@ -7,7 +8,7 @@
 
     $jsondata = array();
       
-    $cnn = new Conexion();
+    $cnn = new Connection();
     $conn = $cnn->getConexion();
     
     if( $conn === false ){        
@@ -67,16 +68,5 @@
     }
 
 
-    
-//if (strcmp ($username, $user) == 0)
-//{
-//echo 'OK';
-//}
-//else
-//{
-//echo 'BAD';
-//}
-//    
-    
     
 ?>

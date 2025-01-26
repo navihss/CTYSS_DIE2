@@ -1,5 +1,5 @@
 <?php
-
+use App\Database\Connection;
 /**
  * Definición de la Capa de Datos para la Clase Autorizar Jurados
  * Metodos
@@ -8,7 +8,7 @@
  */
 
 header('Content-Type: text/html; charset=UTF-8');
-require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Datos/Conexion.php');
+require_once __DIR__ . '/../app/Database/Connection.php';
 require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Datos/d_coord_jdpto_Aprobar_Propuesta.php');
 require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Datos/d_Usuario_Bitacora.php');
 require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Entidades/Bitacora.php');
@@ -22,7 +22,7 @@ class d_coord_jdpto_Aprobar_Jurado {
     function Obtener_Jurados_Por_Autorizar($id_usuario){
       
         try{                    
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
 
             if( $cnn === false )
@@ -99,7 +99,7 @@ class d_coord_jdpto_Aprobar_Jurado {
     function Obtener_Total_Jurados_Por_Autorizar($id_usuario){
       
         try{                    
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
 
             if( $cnn === false )
@@ -138,9 +138,6 @@ class d_coord_jdpto_Aprobar_Jurado {
                         $stmt=null;
                         $conn=null;
                         return ($jsondata);
-//                        echo json_encode($jsondata);
-//                        exit();
-//                        print_r($jsondata);
                     }
                     else{
                         $mensaje_Transacciones = "No hay Jurados por Autorizar.<br/>";
@@ -174,7 +171,7 @@ class d_coord_jdpto_Aprobar_Jurado {
     function Obtener_Jurado_Seleccionado($id_usuario, $id_propuesta, $id_version){
       
         try{                    
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
 
             if( $cnn === false )
@@ -244,7 +241,7 @@ class d_coord_jdpto_Aprobar_Jurado {
         $conn = '';
         $resultado = '';        
         try{                
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
                 
             if( $conn === false )
@@ -302,7 +299,7 @@ class d_coord_jdpto_Aprobar_Jurado {
         $jsondata = array();
                 
         try{                
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
                 
             if( $conn === false )
@@ -335,11 +332,6 @@ class d_coord_jdpto_Aprobar_Jurado {
             $arr_coord_dpto_correos = $arr_datos_prop[1];
             //FIN OBTENEMOS CORREO Y USUARIO DE LOS COORD/JDPTO QUE REVISARON LA PROPUESTA
             //*********************************************************************            
-            
-//             $jsondata['success'] = false;
-//            $jsondata['data']['message'] = $pendientes;
-//            echo json_encode($jsondata);
-//            exit(); 
             
             $arr_vobo_por_usuario = preg_split("/[|]/", $vobo_usuario);
             $renglones = count($arr_vobo_por_usuario);
@@ -515,33 +507,3 @@ class d_coord_jdpto_Aprobar_Jurado {
     //FIN ACTUALIZAMOS EL ESTATUS DEL VoBo
     
 }
-
-//$obj = new d_coord_jdpto_Aprobar_Jurado();
-//$obj_resultado = $obj->Obtener_Total_Jurados_Por_Autorizar('rhernandez');
-//$exito = ($obj_resultado['success']);
-//$mensaje = $obj_resultado['data']['message'];
-//$totalpendientes = $obj_resultado['data']['registros'][0]['total1'];
-//echo ('success: ');
-//echo($exito);
-//echo (', mensaje: ');
-//echo($mensaje);
-//echo (', total pendientes:');
-//echo($totalpendientes);
-//
-//$otroArray['success'] = $exito;
-//$otroArray['data']['message'] = $mensaje;
-//$otroArray['data']['registros'][0]['total1'] = $totalpendientes;
-//$otroArray['data']['registros'][1]['total1'] = $totalpendientes + 5;
-//
-//print_r ($otroArray);
-//
-//$codificadoJson =json_encode($otroArray);
-//$segundoArray = json_decode($codificadoJson);
-//
-//echo ($codificadoJson);
-//
-//print_r($segundoArray);
-
-
-//$ob = new d_coord_jdpto_Aprobar_Jurado();
-//echo $ob->Obtener_Jurado_Seleccionado('joel', '12', 1);

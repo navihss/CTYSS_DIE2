@@ -1,4 +1,6 @@
 <?php  
+use App\Database\Connection;
+
     include "_Datos/Conexion.php";
     include "_Datos/d_Usuario.php";
 
@@ -12,15 +14,9 @@
     $jsondata = array();
     $obj_d_Usuario = new d_Usuario();
    
-//    $numCuentaValida = $obj_d_Usuario->Valida_NoCuenta($user, $carrera);
-//    if($numCuentaValida == FALSE){
-//        $jsondata['success'] = 'ERROR';
-//        $jsondata['data']['message'] = "La Clave '<b>" . $user . "</b>' no está registrada en la UNAM.";
-//        echo json_encode($jsondata);
-//        exit();                
-//    }
+
     
-    $cnn = new Conexion();
+    $cnn = new Connection();
     $conn = $cnn->getConexion();
     
     if( $conn === false ){        
@@ -77,16 +73,6 @@
     }
 
 
-    
-//if (strcmp ($username, $user) == 0)
-//{
-//echo 'OK';
-//}
-//else
-//{
-//echo 'BAD';
-//}
-//    
     
     
 ?>

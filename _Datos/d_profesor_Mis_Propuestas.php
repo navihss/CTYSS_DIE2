@@ -1,5 +1,5 @@
 <?php
-
+use App\Database\Connection;
 /**
  * Definición de la Capa de Datos para la Clase Profesor Mis Propuestas
  * Metodos
@@ -7,7 +7,7 @@
  * Julio 2016
  */
 header('Content-Type: text/html; charset=UTF-8');
-require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Datos/Conexion.php');
+require_once __DIR__ . '/../app/Database/Connection.php';
 require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Entidades/Propuesta_Profesor.php');
 require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/zonaHoraria.php');
 require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Datos/d_Usuario_Bitacora.php');
@@ -24,7 +24,7 @@ class d_profesor_Mis_Propuestas {
                 
         try{    
             
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
                 
             if( $conn === false )
@@ -108,20 +108,14 @@ class d_profesor_Mis_Propuestas {
         
         try{    
             
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
                 
             if( $conn === false )
             {
                 throw new Exception($cnn->getError());     
             }            
-                           
-            /* Query parametrizado. */
-//            $tsql=" SELECT id_propuesta, titulo_propuesta, organismos_colaboradores, fecha_registrada, 
-//                        asesoria_l, asesoria_m, asesoria_mi, asesoria_j, asesoria_v, 
-//                        asesoria_s, id_tipo_propuesta, id_profesor, id_estatus
-//                   FROM propuestas_profesor
-//                   WHERE id_propuesta = ?;";
+                    
 
             $tsql=" SELECT a.id_propuesta, a.titulo_propuesta, a.organismos_colaboradores, a.fecha_registrada, 
                     a.id_tipo_propuesta, a.id_profesor, a.id_estatus, b.descripcion_tipo_propuesta, a.aceptar_inscripciones,
@@ -143,14 +137,8 @@ class d_profesor_Mis_Propuestas {
                     throw new Exception($mensaje_Transacciones);                            
                 }
                 else{
-                    if($stmt->rowCount() > 0){                    
-//                        $jsondata['success'] = true;
-//                        $jsondata['data']['message'] = 'Registros encontrados';
-//                        $jsondata['data']['registros'] = array();
+                    if($stmt->rowCount() > 0){
 
-//                        while($row = $stmt->fetch(PDO::FETCH_OBJ)){
-//                            $jsondata['data']['registros'][] = $row;
-//                        }                        
                         $row = $stmt->fetch(PDO::FETCH_ASSOC);
                         $obj_Propuesta_Profesor->set_Id_Propuesta($row['id_propuesta']);
                         $obj_Propuesta_Profesor->set_Titulo($row['titulo_propuesta']);
@@ -163,11 +151,7 @@ class d_profesor_Mis_Propuestas {
                         $obj_Propuesta_Profesor->set_Requerimiento_Alumnos('');
                         $obj_Propuesta_Profesor->set_Aceptar_Inscripciones($row['aceptar_inscripciones']);
                         $obj_Propuesta_Profesor->set_Horarios('');
-                        
-//                        $stmt=null;
-//                        $conn=null;
-//                        echo json_encode($jsondata);
-//                        exit();
+                    
                     }
                     else{
                         $error = $stmt->errorInfo();
@@ -221,10 +205,8 @@ class d_profesor_Mis_Propuestas {
                         }
                         $cadena_requerimiento = substr($cadena_requerimiento, 0, strlen($cadena_requerimiento)-1);
                         $obj_Propuesta_Profesor->set_Requerimiento_Alumnos($cadena_requerimiento);
-//                        var_dump($obj_Propuesta_Profesor);
                         $jsondata['data']['registros']= (array) $obj_Propuesta_Profesor;
-//                        echo str_replace('\\u0000', "", json_encode($jsondata));
-//                        exit();
+
                     }
                     else{
                         $error = $stmt->errorInfo();
@@ -313,7 +295,7 @@ class d_profesor_Mis_Propuestas {
     function Obtener_Documentos_Enviados($id_propuesta){
       
         try{                    
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
 
             if( $cnn === false )
@@ -383,7 +365,7 @@ class d_profesor_Mis_Propuestas {
                 
         try{    
             
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
                 
             if( $conn === false )
@@ -457,7 +439,7 @@ class d_profesor_Mis_Propuestas {
     function Obtener_Propuestas_Autorizadas($id_carrera){
       
         try{                    
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
 
             if( $cnn === false )
@@ -531,7 +513,7 @@ class d_profesor_Mis_Propuestas {
                 
         try{    
             
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
                 
             $obj_MP = new Propuesta_Profesor();
@@ -814,7 +796,7 @@ class d_profesor_Mis_Propuestas {
                 
         try{    
             
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
                 
             $obj_MP = new Propuesta_Profesor();
@@ -1056,7 +1038,7 @@ class d_profesor_Mis_Propuestas {
                 
         try{    
             
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
                 
             if( $conn === false )
@@ -1120,7 +1102,7 @@ class d_profesor_Mis_Propuestas {
     function Obtener_Carreras($id_propuesta){
         
         try{                    
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
 
             if( $cnn === false )
@@ -1185,7 +1167,7 @@ class d_profesor_Mis_Propuestas {
                 
         try{    
             
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
                 
             if( $conn === false )
@@ -1309,7 +1291,7 @@ class d_profesor_Mis_Propuestas {
         $mensaje_Transacciones='';
         $nombre_Profesor ='';
         try{                           
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
                 
             if( $conn === false )
@@ -1363,9 +1345,3 @@ class d_profesor_Mis_Propuestas {
     }  
     //FIN OBTENER NOMBRE DEL PROFESOR DE LA PROPUESTA
 }
-//
-//$obj = new d_profesor_Mis_Propuestas();
-//echo $obj->Seleccionar('10');
-
-//$obj = new d_profesor_Mis_Propuestas();
-//echo($obj->Obtener_Nombre_Profesor('2017-2-001'));

@@ -18,13 +18,6 @@ Objetivo:       Interfaz para aprobar las Cartas de Terminación
 -->
 <html>
     <head>
-<!--        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="css/jquery-ui.css" rel="stylesheet">
-        <link rel="stylesheet" type="text/css" href="menu/estilo_menu.css" /> 
-        <script src="js/jquery-1.12.4.min.js"></script>
-        <script src="js/jquery-ui.min.js"></script>-->
         <script src="js/expresiones_reg.js"></script>        
         
         <script>
@@ -586,7 +579,6 @@ Objetivo:       Interfaz para aprobar las Cartas de Terminación
                     e.preventDefault();
                     Obtener_Cartas_Terminacion(2); //Cartas Terminación con estatus 2.Por Autorizar
                     $('#message').empty();
-//                    $('#ventanaCartaTerminacionPDF').dialog('destroy');
                       $(".ui-dialog-content").dialog("close");
                 });
                               
@@ -641,21 +633,11 @@ Objetivo:       Interfaz para aprobar las Cartas de Terminación
                         that.off("keydown");
                     }
                 }
-                /*$('.entrada_Dato').focus(function(e){
-                    e.preventDefault();
-                    f5($(document),false);
-                });
-                $('.entrada_Dato').blur(function(e){
-                    e.preventDefault();
-                    f5($(document),true);
-                });*/
-                
+
                 Obtener_Cartas_Terminacion(2);
-//                f5($(document),true);
                 $('#ventanaCartaTerminacionPDF').hide();
                 $('#tabla_Mi_Servicio').hide();
                 $('#tabla_Mis_Reportes_Bim').hide();
-//                $('#tabla_Cartas_Termino').hide();
                 $('#ventanaConfirmar_Aceptacion_CT').hide();
                 $('#ventanaConfirmar_Rechazo_CT').hide();
                 
@@ -663,11 +645,6 @@ Objetivo:       Interfaz para aprobar las Cartas de Terminación
                         
         </script>
         
-<!--    </head>
-    <body>
-        <header>
-            Mi Pefil
-        </header>-->
         <div>
             <div class="encabezado_Formulario">
                 <div class="descripcion_Modulo">
@@ -687,13 +664,7 @@ Objetivo:       Interfaz para aprobar las Cartas de Terminación
             <div id="archivoPDF_cartaterminacion" style="position: absolute; z-index: 99; float: left; border: 1px grey solid; height: 550px; width: 700px; ">
                 <object id="obj_PDF_cartaTerminacion" width="700px" height="550px">
                 </object>
-                
-<!--                <embed id="obj_PDF_cartaTerminacion" width="700px" height="615px" src="" type="">
--->
-                <!--<iframe id="obj_PDF_cartaTerminacion" width="700px" height="615px" src="">
-                </iframe>-->
 
-                
             </div>            
             <div id="divOpciones_CT" style="text-align: center; float: right; width: 200px; line-height: 2.5em;">
                 <button id="btn_verServicioSocial_CT" class="btn_Herramientas" style="width: 160px;">Ver Servicio Social</button>
@@ -783,7 +754,6 @@ Objetivo:       Interfaz para aprobar las Cartas de Terminación
                 <textarea id="nota_admin_a" class="entrada_Dato notaVoBo" maxlength="500" onkeyup="javascript:this.value=this.value.toUpperCase();"
                           title="SOLO puede Capturar los siguientes carácteres: A-Z 0-9 , ; : ¿? ( )' - _ #" autocomplete="off"></textarea>
             </p>             
-            <!--<span style="margin-top: 5px; color: #990000;">Desea asignar el Estatus de "Aceptado" a la Carta de Terminación seleccionada ?</span>-->
             
         </div>
         <div id="ventanaConfirmar_Rechazo_CT">
@@ -792,7 +762,6 @@ Objetivo:       Interfaz para aprobar las Cartas de Terminación
                 <textarea id="nota_admin" class="entrada_Dato notaVoBo" maxlength="500" onkeyup="javascript:this.value=this.value.toUpperCase();" 
                           title="SOLO puede Capturar los siguientes carácteres: A-Z 0-9 , ; : ¿? ( )' - _ #" autocomplete="off"></textarea>
             </p>             
-            <!--<span style="margin-top: 5px; color: #990000;">Desea dar el estatus de "Rechazado" a la Carta de Terminación seleccionada ?</span>-->
         </div>
         <div id="ventanaConfirmaVoBo">
             <span id="ventanaMensajeConfirma"></span>
@@ -806,5 +775,3 @@ Objetivo:       Interfaz para aprobar las Cartas de Terminación
             Procesando su transacción....!<br>
             Espere por favor.
         </div>
-<!--    </body>
-</html>-->

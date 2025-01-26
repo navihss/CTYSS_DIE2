@@ -22,14 +22,12 @@ header('Location: index.php');
   		<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
         <script src="js/jquery-1.12.4.min.js"></script>
 
-        <!--<link href="css/jquery-ui.css" rel="stylesheet">-->
         <link href="jquery-ui-1.12.1/jquery-ui.css" rel="stylesheet">
-        <!--<script src="js/jquery-ui.min.js"></script>-->
         <script src="jquery-ui-1.12.1/jquery-ui.min.js"></script>
         
         <title></title>
         <link rel="stylesheet" href="css/menu.css">
-        <link rel="stylesheet" href="css/home.css">
+        <link rel="stylesheet" href="public/assets/css/home.css">
         <link rel="stylesheet" href="css/styleuno.css">
         <script type="text/javascript">
         if(history.forward(1)){
@@ -458,7 +456,6 @@ header('Location: index.php');
         async : false,
         url : "cerrar_Mi_Sesion.php"
         });
-        //                    header("index.php");
         window.open('index.php','_self');
         });
         
@@ -625,9 +622,7 @@ header('Location: index.php');
 <input type="hidden" id="id_tpo_usuario" name="id_tpo_usuario" value="<?php echo $_SESSION['id_tipo_usuario'] ?>">
 <input type="hidden" id="id_division" name="id_division" value="<?php echo $_SESSION['id_division'] ?>">
 <br style="clear: both;">
-<!--    <footer id="pie">
-<h1>Pie de página</h1>
-</footer>-->
+
 </div> <!-- fin area de trabajo-->
 <script>
 // Get the modal

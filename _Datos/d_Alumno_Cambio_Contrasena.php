@@ -6,7 +6,7 @@
  * Agosto 2016
  */
 header('Content-Type: text/html; charset=UTF-8');
-
+use App\Database\Connection;
 require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/zonaHoraria.php');
 require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Datos/d_Usuario_Bitacora.php');
 require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Entidades/Bitacora.php');
@@ -20,7 +20,7 @@ class d_alumno_Cambio_Contrasena {
                 
         try{    
             
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
                                      
             if( $conn === false )

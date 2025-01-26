@@ -1,5 +1,5 @@
 <?php
-
+use App\Database\Connection;
 /**
  * Definición de la Capa de Datos para obtener Mis Pendientes según el tipo de usuario
  * Metodos
@@ -8,7 +8,7 @@
  */
 
 header('Content-Type: text/html; charset=UTF-8');
-require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Datos/Conexion.php');
+require_once __DIR__ . '/../app/Database/Connection.php';
 require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Datos/d_Usuario_Bitacora.php');
 require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Entidades/Bitacora.php');
 require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Datos/d_coord_jdpto_Aprobar_Ceremonia.php');
@@ -58,8 +58,3 @@ class d_Usuario_Pendientes {
     //*********************************************************************                
     
 }
-
-//$obj = new d_Usuario_Pendientes();
-//echo $obj->Obtener_Pendientes_Coordinador(0, 'ELVA');
-//$obj = new d_coord_jdpto_Aprobar_Propuesta();
-//echo $obj->Obtener_Usr_Mail_Propuesta_JDefinitivo('2016-2-004', 4, 1, '086198517');

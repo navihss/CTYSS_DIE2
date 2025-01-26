@@ -5,11 +5,10 @@
 <!DOCTYPE html>
 <html>
     <head>
-<!--        <meta http-equiv="Expires" content="0" /> 
-        <meta http-equiv="Pragma" content="no-cache" />-->
+
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Nueva Cuenta de Usuario.no</title>
-        <link href="css/jquery-ui.css" rel="stylesheet"> 
+        <link href="public/assets/css/jquery-ui.css" rel="stylesheet"> 
         <link href="css/nuevaCuenta.css" rel="stylesheet">        
         <script src="js/jquery-1.12.4.min.js"></script>
         <script src="js/jquery-ui.min.js"></script>
@@ -88,13 +87,6 @@
                     $('#statusContrasena').hide();
                     $('#statusContrasena2').hide();
 
-//                    var miExpReg = /^[a-zA-Z áéíóúñÁÉÍÓÚÑ]{1,50}$/;
-//                    var miExpReg_Contrasena = /^[a-zA-Z0-9]{1,15}$/;
-//                    var miExpReg_Fecha = /^([0-9]{2}\/[0-9]{2}\/[0-9]{4})$/;
-//                    var miExpReg_Mail = /^[a-zA-Z0-9\._-]+@[a-zA-Z0-9-]{2,}[.][a-zA-Z]{2,4}$/;
-//                    var miExpReg_Mail = /^[_a-zA-Z0-9-]+(.[_a-zA-Z0-9-]+)*@[a-zA-Z0-9-]+(.[a-zA-Z0-9-]+)*(.[a-zA-Z]{2,4})$/;
-//                    var miExpReg_NoCta = /^[0-9]{9}$/;
-                    
                     if (!nombre.match(miExpReg_Nombre)){
                         $('#statusNombre').show();
                         datosValidos = false;
@@ -195,10 +187,7 @@
                 } // ***** fin validaDatos
             
                 $(':text:first').focus();                
-//                $('.select').selectmenu({
-//                    width : 200
-//                });
-        
+
                 //Array para dar formato en español 
                  $.datepicker.regional['es'] =  { 
                         closeText: 'Cerrar',  
@@ -248,9 +237,7 @@
                    draggable : false,
                    closeOnEscape : false,
                    dialogClass : 'no-close no-titlebar'
-//                   show : 'slideDown',
-//                   hide: 'slideUp',
-//                   dialogClass : 'ui-state-highlight'
+
                 });
 
 
@@ -275,8 +262,7 @@
                         claveUsuario : $('#clave').val(),
                         id_carrera  : $('#carrera').val()
                     };
-                    //$.post('validaClaveUsuarioProceso.php',datosAPasar, procesaResultado,'json');
-                    //return false;  //detenemos el comportamiento normal y evitamos descargue la página actual y cargue el link de la página de proceso.
+                    
                                         
                     $.ajax({
                         data : datosAPasar,
@@ -386,8 +372,6 @@
                         "Aceptar" : function() {
 
                             $(this).dialog('close');
-//                            $('#ventanaProcesando').dialog({ dialogClass: 'no-close' });
-//                            $('#ventanaProcesando').dialog({ dialogClass: 'no-titlebar'});
                             $('#ventanaProcesando').dialog('open');
                             
                             // Por Ajax insertamos la Nueva Cuenta
@@ -421,15 +405,6 @@
                                                 $('#ventanaAvisos').dialog('open');                            
                                             });                        
                             
-                            //*********************************************
-                            
-//                            $.post('_Negocio/n_Usuario.php',formDatos, procesaResultadoCrearCuenta);
-//                                                        
-//                            $(this).dialog('close');
-//                            $('#ventanaProcesando').dialog({ dialogClass: 'no-close' });
-//                            $('#ventanaProcesando').dialog({ dialogClass: 'no-titlebar'});
-//                            $('#ventanaProcesando').dialog('open');
-                            //*********************************************
                         },
                         "Cancelar" : function() {
                             $(this).dialog('close');
@@ -442,9 +417,6 @@
                    resizable : false,
                    draggable : true,
                    closeOnEscape : false
-//                   show : 'slideDown',
-//                   hide: 'slideUp',
-//                   dialogClass : 'ui-state-highlight'
                 });
                                               
                 $('#enviar').click(function(event){
@@ -453,7 +425,6 @@
                     {                       
                        $('#ventanaConfirmacion').dialog({ dialogClass: 'no-close ventanaConfirmaUsuario' });                        
                        $('#ventanaConfirmacion').dialog('open');
-//                     $('#nuevaCuenta').submit();
                     }
                     else
                     {

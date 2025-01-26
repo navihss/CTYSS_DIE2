@@ -6,9 +6,9 @@
  * @author Rogelio Reyes Mendoza
  * Julio 2016
  */
-
+use App\Database\Connection;
 header('Content-Type: text/html; charset=UTF-8');
-require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Datos/Conexion.php');
+require_once __DIR__ . '/../app/Database/Connection.php';
 require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/zonaHoraria.php');
 require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Datos/d_Usuario_Bitacora.php');
 require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Entidades/Bitacora.php');
@@ -21,7 +21,7 @@ class d_alumno_Mi_Titulacion_Por_Propuesta {
     function Obtener_Mis_Inscripcines($id_alumno, $id_carrera){
       
         try{                    
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
 
             if( $cnn === false )
@@ -29,19 +29,6 @@ class d_alumno_Mi_Titulacion_Por_Propuesta {
                 throw new Exception($cnn->getError());
             }
           
-//            $tsql = "SELECT a.id_inscripcion, a.id_propuesta, a.id_alumno, a.id_carrera, a.id_estatus, a.fecha_inscripcion, a.fecha_baja,
-//                            b.descripcion_estatus, c.titulo_propuesta, d.descripcion_tipo_propuesta,
-//                            (e.nombre_usuario || ' ' || e.apellido_paterno_usuario|| ' ' || e.apellido_materno_usuario) as nom_alumno,
-//                            (f.nombre_usuario || ' ' || f.apellido_paterno_usuario|| ' ' || f.apellido_materno_usuario) as nom_profesor,
-//                            a.nota_baja
-//                    FROM inscripcion_propuesta a
-//                            INNER JOIN estatus b ON a.id_estatus = b.id_estatus
-//                            INNER JOIN propuestas_profesor c ON a.id_propuesta = c.id_propuesta
-//                            INNER JOIN tipos_propuesta d ON c.id_tipo_propuesta = d.id_tipo_propuesta
-//                            INNER JOIN usuarios e ON a.id_alumno = e.id_usuario
-//                            INNER JOIN usuarios f ON c.id_profesor = f.id_usuario
-//                    WHERE a.id_alumno = ? and a.id_carrera = ?
-//                    ORDER BY a.fecha_inscripcion;";
 
             $tsql ="SELECT a.id_inscripcion, a.id_propuesta, a.id_alumno, a.id_carrera, a.id_estatus, a.fecha_inscripcion, a.fecha_baja,
                             b.descripcion_estatus, c.titulo_propuesta, d.descripcion_tipo_propuesta,
@@ -105,7 +92,7 @@ class d_alumno_Mi_Titulacion_Por_Propuesta {
     function Obtener_Total_Propuesta($id_estatus, $id_alumno){
       
         try{                    
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
 
             if( $cnn === false )
@@ -113,20 +100,6 @@ class d_alumno_Mi_Titulacion_Por_Propuesta {
                 throw new Exception($cnn->getError());
             }
           
-//            $tsql = "SELECT a.id_inscripcion, a.id_propuesta, a.id_alumno, a.id_carrera, a.id_estatus, a.fecha_inscripcion, a.fecha_baja,
-//                            b.descripcion_estatus, c.titulo_propuesta, d.descripcion_tipo_propuesta,
-//                            (e.nombre_usuario || ' ' || e.apellido_paterno_usuario|| ' ' || e.apellido_materno_usuario) as nom_alumno,
-//                            (f.nombre_usuario || ' ' || f.apellido_paterno_usuario|| ' ' || f.apellido_materno_usuario) as nom_profesor,
-//                            a.nota_baja
-//                    FROM inscripcion_propuesta a
-//                            INNER JOIN estatus b ON a.id_estatus = b.id_estatus
-//                            INNER JOIN propuestas_profesor c ON a.id_propuesta = c.id_propuesta
-//                            INNER JOIN tipos_propuesta d ON c.id_tipo_propuesta = d.id_tipo_propuesta
-//                            INNER JOIN usuarios e ON a.id_alumno = e.id_usuario
-//                            INNER JOIN usuarios f ON c.id_profesor = f.id_usuario
-//                    WHERE a.id_alumno = ? and a.id_carrera = ?
-//                    ORDER BY a.fecha_inscripcion;";
-
             $tsql ="SELECT count(a.id_estatus) as total5
                     FROM inscripcion_propuesta a
                             INNER JOIN estatus b ON a.id_estatus = b.id_estatus
@@ -185,7 +158,7 @@ class d_alumno_Mi_Titulacion_Por_Propuesta {
     function Obtener_Docs_Enviados($id_inscripcion, $id_documento){
       
         try{                    
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
 
             if( $cnn === false )
@@ -255,7 +228,7 @@ class d_alumno_Mi_Titulacion_Por_Propuesta {
                 
         try{    
             
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
                                    
             if( $conn === false )
@@ -268,9 +241,7 @@ class d_alumno_Mi_Titulacion_Por_Propuesta {
             $conn->beginTransaction();
             
             //OBTENEMOS EL TOTAL DE ALUMNOS INSCRITOS EN LA PROPUESTA
-//            $tsql1=" SELECT count(id_alumno) as inscritos
-//                        FROM inscripcion_propuesta
-//                        WHERE id_propuesta = ?";
+
 
             //OBTENEMOS EL SIGUIENTE CONSUCUTIVO DE LA PROPUESTA
             $tsql1=" SELECT (consecutivo) as siguiente
@@ -393,7 +364,6 @@ class d_alumno_Mi_Titulacion_Por_Propuesta {
                 $result5 = $stmt5->execute($params5); 
                 if ($result5){
                         if($stmt5->rowCount() > 0){                    
-                            //$mensaje_Transacciones .= "Contador de Inscritos aumentado. OK.<br/>";
                         }
                         else{
                             $error = $stmt5->errorInfo();
@@ -413,40 +383,6 @@ class d_alumno_Mi_Titulacion_Por_Propuesta {
                     throw new Exception($mensaje_Transacciones);                                
             }
 
-                //Disminuímos el número de vancantes según la carrera
-//                $tsql5=" UPDATE propuesta_profesor_carrera_requeridos SET
-//                vacantes = vacantes -1 
-//                WHERE id_propuesta = ? AND id_carrera = ?;";
-
-//                /* Valor de los parámetros. */
-//                $params5= array($id_propuesta, $id_carrera);
-//                /* Preparamos la sentencia a ejecutar */
-//                $stmt5 = $conn->prepare($tsql5);
-//                if($stmt5){
-//                    /*Ejecutamos el Query*/                
-//                    $result5 = $stmt5->execute($params5); 
-//                    if ($result5){
-//                            if($stmt5->rowCount() > 0){                    
-//                                $mensaje_Transacciones .= "Vacantes disminuídas. OK.<br/>";
-//                            }
-//                            else{
-//                                $error = $stmt5->errorInfo();
-//                                $mensaje_Transacciones .= "No se pudo Disminuír las Vancantes.<br>"  . $error[2] .'<br>';
-//                                throw new Exception($mensaje_Transacciones);                                                              
-//                            }
-//                    }
-//                    else{
-//                        $error = $stmt5->errorInfo();
-//                        $mensaje_Transacciones .= "No se pudo Disminuír las Vancantes.<br/>"  . $error[2] .'<br>';
-//                        throw new Exception($mensaje_Transacciones);        
-//                    }
-//                }
-//                else{
-//                        $error = $stmt5->errorInfo();
-//                        $mensaje_Transacciones .= "Error en la sentencia SQL para Disminuír las Vancantes.<br/>"  . $error[2] .'<br>';
-//                        throw new Exception($mensaje_Transacciones);                                
-//                }
-            
                 $conn->commit();
                 
                 $obj_Bitacora = new d_Usuario_Bitacora();
@@ -491,7 +427,7 @@ class d_alumno_Mi_Titulacion_Por_Propuesta {
         $jsondata = array();
 
         try {
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
 
             if($conn === false) {
@@ -554,7 +490,7 @@ class d_alumno_Mi_Titulacion_Por_Propuesta {
                 
         try{    
             
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
                 
             if( $conn === false )
@@ -624,7 +560,7 @@ class d_alumno_Mi_Titulacion_Por_Propuesta {
                 
         try{    
             
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
                 
             if( $conn === false )
@@ -634,83 +570,6 @@ class d_alumno_Mi_Titulacion_Por_Propuesta {
 
             $conn->beginTransaction();
             
-            //Aumentamos el número de requerimientos de la carrera
-            /* Query parametrizado. */
-//            $tsql=" UPDATE propuesta_profesor_carrera_requeridos SET ".
-//                    "vacantes =  vacantes + 1 ".
-//                    "WHERE id_propuesta = ? AND " .
-//                    "id_carrera =?;";                    
-//            /* Valor de los parámetros. */
-//            $params = array($id_propuesta, $id_carrera);
-//            /* Preparamos la sentencia a ejecutar */
-//            $stmt = $conn->prepare($tsql);
-//            if($stmt){
-//                /*Ejecutamos el Query*/                
-//                $result = $stmt->execute($params); 
-//                if ($result){
-//                    if($stmt->rowCount() > 0){                    
-//                        $mensaje_Transacciones .= "Vancantes en la Propuesta Actualizado. OK.<br/>";
-//                    }
-//                    else{
-//                        $error = $stmt->errorInfo();
-//                        $mensaje_Transacciones .= "No se pudo Actualizar las Vacantes en la Propuesta.<br>"  . $error[2] .'<br>';
-//                        throw new Exception($mensaje_Transacciones);                                                              
-//                    }
-//                }
-//                else{
-//                    $error = $stmt->errorInfo();
-//                    $mensaje_Transacciones .= "No se actualizó las Vacantes en la Propuesta.<br/>"  . $error[2] .'<br>';
-//                    throw new Exception($mensaje_Transacciones);        
-//                }
-//            }
-//            else{
-//                    $error = $stmt->errorInfo();
-//                    $mensaje_Transacciones .= "Error en la sentencia SQL para Actualizar las Vacantes en la Propuesta.<br/>"  . $error[2] .'<br>';
-//                    throw new Exception($mensaje_Transacciones);                                
-//            }
-            
-            //VERFICAMOS EL ESTATUS DEL DOCUMENTO.
-//            $tsql2="SELECT id_estatus
-//                    FROM inscripcion_propuesta
-//                    WHERE id_inscripcion = ?;";
-//            /* Valor de los parámetros. */
-//            $params2 = array($id_inscripcion);
-//            /* Preparamos la sentencia a ejecutar */
-//            $stmt2 = $conn->prepare($tsql2);
-//            if($stmt2){
-//                /*Ejecutamos el Query*/                
-//                $result2 = $stmt2->execute($params2); 
-//                if (!$result2 === FALSE){
-//                    if($stmt2->rowCount() > 0){                    
-//                        $row = $stmt2->fetch(PDO::FETCH_ASSOC);
-//                        $estatus = $row['id_estatus'];                                
-//                    }
-//                    else{
-//                        $mensaje_Transacciones .= "No se pudo Obtener el Estatus de la Inscripción.<br>";
-//                        throw new Exception($mensaje_Transacciones);                                                              
-//                    }
-//                }
-//                else{
-//                    $error = $stmt2->errorInfo();
-//                    $mensaje_Transacciones .= "Error en los parámetros para Obtener el Estatus de la Inscripción.<br/>"  . $error[2] .'<br>';
-//                    throw new Exception($mensaje_Transacciones);        
-//                }
-//            }
-//            else{
-//                    $error = $stmt2->errorInfo();
-//                    $mensaje_Transacciones .= "Error en la sentencia SQL para Obtener el Estatus de la Inscripción.<br/>"  . $error[2] .'<br>';
-//                    throw new Exception($mensaje_Transacciones);                                
-//            }                        
-            //FIN VERIFICAMOS EL ESTATUS DEL DOCUMENTO
-            
-//            if($estatus == '3'){ //3.Aceptado
-//                $mensaje_Transacciones .= "Esta Inscripción YA esta Aceptada. Actualice la vista del módulo Mi Titulación Por Propuesta";
-//                throw new Exception($mensaje_Transacciones);                                                
-//            }
-//            
-            //BORRAMOS LAS VERSIONES DE LA INSCRIPCION
-//            $tsql2=" DELETE FROM inscripcion_propuesta_version 
-//                    WHERE id_inscripcion = ?;";
             
             $tsql2=" UPDATE inscripcion_propuesta_version 
                     SET id_estatus = ?
@@ -746,8 +605,6 @@ class d_alumno_Mi_Titulacion_Por_Propuesta {
             }
 
             //BORRAMOS LA INSCRIPCION
-//            $tsql=" DELETE FROM inscripcion_propuesta 
-//                    WHERE id_inscripcion = ?;";    
             $tsql=" UPDATE inscripcion_propuesta 
                     SET id_estatus = ?, nota_baja = ?, fecha_baja = ?
                     WHERE id_inscripcion = ?;";                    
@@ -823,6 +680,3 @@ class d_alumno_Mi_Titulacion_Por_Propuesta {
     //FIN BORRAR INSCRIPCION DE UNA PROPUESTA
     
 }
-
-//$obj = new d_alumno_Mi_Titulacion_Por_Propuesta();
-//echo $obj->Obtener_Mis_Inscripcines('5', '4');

@@ -1,5 +1,5 @@
 <?php
-
+use App\Database\Connection;
 /**
  * Definición de la Capa de Datos para la Clase Alumno
  * Metodos
@@ -12,7 +12,7 @@ header('Content-Type: text/html; charset=UTF-8');
 require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Entidades/Alumno.php');
 require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Entidades/Usuario.php');
 require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Datos/d_Usuario.php');
-require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Datos/Conexion.php');
+require_once __DIR__ . '/../app/Database/Connection.php';
 require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Entidades/AlumnoDatosGenerales.php');
 
 require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Datos/d_Usuario_Bitacora.php');
@@ -29,7 +29,7 @@ class d_Alumno {
         $jsondata = array();
 
         try{                  
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
     
             if( $conn === false )
@@ -98,7 +98,7 @@ class d_Alumno {
         $jsondata = array();
 
         try{                  
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
     
             if( $conn === false )
@@ -189,7 +189,7 @@ class d_Alumno {
         $id_tema_bitacora = 5; //Nueva cuenta que hace el Alumno
 
         try{                   
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
                 
             $obj_Alumno = new Alumno();
@@ -279,14 +279,6 @@ class d_Alumno {
                 
                 if( $result > 0 ) {                
                      $mensaje_Transacciones .= ("");  
-//                     if($id_administrador == ''){
-//                       session_start(); 
-//                       $_SESSION["id_usuario"] = $obj_Alumno->get_Id_Alumno();
-//                       $_SESSION["id_tipo_usuario"] = $obj_Alumno->get_Id_Tipo_Usuario();
-//                       $_SESSION["descripcion_tipo_usuario"] = 'ALUMNO';
-//                       $_SESSION["nombre_usuario"] = $obj_Alumno->get_Nombre() .' '.$obj_Alumno->get_Apellido_Paterno().
-//                               ' '.$obj_Alumno->get_Apellido_Materno();
-//                     }
                                          
                 } else {
                      $mensaje_Transacciones .= ("Ocurrió un error.");
@@ -377,7 +369,7 @@ class d_Alumno {
         $jsondata = array();
 
         try{                         
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
                 
             $obj_Alumno = new Alumno();
@@ -482,66 +474,7 @@ class d_Alumno {
         }
 } // Fin Definición de Metodo Actualizar
 
-} // Fin Clase
-//
-//
-//Probando la Clase Alumno_CD
-//-------------------------------------------------------------------
-//$obj_Alumno = new Alumno();
-//$obj_Alumno->set_Id_Alumno(1);
-//$obj_Alumno->set_Calle_Numero('Mz l');
-//$obj_Alumno->set_Colonia('Sn Rafael');
-//$obj_Alumno->set_Delegacion_Municipio('Coacalco');
-//$obj_Alumno->set_Codigo_Postal('55719');
-//$obj_Alumno->set_Telefono_Fijo('5512');
-//$obj_Alumno->set_Celular('5513');
-//$obj_Alumno->set_Fecha_Nacimiento('2016-10-10');
-//$obj_Alumno->set_Anio_Ingreso_FI(1989);
-//$obj_Alumno->set_Semestre_Ingreso_FI(1);
-//$obj_Alumno->set_Id_Estado(1);
-//$obj_Alumno->set_IdUsuario(1);
-//$obj_Alumno->set_Id_Usuario(1);
-//$obj_Alumno->set_Contrasena('123');
-//$obj_Alumno->set_Nombre('Rogelio');
-//$obj_Alumno->set_Apellido_Paterno('Reyes');
-//$obj_Alumno->set_Apellido_Materno('Mendoza');
-//$obj_Alumno->set_Id_Tipo_Usuario(5);
-//$obj_Alumno->set_Fecha_Alta('2016-05-22');
-//$obj_Alumno->set_Correo_Electronico('rogelioreyesm@hotmail.com');
-//$obj_Alumno->set_Id_Genero('M');
-//$obj_Alumno->set_Activo(1);
-//                
-//$obj_Alumno_CD = new d_Alumno();
-//echo $obj_Alumno_CD ->Obtener_Alumno('086198516');
-
-
-//$obj_Alumno_CD = new d_Alumno();
-//echo $obj_Alumno_CD ->Obtener_Alumno_DatosGenerales('2017-2-001-01', '');
-
-//Probar el proceso Actualizar
-
-//$obj_A = new d_Alumno;
-//$obj_alu = new Alumno();
-//$obj_alu->set_Calle_Numero('calle NUEVA');
-//$obj_alu->set_Colonia('colonia NUEVA');
-//$obj_alu->set_Delegacion_Municipio('delegacion NUEVA');
-//$obj_alu->set_Codigo_Postal('cp NUEVA');
-//$obj_alu->set_Telefono_Fijo('tel fijo NUEVA');
-//$obj_alu->set_Celular('celuclar NUEVA');
-//$obj_alu->set_Anio_Ingreso_FI(2000);
-//$obj_alu->set_Semestre_Ingreso_FI(2);
-//$obj_alu->set_Id_Alumno('teresa');
-//
-//$obj_alu->set_Nombre('teresa');
-//$obj_alu->set_Apellido_Paterno('arreola');
-//$obj_alu->set_Apellido_Materno('gómez');
-//$obj_alu->set_Correo_Electronico('jk@gmail');
-//$obj_alu->set_Id_Usuario('teresa');
-//
-//$obj_A->Actualizar($obj_alu);
-//
-//$obj_A = new d_Alumno();
-//echo $obj_A->Obtener_Alumno('x');
+} 
 ?>
 
 

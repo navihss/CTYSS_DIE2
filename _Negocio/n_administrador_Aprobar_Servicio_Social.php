@@ -78,11 +78,6 @@ switch ($tipo_Movimiento){
                 
         $obj_d_Alumno_Mi_Servicio = new d_Alumno_Mi_Servicio();
 
-//           $jsondata['success'] = false;
-//           $jsondata['data']= array('message'=> $id_ss . ', ' . $fecha_inicio_ss);
-//           echo json_encode($jsondata);
-//           exit();
-        
         echo $obj_d_Alumno_Mi_Servicio->Actualizar_Estatus_Servicio_Social($id_ss, $fecha_inicio_ss, $id_Usr_Destinatario, $correo_usr, $carrera_usr, $id_administrador, $id_division);
 }
 

@@ -1,7 +1,7 @@
 <?php
-
+use App\Database\Connection;
 header('Content-Type: text/html; charset=UTF-8');
-require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Datos/Conexion.php');
+require_once __DIR__ . '/../app/Database/Connection.php';
 require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/zonaHoraria.php');
 require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Datos/d_Usuario_Bitacora.php');
 require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Entidades/Bitacora.php');
@@ -12,7 +12,7 @@ class d_Alumno_Mis_Reportes {
         function Obtener_Mi_SS_x_Carrera($id_alumno){
       
         try{                    
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
 
             if( $cnn === false )
@@ -21,13 +21,6 @@ class d_Alumno_Mis_Reportes {
             }
             
             //Obtenemos los Servicios Sociales (3. Aceptados) x Carrera (5. Activas)
-//            $tsql = "SELECT a.id_ss, a.id_carrera, a.id_alumno, c.descripcion_carrera ".
-//                    "FROM servicio_social a " .
-//                    "INNER JOIN alumno_carrera b ON (a.id_carrera = b.id_carrera AND a.id_alumno = b.id_alumno) " .
-//                    "INNER JOIN carreras c ON b.id_carrera = c.id_carrera " .
-//                    "WHERE a.id_alumno = ? AND a.id_estatus IN (3,8) AND b.id_estatus =5 " .
-//                    "ORDER BY a.id_carrera;";
-
             $tsql =" SELECT a.id_ss, b.descripcion_carrera, a.id_carrera
                     FROM servicio_social a 
                             INNER JOIN carreras b ON a.id_carrera = b.id_carrera
@@ -79,7 +72,7 @@ class d_Alumno_Mis_Reportes {
     function Obtener_Mis_Reportes($id_ss){
       
         try{                    
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
 
             if( $cnn === false )
@@ -147,7 +140,7 @@ class d_Alumno_Mis_Reportes {
     function Obtener_Total_Reportes($id_estatus, $id_alumno){
       
         try{                    
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
 
             if( $cnn === false )
@@ -208,7 +201,7 @@ class d_Alumno_Mis_Reportes {
     function Obtener_Datos_Grales($id_ss){
       
         try{                    
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
 
             if( $cnn === false )
@@ -278,7 +271,7 @@ class d_Alumno_Mis_Reportes {
                 
         try{    
             
-            $cnn = new Conexion();
+            $cnn = new Connection();
             $conn = $cnn->getConexion();
                 
             if( $conn === false )
@@ -345,10 +338,4 @@ class d_Alumno_Mis_Reportes {
     //FIN ACTUALIZAMOS EL ESTATUS DEL REPORTE COMO ENVIADO
        
 }
-//
-//$obj = new d_Alumno_Mis_Reportes();
-//echo $obj->Obtener_Datos_Grales('201603-021');
-
-//$obj = new d_Alumno_Mis_Reportes();
-//echo $obj->Obtener_Mi_SS_x_Carrera('086198517');
 ?>
