@@ -76,7 +76,7 @@ class Mail {
         
     function __construct()
     {
-        $ini_array = parse_ini_file($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/Config/SMTP.ini');
+        $ini_array = parse_ini_file($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE/Config/SMTP.ini');
         $this->host = $ini_array['host'];
         $this->puerto = $ini_array['puerto'];
         $this->username = $ini_array['username'];

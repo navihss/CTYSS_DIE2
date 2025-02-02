@@ -47,7 +47,7 @@ Objetivo:       Interfaz para aprobar las Propuestas de los Profesores
                                         <TH>Título</TH>\n\
                                         <TH>Fecha recibida</TH>\n\
                                         <TH>Estatus</TH>\n\
-                                        <TH colspan="2">Acción</TH></TR>';
+                                        <TH>Acción</TH></TR>';
                            if (respuesta.success == true){
                                //recorremos cada registro
                                $.each(respuesta.data.registros, function( key, value ) {
@@ -63,9 +63,6 @@ Objetivo:       Interfaz para aprobar las Propuestas de los Profesores
                                             ' data-id_documento =' + value['id_documento'] + 
                                             ' data-id_version = ' + value['version_propuesta'] + '>Revisar Doc</button>';
                                     
-                                    $btn_bitacora = '<button id="btn_bitacora" class="btn_Bitacora btnOpcion" data-id_propuesta_bitacora=\'' + value['id_propuesta'] + '\' ' + 
-                                                    '>Bitacora</button>';
-                                    
                                    html_table += '<TR>';
                                    html_table += '<TD>' + value['id_propuesta'] + '</TD>';
                                    html_table += '<TD style="text-align:left;">' + value['nombre'] + '</TD>';
@@ -73,8 +70,7 @@ Objetivo:       Interfaz para aprobar las Propuestas de los Profesores
                                    html_table += '<TD style="text-align:left;">' + value['titulo_propuesta'] + '</TD>';
                                    html_table += '<TD>' + value['fecha_recepcion_doc'] + '</TD>';
                                    html_table += '<TD>' + value['descripcion_estatus'] + '</TD>';
-                                   html_table += '<TD style="text-align:center">' + $btn_Revisar_Doc + '</TD>';
-                                   html_table += '<TD style="text-align:center">' + $btn_bitacora + '</TD>';
+                                   html_table += '<TD>' + $btn_Revisar_Doc + '</TD>';
                                    html_table = html_table + '</TR>';
                                });
                                html_table = html_table + '</TABLE>';
@@ -212,86 +208,6 @@ Objetivo:       Interfaz para aprobar las Propuestas de los Profesores
 
                 });
                 //FIN EVENTO CLICK SOBRE EL BOTON REVISAR DOC
-
-                //Evento para mostrar historial de la propuesta
-                $('#tabla_Propuestas').on("click", "button.btn_Bitacora", function(e){
-                    //e.preventDefault();
-                    $('#btn_bitacora').val($(this).data("id_propuesta_bitacora"));
-                    var id_propuesta_bitacora = $(this).data("id_propuesta_bitacora");
-                    Obtener_Bitacora_Propuestas(id_propuesta_bitacora);
-                    $('#ventanaPropuestaBitacora').dialog('open');
-                });
-                //Fin de evento para mostrar historial
-                
-                //funcion para obtener el historial de las propuestas enviadas
-				function Obtener_Bitacora_Propuestas(id_propuesta_bitacora){                                           
-                    var datos = {Tipo_Movimiento : 'BITACORA_PROPUESTAS',
-                               id_propuesta : id_propuesta_bitacora
-                           };
-                    $.ajax({
-                       data : datos,
-                       type : "POST",
-                       dataType : "json",
-                       url : "_Negocio/n_coord_jdpto_Aprobar_Propuesta.php"
-                    })
-                       .done(function(respuesta,textStatus,jqXHR){
-                           var html_table = '<table class="tabla_Registros"><caption> Clave de la Propuesta: ' + id_propuesta_bitacora + '</caption>';
-                           html_table = html_table + '<tr><th>Título</th><th>Versión</th><th>Fecha Generada</th><th>Estatus</th><th>Nota</th><th>Profesor</th><th>Tipo Propuesta</tr>';
-                           if (respuesta.success == true){
-                               //recorremos cada registro
-                               $.each(respuesta.data.registros, function( key, value ) {
-                                   
-                                   if (value['fecha_generada']){
-                                       $dato_fecha = '<td>' + value['fecha_generada'] + '</td>';
-                                   }
-                                   else{
-                                       $dato_fecha = '<td></td>';
-                                   }
-                                   if (value['nota']){
-                                       $dato_nota = '<td>' + value['nota'] + '</td>';
-                                   }
-                                   else{
-                                       $dato_nota = '<td></td>';
-                                   }
-                                   if (value['profesor']){
-                                       $dato_profesor = '<td>' + value['profesor'] + '</td>';
-                                   }
-                                   else{
-                                       $dato_profesor = '<td></td>';
-                                   }								   
-
-                                   html_table = html_table + '<td style="text-align:left;">' + value['titulo_propuesta'] + '</td>';
-
-                                   html_table = html_table + '<td style="text-align:left;">' + value['version_propuesta'] + '</td>';
-                                   html_table = html_table + $dato_fecha;
-                                   html_table = html_table + '<td>' + value['descripcion_estatus'] + '</td>';
-                                   html_table = html_table + $dato_nota;                                   
-								   html_table = html_table + $dato_profesor;
-								   html_table = html_table + '<td style="text-align:left;">' + value['descripcion_tipo_propuesta'] + '</td>';
-                                   html_table = html_table + '</tr>';
-                               });
-                               html_table = html_table + '</table>';
-                               //console.log(html_table);
-                               $('#tabla_bitacora_propuestas').empty();
-                               $('#tabla_bitacora_propuestas').html(html_table);                                
-                               }
-                           else {
-                               html_table = html_table + '<tr><td colspan="7">' + respuesta.data.message + '</td></tr>';
-                               html_table = html_table + '</table>'
-                               $('#tabla_bitacora_propuestas').empty();
-                               $('#tabla_bitacora_propuestas').html(html_table);
-                           }
-                       })
-                        .fail(function(jqXHR,textStatus,errorThrown){
-								var html_table = '<table class="tabla_Registros"><caption> Clave de la Propuesta: ' + id_propuesta_bitacora + '</caption>';
-								html_table = html_table + '<tr><th>Título</th><th>Versión</th><th>Fecha Generada</th><th>Estatus</th><th>Nota</th><th>Profesor</th><th>Tipo Propuesta</tr>';
-                                html_table = html_table + '<tr><td colspan="7">' + textStatus + '. ' + errorThrown + '</td></tr>';
-                                html_table = html_table + '</table>';
-                                $('#tabla_bitacora_propuestas').empty();
-                                $('#tabla_bitacora_propuestas').html(html_table);                                
-                         });                                                                             
-				}                
-                //fin Obtenemos los Documentos Enviados para Autorizar la Propuesta                
 
                 //MOSTRAMOS LOS DATOS DE LA PROPUESTA
                 function Obtener_Propuesta(id_propuesta){
@@ -578,28 +494,6 @@ Objetivo:       Interfaz para aprobar las Propuestas de los Profesores
                     }); //FIN ventanaConfirmar_Aceptacion_Doc
                 });
                 //FIN CLICK AL BOTON ACEPTAR DOC
-
-                //Ventana Modal para mostrar el historial de las propuestas
-                $('#ventanaPropuestaBitacora').dialog({
-                   buttons:{
-                        "Cerrar" : function() {
-                            $(this).dialog('close');
-                        }
-                   },
-                   title: 'Historial de Propuestas',
-                   modal : true,
-                   autoOpen : false,
-                   resizable : true,
-                   draggable : true,
-                   height : '550',
-                   width : '850',
-                   show : 'slide',
-                   hide : 'slide',
-                   dialogClass : 'no-close',
-                   closeOnEscape : false,                   
-                   position : {at: 'center top'}                   
-                });
-                //Fin de ventana modal de historial de propuestas                
 
                 //CLICK AL BOTON RECHAZAR DOCUMENTO
                 $('#btn_rechazar_Doc').on('click',function(e){
@@ -949,11 +843,7 @@ Objetivo:       Interfaz para aprobar las Propuestas de los Profesores
             </div>                
             <input type="hidden" id="Id_Usuario" name="Id_Usuario" value="<?php echo $_SESSION['id_usuario']; ?>">
         </div>
-        <!-- Ventana para mostrar el historial de una propuesta -->
-        <div id='ventanaPropuestaBitacora'>
-            <div id="tabla_bitacora_propuestas" class="tabla_Registros"></div>
-        </div>
-        <!-- Fin Ventana para mostrar el historial de una propuesta -->           
+        
         <div id="ventanaDocumentoPDF">
             <div id="divOpciones_Doc" style="text-align: right; width: 970px;">
                 <button id="btn_ver_Docs" class="btn_Herramientas" style="margin-left: 5px; width: 200px;">Documentos del Profesor</button>

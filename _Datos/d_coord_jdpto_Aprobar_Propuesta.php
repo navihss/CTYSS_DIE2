@@ -171,10 +171,8 @@ class d_coord_jdpto_Aprobar_Propuesta {
             if($stmt){        
                 /*Ejecutamos el Query*/
                 $result = $stmt->execute($params);                                 
-                if ($result){     
-					echo "1";
-                    if($stmt->rowCount() > 0){  
-						echo "2";
+                if ($result){                    
+                    if($stmt->rowCount() > 0){                                                
                         $jsondata['success'] = true;
                         $jsondata['data']['message'] = 'Registros encontrados';
                         $jsondata['data']['registros'] = array();
@@ -184,7 +182,6 @@ class d_coord_jdpto_Aprobar_Propuesta {
                         }
                         $stmt=null;
                         $conn=null;
-						echo "Hola mundo";
                         echo json_encode($jsondata);
                         exit();
                     }
@@ -843,7 +840,7 @@ class d_coord_jdpto_Aprobar_Propuesta {
                             "fecha_vigencia = ? " .
                             "WHERE id_propuesta = ?;";                    
                     /* Valor de los parámetros. */
-                    $params = array($clave_Propuesta,3, $fecha, $nuevafecha, $id_propuesta_doc);  //3. Aceptado
+                    $params = array($id_propuesta_doc,3, $fecha, $nuevafecha, $id_propuesta_doc);  //3. Aceptado
                     /* Preparamos la sentencia a ejecutar */
                     $stmt = $conn->prepare($tsql);
 

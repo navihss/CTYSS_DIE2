@@ -15,8 +15,8 @@ if(!isset($_POST['Tipo_Movimiento'])){
     header('Location: ../index.php');
 }
 
-require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Datos/d_profesor_Mis_Propuestas.php');
-require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Entidades/Propuesta_Profesor.php');
+require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE/_Datos/d_profesor_Mis_Propuestas.php');
+require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE/_Entidades/Propuesta_Profesor.php');
 
 $tipo_Movimiento = $_POST['Tipo_Movimiento'];
 

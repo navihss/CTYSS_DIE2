@@ -8,7 +8,7 @@
 <!--        <meta http-equiv="Expires" content="0" /> 
         <meta http-equiv="Pragma" content="no-cache" />-->
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Nueva Cuenta de Usuario.no</title>
+        <title>Nueva Cuenta de Usuario</title>
         <link href="css/jquery-ui.css" rel="stylesheet"> 
         <link href="css/nuevaCuenta.css" rel="stylesheet">        
         <script src="js/jquery-1.12.4.min.js"></script>
@@ -572,7 +572,7 @@
         </div>
         <div id="ventanaAvisoPrivacidad">
             <?php
-                $file = fopen($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/Config/aviso_privacidad_terminosDeUso.txt', "r") or exit("Error al leer el archivo de Aviso de Privacitad y Términos de Uso.!");
+                $file = fopen($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE/Config/aviso_privacidad_terminosDeUso.txt', "r") or exit("Error al leer el archivo de Aviso de Privacitad y Términos de Uso.!");
                 while(!feof($file))
                 {
                     echo fgets($file). "<br />";

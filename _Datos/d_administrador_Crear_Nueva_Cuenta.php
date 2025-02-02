@@ -8,16 +8,16 @@
  */
 header('Content-Type: text/html; charset=UTF-8');
 
-require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Entidades/Administrador.php');
-require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Entidades/Coordinador.php');
-require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Entidades/Profesor.php');
-require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Entidades/Alumno.php');
-require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Entidades/Usuario.php');
-require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Datos/d_Usuario.php');
-require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Datos/Conexion.php');
-require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/zonaHoraria.php');
-require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Datos/d_Usuario_Bitacora.php');
-require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Entidades/Bitacora.php');
+require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE/_Entidades/Administrador.php');
+require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE/_Entidades/Coordinador.php');
+require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE/_Entidades/Profesor.php');
+require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE/_Entidades/Alumno.php');
+require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE/_Entidades/Usuario.php');
+require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE/_Datos/d_Usuario.php');
+require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE/_Datos/Conexion.php');
+require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE/zonaHoraria.php');
+require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE/_Datos/d_Usuario_Bitacora.php');
+require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE/_Entidades/Bitacora.php');
 
 class d_administrador_Crear_Nueva_Cuenta {
 
@@ -298,19 +298,6 @@ class d_administrador_Crear_Nueva_Cuenta {
                 $desc_Tipo_Usuario = "Coordinador";
                 $obj_Coord = new Coordinador();
                 $obj_Coord = $obj_Entidad;
-                $sql_jefe_coordinador = "SELECT jc.id_grado_estudio, jc.id_coordinacion, jc.id_puesto_trabajo FROM jefes_coordinacion jc WHERE jc.id_coordinador = ?";
-                $params_coord = array($obj_Coord->get_Id_Coordinador());
-
-                /* Preparamos la sentencia a ejecutar */
-                $stmt_coord = $conn->prepare($sql_jefe_coordinador);
-                $result_coord = $stmt_coord->execute($params_coord);
-
-                $row_coord = $stmt_coord->fetch(PDO::FETCH_ASSOC);
-                $id_grado_estudio_coord = $row_coord['id_grado_estudio'];
-                $id_coordinacion_coord = $row_coord['id_coordinacion'];
-                $id_puesto_coord = $row_coord['id_puesto_trabajo'];
-
-
                 
                 $tsql2=" UPDATE jefes_coordinacion SET
                         id_grado_estudio = ?,
@@ -318,9 +305,9 @@ class d_administrador_Crear_Nueva_Cuenta {
                         id_puesto_trabajo = ?
                         WHERE id_coordinador = ?;";
                 /* Valor de los parámetros. */
-                $params2 = array($id_grado_estudio_coord,
-                            $id_coordinacion_coord,
-                            $id_puesto_coord,
+                $params2 = array($obj_Coord->get_Id_Grado_Estudio(),
+                            $obj_Coord->get_Id_Coordinacion(),
+                            $obj_Coord->get_Id_Puesto(),
                             $obj_Coord->get_Id_Coordinador());     
                 $id_usuario_bitacora = $obj_Coord->get_Id_Coordinador();
             }
@@ -328,29 +315,16 @@ class d_administrador_Crear_Nueva_Cuenta {
                 $desc_Tipo_Usuario = "Jefe Departamento";
                 $obj_Dpto = new Jefe_Departamento();
                 $obj_Dpto = $obj_Entidad;
-
-                $sql_jefe_dpto = "SELECT jd.id_grado_estudio, jd.id_departamento, jd.id_puesto_trabajo FROM jefes_departamento jd WHERE jd.id_jefe_departamento = ?";
-                $params_dpto = array($obj_Dpto->get_Id_Jefe_Departamento());
-
-                /* Preparamos la sentencia a ejecutar */
-                $stmt_dpto = $conn->prepare($sql_jefe_dpto);
-                $result_dpto = $stmt_dpto->execute($params_dpto);
-
-                $row_dpto = $stmt_dpto->fetch(PDO::FETCH_ASSOC);
-                $id_grado_estudio_dpto = $row_dpto['id_grado_estudio'];
-                $id_departamento_dpto = $row_dpto['id_departamento'];
-                $id_puesto_dpto = $row_dpto['id_puesto_trabajo'];                
                 
-
                 $tsql2=" UPDATE jefes_departamento SET
                         id_grado_estudio = ?,
                         id_departamento = ?,
                         id_puesto_trabajo = ?
                         WHERE id_jefe_departamento = ?;";
                 /* Valor de los parámetros. */
-                $params2 = array($id_grado_estudio_dpto,
-                            $id_departamento_dpto,
-                            $id_puesto_dpto,
+                $params2 = array($obj_Dpto->get_Id_Grado_Estudio(),
+                            $obj_Dpto->get_Id_Departamento(),
+                            $obj_Dpto->get_Id_Puesto(),
                             $obj_Dpto->get_Id_Jefe_Departamento());  
                 $id_usuario_bitacora = $obj_Dpto->get_Id_Jefe_Departamento();
             }            

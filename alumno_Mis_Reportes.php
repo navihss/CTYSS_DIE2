@@ -546,7 +546,7 @@ Objetivo:       Interfaz para adjuntar los Reportes Bimestrales
                         <span id="aviso_Fecha_Termino" class="dato_Invalido"><img src="css/images/error.ico"/></span>
                     </p>
                     <p>
-                        <label for="horas_realizadas" class="label">Horas realizadas:</label>
+                        <label for="horas_realizadas" class="label">Horas realizadas en bimestre:</label>
                         <input type="text" name="horas_realizadas" class="entrada_Dato" id="horas_realizadas"
                                maxlength="3" placeholder="160" 
                                title="Capture únicamente números enteros" class="entrada_Dato" autocomplete="off"/>

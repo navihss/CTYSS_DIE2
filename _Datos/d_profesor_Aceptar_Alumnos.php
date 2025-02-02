@@ -6,12 +6,12 @@
  * Julio 2016
  */
 header('Content-Type: text/html; charset=UTF-8');
-require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Datos/Conexion.php');
-require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/zonaHoraria.php');
-require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Datos/d_Usuario_Bitacora.php');
-require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Entidades/Bitacora.php');
-require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Datos/d_mail.php');
-require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Entidades/Mail.php');
+require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE/_Datos/Conexion.php');
+require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE/zonaHoraria.php');
+require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE/_Datos/d_Usuario_Bitacora.php');
+require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE/_Entidades/Bitacora.php');
+require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE/_Datos/d_mail.php');
+require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE/_Entidades/Mail.php');
 
 class d_profesor_Aceptar_Alumnos {
     
@@ -478,14 +478,14 @@ class d_profesor_Aceptar_Alumnos {
                     $nom_archivo = $id_alumno.'_'.
                                    $id_carrera.'_'.
                                    $id_propuesta.'_*.pdf';
-                    $nom_archivo = $_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/Docs/Inscripcion_A_Propuesta/'.$nom_archivo;
+                    $nom_archivo = $_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE/Docs/Inscripcion_A_Propuesta/'.$nom_archivo;
                     array_map("unlink", glob($nom_archivo));
                     
                     $nom_archivo = $id_alumno.'_'.
                                    $id_carrera.'_'.
                                    $id_propuesta.'_'.
                                    $id_version.'_Baja_Inscripcion.pdf';
-                    $nom_archivo = $_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/Docs/Baja_de_Propuesta/'.$nom_archivo;
+                    $nom_archivo = $_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE/Docs/Baja_de_Propuesta/'.$nom_archivo;
                     if (file_exists($nom_archivo)) {
                         unlink($nom_archivo);   
                     }                    
@@ -577,7 +577,7 @@ class d_profesor_Aceptar_Alumnos {
                                    $id_propuesta.'_'.
                                    $id_version.'_'.
                                    $desc_corta_archivo.'.pdf';
-                    $nom_archivo = $_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/Docs/Inscripcion_A_Propuesta/'.$nom_archivo;
+                    $nom_archivo = $_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE/Docs/Inscripcion_A_Propuesta/'.$nom_archivo;
                     if (file_exists($nom_archivo)) {
                         unlink($nom_archivo);   
                     }
@@ -589,7 +589,7 @@ class d_profesor_Aceptar_Alumnos {
                                    $id_propuesta.'_'.
                                    $id_version.'_'.
                                    $desc_corta_archivo.'.pdf';
-                    $nom_archivo = $_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/Docs/Baja_de_Propuesta/'.$nom_archivo;
+                    $nom_archivo = $_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE/Docs/Baja_de_Propuesta/'.$nom_archivo;
                     if (file_exists($nom_archivo)) {
                         unlink($nom_archivo);   
                     }                    

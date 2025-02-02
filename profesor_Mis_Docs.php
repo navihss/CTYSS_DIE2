@@ -363,7 +363,7 @@ Objetivo:       Interfaz para los Docs del Usuario
             //Pintamos la tabla para el envio/edición de documentos
             var i = 1;
 
-            for(i=1;i<=1;i++)
+            for(i=1;i<=6;i++)
             {
                 Agregar(i);
                 

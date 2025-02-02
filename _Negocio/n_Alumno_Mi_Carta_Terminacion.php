@@ -15,8 +15,8 @@ if(!isset($_SESSION["id_usuario"]) and
 if(!isset($_POST['Tipo_Movimiento'])){
     header('Location: ../index.php');
 }
-require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Datos/d_Alumno_Mi_Carta_Terminacion.php');
-require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/zonaHoraria.php');
+require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE/_Datos/d_Alumno_Mi_Carta_Terminacion.php');
+require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE/zonaHoraria.php');
 
 //    $jsondata = array();
 //    $jsondata['success'] = false;

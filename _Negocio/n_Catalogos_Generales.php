@@ -9,7 +9,7 @@ if(!isset($_POST['tabla_Catalogo']) and
     header('Location: ../index.php');
 }
 
-require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Datos/d_Catalogos_Generales.php');
+require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE/_Datos/d_Catalogos_Generales.php');
 
 $tabla_Catalogo = $_POST['tabla_Catalogo'];
 $tabla_Campos = $_POST['tabla_Campos'];

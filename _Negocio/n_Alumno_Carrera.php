@@ -21,7 +21,7 @@ if(isset($_SESSION["id_division"])){
     $id_division=$_SESSION["id_division"];
 }
 
-require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Datos/d_Alumno_Carrera.php');
+require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE/_Datos/d_Alumno_Carrera.php');
 
 $tipo_Movimiento = $_POST['Tipo_Movimiento'];
 $id_Usuario = $_POST['Id_Usuario'];
@@ -42,7 +42,8 @@ switch ($tipo_Movimiento){
         echo $obj_d_Alumno_Carrera->Borrar($id_Usuario, $id_Carrera);
         break;
 }
-        
+
+
 ?>
 
 

@@ -7,12 +7,12 @@
  */
 
 header('Content-Type: text/html; charset=UTF-8');
-require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Datos/Conexion.php');
-require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/zonaHoraria.php');
-require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Datos/d_Usuario_Bitacora.php');
-require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Entidades/Bitacora.php');
-require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Datos/d_mail.php');
-require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Entidades/Mail.php');
+require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE/_Datos/Conexion.php');
+require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE/zonaHoraria.php');
+require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE/_Datos/d_Usuario_Bitacora.php');
+require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE/_Entidades/Bitacora.php');
+require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE/_Datos/d_mail.php');
+require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE/_Entidades/Mail.php');
 
 
 class d_administrador_Reportes_Estadisticas {
@@ -320,15 +320,15 @@ class d_administrador_Reportes_Estadisticas {
     //FIN OBTENEMOS LOS REPORTES PENDIENTES POR AUTORIZAR POR EL ADMINISTRADOR 
     
     
-    //OBTENEMOS LOS REPORTES PENDIENTES POR AUTORIZAR POR EL ADMINISTRADOR
+    //OBTENEMOS LOS REPORTES PARA PAGINA Aprobcaion de documentos > Reporte servicio social > Por Alumnos
     function Obtener_Reportes_Programas_servicio_social(
                                                     $tx_alumno,$id_carrera,
                                                     $fecha_inicio,$fecha_fin,
-						    $fecha_verifico,$fecha_verifico_fin,
+                                                    $fecha_verifico,$fecha_verifico_fin,
                                                     $anio,$no_registro,
                                                     $id_programa,$tx_nombre_programa,
                                                     $tx_dependencia,$tx_responsable,$tx_jefe_inmediato,
-                                                    $id_estatus,$id_genero,$num_cuenta
+                                                    $id_estatus,$id_genero, $num_cuenta
                                                     ){
         
         try{
@@ -344,25 +344,25 @@ class d_administrador_Reportes_Estadisticas {
             $params = array();
             
             $tsql = "select  pss.id_programa,pss.descripcion_pss,ss.id_alumno,
-                    (u.nombre_usuario || ' ' || u.apellido_paterno_usuario || ' ' || u.apellido_materno_usuario) as nombre_usuario,
-                    c.descripcion_carrera,
-                    to_char(fecha_inicio_ss,'yyyy/mm/dd') fecha_inicio_ss,
-                    to_char(fecha_termino_ss,'yyyy/mm/dd') fecha_termino_ss,
-                    est.descripcion_estatus,
-                    ss.jefe_inmediato_ss,
-                    pss.responsable_pss,
-                    ss.id_ss,
-                    to_char(ssd.fecha_verifico_doc,'yyyy/mm/dd') fecha_verifico_doc
-                    from servicio_social ss
-                    inner join programas_ss pss on ss.id_programa=pss.id_programa
-                    inner join alumno_carrera ac on ss.id_alumno=ac.id_alumno 
-                    inner join alumnos a on ac.id_alumno=a.id_alumno 
-                    inner join carreras c on ac.id_carrera=c.id_carrera
-                    inner join estatus est on ss.id_estatus=est.id_estatus
-                    inner join usuarios u on u.id_usuario=a.id_alumno 
-                    inner join generos g on u.id_genero=g.id_genero
-		    inner join servicio_social_docs ssd on ss.id_ss=ssd.id_ss
-                    where 1=1 ";
+            (u.nombre_usuario || ' ' || u.apellido_paterno_usuario || ' ' || u.apellido_materno_usuario) as nombre_usuario,
+            c.descripcion_carrera,
+            to_char(fecha_inicio_ss,'yyyy/mm/dd') fecha_inicio_ss,
+            to_char(fecha_termino_ss,'yyyy/mm/dd') fecha_termino_ss,
+            est.descripcion_estatus,
+            ss.jefe_inmediato_ss,
+            pss.responsable_pss,
+            ss.id_ss,
+            to_char(ssd.fecha_verifico_doc,'yyyy/mm/dd') fecha_verifico_doc
+            from servicio_social ss
+            inner join programas_ss pss on ss.id_programa=pss.id_programa
+            inner join alumno_carrera ac on ss.id_alumno=ac.id_alumno 
+            inner join alumnos a on ac.id_alumno=a.id_alumno 
+            inner join carreras c on ac.id_carrera=c.id_carrera
+            inner join estatus est on ss.id_estatus=est.id_estatus
+            inner join usuarios u on u.id_usuario=a.id_alumno 
+            inner join generos g on u.id_genero=g.id_genero
+            inner join servicio_social_docs ssd on ss.id_ss=ssd.id_ss
+            where 1=1 ";
             
             if($tx_alumno != null && $tx_alumno != ''  ){
                 $tsql = $tsql." and (upper(u.nombre_usuario || ' ' || u.apellido_paterno_usuario || ' ' || u.apellido_materno_usuario)) like ? ";
@@ -375,9 +375,19 @@ class d_administrador_Reportes_Estadisticas {
                 $params[]= $id_carrera;
             }
             
-	    if($num_cuenta != null && $num_cuenta != ''  ){
+            if($num_cuenta != null && $num_cuenta != ''  ){
                 $tsql = $tsql." and a.id_alumno=? ";
                 $params[]= $num_cuenta;
+            }
+
+            if($fecha_verifico != null && $fecha_verifico != ''  ){
+                $tsql = $tsql." and ssd.fecha_verifico_doc >=? ";
+                $params[]=  $fecha_verifico;
+            }
+
+            if($fecha_verifico_fin != null && $fecha_verifico_fin != ''  ){
+                $tsql = $tsql." and ssd.fecha_verifico_doc <=? ";
+                $params[]=  $fecha_verifico_fin;
             }
             
             if($fecha_inicio != null && $fecha_inicio != ''  ){
@@ -390,17 +400,9 @@ class d_administrador_Reportes_Estadisticas {
                 $params[]= $fecha_fin;
             }
             
-	    if($fecha_verifico != null && $fecha_verifico != ''  ){
-                $tsql = $tsql." and ssd.fecha_verifico_doc>=? ";
-                $params[]=  $fecha_verifico;
-            }
-
-            if($fecha_verifico_fin != null && $fecha_verifico_fin != ''  ){
-                $tsql = $tsql." and ssd.fecha_verifico_doc <=? ";
-                $params[]=  $fecha_verifico_fin;
-            }
-
-            if($anio != null && $anio != ''  ){                
+            
+            if($anio != null && $anio != ''  ){
+                
                 $tsql = $tsql." and substring(pss.id_programa,0,5)=? ";
                 $params[]= $anio;
             }
@@ -493,10 +495,10 @@ class d_administrador_Reportes_Estadisticas {
             exit();
         }
     }
-    //FIN OBTENEMOS LOS REPORTES PENDIENTES POR AUTORIZAR POR EL ADMINISTRADOR
+    //FIN 
     
     
-    //OBTENEMOS LOS REPORTES PENDIENTES POR AUTORIZAR POR EL ADMINISTRADOR
+    //OBTENEMOS LOS REPORTES PARA PAGINA Aprobcaion de documentos > Reporte servicio social > Por Programas
     function Obtener_Reportes_Programas_servicio_social_pp(
         $tx_alumno,$id_carrera,
         $fecha_inicio,$fecha_fin,
@@ -657,7 +659,7 @@ class d_administrador_Reportes_Estadisticas {
                 exit();
             }
     }
-    //FIN OBTENEMOS LOS REPORTES PENDIENTES POR AUTORIZAR POR EL ADMINISTRADOR
+    //FIN
     
     
     //OBTENEMOS LOS REPORTES PENDIENTES POR AUTORIZAR POR EL ADMINISTRADOR

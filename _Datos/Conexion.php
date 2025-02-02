@@ -1,7 +1,7 @@
 <?php
 //    require_once '../Config/ruta_Proyecto.php';
 //    require_once $ruta_Proyecto . 'Config/Seguridad.php';
-      include ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/Config/Seguridad.php');
+      include ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE/Config/Seguridad.php');
       
     class Conexion
     {
@@ -16,7 +16,7 @@
             function __construct()
             {
                     //obtenemos los parametros de la Aplicación
-                    $ini_array = parse_ini_file($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/Config/Aplicacion.ini');
+                    $ini_array = parse_ini_file($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE/Config/Aplicacion.ini');
                     //configuramos el objeto conexión
                     $this->serverName = $ini_array['db_hostname'];
                     $this->usuario_bd = $ini_array['db_username'];

@@ -670,7 +670,7 @@ Objetivo:       Interfaz para las Propuestas del Profesor
 
                     if (id_propuesta =='')
                     {
-                        $('#ventanaConfirmacion').text('Desea Dar de Alta esta Propuesta....?');
+                        $('#ventanaConfirmacion').text('Desea Dar de Alta esta Propuesta ?');
                     }
                     else{
                         $('#ventanaConfirmacion').text('Desea Actualizar los datos de esta Propuesta ?');
@@ -781,8 +781,6 @@ Objetivo:       Interfaz para las Propuestas del Profesor
                             
                             // Por Ajax Agregamos la Propuesta
                             formDatos = $('#frm_Propuesta').serialize();
-                            console.log("ANTES DE HACER EL LLAMADO.");
-                            console.log("Tipo Movimiento " + $('#Tipo_Movimiento').val());                            
 
                             var jotason=$.ajax({
                                 data : formDatos,
@@ -1334,7 +1332,7 @@ Objetivo:       Interfaz para las Propuestas del Profesor
                         'id_tipo_propuesta as id, descripcion_tipo_propuesta as descripcion', 
                         'id_tipo_titulacion = 1', 'descripcion_tipo_propuesta');                
                 llena_Catalogo('carrera', 'CATALOGO_GENERALES', 'carreras', 
-                    'id_carrera as id, concat(\'.. \', descripcion_carrera) as descripcion', 
+                    'id_carrera as id, descripcion_carrera as descripcion', 
                     '', 'descripcion_carrera');               
                 crea_Tabla_Asesorias();    
                 Obtener_Propuestas($('#Id_Usuario').val());
@@ -1394,10 +1392,9 @@ Objetivo:       Interfaz para las Propuestas del Profesor
                 <div class="descripcion_Modulo">
                     <p>Mis Propuestas</p>
                 </div>
- <!-- GMK Habilitar               <div class="barra_Herramientas">
+                <div class="barra_Herramientas">
                     <input type="button" id="btn_Agregar" name="btn_Agregar" value="Agregar" class="btn_Herramientas"/>
-                </div>   
--->                                                                                
+                </div>                                                                   
             </div>
             <div id="tabla_Propuestas" class="tabla_Registros">
             </div>

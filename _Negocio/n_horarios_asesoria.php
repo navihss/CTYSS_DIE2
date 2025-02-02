@@ -15,7 +15,7 @@ if(!isset($_POST['Tipo_Movimiento'])){
     header('Location: ../index.php');
 }
 
-require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Datos/d_horarios_asesoria.php');
+require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE/_Datos/d_horarios_asesoria.php');
          
 $tipo_Movimiento = $_POST['Tipo_Movimiento'];
 

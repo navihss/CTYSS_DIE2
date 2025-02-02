@@ -1,8 +1,8 @@
 <?php
 
-require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Datos/d_Alumno_Mi_Titulacion_Por_Propuesta.php');
-require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Datos/d_Usuario_Bitacora.php');
-require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Entidades/Bitacora.php');
+require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE/_Datos/d_Alumno_Mi_Titulacion_Por_Propuesta.php');
+require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE/_Datos/d_Usuario_Bitacora.php');
+require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE/_Entidades/Bitacora.php');
 
 session_start();
 
@@ -22,7 +22,7 @@ if(isset($_FILES["file"]["type"]))
     $temporary = explode(".", $_FILES["file"]["name"]);
     $file_extension = end($temporary);
     if ($_FILES["file"]["type"] == "application/pdf" && 
-            ($_FILES["file"]["size"] < 500000000) && //Approx. 300kb puede ser subido.
+            ($_FILES["file"]["size"] < 300000) && //Approx. 300kb puede ser subido.
             in_array($file_extension, $validextensions)) {
         
         if ($_FILES["file"]["error"] > 0){

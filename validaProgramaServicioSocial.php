@@ -1,5 +1,5 @@
 <?php  
-    require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Datos/Conexion.php');
+    require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE/_Datos/Conexion.php');
            
     $clavePrograma=$_POST['clavePrograma'];
     $claveCarrera=$_POST['claveCarrera'];

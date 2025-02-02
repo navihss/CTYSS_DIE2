@@ -19,9 +19,8 @@ $id_division=0;
 if(isset($_SESSION["id_division"])){
     $id_division=$_SESSION["id_division"];
 }
-
-require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Datos/d_Alumno_Mi_Jurado.php');
-require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/zonaHoraria.php');
+require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE/_Datos/d_Alumno_Mi_Jurado.php');
+require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE/zonaHoraria.php');
 
 //    $jsondata = array();
 //    $jsondata['success'] = false;

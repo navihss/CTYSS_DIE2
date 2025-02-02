@@ -32,11 +32,11 @@ Objetivo:       Interfaz para aprobar los Reportes Bimestrales
                 //OBTENEMOS LOS REPORTES BIMESTRALES DEL SERVICIO SOCIAL DEL ALUMNO
                 function Obtener_Reportes_Estadisticas(tx_alumno,id_carrera,
                                 						fecha_inicio,fecha_fin,
-										fecha_verifico,fecha_verifico_fin,
+                                                        fecha_verifico,fecha_verifico_fin,
                                 						anio,no_registro,
                                 						id_programa,tx_nombre_programa,
                                 						tx_dependencia,tx_responsable,tx_jefe_inmediato,
-                                						id_estatus,id_genero,num_cuenta){
+                                						id_estatus,id_genero, num_cuenta){
 
    
 					
@@ -45,8 +45,8 @@ Objetivo:       Interfaz para aprobar los Reportes Bimestrales
                         			id_carrera 			: id_carrera,
                         			fecha_inicio 		: fecha_inicio,
                         			fecha_fin 			: fecha_fin,
-						fecha_verifico 		: fecha_verifico,
-						fecha_verifico_fin 	: fecha_verifico_fin,
+                                    fecha_verifico 		: fecha_verifico,
+                                    fecha_verifico_fin 	: fecha_verifico_fin,
                         			anio 				: anio,
                         			no_registro 		: no_registro,
                         			id_programa 		: id_programa,
@@ -56,7 +56,7 @@ Objetivo:       Interfaz para aprobar los Reportes Bimestrales
                         			tx_jefe_inmediato 	: tx_jefe_inmediato,
                         			id_estatus 			: id_estatus,
                         			id_genero 			: id_genero,
-						num_cuenta                      : num_cuenta
+                                    num_cuenta          : num_cuenta
                            		};
 
                		
@@ -71,8 +71,8 @@ Objetivo:       Interfaz para aprobar los Reportes Bimestrales
                                html_table += '<TR>\n\
                                         	   <TH>Clave DGOSE</TH>\n\
                                         	   <TH>Nombre del programa</TH>\n\
-                                        	   <TH>Id Servicio Social</TH>\n\
-                                                   <TH># cuenta</TH>\n\
+                                               <TH>Id Servicio Social</TH>\n\
+                                        	   <TH># cuenta</TH>\n\
                                         	   <TH>Nombre alumno</TH>\n\
                                         	   <TH>Carrera</TH>\n\
                                         	   <TH>Fecha inicio</TH>\n\
@@ -119,7 +119,7 @@ Objetivo:       Interfaz para aprobar los Reportes Bimestrales
                                 html_table += '<TR>\n\
                                          	   <TH>Clave DGOSE</TH>\n\
                                          	   <TH>Nombre del programa</TH>\n\
-                                                   <TH>Id Servicio Social</TH>\n\
+                                               <TH>Id Servicio Social</TH>\n\
                                          	   <TH># cuenta</TH>\n\
                                          	   <TH>Nombre alumno</TH>\n\
                                          	   <TH>Carrera</TH>\n\
@@ -385,14 +385,15 @@ Objetivo:       Interfaz para aprobar los Reportes Bimestrales
                 $( function() {
                     $( "#fechaFin" ).datepicker();
                   } );
-                
-                  $( function() {
+                $( function() {
                     $( "#fechaVerifico" ).datepicker();
                   } );
-                  $( function() {
+                $( function() {
                     $( "#fechaVerificoFin" ).datepicker();
                   } );
-
+               
+              	
+                        
                 function esNulo(valor_){
                     if(valor_ == null){
                         return '';
@@ -436,7 +437,7 @@ Objetivo:       Interfaz para aprobar los Reportes Bimestrales
                 Obtener_Catalogo_Tipo_Servicio('0');
         		Obtener_Reportes_Estadisticas("",'0',
                 								"","",
-										"","",
+                                                "","",
                 								"","",
                 								"","",
                 								"","","",
@@ -449,9 +450,10 @@ Objetivo:       Interfaz para aprobar los Reportes Bimestrales
                     
                 	var tx_alumno 			= $("#alumno").val();
                 	var id_carrera 			= $("#carrera").val();
-			var num_cuenta          	= $("#num_cuenta").val();
-			var fecha_verifico 		= $("#fechaVerifico" ).val();
-			var fecha_verifico_fin 		= $("#fechaVerificoFin" ).val();
+
+                    var num_cuenta          = $("#num_cuenta").val();
+                    var fecha_verifico 		= $("#fechaVerifico" ).val();
+                    var fecha_verifico_fin 	= $("#fechaVerificoFin" ).val();
                 	
                 	var fecha_inicio 		= $("#fechaInicio" ).val();	
                 	var fecha_fin 			= $("#fechaFin" ).val();
@@ -472,7 +474,7 @@ Objetivo:       Interfaz para aprobar los Reportes Bimestrales
 
                 	Obtener_Reportes_Estadisticas(tx_alumno,id_carrera,
                 									fecha_inicio,fecha_fin,
-											fecha_verifico,fecha_verifico_fin,
+                                                    fecha_verifico,fecha_verifico_fin,
                 									anio,no_registro,
                 									id_programa,tx_nombre_programa,
                 									tx_dependencia,tx_responsable,tx_jefe_inmediato,
@@ -492,9 +494,10 @@ Objetivo:       Interfaz para aprobar los Reportes Bimestrales
 
             	var tx_alumno 			= $("#alumno").val();
             	var id_carrera 			= $('#carrera option:selected').html();
-		var num_cuenta          	= $("#num_cuenta").val();
-		var fecha_verifico 		= $("#fechaVerifico" ).val();
-		var fecha_verifico_fin 		= $("#fechaVerificoFin" ).val();
+
+                var num_cuenta          = $("#num_cuenta").val();
+                var fecha_verifico 		= $("#fechaVerifico" ).val();
+                var fecha_verifico_fin 	= $("#fechaVerificoFin" ).val();
             	
             	var fecha_inicio 		= $("#fechaInicio" ).val();	
             	var fecha_fin 			= $("#fechaFin" ).val();
@@ -524,21 +527,25 @@ Objetivo:       Interfaz para aprobar los Reportes Bimestrales
 					titulo_filtros += 'Carrera: '+ id_carrera
 					
 	            }
-		if(num_cuenta != ''){
+
+                if(num_cuenta != ''){
                 	titulo_filtros += '->'
 					titulo_filtros += 'Num. Cuenta: '+ num_cuenta
 					
                 }
-		if(fecha_verifico != ''){
+
+                if(fecha_verifico != ''){
                 	titulo_filtros += '->'
 					titulo_filtros += 'Fecha Verifico: '+ fecha_verifico
 					
                 }
-		if(fecha_verifico_fin != ''){
+
+                if(fecha_verifico_fin != ''){
                 	titulo_filtros += '->'
 					titulo_filtros += 'Fecha Verifico Fin: '+ fecha_verifico_fin
 					
                 }
+
                 if(fecha_inicio != ''){
                 	titulo_filtros += '->'
 					titulo_filtros += 'Fecha Inicio: '+ fecha_inicio
@@ -676,7 +683,7 @@ Objetivo:       Interfaz para aprobar los Reportes Bimestrales
                     </select>
              </td>
          </tr>
-         
+
          <tr>
              <td>
              <p>
@@ -684,8 +691,9 @@ Objetivo:       Interfaz para aprobar los Reportes Bimestrales
                     <input type="text" name="num_cuenta" id="num_cuenta" class="ventanaInformativa" style="width:200px;" placeholder="Cuenta" autocomplete="off" class="entrada_Dato"/>
              
              </td>
-	  </tr>
-	  <tr>
+         </tr>
+
+         <tr>
              <td>
                 <p>
                     <label for="fechaVerifico" class="label alumno_ent">Fecha Inicio de Verificacion:</label>
@@ -699,6 +707,7 @@ Objetivo:       Interfaz para aprobar los Reportes Bimestrales
                 </p>
              </td>
          </tr>
+         
           <tr>
              <td>
                 <p>
@@ -778,7 +787,6 @@ Objetivo:       Interfaz para aprobar los Reportes Bimestrales
                     <input type="text" name="jefe_inmediato" id="jefe_inmediato" class="ventanaInformativa" style="width:200px;"/>
              
              </td>
-             
          </tr>
          
           <tr>

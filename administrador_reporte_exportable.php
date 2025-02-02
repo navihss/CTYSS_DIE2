@@ -19,12 +19,12 @@ if($tipo == 'pdf'){
     
 
     
-    require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/lib/dompdf/dompdf_config.inc.php');
+    require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE/lib/dompdf/dompdf_config.inc.php');
     $path=$_SERVER["DOCUMENT_ROOT"] ;
     
     $style= 
    '<html><body>
-    <img src="'.$path.'/CTYSS_DIE2/css/images/ingenieria-unam.png" /><h4>'.$titulo_reporte.
+    <img src="'.$path.'/CTYSS_DIE/css/images/ingenieria-unam.png" /><h4>'.$titulo_reporte.
     '</h4>
      <style><!--
     th {font-family: Arial; font-size: 0.85em;border-width: 0.5px;border-color: #729ea5; border: 1px solid #729ea5; background-color:#acc8cc}
@@ -142,7 +142,7 @@ div.Section1 { page:Section1; }
 
 <?php 
 $path=$_SERVER["DOCUMENT_ROOT"] ;
-echo '<img src="'.$path.'/CTYSS_DIE2/css/images/ingenieria-unam.png" /><h4>'.$titulo_reporte.'</h4>';
+echo '<img src="'.$path.'/CTYSS_DIE/css/images/ingenieria-unam.png" /><h4>'.$titulo_reporte.'</h4>';
 
 ?>
 

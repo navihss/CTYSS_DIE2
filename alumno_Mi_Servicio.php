@@ -377,8 +377,6 @@ Objetivo:       Interfaz para la captura del Servicio Social y los Documentos pa
                         claveCarrera : $('#Id_Carrera').val(),
                         id_division: $('#Id_Division').val(),
                     };
-                    console.log(">>> Id_Division ANTES DE validaProgramaServicioSocial");
-                    console.log(datosAPasar);
                                         
                     $.ajax({
                         data : datosAPasar,
@@ -474,8 +472,6 @@ Objetivo:       Interfaz para la captura del Servicio Social y los Documentos pa
                                Id_Carrera : 0,
                                Id_Division : $('#Id_Division').val(),
                            };
-                    console.log('>>> Se agrega division');
-                    console.log(datos);
                     $.ajax({
                        data : datos,
                        type : "POST",
@@ -831,8 +827,6 @@ Objetivo:       Interfaz para la captura del Servicio Social y los Documentos pa
                             $('#ventanaProcesando').dialog('open');
                             // Por Ajax Agregamos el Servicio Social
                             var formDatos = $('#frm_SS').serialize();
-                            console.log(">>> formDatos");
-                            console.log(formDatos);
                             $.ajax({
                                 data : formDatos,
                                 type : "POST",
@@ -975,7 +969,7 @@ Objetivo:       Interfaz para la captura del Servicio Social y los Documentos pa
                             $(this).dialog('close');
                         }
                    },
-                   title: 'Mis Documentos Enviados...',
+                   title: 'Mis Documentos Enviados',
                    modal : true,
                    autoOpen : false,
                    resizable : true,
@@ -1218,7 +1212,7 @@ Objetivo:       Interfaz para la captura del Servicio Social y los Documentos pa
                 </p>
                 <p>
                     <label for="clave_Programa" class="label">Clave del programa:</label>
-                    <input type="text" name="clave_Programa" id="clave_Programa" maxlength="18" placeholder="2015-10/1-400"
+                    <input type="text" name="clave_Programa" id="clave_Programa" maxlength="18" placeholder="2015-010/001-0400"
                                title="Capture la Clave del Programa TAL Y COMO ESTÁ EN LA PÁGINA DGOSE, sin espacios" 
                                autocomplete="off" class="entrada_Dato"/>
                     <div id="cargandoAjax" class="notificacion">
@@ -1229,6 +1223,7 @@ Objetivo:       Interfaz para la captura del Servicio Social y los Documentos pa
                         <span id="aviso_Clave_Programa" class="dato_Invalido"></span>
                     </div>                                    
                 </p>
+				<center>Formato:0000-000/000-0000</center>
                 <p>
                     <label for="numero_Creditos" class="label">Número de creditos TOTALES de avance:</label>
                     <input type="text" name="numero_Creditos" id="numero_Creditos" maxlength="3" placeholder="368"
@@ -1249,12 +1244,13 @@ Objetivo:       Interfaz para la captura del Servicio Social y los Documentos pa
                 </p>                
                 <p>
                     <label for="jefe_Inmediato" class="label">Nombre del Jefe inmediato:</label>
-                    <input type="text" name="jefe_Inmediato" id="jefe_Inmediato" maxlength="50" placeholder="LIC. ANGÉLICA GUTIÉRREZ VÁZQUEZ"
+                    <input type="text" name="jefe_Inmediato" id="jefe_Inmediato" maxlength="50" placeholder="JEFE INMEDIATO"
                            title="Capture únicamente letras" autocomplete="off" class="entrada_Dato" 
                            style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();"/>
                     <span id="aviso_Jefe_Inmediato" class="dato_Invalido"><img src="css/images/error.ico"/></span>
                 </p>                
-
+				 
+				Recuerda que tu jefe inmediato debe estar registrado en DGOAE, es el que debes registrar en este apartado y es quien deberá firmar tus reportes.
                 <input type="hidden" id="Id_SS" name="Id_SS" value=""> 
                 <input type="hidden" id="Tipo_Movimiento" name="Tipo_Movimiento" value=""> 
                 <input type="hidden" id="Id_Carrera" name="Id_Carrera" value="">

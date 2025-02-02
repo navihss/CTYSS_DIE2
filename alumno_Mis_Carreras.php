@@ -337,7 +337,7 @@ Objetivo:       Interfaz para la captura de las carreras que cursa el Alumno
                 <div>
                     <div class="encabezado_Formulario">
                         <div class="descripcion_Modulo">
-                            <p>Mis Carreras...</p>
+                            <p>Mis Carreras</p>
                         </div>
                         <div class="barra_Herramientas">
                             <input type="button" id="Agregar_Carrera" name="Agregar_Carrera" value="Agregar" class="btn_Herramientas"/>

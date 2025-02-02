@@ -58,7 +58,7 @@
                                 html_table = html_table + '</TR>';
                                 $i = $i + 1;
                             };
-
+/*
                             if($i==2){
                                 $link_irA = '<a class="IrA link_pdf" href="#" data-archivophp=\'alumno_Mi_Titulacion_Por_Propuesta.php\'>Ver Pendientes</a>';
                                 html_table += '<TR>';
@@ -66,14 +66,7 @@
                                 html_table += '<TD>' + respuesta.data.registros[2]["total5"] + '</TD>';
                                 html_table += '<TD>' + $link_irA + '</TD>';
                                 html_table = html_table + '</TR>';
-                            };
-
-                            if($i==3){
-                                if(respuesta.data.registros[3]['total5']>0){
-                                    $('#ventanaAviso').html('Tus trámites en la Coordinación de Titulación y Servicio Social han concluido, da seguimiento en Servicios Escolares.');
-                                    $('#ventanaAvisos').dialog('open');
-                                };
-                            };
+                            };*/
 
                             $i = $i + 1;
                             });

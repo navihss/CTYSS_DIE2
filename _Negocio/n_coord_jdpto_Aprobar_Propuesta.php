@@ -19,9 +19,8 @@ $id_division=0;
 if(isset($_SESSION["id_division"])){
     $id_division=$_SESSION["id_division"];
 }
-
-require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Datos/d_coord_jdpto_Aprobar_Propuesta.php');
-require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/zonaHoraria.php');
+require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE/_Datos/d_coord_jdpto_Aprobar_Propuesta.php');
+require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE/zonaHoraria.php');
           
 $tipo_Movimiento = $_POST['Tipo_Movimiento'];
 
@@ -71,11 +70,6 @@ switch ($tipo_Movimiento){
                 $id_estatus, $id_usuario, $nota, $fecha_registro_doc, $id_profesor, $correo_profesor, $titulo_propuesta, $desc_corta_doc, $id_division);
         break;
         
-    case "BITACORA_PROPUESTAS":
-            $obj_d_Admon_Bitacora_Propuestas = new d_coord_jdpto_Aprobar_Propuesta();
-            $id_propuesta= $_POST['id_propuesta'];
-            echo $obj_d_Admon_Bitacora_Propuestas->Obtener_Bitacora_Propuestas($id_propuesta);
-        break;        
 
 }   
 

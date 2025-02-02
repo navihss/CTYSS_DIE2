@@ -8,12 +8,12 @@
  */
 
 header('Content-Type: text/html; charset=UTF-8');
-require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Datos/Conexion.php');
-require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/zonaHoraria.php');
-require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Datos/d_Usuario_Bitacora.php');
-require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Entidades/Bitacora.php');
-require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Datos/d_mail.php');
-require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Entidades/Mail.php');
+require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE/_Datos/Conexion.php');
+require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE/zonaHoraria.php');
+require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE/_Datos/d_Usuario_Bitacora.php');
+require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE/_Entidades/Bitacora.php');
+require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE/_Datos/d_mail.php');
+require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE/_Entidades/Mail.php');
     
 class d_alumno_Mi_Titulacion_Por_Propuesta {
 
@@ -784,7 +784,7 @@ class d_alumno_Mi_Titulacion_Por_Propuesta {
             $nom_archivo = $id_alumno.'_'.
                            $id_carrera.'_'.
                            $id_propuesta.'_*.pdf';
-            $nom_archivo = $_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/Docs/Inscripcion_A_Propuesta/'.$nom_archivo;
+            $nom_archivo = $_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE/Docs/Inscripcion_A_Propuesta/'.$nom_archivo;
             array_map("unlink", glob($nom_archivo));
             
             $conn->commit();

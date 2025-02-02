@@ -18,9 +18,8 @@ $id_division=0;
 if(isset($_SESSION["id_division"])){
     $id_division=$_SESSION["id_division"];
 }
-
-require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Datos/d_administrador_Aprobar_Reporte_Bimestral.php');
-require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/zonaHoraria.php');
+require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE/_Datos/d_administrador_Aprobar_Reporte_Bimestral.php');
+require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE/zonaHoraria.php');
           
 $tipo_Movimiento = $_POST['Tipo_Movimiento'];
 

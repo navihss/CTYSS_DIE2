@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <?php
     header('Content-Type: text/html; charset=UTF-8');
-    require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/zonaHoraria.php');
+    require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE/zonaHoraria.php');
 ?>
 
 
@@ -91,8 +91,7 @@
 //                        $('#ventanaProcesando').dialog({ dialogClass: 'no-titlebar'});
                         $('#ventanaProcesando').dialog('open');
                        
-                        var formData = $(this).serialize();                                                                      
-			console.log(formData); 
+                        var formData = $(this).serialize();                                                                       
                         $.ajax({
                             data : formData,
                             type : "POST",
@@ -102,14 +101,8 @@
                                 .done(function(respuesta,textStatus,jqXHR){
                                     $('#ventanaProcesando').dialog('close');
                                     if (respuesta.success == true){   
-					console.log(respuesta);
-                                    	if (respuesta.fecha_titulacion == false){
-                                            window.open('home.php','_self');
-                                        }else{
-                                            console.log('hay fecha');
-					    $('#ventanaAviso').html('Tus trámites en la Coordinación de Titulación y Servicio Social han concluido, da seguimiento en Servicios Escolares. <a href="http://escolar.ingenieria.unam.mx/titulacion/">Ir a Servicios Escolares.</a>');
-                                            $('#ventanaAvisos').dialog('open');
-                                        }                                                                  
+                                                                                                              
+                                        window.open('home.php','_self');
                                     }
                                     else{
                                         $('#ventanaAviso').html(respuesta.data.message);
@@ -165,6 +158,7 @@
                     </div> -->
                     <div class="" style="margin-top: 0px; height: 40px;">
                         <span><b>CTYSS_<i>mis</i>Tramites (Ver. 1.04)</b></span><br>
+						<li><a href="Docs/Manual_de_sistema_Servicio_Social.pdf">Manual de Sistema</a> </li>
                     <!--  <span><a href="reenviarContrasena.php">Olvidé mi contraseña</a></span><br><br><br> -->
                     </div>
                     
@@ -174,11 +168,17 @@
                 </form>
             </div>
         </div>
-<!--        <div id="pie">
-            <h2>Dirección....</h2>
-        </div-->
+		<center>
+			<button onclick="window.location.href='https://odin.fi-b.unam.mx/CTYSS_DIE/indexAlumno.php'"><h2><strong>Alumn@</strong></h2></button>
+			<button onclick="window.location.href='https://odin.fi-b.unam.mx/CTYSS_DIE/indexProfesor.php'"><h6><strong>Profesor@</strong></h6></button>
+		</center>
+        <div id="pie">
+		COPYRIGHT © 2023. CTYSS.
+        </div
+	
         <div id="ventanaAvisos">
             <span id="ventanaAviso" name="ventanaAviso"></span>
+			
         </div>
         <div id="ventanaProcesando">
             <img id="cargador" src="css/images/engrane2.gif"/><br>

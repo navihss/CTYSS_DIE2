@@ -84,15 +84,15 @@
                             $('#tabla_Pendientes').empty();
                             $('#tabla_Pendientes').html(html_table);
                         }
-                    	else{
-                        	html_table = html_table + '<TR><TD>' + respuesta.data.message + '</TD></TR>';
-                               	html_table = html_table + '</TABLE>'
-                               	$('#tabla_Pendientes').empty();
-                               	$('#tabla_Pendientes').html(html_table);
-                        	}
-                    	})
+                    else{
+                        html_table = html_table + '<TR><TD>' + respuesta.data.message + '</TD></TR>';
+                               html_table = html_table + '</TABLE>'
+                               $('#tabla_Pendientes').empty();
+                               $('#tabla_Pendientes').html(html_table);
+                        }
+                    })
                     .fail(function(jqXHR,textStatus,errorThrown){
-				var html_table = '<TABLE>';
+                                var html_table = '<TABLE>';
                                 var html_table = '<TABLE style="width:30%;" class="tabla_Registros">';
                                 html_table += '<TR><TH>Pendientes</TH>\n\
                                         <TH>Cantidad</TH>\n\
@@ -192,7 +192,7 @@
     <div>
         <div class="encabezado_Formulario">
             <div class="descripcion_Modulo">
-                <p>Mis Pendientes...</p>
+                <p>Mis Pendientes</p>
             </div>
             <div class="barra_Herramientas"> 
             </div>

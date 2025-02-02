@@ -8,10 +8,10 @@
  */
 header('Content-Type: text/html; charset=UTF-8');
 
-require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Datos/Conexion.php');
-require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/zonaHoraria.php');
-require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Datos/d_Usuario_Bitacora.php');
-require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Entidades/Bitacora.php');
+require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE/_Datos/Conexion.php');
+require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE/zonaHoraria.php');
+require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE/_Datos/d_Usuario_Bitacora.php');
+require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE/_Entidades/Bitacora.php');
 class d_profesor_Mis_Docs {
 
     function Agregar_Documento($id_usuario, $id_doc, $nombre_archivo){
@@ -127,7 +127,7 @@ class d_profesor_Mis_Docs {
                 if (!$result2===FALSE){
                         if($stmt2->rowCount() > 0){                    
                             $mensaje_Transacciones .= "Documento Borrado. OK.<br><br>";
-                            $nom_archivo = $_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/Docs/Docs_Profesores/'. utf8_decode($nom_archivo);
+                            $nom_archivo = $_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE/Docs/Docs_Profesores/'. utf8_decode($nom_archivo);
                             if (file_exists($nom_archivo)) {
                                 unlink($nom_archivo);
                             }                        }

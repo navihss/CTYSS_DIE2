@@ -7,11 +7,11 @@
  * Julio 2016
  */
 header('Content-Type: text/html; charset=UTF-8');
-require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Datos/Conexion.php');
-require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Entidades/Propuesta_Profesor.php');
-require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/zonaHoraria.php');
-require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Datos/d_Usuario_Bitacora.php');
-require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Entidades/Bitacora.php');
+require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE/_Datos/Conexion.php');
+require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE/_Entidades/Propuesta_Profesor.php');
+require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE/zonaHoraria.php');
+require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE/_Datos/d_Usuario_Bitacora.php');
+require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE/_Entidades/Bitacora.php');
 
 class d_profesor_Mis_Propuestas {
 
@@ -1264,7 +1264,7 @@ class d_profesor_Mis_Propuestas {
             //BORRAMOS EL ARCHIVO PDF
             $nom_archivo = $id_profesor.'_'.
                            $id_propuesta.'_*.pdf';
-            $nom_archivo = $_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/Docs/Propuestas_Profesor/'.$nom_archivo;
+            $nom_archivo = $_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE/Docs/Propuestas_Profesor/'.$nom_archivo;
             array_map("unlink", glob($nom_archivo));
             
             $conn->commit();

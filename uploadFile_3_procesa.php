@@ -1,8 +1,8 @@
 <?php
 
-require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Datos/d_Alumno_Mis_Reportes.php');
-require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Datos/d_Usuario_Bitacora.php');
-require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Entidades/Bitacora.php');
+require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE/_Datos/d_Alumno_Mis_Reportes.php');
+require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE/_Datos/d_Usuario_Bitacora.php');
+require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE/_Entidades/Bitacora.php');
 
 session_start();
 
@@ -29,7 +29,7 @@ if(isset($_FILES["file_rpt"]["type"]))
             echo "Código de Error: " . $_FILES["file_rpt"]["error"] . "<br/><br/>";
         }
         else{
-              $archivo = $_SERVER["DOCUMENT_ROOT"].'/CTYSS_DIE2/Docs/Reportes_Bimestrales/' . 
+              $archivo = 'Docs/Reportes_Bimestrales/' . 
                       $_POST['id_usuario_doc'] . '_' . 
                       $_POST['id_carrera_doc'] . '_' . 
                       $_POST['id_ss'] . '_' . 

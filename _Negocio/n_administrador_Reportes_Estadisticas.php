@@ -14,8 +14,8 @@ if(!isset($_SESSION["id_usuario"]) and
 if(!isset($_POST['Tipo_Movimiento'])){
     header('Location: ../index.php');
 }
-require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Datos/d_administrador_Reportes_Estadisticas.php');
-require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/zonaHoraria.php');
+require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE/_Datos/d_administrador_Reportes_Estadisticas.php');
+require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE/zonaHoraria.php');
           
 $tipo_Movimiento = $_POST['Tipo_Movimiento'];
 
@@ -46,9 +46,9 @@ switch ($tipo_Movimiento){
         $id_carrera		    = $_POST['id_carrera'];
         $fecha_inicio 		= $_POST['fecha_inicio'];
         $fecha_fin 			= $_POST['fecha_fin'];
-	$fecha_verifico 	= $_POST['fecha_verifico'];
+        $fecha_verifico 	= $_POST['fecha_verifico'];
         $fecha_verifico_fin = $_POST['fecha_verifico_fin'];
-	$anio 				= $_POST['anio'];
+        $anio 				= $_POST['anio'];
         $no_registro 		= $_POST['no_registro'];
         $id_programa 		= $_POST['id_programa'];
         $tx_nombre_programa = $_POST['tx_nombre_programa'];
@@ -57,18 +57,18 @@ switch ($tipo_Movimiento){
         $tx_jefe_inmediato 	= $_POST['tx_jefe_inmediato'];
         $id_estatus 		= $_POST['id_estatus'];
         $id_genero 			= $_POST['id_genero'];
-	$num_cuenta 	    	= $_POST['num_cuenta'];
+        $num_cuenta 	    = $_POST['num_cuenta'];
 
 
         $obj_d_Admon_Reportes= new d_administrador_Reportes_Estadisticas();
         echo  $obj_d_Admon_Reportes->Obtener_Reportes_Programas_servicio_social(
                                                                         $tx_alumno,$id_carrera,
                                                                         $fecha_inicio,$fecha_fin,
-									$fecha_verifico,$fecha_verifico_fin,
+                                                                        $fecha_verifico,$fecha_verifico_fin,
                                                                         $anio,$no_registro,
                                                                         $id_programa,$tx_nombre_programa,
                                                                         $tx_dependencia,$tx_responsable,$tx_jefe_inmediato,
-                                                                        $id_estatus,$id_genero,$num_cuenta
+                                                                        $id_estatus,$id_genero, $num_cuenta
                                                                         );
         break;
         

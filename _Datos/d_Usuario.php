@@ -2,11 +2,11 @@
 
 header('Content-Type: text/html; charset=UTF-8');
 
-require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Entidades/Usuario.php');
-require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Datos/Conexion.php');
-require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Datos/d_Usuario.php');
-require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Datos/d_Usuario_Bitacora.php');
-require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Entidades/Bitacora.php');
+require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE/_Entidades/Usuario.php');
+require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE/_Datos/Conexion.php');
+require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE/_Datos/d_Usuario.php');
+require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE/_Datos/d_Usuario_Bitacora.php');
+require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE/_Entidades/Bitacora.php');
 
 class d_Usuario {
     //Definición de Metodos
@@ -127,11 +127,10 @@ class d_Usuario {
             /* Query parametrizado. */
             $tsql = "SELECT  a.id_usuario, a.contrasena_usuario, a.id_tipo_usuario, a.id_division, d.descripcion_division,  a.nombre_usuario, 
                     		a.apellido_paterno_usuario, a.apellido_materno_usuario, a.activo_usuario, 
-                    		b.descripcion_tipo_usuario, a.email_usuario, ac.fecha_titulacion
+                    		b.descripcion_tipo_usuario, a.email_usuario
                     FROM usuarios a
                     INNER JOIN tipo_usuario b ON a.id_tipo_usuario = b.id_tipo_usuario
                     INNER JOIN divisiones d on d.id_division = a.id_division 
-		    LEFT JOIN alumno_carrera ac on a.id_usuario = ac.id_alumno
                     WHERE a.id_usuario= ? AND a.contrasena_usuario = ?;";
             /* Valor de los parámetros. */
             $params = array($usr, $pass);                       
@@ -171,11 +170,6 @@ class d_Usuario {
                                 
                                 $jsondata['success'] = true;
                                 $jsondata['data']['message'] = '';
-				if (is_null($row["fecha_titulacion"])){
-					$jsondata['fecha_titulacion'] = false;
-				}else{
-					$jsondata['fecha_titulacion'] = true;
-				}
                                 echo json_encode($jsondata);
                                 exit();                            
                             }

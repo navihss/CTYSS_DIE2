@@ -6,13 +6,13 @@
  * Junio 2016
  */
     header('Content-Type: text/html; charset=UTF-8');
-    require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Datos/Conexion.php');
-    require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Entidades/Servicio_Social.php');
-    require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/zonaHoraria.php');
-    require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Datos/d_Usuario_Bitacora.php');
-    require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Entidades/Bitacora.php');
-    require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Datos/d_mail.php');
-    require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Entidades/Mail.php');
+    require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE/_Datos/Conexion.php');
+    require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE/_Entidades/Servicio_Social.php');
+    require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE/zonaHoraria.php');
+    require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE/_Datos/d_Usuario_Bitacora.php');
+    require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE/_Entidades/Bitacora.php');
+    require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE/_Datos/d_mail.php');
+    require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE/_Entidades/Mail.php');
     
 class d_Alumno_Mi_Servicio {
 
@@ -1292,13 +1292,13 @@ class d_Alumno_Mi_Servicio {
                     $renglones = count($arr_lista_campos_Documento);
                     for($i=0; $i < $renglones; $i++ ){
                         $arr_lista_campos = preg_split("/[,]/", $arr_lista_campos_Documento[$i]);                    
-                        $nom_archivo_actual = $_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/Docs/Servicio_Social/'.
+                        $nom_archivo_actual = $_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE/Docs/Servicio_Social/'.
                                 $arr_lista_campos[0].'_'.
                                 $arr_lista_campos[1].'_'.
                                 $id_ss.'_'.
                                 $arr_lista_campos[3].'_'.
                                 $arr_lista_campos[4].'.pdf';
-                        $nom_archivo_nuevo = $_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/Docs/Servicio_Social/'.
+                        $nom_archivo_nuevo = $_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE/Docs/Servicio_Social/'.
                                 $arr_lista_campos[0].'_'.
                                 $arr_lista_campos[1].'_'.
                                 $clave_SS.'_'.
@@ -1620,12 +1620,12 @@ class d_Alumno_Mi_Servicio {
                         throw new Exception($mensaje_Transacciones);                                
                 }  
                 //BORRAMOS EL DOCUMENTO RECHAZADO DE SERV SOCIAL
-                $archivo_pdf = $_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/Docs/Servicio_Social/'.
+                $archivo_pdf = $_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE/Docs/Servicio_Social/'.
                             $id_Usr_Destinatario .'_'. $carrera_usr.'_'.$id_SS.'_'.
                             $id_Version.'_'.$desc_documento.'.pdf';
                 
                 if($id_Doc == 3){//3.Carta de Termino
-                $archivo_pdf = $_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/Docs/Carta_Terminacion/'.
+                $archivo_pdf = $_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE/Docs/Carta_Terminacion/'.
                             $id_Usr_Destinatario .'_'. $carrera_usr.'_'.$id_SS.'_'.
                             $id_Version.'_'.$desc_documento.'.pdf';                    
                 } 

@@ -330,18 +330,6 @@ header('Location: index.php');
             $('#tmp_nuevo_Contenido').load('administrador_Reporte_Titulacion.php');
             //$('#nuevo_Contenido').replaceWith($('#tmp_nuevo_Contenido'));
         });
-	$('#Establece_Fecha_Titulacion').click(function(event){
-        event.preventDefault();
-        $('div.ui-dialog').remove();
-        $('#tmp_nuevo_Contenido').load('administrador_Asignar_Fecha_Titulacion.php');
-        $('#nuevo_Contenido').replaceWith($('#tmp_nuevo_Contenido'));
-        });
-	$('#Consultar_Datos_Alumno').click(function(event){
-        event.preventDefault();
-        $('div.ui-dialog').remove();
-        $('#tmp_nuevo_Contenido').load('administrador_admon_Datos_Alumno.php');
-        $('#nuevo_Contenido').replaceWith($('#tmp_nuevo_Contenido'));
-        });
         $('#autorizar_Solicitud_Baja_Servicio_Social').click(function(event){
         event.preventDefault();
         $('div.ui-dialog').remove();
@@ -515,14 +503,14 @@ header('Location: index.php');
                         <a href="#" id="mis_Pendientes" class="menuAlumno">Mis pendientes<span class="flecha">&#9660</span></a>
                     </li>
 
-                    <li>
+                    <!-- <li>
                         <a href="#" class="menuAlumno">Mi Titulación<span class="flecha">&#9660</span></a>
                         <ul>
                             <li><a href="#" id="mi_Titulacion_Por_Propuesta">Inscripción a Propuesta por Examen<span class="flecha">&#9660</span> </a></li>
                             <li><a href="#" id="mi_Jurado">Solicitar Jurado<span class="flecha">&#9660</span></a></li>
                             <li><a href="#" id="mi_Titulacion_Por_Ceremonia">Inscripción a Propuesta por Ceremonia<span class="flecha">&#9660</span></a></li>
                         </ul>
-                    </li>
+                    </li> -->
                     <li><a href="#" id="alumno_Cambio_Contrasena" class="menuAlumno"> Cambio de Contraseña<span class="flecha">&#9660</span></a>
                 </li>
                 <li>
@@ -609,8 +597,6 @@ header('Location: index.php');
 <li><a href="#" id="admon_Contadores">Admon. Contadores<span class="flecha">&#9660</span></a></li>
 <li><a href="#" id="Programas_Serv_Social">Programas para Servicio Social<span class="flecha">&#9660</span></a></li>
 <li><a href="#" id="Reporte_Titulacion_Proceso">Reporte. Titulación en proceso.<span class="flecha">&#9660</span></a></li>
-<li><a href="#" id="Establece_Fecha_Titulacion">Guardar Fecha Titulación<span class="flecha">&#9660</span></a></li>
-<li><a href="#" id="Consultar_Datos_Alumno">Consultar Datos Alumno<span class="flecha">&#9660</span></a></li>
 </ul>
 <li><a href="#" id="mi_Bitacora" class="">Mi Bitácora<span class="flecha">&#9660</span></a></li>
 <li><a href="#" id="cerrar_Mi_Sesion" class="">Cerrar Mi Sesión<span class="flecha">&#9660</span></a></li>

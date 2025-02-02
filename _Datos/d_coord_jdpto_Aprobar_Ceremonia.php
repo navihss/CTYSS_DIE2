@@ -8,12 +8,12 @@
  */
 
 header('Content-Type: text/html; charset=UTF-8');
-require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Datos/Conexion.php');
-require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Datos/d_Usuario_Bitacora.php');
-require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Datos/d_coord_jdpto_Aprobar_Propuesta.php');
-require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Entidades/Bitacora.php');
-require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Datos/d_mail.php');
-require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Entidades/Mail.php');
+require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE/_Datos/Conexion.php');
+require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE/_Datos/d_Usuario_Bitacora.php');
+require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE/_Datos/d_coord_jdpto_Aprobar_Propuesta.php');
+require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE/_Entidades/Bitacora.php');
+require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE/_Datos/d_mail.php');
+require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE/_Entidades/Mail.php');
 
 
 class d_coord_jdpto_Aprobar_Ceremonia {
@@ -660,7 +660,7 @@ class d_coord_jdpto_Aprobar_Ceremonia {
                         }   
 
                         //BORRAMOS EL ARCHIVO
-                        $archivo_pdf = $_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/Docs/Ceremonias/'.$id_alumno .'_'. $id_carrera.'_'.
+                        $archivo_pdf = $_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE/Docs/Ceremonias/'.$id_alumno .'_'. $id_carrera.'_'.
                                 $id_ceremonia.'_'.$arr_doc_rechazado[1].'_'.$arr_doc_rechazado[2].'.pdf';
                       
                         if (file_exists($archivo_pdf)) {
@@ -689,8 +689,8 @@ class d_coord_jdpto_Aprobar_Ceremonia {
                                             $nva_Clave_Ceremonia.'_'.
                                             $arr_documento[3].'_'.
                                             $arr_documento[4].'.pdf';
-                        $nom_archivo_actual = $_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/Docs/Ceremonias/'.$nom_archivo_actual;
-                        $nom_archivo_nuevo = $_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/Docs/Ceremonias/'.$nom_archivo_nuevo;
+                        $nom_archivo_actual = $_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE/Docs/Ceremonias/'.$nom_archivo_actual;
+                        $nom_archivo_nuevo = $_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE/Docs/Ceremonias/'.$nom_archivo_nuevo;
                         if (file_exists($nom_archivo_actual)) {
                             rename ($nom_archivo_actual,$nom_archivo_nuevo);   
                         }
