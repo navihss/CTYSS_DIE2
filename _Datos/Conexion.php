@@ -60,12 +60,12 @@
             }            
     }
     
-//    $obj_cnn = new Conexion();
-//    if($obj_cnn->getConexion()){
-//        echo "conectado";
-//    }else {
-//        echo "sin conexion" . $obj_cnn->getError();
-//    }
+    $obj_cnn = new Conexion();
+    /* if($obj_cnn->getConexion()){
+        echo "conectado";
+    }else {
+        echo "sin conexion" . $obj_cnn->getError();
+    } */
     
 ?>
 

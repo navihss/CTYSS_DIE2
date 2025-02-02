@@ -102,12 +102,12 @@
                                 .done(function(respuesta,textStatus,jqXHR){
                                     $('#ventanaProcesando').dialog('close');
                                     if (respuesta.success == true){   
-					console.log(respuesta);
+					                    console.log(respuesta);
                                     	if (respuesta.fecha_titulacion == false){
                                             window.open('home.php','_self');
                                         }else{
                                             console.log('hay fecha');
-					    $('#ventanaAviso').html('Tus trámites en la Coordinación de Titulación y Servicio Social han concluido, da seguimiento en Servicios Escolares. <a href="http://escolar.ingenieria.unam.mx/titulacion/">Ir a Servicios Escolares.</a>');
+					                        $('#ventanaAviso').html('Tus trámites en la Coordinación de Titulación y Servicio Social han concluido, da seguimiento en Servicios Escolares. <a href="http://escolar.ingenieria.unam.mx/titulacion/">Ir a Servicios Escolares.</a>');
                                             $('#ventanaAvisos').dialog('open');
                                         }                                                                  
                                     }
@@ -117,6 +117,9 @@
                                     }                                    
                                 })
                                         .fail(function(jqXHR,textStatus,errorThrown){
+                                            console.log(jqXHR.responseText);
+                                            console.log(textStatus);
+                                            console.log(errorThrown);
                                             $('#ventanaProcesando').dialog('close');
                                             $('#ventanaAviso').html('La solicitud ha fallado <br>' + textStatus + '. ' + errorThrown);
                                             $('#ventanaAvisos').dialog('open');                            

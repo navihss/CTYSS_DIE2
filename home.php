@@ -2,12 +2,24 @@
 header("Cache-Control: no-cache");
 header("Pragma: nocache");
 header('Content-Type: text/html; charset=UTF-8');
+
 session_start();
 date_default_timezone_set('America/Mexico_City');
+
+// Agregar esta validación
+if (!isset($_SESSION['telefono_fijo_alumno'])) {
+    $_SESSION['telefono_fijo_alumno'] = 'No disponible';
+}
+if (!isset($_SESSION['telefono_celular_alumno'])) {
+    $_SESSION['telefono_celular_alumno'] = 'No disponible';
+}
+
 if(!isset($_SESSION["id_tipo_usuario"]) and
 !isset($_SESSION["id_usuario"])){
-header('Location: index.php');
+    header('Location: index.php');
 }
+
+
 ?>
 <!DOCTYPE html>
 <html lang="es">

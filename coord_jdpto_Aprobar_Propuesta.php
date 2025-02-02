@@ -89,6 +89,9 @@ Objetivo:       Interfaz para aprobar las Propuestas de los Profesores
                            }
                        })
                             .fail(function(jqXHR,textStatus,errorThrown){
+                                console.log(jqXHR.responseText);
+                                console.log(textStatus);
+                                console.log(errorThrown);
                                 var html_table = '<TABLE class="tabla_Registros">';
                                 html_table += '<TR><TH>Propuesta</TH>\n\
                                              <TH>Profesor</TH>\n\
@@ -283,6 +286,9 @@ Objetivo:       Interfaz para aprobar las Propuestas de los Profesores
                            }
                        })
                         .fail(function(jqXHR,textStatus,errorThrown){
+                                console.log(jqXHR.responseText);
+                                console.log(textStatus);
+                                console.log(errorThrown);
 								var html_table = '<table class="tabla_Registros"><caption> Clave de la Propuesta: ' + id_propuesta_bitacora + '</caption>';
 								html_table = html_table + '<tr><th>Título</th><th>Versión</th><th>Fecha Generada</th><th>Estatus</th><th>Nota</th><th>Profesor</th><th>Tipo Propuesta</tr>';
                                 html_table = html_table + '<tr><td colspan="7">' + textStatus + '. ' + errorThrown + '</td></tr>';

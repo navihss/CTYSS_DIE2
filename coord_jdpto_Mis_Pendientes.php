@@ -106,6 +106,9 @@ Objetivo:       Interfaz para los Pendientes del Coordinador y Jefe de Dpto
                            }
                        })
                             .fail(function(jqXHR,textStatus,errorThrown){
+                                console.log(jqXHR.responseText);
+                                console.log(textStatus);
+                                console.log(errorThrown);
                                 var html_table = '<TABLE>';
                                 var html_table = '<TABLE style="width:30%;" class="tabla_Registros">';
                                 html_table += '<TR><TH>Pendientes</TH>\n\
