@@ -8,16 +8,18 @@
  */
 
 header('Content-Type: text/html; charset=UTF-8');
-require_once ($_SERVER["DOCUMENT_ROOT"] . '/CTYSS_DIE2/_Datos/Conexion.php');
-require_once ($_SERVER["DOCUMENT_ROOT"] . '/CTYSS_DIE2/_Datos/d_Usuario_Bitacora.php');
-require_once ($_SERVER["DOCUMENT_ROOT"] . '/CTYSS_DIE2/_Datos/d_profesor_Mis_Propuestas.php');
-require_once ($_SERVER["DOCUMENT_ROOT"] . '/CTYSS_DIE2/_Entidades/Bitacora.php');
-require_once ($_SERVER["DOCUMENT_ROOT"] . '/CTYSS_DIE2/_Datos/d_mail.php');
-require_once ($_SERVER["DOCUMENT_ROOT"] . '/CTYSS_DIE2/_Entidades/Mail.php');
+require_once($_SERVER["DOCUMENT_ROOT"] . '/CTYSS_DIE2/_Datos/Conexion.php');
+require_once($_SERVER["DOCUMENT_ROOT"] . '/CTYSS_DIE2/_Datos/d_Usuario_Bitacora.php');
+require_once($_SERVER["DOCUMENT_ROOT"] . '/CTYSS_DIE2/_Datos/d_profesor_Mis_Propuestas.php');
+require_once($_SERVER["DOCUMENT_ROOT"] . '/CTYSS_DIE2/_Entidades/Bitacora.php');
+require_once($_SERVER["DOCUMENT_ROOT"] . '/CTYSS_DIE2/_Datos/d_mail.php');
+require_once($_SERVER["DOCUMENT_ROOT"] . '/CTYSS_DIE2/_Entidades/Mail.php');
 
-class d_coord_jdpto_Aprobar_Propuesta {
+class d_coord_jdpto_Aprobar_Propuesta
+{
 
-    function Traer_Indice($id_propuesta) {
+    function Traer_Indice($id_propuesta)
+    {
         try {
             $cnn = new Conexion();
             $conn = $cnn->getConexion();
@@ -67,7 +69,8 @@ class d_coord_jdpto_Aprobar_Propuesta {
         }
     }
 
-    function Traer_Indice_Completo($id_propuesta) {
+    function Traer_Indice_Completo($id_propuesta)
+    {
         try {
             $cnn = new Conexion();
             $conn = $cnn->getConexion();
@@ -119,15 +122,16 @@ class d_coord_jdpto_Aprobar_Propuesta {
 
     //*********************************************************************                
     //OBTENEMOS LAS PROPUESTAS POR AUTORIZAR
-    function Obtener_Documentos_Por_Autorizar($id_estatus, $id_usuario) {
-        try {                    
+    function Obtener_Documentos_Por_Autorizar($id_estatus, $id_usuario)
+    {
+        try {
             $cnn = new Conexion();
             $conn = $cnn->getConexion();
-    
+
             if ($conn === false) {
                 throw new Exception($cnn->getError());
             }
-    
+
             $tsql = " SELECT a.id_propuesta, a.id_documento, a.version_propuesta, a.id_estatus, b.descripcion_documento, 
                             b.descripcion_para_nom_archivo, c.descripcion_estatus, a.fecha_recepcion_doc, a.nota, 
                             d.id_profesor,d.titulo_propuesta, f.descripcion_tipo_propuesta,
@@ -149,27 +153,27 @@ class d_coord_jdpto_Aprobar_Propuesta {
                           			AND g.id_division = g.id_division
                         WHERE g.id_estatus = ? AND g.id_usuario = ?
                         ORDER BY a.id_documento, a.fecha_recepcion_doc DESC;";
-    
+
             $stmt = $conn->prepare($tsql);
-            
+
             $params = array($id_estatus, $id_usuario);
-    
-            if($stmt) {        
-                $result = $stmt->execute($params);                                 
-                if ($result) {                    
-                    if($stmt->rowCount() > 0) {                                                
+
+            if ($stmt) {
+                $result = $stmt->execute($params);
+                if ($result) {
+                    if ($stmt->rowCount() > 0) {
                         $jsondata['success'] = true;
                         $jsondata['data']['message'] = 'Registros encontrados';
                         $jsondata['data']['registros'] = array();
-    
-                        while($row = $stmt->fetch(PDO::FETCH_OBJ)) {
+
+                        while ($row = $stmt->fetch(PDO::FETCH_OBJ)) {
                             $jsondata['data']['registros'][] = $row;
                         }
                     } else {
                         $jsondata['success'] = false;
                         $jsondata['data']['message'] = 'No hay Propuestas por Autorizar.';
                     }
-    
+
                     if (ob_get_length()) ob_clean();
                     header('Content-Type: application/json; charset=utf-8');
                     echo json_encode($jsondata);
@@ -177,23 +181,22 @@ class d_coord_jdpto_Aprobar_Propuesta {
                 }
             }
             throw new Exception("Error en la consulta SQL");
-        }
-        catch (Exception $ex) {        
+        } catch (Exception $ex) {
             $errorMessage = "Error en: " . $ex->getFile() . " en la línea " . $ex->getLine() . "\n";
             $errorMessage .= "Mensaje: " . $ex->getMessage() . "\n";
             $errorMessage .= "Stack Trace: " . $ex->getTraceAsString() . "\n";
-    
+
             // Puedes guardar el error en la sesión o en una variable global
             $_SESSION['error_message'] = $errorMessage;
-                
+
             // Redirigir a una página de errores
             header('Location: ' . $_SERVER["DOCUMENT_ROOT"] . '/CTYSS_DIE2/error_page.php');
             /* if (ob_get_length()) ob_clean();
             $jsondata['success'] = false;
             $jsondata['data']['message'] = $ex->getMessage();
             echo json_encode('Error: ');     */
-            exit();                                                                    
-        }          
+            exit();
+        }
     }
     //FIN OBTENEMOS LAS PROPUESTAS POR AUTORIZAR
     //*********************************************************************                
@@ -201,50 +204,50 @@ class d_coord_jdpto_Aprobar_Propuesta {
     // Otras funciones permanecen sin cambios
     // ...
     // OBTENEMOS EL TOTAL DE DOCUMENTOS POR AUTORIZAR POR USUARIO
-    function Obtener_Total_Documentos_Por_Autorizar($id_usuario) {
+    function Obtener_Total_Documentos_Por_Autorizar($id_usuario)
+    {
         try {
             $cnn = new Conexion();
             $conn = $cnn->getConexion();
-    
+
             if ($conn === false) {
                 throw new Exception($cnn->getError());
             }
-    
+
             $tsql = "SELECT COUNT(*) AS total
                      FROM propuesta_version a
                      INNER JOIN propuesta_vobo g ON (a.id_propuesta = g.id_propuesta AND 
                                                      a.id_documento = g.id_documento AND
                                                      a.version_propuesta = g.version_propuesta)
                      WHERE g.id_usuario = ? AND g.id_estatus = 9";
-    
+
             $stmt = $conn->prepare($tsql);
             $params = array($id_usuario);
-    
+
             if ($stmt) {
                 $result = $stmt->execute($params);
-    
+
                 if ($result) {
                     $row = $stmt->fetch(PDO::FETCH_ASSOC);
                     $total = $row ? $row['total'] : 0; // Asignar 0 si no hay registros
-    
+
                     $jsondata['success'] = true;
                     $jsondata['data']['registros'][] = array("total1" => $total);
                     return $jsondata;
                 }
             }
-    
+
             // Manejo de errores en caso de consulta vacía o sin éxito
             $jsondata['success'] = true;
             $jsondata['data']['registros'][] = array("total1" => 0);
             return $jsondata;
-    
         } catch (Exception $ex) {
             $jsondata['success'] = false;
             $jsondata['data'] = array('message' => $ex->getMessage());
             return $jsondata;
         }
     }
-    
+
 
     // Restante del código original
 
@@ -254,7 +257,8 @@ class d_coord_jdpto_Aprobar_Propuesta {
      * @param int $id_propuesta ID de la propuesta a consultar
      * @return string JSON con el historial de la propuesta
      */
-    function Obtener_Bitacora_Propuestas($id_propuesta) {
+    function Obtener_Bitacora_Propuestas($id_propuesta)
+    {
         try {
             $cnn = new Conexion();
             $conn = $cnn->getConexion();
@@ -315,7 +319,6 @@ class d_coord_jdpto_Aprobar_Propuesta {
             header('Content-Type: application/json; charset=utf-8');
             echo json_encode($jsondata);
             exit();
-
         } catch (Exception $ex) {
             $jsondata['success'] = false;
             $jsondata['data']['message'] = $ex->getMessage();
@@ -324,5 +327,4 @@ class d_coord_jdpto_Aprobar_Propuesta {
             exit();
         }
     }
-
 }
