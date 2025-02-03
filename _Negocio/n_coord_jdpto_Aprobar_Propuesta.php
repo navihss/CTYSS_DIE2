@@ -20,7 +20,7 @@ if(isset($_SESSION["id_division"])){
     $id_division=$_SESSION["id_division"];
 }
 
-require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Datos/d_coord_jdpto_Aprobar_Propuesta.php');
+require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/_Datos/d_coord_jdpto_Aprobar_Propuesta_original.php');
 require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE2/zonaHoraria.php');
           
 $tipo_Movimiento = $_POST['Tipo_Movimiento'];
@@ -66,7 +66,7 @@ switch ($tipo_Movimiento){
         $titulo_propuesta = $_POST['titulo_propuesta'];
         $desc_corta_doc = $_POST['desc_corta_doc'];
         
-        $obj_d_Usuario = new d_coord_jdpto_Aprobar_Propuesta();        
+        $obj_d_Usuario = new d_coord_jdpto_Aprobar_Propuesta(); 
         echo  $obj_d_Usuario->Actualizar_Aceptacion_Doc($id_propuesta_doc, $id_documento_doc, $id_version_doc, 
                 $id_estatus, $id_usuario, $nota, $fecha_registro_doc, $id_profesor, $correo_profesor, $titulo_propuesta, $desc_corta_doc, $id_division);
         break;

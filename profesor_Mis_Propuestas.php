@@ -1394,10 +1394,9 @@ Objetivo:       Interfaz para las Propuestas del Profesor
                 <div class="descripcion_Modulo">
                     <p>Mis Propuestas</p>
                 </div>
- <!-- GMK Habilitar               <div class="barra_Herramientas">
+                <div class="barra_Herramientas">
                     <input type="button" id="btn_Agregar" name="btn_Agregar" value="Agregar" class="btn_Herramientas"/>
-                </div>   
--->                                                                                
+                </div>
             </div>
             <div id="tabla_Propuestas" class="tabla_Registros">
             </div>
