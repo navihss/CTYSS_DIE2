@@ -100,8 +100,7 @@
                         })
                                 .done(function(respuesta,textStatus,jqXHR){
                                     $('#ventanaProcesando').dialog('close');
-                                    if (respuesta.success == true){   
-                                                                                                              
+                                    if (respuesta.success == true){
                                         window.open('home.php','_self');
                                     }
                                     else{

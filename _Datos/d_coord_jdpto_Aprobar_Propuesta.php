@@ -175,20 +175,22 @@ class d_coord_jdpto_Aprobar_Propuesta
                         while ($row = $stmt->fetch(PDO::FETCH_OBJ)) {
                             $jsondata['data']['registros'][] = $row;
                         }
-                        $stmt = null;
-                        $conn = null;
-                        echo json_encode($jsondata);
-                        exit();
                     } else {
-                        $mensaje_Transacciones = "No hay Propuestas por Autorizar.<br/>";
-                        throw new Exception($mensaje_Transacciones);
+                        $jsondata['success'] = false;
+                        $jsondata['data']['message'] = 'No hay Propuestas por Autorizar.';
                     }
+
+                    if (ob_get_length()) ob_clean();
+                    header('Content-Type: application/json; charset=utf-8');
+                    echo json_encode($jsondata);
+                    exit();
                 }
             } else {
                 $error = $stmt->errorInfo();
                 $mensaje_Transacciones = "Error en la sentencia SQL para obtener las Propuestas por Autorizar.<br/>"  . $error[2];
                 throw new Exception($mensaje_Transacciones);
             }
+            throw new Exception("Error en la consulta SQL");
         } catch (Exception $ex) {
             $jsondata['success'] = false;
             $jsondata['data'] = array('message' => $ex->getMessage());
@@ -211,29 +213,83 @@ class d_coord_jdpto_Aprobar_Propuesta
             }
 
             // Se agrega Division
-            $tsql = " SELECT count(prop_ver.id_propuesta) as total1
-                      FROM propuesta_version prop_ver
-                            INNER JOIN documentos doctos ON prop_ver.id_documento = doctos.id_documento
-                            INNER JOIN estatus c1 ON prop_ver.id_estatus = c1.id_estatus
-                            INNER JOIN propuestas_profesor prop_prof ON prop_ver.id_propuesta = prop_prof.id_propuesta
-                            INNER JOIN tipos_propuesta f ON prop_prof.id_tipo_propuesta = f.id_tipo_propuesta
-                            INNER JOIN propuesta_vobo g ON (prop_ver.id_propuesta = g.id_propuesta AND 
-                							prop_ver.id_documento = g.id_documento AND
-                							prop_ver.version_propuesta = g.version_propuesta)
-              							INNER JOIN usuarios usu ON prop_prof.id_profesor = usu.id_usuario
-              							   AND doctos.id_division = usu.id_division
-              							   AND prop_prof.id_division = usu.id_division
-              							   AND prop_ver.id_division = usu.id_division
-              							   AND f.id_division = usu.id_division
-              							   AND g.id_division = usu.id_division
-                      WHERE g.id_estatus = 9 AND g.id_usuario = ?";
-
+            $tsql = "SELECT COUNT(*) AS total
+                     FROM propuesta_version a
+                     INNER JOIN documentos b ON a.id_documento = b.id_documento
+                     INNER JOIN propuestas_profesor d ON a.id_propuesta = d.id_propuesta
+                     INNER JOIN propuesta_vobo g ON (a.id_propuesta = g.id_propuesta AND 
+                                                   a.id_documento = g.id_documento AND
+                                                   a.version_propuesta = g.version_propuesta)
+                     WHERE g.id_usuario = ? 
+                     AND g.id_estatus = 9
+                     AND a.id_division = g.id_division
+                     AND b.id_division = g.id_division
+                     AND d.id_division = g.id_division";
             /* Preparamos la sentencia a ejecutar */
             $stmt = $conn->prepare($tsql);
             $params = array($id_usuario);
             /*Verificamos el contenido de la ejecución*/
             if ($stmt) {
                 /*Ejecutamos el Query*/
+                $result = $stmt->execute($params);
+
+                if ($result) {
+                    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+                    $total = $row ? $row['total'] : 0;
+
+                    $jsondata['success'] = true;
+                    $jsondata['data']['registros'][] = array("total1" => $total);
+                    return $jsondata;
+                }
+            }
+
+            // Respuesta por defecto si no hay resultados
+            $jsondata['success'] = true;
+            $jsondata['data']['registros'][] = array("total1" => 0);
+            return $jsondata;
+        } catch (Exception $ex) {
+            $jsondata['success'] = false;
+            $jsondata['data'] = array('message' => $ex->getMessage());
+            return $jsondata;
+        }
+    }
+
+    // Crear método para revisar bitácora
+    /**
+     * Obtiene el historial de una propuesta específica
+     * @param int $id_propuesta ID de la propuesta a consultar
+     * @return string JSON con el historial de la propuesta
+     */
+    function Obtener_Bitacora_Propuestas($id_propuesta)
+    {
+        try {
+            $cnn = new Conexion();
+            $conn = $cnn->getConexion();
+
+            if ($conn === false) {
+                throw new Exception($cnn->getError());
+            }
+
+            $tsql = "SELECT p.titulo_propuesta, 
+                        pv.version_propuesta,
+                        to_char(pv.fecha_recepcion_doc, 'YYYY/MM/DD') as fecha_generada,
+                        e.descripcion_estatus,
+                        pv.nota,
+                        (u.nombre_usuario || ' ' || u.apellido_paterno_usuario || ' ' || 
+                            u.apellido_materno_usuario) as profesor,
+                        tp.descripcion_tipo_propuesta
+                    FROM propuesta_version pv
+                    INNER JOIN propuestas_profesor p ON pv.id_propuesta = p.id_propuesta
+                    INNER JOIN estatus e ON pv.id_estatus = e.id_estatus
+                    INNER JOIN usuarios u ON p.id_profesor = u.id_usuario
+                    INNER JOIN tipos_propuesta tp ON p.id_tipo_propuesta = tp.id_tipo_propuesta
+                    WHERE pv.id_propuesta = ?
+                    ORDER BY pv.version_propuesta DESC, pv.fecha_recepcion_doc DESC";
+
+            $stmt = $conn->prepare($tsql);
+            $params = array($id_propuesta);
+
+            if ($stmt) {
                 $result = $stmt->execute($params);
                 if ($result) {
                     if ($stmt->rowCount() > 0) {
@@ -242,26 +298,34 @@ class d_coord_jdpto_Aprobar_Propuesta
                         $jsondata['data']['registros'] = array();
 
                         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                            $jsondata['data']['registros'][] = $row;
+                            $jsondata['data']['registros'][] = array(
+                                'titulo_propuesta' => $row['titulo_propuesta'],
+                                'version_propuesta' => $row['version_propuesta'],
+                                'fecha_generada' => $row['fecha_generada'],
+                                'descripcion_estatus' => $row['descripcion_estatus'],
+                                'nota' => $row['nota'],
+                                'profesor' => $row['profesor'],
+                                'descripcion_tipo_propuesta' => $row['descripcion_tipo_propuesta']
+                            );
                         }
-                        $stmt = null;
-                        $conn = null;
-                        return ($jsondata);
-                        //                        echo json_encode($jsondata);
-                        //                        exit();
                     } else {
-                        $mensaje_Transacciones = "No hay Propuestas por Autorizar.<br/>";
-                        throw new Exception($mensaje_Transacciones);
+                        throw new Exception("No se encontró historial para esta propuesta.");
                     }
+                } else {
+                    throw new Exception("Error al ejecutar la consulta.");
                 }
             } else {
-                $error = $stmt->errorInfo();
-                $mensaje_Transacciones = "Error en la sentencia SQL para obtener el Total de las Propuestas por Autorizar.<br/>"  . $error[2];
-                throw new Exception($mensaje_Transacciones);
+                throw new Exception("Error al preparar la consulta.");
             }
+
+            if (ob_get_length()) ob_clean();
+            header('Content-Type: application/json; charset=utf-8');
+            echo json_encode($jsondata);
+            exit();
         } catch (Exception $ex) {
             $jsondata['success'] = false;
-            $jsondata['data'] = array('message' => $ex->getMessage());
+            $jsondata['data']['message'] = $ex->getMessage();
+            if (ob_get_length()) ob_clean();
             echo json_encode($jsondata);
             exit();
         }
