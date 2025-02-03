@@ -513,14 +513,14 @@ if ( !isset($_SESSION["id_tipo_usuario"]) and !isset($_SESSION["id_usuario"]) ) 
                         <a href="#" id="mis_Pendientes" class="menuAlumno">Mis pendientes<span class="flecha">&#9660</span></a>
                     </li>
 
-                    <!-- <li>
+                    <li>
                         <a href="#" class="menuAlumno">Mi Titulación<span class="flecha">&#9660</span></a>
                         <ul>
                             <li><a href="#" id="mi_Titulacion_Por_Propuesta">Inscripción a Propuesta por Examen<span class="flecha">&#9660</span> </a></li>
                             <li><a href="#" id="mi_Jurado">Solicitar Jurado<span class="flecha">&#9660</span></a></li>
                             <li><a href="#" id="mi_Titulacion_Por_Ceremonia">Inscripción a Propuesta por Ceremonia<span class="flecha">&#9660</span></a></li>
                         </ul>
-                    </li> -->
+                    </li>
                     <li><a href="#" id="alumno_Cambio_Contrasena" class="menuAlumno"> Cambio de Contraseña<span class="flecha">&#9660</span></a>
                 </li>
                 <li>

@@ -17,73 +17,97 @@
     
 class d_Alumno_Mi_Jurado {
     
-    function Obtener_Mi_Jurado($id_alumno, $id_carrera){
-      
-        try{                    
+    function Obtener_Mi_Jurado($id_alumno, $id_carrera) {
+        try {
             $cnn = new Conexion();
             $conn = $cnn->getConexion();
-
-            if( $cnn === false )
-            {
+    
+            if ($conn === false) {
                 throw new Exception($cnn->getError());
             }
-           
-            $tsql = "SELECT a.id_propuesta, a.version, a.fecha_propuesto, a.id_alumno_registro,
-                            a.id_administrador_definitivos, a.id_estatus, b.descripcion_estatus,
-                            d.version_propuesta, e.id_alumno, c.titulo_propuesta,
-                            (f.apellido_paterno_usuario || ' ' || 
-                            f.apellido_materno_usuario || ' ' || f.nombre_usuario) as nombre
-                    FROM jurado a
-                            INNER JOIN estatus b ON a.id_estatus = b.id_estatus
-                            INNER JOIN propuestas_profesor c ON a.id_propuesta = c.id_propuesta
-                            INNER JOIN propuesta_version d ON c.id_propuesta = d.id_propuesta
-                            INNER JOIN inscripcion_propuesta e ON e.id_propuesta = c.id_propuesta
-                            LEFT JOIN usuarios f ON a.id_alumno_registro = f.id_usuario
-                    WHERE d.id_documento = 4 AND d.id_estatus = 3 AND e.id_estatus=3 AND 
-                        e.id_alumno = ?  AND e.id_carrera= ?
-                    ORDER BY a.id_propuesta;";
-                        
-            /* Valor de los parámetros. */
-            $params = array($id_alumno, $id_carrera);
-            /* Preparamos la sentencia a ejecutar */
+    
+            // Consulta modificada para manejar valores nulos y tipos numéricos correctamente
+            $tsql = "SELECT DISTINCT 
+                        COALESCE(j.id_propuesta, ip.id_propuesta) as id_propuesta,
+                        COALESCE(j.version, 1) as version,
+                        COALESCE(j.fecha_propuesto, CURRENT_TIMESTAMP) as fecha_propuesto,
+                        COALESCE(j.id_alumno_registro, 0) as id_alumno_registro,
+                        COALESCE(j.id_administrador_definitivos, 0) as id_administrador_definitivos,
+                        COALESCE(j.id_estatus, 12) as id_estatus,
+                        COALESCE(e.descripcion_estatus, 'En espera de registro') as descripcion_estatus,
+                        COALESCE(pv.version_propuesta, 1) as version_propuesta,
+                        ip.id_alumno,
+                        pp.titulo_propuesta,
+                        COALESCE(NULLIF(TRIM(u.apellido_paterno_usuario || ' ' || 
+                                u.apellido_materno_usuario || ' ' || 
+                                u.nombre_usuario), ''), 'Sin asignar') as nombre
+                    FROM inscripcion_propuesta ip
+                    INNER JOIN propuestas_profesor pp ON ip.id_propuesta = pp.id_propuesta
+                    INNER JOIN propuesta_version pv ON pp.id_propuesta = pv.id_propuesta 
+                        AND pv.id_documento = 4 
+                        AND pv.id_estatus = 3
+                    LEFT JOIN jurado j ON pp.id_propuesta = j.id_propuesta
+                    LEFT JOIN estatus e ON j.id_estatus = e.id_estatus
+                    LEFT JOIN usuarios u ON j.id_alumno_registro = u.id_usuario
+                    WHERE ip.id_alumno = :id_alumno 
+                    AND ip.id_carrera = :id_carrera
+                    AND ip.id_estatus = 3
+                    ORDER BY id_propuesta DESC";
+    
             $stmt = $conn->prepare($tsql);
-            /*Verificamos el contenido de la ejecución*/                        
-            if($stmt){        
-                /*Ejecutamos el Query*/
-                $result = $stmt->execute($params);                                 
-                if ($result){                    
-                    if($stmt->rowCount() > 0){                                                
-                        $jsondata['success'] = true;
-                        $jsondata['data']['message'] = 'Registros encontrados';
-                        $jsondata['data']['registros'] = array();
-
-                        while($row = $stmt->fetch(PDO::FETCH_OBJ)){
-                            $jsondata['data']['registros'][] = $row;
-                        }
-                        $stmt=null;
-                        $conn=null;
-                        echo json_encode($jsondata);
-                        exit();
-                    }
-                    else{
-                        $mensaje_Transacciones = "Actualmente NO tiene ACEPTADA una inscripción a Propuesta.";
-                        throw new Exception($mensaje_Transacciones);                                                                                
-                    }
-                }
+            
+            if (!$stmt) {
+                throw new Exception("Error preparando la consulta: " . implode(" ", $conn->errorInfo()));
             }
-            else{
-                $error = $stmt->errorInfo();
-                $mensaje_Transacciones = "Error en la sentencia SQL para obtener el Jurado Registrado.<br/>"  . $error[2];
-                throw new Exception($mensaje_Transacciones);                  
-            }                
+    
+            // Aseguramos que los parámetros sean numéricos
+            $stmt->bindValue(':id_alumno', (int)$id_alumno, PDO::PARAM_INT);
+            $stmt->bindValue(':id_carrera', (int)$id_carrera, PDO::PARAM_INT);
+    
+            $result = $stmt->execute();
+    
+            if (!$result) {
+                throw new Exception("Error ejecutando la consulta: " . implode(" ", $stmt->errorInfo()));
+            }
+    
+            $jsondata = [
+                'success' => true,
+                'data' => [
+                    'message' => 'Registros encontrados',
+                    'registros' => []
+                ]
+            ];
+    
+            while ($row = $stmt->fetch(PDO::FETCH_OBJ)) {
+                // Aseguramos que todos los campos numéricos sean de tipo correcto
+                $row->id_propuesta = (int)$row->id_propuesta;
+                $row->version = (int)$row->version;
+                $row->id_alumno_registro = (int)$row->id_alumno_registro;
+                $row->id_administrador_definitivos = (int)$row->id_administrador_definitivos;
+                $row->id_estatus = (int)$row->id_estatus;
+                $row->version_propuesta = (int)$row->version_propuesta;
+                $row->id_alumno = (int)$row->id_alumno;
+                
+                $jsondata['data']['registros'][] = $row;
+            }
+    
+            if (empty($jsondata['data']['registros'])) {
+                throw new Exception("No se encontraron propuestas para el alumno especificado.");
+            }
+    
+            return json_encode($jsondata);
+    
+        } catch (Exception $ex) {
+            return json_encode([
+                'success' => false,
+                'data' => ['message' => $ex->getMessage()]
+            ]);
+        } finally {
+            if (isset($stmt)) $stmt = null;
+            if (isset($conn)) $conn = null;
         }
-        catch (Exception $ex){               
-           $jsondata['success'] = false;
-           $jsondata['data']= array('message'=>$ex->getMessage());
-           echo json_encode($jsondata);
-           exit();                                                                    
-        }          
-    } //Fin Obtener Mi Jurado
+    }
+    
     
     //OBTENEMOS LOS SINODALES PARA LA PROPUESTA
     function Obtener_Sinodales($id_propuesta, $id_version){

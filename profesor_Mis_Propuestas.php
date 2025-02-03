@@ -529,11 +529,9 @@ Objetivo:       Interfaz para las Propuestas del Profesor
                     $('#Tipo_Movimiento').val('AGREGAR');
                     $('#carrera').empty();
                     var id_division = ('<?php echo $_SESSION["id_division"]?>');
-                    llena_Catalogo('tipo_propuesta', 'CATALOGO_GENERALES', 
-                        '(SELECT t.id_tipo_propuesta, t.descripcion_tipo_propuesta, t.id_tipo_titulacion FROM tipos_propuesta t WHERE t.id_tipo_propuesta = (SELECT MIN(tp.id_tipo_propuesta) FROM tipos_propuesta tp WHERE tp.descripcion_tipo_propuesta = t.descripcion_tipo_propuesta)) as tipos_propuesta', 
-                        'id_tipo_propuesta as id, descripcion_tipo_propuesta as descripcion',
-                        'id_tipo_titulacion = 1',
-                        'descripcion_tipo_propuesta');
+                    llena_Catalogo('carrera', 'CATALOGO_GENERALES', 'carreras', 
+                        'id_carrera as id, descripcion_carrera as descripcion', 
+                        'id_division = ' + id_division, 'descripcion_carrera');
                                         
                     $('#ventana_Propuesta').dialog('open');
                     $('#n_Alumnos').val(0);
@@ -1330,9 +1328,11 @@ Objetivo:       Interfaz para las Propuestas del Profesor
                 });
                 
                 f5($(document),true); */
+                var id_division = ('<?php echo $_SESSION["id_division"]?>');
+                
                 llena_Catalogo('tipo_propuesta', 'CATALOGO_GENERALES', 'tipos_propuesta', 
                         'id_tipo_propuesta as id, descripcion_tipo_propuesta as descripcion', 
-                        'id_tipo_titulacion = 1', 'descripcion_tipo_propuesta');                
+                        'id_tipo_titulacion = 1 AND id_division = ' + id_division, 'descripcion_tipo_propuesta');                
                 llena_Catalogo('carrera', 'CATALOGO_GENERALES', 'carreras', 
                     'id_carrera as id, descripcion_carrera as descripcion', 
                     '', 'descripcion_carrera');               
