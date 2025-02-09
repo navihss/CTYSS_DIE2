@@ -1,26 +1,27 @@
 <?php
 session_start();
 
-if(!isset($_SESSION["id_usuario"]) and 
-        !isset($_SESSION["id_tipo_usuario"]) and
-        !isset($_SESSION["descripcion_tipo_usuario"]) and
-        !isset($_SESSION["nombre_usuario"])){
+if (
+    !isset($_SESSION["id_usuario"]) and
+    !isset($_SESSION["id_tipo_usuario"]) and
+    !isset($_SESSION["descripcion_tipo_usuario"]) and
+    !isset($_SESSION["nombre_usuario"])
+) {
     header('Location: /index.php');
-
 }
 
-require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE/_Datos/d_Usuario_Bitacora.php');
-require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE/_Entidades/Bitacora.php');
+require_once($_SERVER["DOCUMENT_ROOT"] . '/CTYSS_DIE/_Datos/d_Usuario_Bitacora.php');
+require_once($_SERVER["DOCUMENT_ROOT"] . '/CTYSS_DIE/_Entidades/Bitacora.php');
 
-$id_division=0;
-if(isset($_SESSION["id_division"])){
-    $id_division=$_SESSION["id_division"];
+$id_division = 0;
+if (isset($_SESSION["id_division"])) {
+    $id_division = $_SESSION["id_division"];
 }
 
 $obj_Bitacora = new d_Usuario_Bitacora();
 $obj_miBitacora = new Bitacora();
 
-$descripcionEvento = ''; 
+$descripcionEvento = '';
 $obj_miBitacora->set_Fecha_Evento(date('d-m-Y H:i:s'));
 $obj_miBitacora->set_Id_Tema_Bitacora(160);
 $obj_miBitacora->set_Id_Tipo_Evento(40);
@@ -32,9 +33,7 @@ $obj_miBitacora->set_Id_Division($id_division);
 $obj_Bitacora->Agregar($obj_miBitacora);
 
 session_unset();
-$_SESSION = array();
+$_SESSION  =  array();
 session_destroy();
 
 exit;
-
-?>

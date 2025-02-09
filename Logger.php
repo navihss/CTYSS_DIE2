@@ -1,8 +1,10 @@
 <?php
-class Logger {
+class Logger
+{
     private $logFile;
 
-    public function __construct($logFilePath) {
+    public function __construct($logFilePath)
+    {
         $this->logFile = $logFilePath;
         $dir = dirname($this->logFile);
         if (!is_dir($dir)) {
@@ -10,17 +12,20 @@ class Logger {
         }
     }
 
-    public function log($message, $level = 'INFO') {
+    public function log($message, $level = 'INFO')
+    {
         $date = date('Y-m-d H:i:s');
         $formattedMessage = "[$date] [$level] $message" . PHP_EOL;
         file_put_contents($this->logFile, $formattedMessage, FILE_APPEND);
     }
 
-    public function info($message) {
+    public function info($message)
+    {
         $this->log($message, 'INFO');
     }
 
-    public function error($message) {
+    public function error($message)
+    {
         $this->log($message, 'ERROR');
     }
 }

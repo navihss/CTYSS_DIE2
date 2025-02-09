@@ -1,22 +1,25 @@
 <?php
+
 /**
  * Interfaz de la Capa Negocio para la Bitácora
  * @author Rogelio Reyes Mendoza
  * Agosto 2016
  */
 session_start();
-if(!isset($_SESSION["id_usuario"]) and 
-        !isset($_SESSION["id_tipo_usuario"]) and
-        !isset($_SESSION["descripcion_tipo_usuario"]) and
-        !isset($_SESSION["nombre_usuario"])){
+if (
+    !isset($_SESSION["id_usuario"]) and
+    !isset($_SESSION["id_tipo_usuario"]) and
+    !isset($_SESSION["descripcion_tipo_usuario"]) and
+    !isset($_SESSION["nombre_usuario"])
+) {
     header('Location: ../index.php');
 }
-if(!isset($_POST['Tipo_Movimiento'])){
+if (!isset($_POST['Tipo_Movimiento'])) {
     header('Location: ../index.php');
 }
 
-require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE/_Datos/d_Usuario_Bitacora.php');
-require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE/_Entidades/Bitacora.php');
+require_once($_SERVER["DOCUMENT_ROOT"] . '/CTYSS_DIE/_Datos/d_Usuario_Bitacora.php');
+require_once($_SERVER["DOCUMENT_ROOT"] . '/CTYSS_DIE/_Entidades/Bitacora.php');
 
 $tipo_Movimiento = $_POST['Tipo_Movimiento'];
 
@@ -24,16 +27,16 @@ $tipo_Movimiento = $_POST['Tipo_Movimiento'];
 
 $obj_d_Usuario_Bitacora = new d_Usuario_Bitacora();
 
-switch ($tipo_Movimiento){
-        case "GENERAR_REPORTE":
+switch ($tipo_Movimiento) {
+    case "GENERAR_REPORTE":
 
-        if(isset($_POST['chk_Propuesta'])) {
+        if (isset($_POST['chk_Propuesta'])) {
             $chk_Propuesta = 1;
         } else {
             $chk_Propuesta = 0;
         }
 
-        if(isset($_POST['chk_Ceremonia'])) {
+        if (isset($_POST['chk_Ceremonia'])) {
             $chk_Ceremonia = 2;
         } else {
             $chk_Ceremonia = 0;
@@ -41,22 +44,22 @@ switch ($tipo_Movimiento){
 
         $carreras = '';
 
-        if(isset($_POST['chk_Electrica'])) {
-            if(strcmp($carreras, '') == 0) {
+        if (isset($_POST['chk_Electrica'])) {
+            if (strcmp($carreras, '') == 0) {
                 $carreras = '109';
             }
         }
 
-        if(isset($_POST['chk_Computacion'])) {
-            if(strcmp($carreras, '') == 0) {
+        if (isset($_POST['chk_Computacion'])) {
+            if (strcmp($carreras, '') == 0) {
                 $carreras = '110';
             } else {
                 $carreras = $carreras . ', 110';
             }
         }
 
-        if(isset($_POST['chk_Telecomunicaciones'])) {
-           if(strcmp($carreras, '') == 0) {
+        if (isset($_POST['chk_Telecomunicaciones'])) {
+            if (strcmp($carreras, '') == 0) {
                 $carreras = '111';
             } else {
                 $carreras = $carreras . ', 111';
@@ -64,7 +67,7 @@ switch ($tipo_Movimiento){
         }
 
 
-        $tipo_usuario = $_POST['tipo_usuario']; 
+        $tipo_usuario = $_POST['tipo_usuario'];
         $fecha_inicio = $_POST['fecha_inicio'];
         $fecha_termino = $_POST['fecha_termino'];
 
@@ -77,33 +80,31 @@ switch ($tipo_Movimiento){
     case "OBTENER_BITACORA":
         $obj_Bitacora = new Bitacora();
 
-        if(isset($_POST['chk_Tema'])){
+        if (isset($_POST['chk_Tema'])) {
             $arr_chk_Tema = $_POST['chk_Tema'];
             $renglones = count($arr_chk_Tema);
             $ids = '';
-            
-            for($i=0; $i < $renglones; $i++ ){
-                $ids .= $arr_chk_Tema[$i] .',';
+
+            for ($i = 0; $i < $renglones; $i++) {
+                $ids .= $arr_chk_Tema[$i] . ',';
             }
-            $ids = substr($ids, 0, strlen($ids)-1);
+            $ids = substr($ids, 0, strlen($ids) - 1);
             $obj_Bitacora->set_Id_Tema_Bitacora($ids);
-        }
-        else{
+        } else {
             $obj_Bitacora->set_Id_Tema_Bitacora('');
         }
 
-        if(isset($_POST['chk_Tipos_Evento'])){
+        if (isset($_POST['chk_Tipos_Evento'])) {
             $arr_chk_Tipos_Evento = $_POST['chk_Tipos_Evento'];
             $renglones = count($arr_chk_Tipos_Evento);
             $ids = '';
-            
-            for($i=0; $i < $renglones; $i++ ){
-                $ids .= $arr_chk_Tipos_Evento[$i] .',';
+
+            for ($i = 0; $i < $renglones; $i++) {
+                $ids .= $arr_chk_Tipos_Evento[$i] . ',';
             }
-            $ids = substr($ids, 0, strlen($ids)-1);
+            $ids = substr($ids, 0, strlen($ids) - 1);
             $obj_Bitacora->set_Id_Tipo_Evento($ids);
-        }
-        else{
+        } else {
             $obj_Bitacora->set_Id_Tipo_Evento('');
         }
 
@@ -112,13 +113,7 @@ switch ($tipo_Movimiento){
         $tipo_usuario = $_POST['Id_Tipo_User'];
         $f_inicio = $_POST['fecha_inicio'];
         $f_termino = $_POST['fecha_termino'];
-                
+
         echo $obj_d_Usuario_Bitacora->Obtener($obj_Bitacora, $f_inicio, $f_termino, $tipo_usuario);
         break;
-    
 }
-
-
-?>
-
-

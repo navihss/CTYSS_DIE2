@@ -43,7 +43,7 @@ class Conexion
                         $this->error_mensaje =  $cadena . " Error en los parametros de conexión a la Base de Datos.<br> " . utf8_encode($ex->getMessage());
                 }
         }
-        
+
         public function getServerName()
         {
                 return $this->serverName;

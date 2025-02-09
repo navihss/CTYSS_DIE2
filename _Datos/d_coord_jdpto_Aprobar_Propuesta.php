@@ -236,7 +236,6 @@ class d_coord_jdpto_Aprobar_Propuesta
             $jsondata['success'] = true;
             $jsondata['data']['registros'][] = array("total1" => 0);
             return $jsondata;
-
         } catch (Exception $ex) {
             $jsondata['success'] = false;
             $jsondata['data'] = array('message' => $ex->getMessage());
@@ -308,7 +307,6 @@ class d_coord_jdpto_Aprobar_Propuesta
             header('Content-Type: application/json; charset=utf-8');
             echo json_encode($jsondata);
             exit();
-
         } catch (Exception $ex) {
             $jsondata['success'] = false;
             $jsondata['data']['message'] = $ex->getMessage();
@@ -346,14 +344,17 @@ class d_coord_jdpto_Aprobar_Propuesta
                              FROM propuesta_vobo
                              WHERE id_propuesta      = ? 
                                AND version_propuesta = ? 
-                               AND id_estatus = 3) as aceptadas;";  
+                               AND id_estatus = 3) as aceptadas;";
             // 9. Por Autorizar Coord/Dpto 
             // 3. Aceptada
 
             $params = array(
-                $id_propuesta, $id_version,
-                $id_propuesta, $id_version,
-                $id_propuesta, $id_version
+                $id_propuesta,
+                $id_version,
+                $id_propuesta,
+                $id_version,
+                $id_propuesta,
+                $id_version
             );
 
             $stmt = $conn->prepare($tsql);
@@ -362,9 +363,9 @@ class d_coord_jdpto_Aprobar_Propuesta
                 if ($result) {
                     if ($stmt->rowCount() > 0) {
                         $row = $stmt->fetch(PDO::FETCH_ASSOC);
-                        $resultado = ($row['por_revisar'] . ',' . 
-                                      $row['total_dar_vobo'] . ',' . 
-                                      $row['aceptadas']);
+                        $resultado = ($row['por_revisar'] . ',' .
+                            $row['total_dar_vobo'] . ',' .
+                            $row['aceptadas']);
                         return $resultado;
                         $conn = null;
                         exit();
@@ -376,7 +377,6 @@ class d_coord_jdpto_Aprobar_Propuesta
                 throw new Exception("0");
             }
             exit();
-
         } catch (Exception $ex) {
             $conn = null;
             return ('');
@@ -435,7 +435,6 @@ class d_coord_jdpto_Aprobar_Propuesta
                 throw new Exception("");
             }
             exit();
-
         } catch (Exception $ex) {
             $conn = null;
             return ('');
@@ -485,10 +484,14 @@ class d_coord_jdpto_Aprobar_Propuesta
                       ORDER BY id_tipo_usr DESC";
 
             $params = array(
-                $id_propuesta, $id_documento, $id_version,
-                $id_usuario, 1,
                 $id_propuesta,
-                $id_propuesta, 3
+                $id_documento,
+                $id_version,
+                $id_usuario,
+                1,
+                $id_propuesta,
+                $id_propuesta,
+                3
             );
 
             $stmt = $conn->prepare($tsql);
@@ -515,7 +518,6 @@ class d_coord_jdpto_Aprobar_Propuesta
                 throw new Exception("");
             }
             exit();
-
         } catch (Exception $ex) {
             $conn = null;
             return ('');
@@ -578,7 +580,7 @@ class d_coord_jdpto_Aprobar_Propuesta
                 throw new Exception($mensaje_Transacciones);
             }
 
-            $arr_estado_prop           = preg_split("/[,]/", $estado_prop); 
+            $arr_estado_prop           = preg_split("/[,]/", $estado_prop);
             $coord_dpto_por_revisar_doc = $arr_estado_prop[0];
             $coord_dpto_total_dar_voto  = $arr_estado_prop[1];
             $coord_dpto_aceptadas       = $arr_estado_prop[2];
@@ -632,7 +634,7 @@ class d_coord_jdpto_Aprobar_Propuesta
             }
 
             $nvo_Estatus       = $id_estatus;
-            $propuesta_Revisada= false;
+            $propuesta_Revisada = false;
 
             // Ajustamos contadores
             $coord_dpto_por_revisar_doc -= 1;
@@ -645,8 +647,10 @@ class d_coord_jdpto_Aprobar_Propuesta
                 // Todos Aceptaron
                 $nvo_Estatus        = 3; // Aceptada
                 $propuesta_Revisada = true;
-            } elseif ($coord_dpto_por_revisar_doc == 0 && 
-                      $coord_dpto_aceptadas != $coord_dpto_total_dar_voto) {
+            } elseif (
+                $coord_dpto_por_revisar_doc == 0 &&
+                $coord_dpto_aceptadas != $coord_dpto_total_dar_voto
+            ) {
                 // Al menos uno la Rechazó
                 $nvo_Estatus        = 4; // Rechazada
                 $propuesta_Revisada = true;
@@ -741,8 +745,8 @@ class d_coord_jdpto_Aprobar_Propuesta
 
                     // Borramos el PDF actual, etc.
                     $archivo_pdf = $_SERVER["DOCUMENT_ROOT"] . '/CTYSS_DIE/Docs/Propuestas_Profesor/' .
-                                   $id_profesor . '_' . $id_propuesta_doc . '_' .
-                                   $id_version_doc . '_' . $desc_corta_doc . '.pdf';
+                        $id_profesor . '_' . $id_propuesta_doc . '_' .
+                        $id_version_doc . '_' . $desc_corta_doc . '.pdf';
 
                     if (file_exists($archivo_pdf)) {
                         unlink($archivo_pdf);
@@ -768,7 +772,6 @@ class d_coord_jdpto_Aprobar_Propuesta
             $jsondata['data']['message'] = $mensaje_Transacciones;
             echo json_encode($jsondata);
             exit();
-
         } catch (Exception $ex) {
             if ($conn) {
                 $conn->rollBack();
@@ -787,4 +790,3 @@ class d_coord_jdpto_Aprobar_Propuesta
 // $obj = new d_coord_jdpto_Aprobar_Propuesta();
 // print_r($obj->Obtener_Total_Documentos_Por_Autorizar('ELVA'));
 // echo $obj->Obtener_Usr_Mail_Propuesta_JDefinitivo('2016-2-004', 4, 1, '086198517');
-

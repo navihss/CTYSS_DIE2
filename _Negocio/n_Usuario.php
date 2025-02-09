@@ -1,40 +1,43 @@
 <?php
+
 /**
  * Interfaz de la Capa Negocio para la Clase Usuario.
  * @author Rogelio Reyes Mendoza
  * Mayo 2016
  */
 
-if(!isset($_POST["Tipo_Movimiento"]) and 
-        !isset($_POST["Id_Tipo_Usuario"]) and
-        !isset($_POST["Id_Usuario"])){
+if (
+    !isset($_POST["Tipo_Movimiento"]) and
+    !isset($_POST["Id_Tipo_Usuario"]) and
+    !isset($_POST["Id_Usuario"])
+) {
     header('Location: ../index.php');
 }
-$id_division=0;
-if(isset($_SESSION["id_division"])){
-    $id_division=$_SESSION["id_division"];
+$id_division = 0;
+if (isset($_SESSION["id_division"])) {
+    $id_division = $_SESSION["id_division"];
 }
 
-require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE/_Datos/d_Alumno.php');
-require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE/_Datos/d_Usuario.php');
-require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE/_Entidades/Alumno.php');
-require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE/zonaHoraria.php');
- 
+require_once($_SERVER["DOCUMENT_ROOT"] . '/CTYSS_DIE/_Datos/d_Alumno.php');
+require_once($_SERVER["DOCUMENT_ROOT"] . '/CTYSS_DIE/_Datos/d_Usuario.php');
+require_once($_SERVER["DOCUMENT_ROOT"] . '/CTYSS_DIE/_Entidades/Alumno.php');
+require_once($_SERVER["DOCUMENT_ROOT"] . '/CTYSS_DIE/zonaHoraria.php');
+
 $tipo_Movimiento = $_POST['Tipo_Movimiento'];
 $tipo_Usuario = $_POST['Id_Tipo_Usuario'];
 $id_Usuario = $_POST['Id_Usuario'];
 
-switch ($tipo_Usuario){
+switch ($tipo_Usuario) {
     case 999: //Validar la Clave con la que se firma
-        switch ($tipo_Movimiento){
+        switch ($tipo_Movimiento) {
             case 'VALIDARNoCUENTA':
                 $obj_d_Usuario = new d_Usuario();
-                echo $obj_d_Usuario->Iniciar_Sesion($_POST['usuario'], $_POST['contrasena']);                
+                echo $obj_d_Usuario->Iniciar_Sesion($_POST['usuario'], $_POST['contrasena']);
                 break;
         }
-        
+
     case 5: //Usuario-Alumno
-        switch ($tipo_Movimiento){
+        switch ($tipo_Movimiento) {
             case 'OBTENER_DATOS':
                 $obj_d_Alumno = new d_Alumno();
                 echo $obj_d_Alumno->Obtener_Alumno($id_Usuario);
@@ -43,7 +46,7 @@ switch ($tipo_Usuario){
                 $obj_d_Alumno = new d_Alumno();
                 echo $obj_d_Alumno->Obtener_Alumno_DatosGenerales($_POST['id_inscripcion'], $_POST['id_propuesta']);
                 break;
-            case 'AGREGAR':                                
+            case 'AGREGAR':
                 $obj_Alumno = new Alumno();
                 $obj_d_Alumno = new d_Alumno();
                 $obj_Alumno->set_Id_Alumno($_POST['clave']);
@@ -66,28 +69,28 @@ switch ($tipo_Usuario){
                 $obj_Alumno->set_Id_Tipo_Usuario(5);
                 $obj_Alumno->set_Id_Tipo_Baja(5);
                 $obj_Alumno->set_Id_Carrera($_POST['carrera']);
-//                $Fec = new DateTime(date('Y-n-j'));
-//                $fecha = $Fec->format("d-m-Y");
-//                $obj_Alumno->set_Fecha_Alta($fecha);
-                
-//                $obj_Alumno->set_Fecha_Alta(date('Y-n-j'));
-                $obj_Alumno->set_Fecha_Alta(date('d-m-Y H:i:s'));                
+                //                $Fec = new DateTime(date('Y-n-j'));
+                //                $fecha = $Fec->format("d-m-Y");
+                //                $obj_Alumno->set_Fecha_Alta($fecha);
 
-                               
+                //                $obj_Alumno->set_Fecha_Alta(date('Y-n-j'));
+                $obj_Alumno->set_Fecha_Alta(date('d-m-Y H:i:s'));
+
+
                 $obj_Alumno->set_Correo_Electronico($_POST['correo']);
                 $obj_Alumno->set_Id_Genero($_POST['genero']);
                 $obj_Alumno->set_Activo(1);
 
                 $id_administrador = '';
                 echo $obj_d_Alumno->Agregar($obj_Alumno, $id_division, $id_administrador);
-                
+
                 break;
-            
-            case 'ACTUALIZAR':      
-            
+
+            case 'ACTUALIZAR':
+
                 $obj_Alumno = new Alumno();
-                $obj_d_Alumno = new d_Alumno();                
-                $obj_Alumno->set_Id_Alumno($id_Usuario );                 
+                $obj_d_Alumno = new d_Alumno();
+                $obj_Alumno->set_Id_Alumno($id_Usuario);
                 $obj_Alumno->set_Id_Usuario($id_Usuario);
                 $obj_Alumno->set_IdUsuario($id_Usuario);
                 $obj_Alumno->set_Calle_Numero(strtoupper($_POST['calle_Numero']));
@@ -101,16 +104,14 @@ switch ($tipo_Usuario){
                 $obj_Alumno->set_Semestre_Ingreso_FI($_POST['semestre_Ingreso_FI']);
                 $obj_Alumno->set_Nombre(strtoupper($_POST['nombre']));
                 $obj_Alumno->set_Apellido_Paterno(strtoupper($_POST['apellido_Paterno']));
-                $obj_Alumno->set_Apellido_Materno(strtoupper($_POST['apellido_Materno']));                              
+                $obj_Alumno->set_Apellido_Materno(strtoupper($_POST['apellido_Materno']));
                 $obj_Alumno->set_Correo_Electronico($_POST['correo_Electronico']);
                 $obj_Alumno->set_Id_Genero($_POST['genero']);
                 $obj_Alumno->set_Id_Estado($_POST['estado']);
                 $obj_Alumno->set_Id_Division($id_division);
-               
+
                 echo $obj_d_Alumno->Actualizar($obj_Alumno);
                 break;
-         }
-         break;
+        }
+        break;
 }
-
-?>

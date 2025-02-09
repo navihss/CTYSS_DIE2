@@ -6,29 +6,30 @@
  * @author Rogelio Reyes Mendoza
  * Julio 2016
  */
-    header('Content-Type: text/html; charset=UTF-8');
-    require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE/_Datos/Conexion.php');
-    require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE/zonaHoraria.php');
+header('Content-Type: text/html; charset=UTF-8');
+require_once($_SERVER["DOCUMENT_ROOT"] . '/CTYSS_DIE/_Datos/Conexion.php');
+require_once($_SERVER["DOCUMENT_ROOT"] . '/CTYSS_DIE/zonaHoraria.php');
 
-class d_administrador_Aprobar_Servicio_Social {
+class d_administrador_Aprobar_Servicio_Social
+{
 
     //Obtenemos los Servios Sociales pendientes de Autorizar y que tienen ambos documentos enviados
     //Carta de Aceptación e Historial Académico con estatus 2. Por Autorizar
-    function Obtener_SS_Por_Estatus($id_estatus, $id_division){
-        try{                    
+    function Obtener_SS_Por_Estatus($id_estatus, $id_division)
+    {
+        try {
             $cnn = new Conexion();
             $conn = $cnn->getConexion();
 
-            if( $cnn === false )
-            {
+            if ($cnn === false) {
                 throw new Exception($cnn->getError());
             }
 
-//           $jsondata['success'] = false;
-//           $jsondata['data']= array('message'=>'en obtener ss id');
-//           echo json_encode($jsondata);
-//           exit();  
-           
+            //           $jsondata['success'] = false;
+            //           $jsondata['data']= array('message'=>'en obtener ss id');
+            //           echo json_encode($jsondata);
+            //           exit();  
+
             $tsql = "SELECT  a.id_estatus, a.id_ss, a.id_alumno,
                     (c.nombre_usuario || ' ' || c.apellido_paterno_usuario || ' ' || c.apellido_materno_usuario) as nombre, 
                     f.descripcion_carrera, d.descripcion_estatus, a.fecha_inicio_ss, a.duracion_meses_ss, 
@@ -45,58 +46,55 @@ class d_administrador_Aprobar_Servicio_Social {
                     WHERE a.id_estatus = ? AND (SELECT COUNT(id_documento) FROM servicio_social_docs WHERE id_ss= a.id_ss AND id_estatus=2) > 0
                       AND g.id_division = ?
                     ORDER BY a.id_ss;";
-                        
+
             /* Valor de los parámetros. */
             $params = array($id_estatus, $id_division);
             /* Preparamos la sentencia a ejecutar */
             $stmt = $conn->prepare($tsql);
-            /*Verificamos el contenido de la ejecución*/                        
-            if($stmt){        
+            /*Verificamos el contenido de la ejecución*/
+            if ($stmt) {
                 /*Ejecutamos el Query*/
-                $result = $stmt->execute($params);                                 
-                if ($result){                    
-                    if($stmt->rowCount() > 0){                                                
+                $result = $stmt->execute($params);
+                if ($result) {
+                    if ($stmt->rowCount() > 0) {
                         $jsondata['success'] = true;
                         $jsondata['data']['message'] = 'Registros encontrados';
                         $jsondata['data']['registros'] = array();
 
-                        while($row = $stmt->fetch(PDO::FETCH_OBJ)){
+                        while ($row = $stmt->fetch(PDO::FETCH_OBJ)) {
                             $jsondata['data']['registros'][] = $row;
                         }
-                        $stmt=null;
-                        $conn=null;
+                        $stmt = null;
+                        $conn = null;
                         echo json_encode($jsondata);
                         exit();
-                    }
-                    else{
+                    } else {
                         $mensaje_Transacciones = "No hay ningún Servicio Social por Autorizar.<br/>";
-                        throw new Exception($mensaje_Transacciones);                                                                                
+                        throw new Exception($mensaje_Transacciones);
                     }
                 }
-            }
-            else{
+            } else {
                 $error = $stmt->errorInfo();
                 $mensaje_Transacciones = "Error en la sentencia SQL para obtener los Servicios Sociales por Autorizar.<br/>"  . $error[2];
-                throw new Exception($mensaje_Transacciones);                  
-            }                
+                throw new Exception($mensaje_Transacciones);
+            }
+        } catch (Exception $ex) {
+            $jsondata['success'] = false;
+            $jsondata['data'] = array('message' => $ex->getMessage());
+            echo json_encode($jsondata);
+            exit();
         }
-        catch (Exception $ex){               
-           $jsondata['success'] = false;
-           $jsondata['data']= array('message'=>$ex->getMessage());
-           echo json_encode($jsondata);
-           exit();                                                                    
-        }          
     } //Fin Obtener Documentos        
-    
+
 
     //OBTENERMOS TOTAL DE APROBACION DE SERVICIOS
-    function Obtener_Total_SS($id_estatus, $id_division){
-        try{
+    function Obtener_Total_SS($id_estatus, $id_division)
+    {
+        try {
             $cnn = new Conexion();
             $conn = $cnn->getConexion();
 
-            if($cnn === false)
-            {
+            if ($cnn === false) {
                 throw new Exception($cnn->getError());
             }
 
@@ -109,78 +107,75 @@ class d_administrador_Aprobar_Servicio_Social {
                         INNER JOIN programas_ss g ON a.id_programa = g.id_programa
                         INNER JOIN alumnos h ON c.id_usuario = h.id_alumno
                     WHERE a.id_estatus = ? and f.id_division = ?";
-        
-        /* Valor de los parámetros. */
+
+            /* Valor de los parámetros. */
             $params = array($id_estatus, $id_division);
             /* Preparamos la sentencia a ejecutar */
             $stmt = $conn->prepare($tsql);
-            /*Verificamos el contenido de la ejecución*/                        
-            if($stmt){        
+            /*Verificamos el contenido de la ejecución*/
+            if ($stmt) {
                 /*Ejecutamos el Query*/
-                $result = $stmt->execute($params);                                 
-                if ($result){                    
-                    if($stmt->rowCount() > 0){                                                
+                $result = $stmt->execute($params);
+                if ($result) {
+                    if ($stmt->rowCount() > 0) {
                         $jsondata['success'] = true;
                         $jsondata['data']['message'] = 'Registros encontrados';
                         $jsondata['data']['registros'] = array();
 
-                        while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+                        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                             $jsondata['data']['registros'][] = $row;
                         }
-                        $stmt=null;
-                        $conn=null;
+                        $stmt = null;
+                        $conn = null;
                         //echo json_encode($jsondata);
                         return ($jsondata);
                         //exit();
-                    }
-                    else{
+                    } else {
                         $mensaje_Transacciones = "No hay ningún Servicio Social por Autorizar.<br/>";
-                        throw new Exception($mensaje_Transacciones);                                                                                
+                        throw new Exception($mensaje_Transacciones);
                     }
                 }
-            }
-            else{
+            } else {
                 $error = $stmt->errorInfo();
                 $mensaje_Transacciones = "Error en la sentencia SQL para obtener los Servicios Sociales por Autorizar.<br/>"  . $error[2];
-                throw new Exception($mensaje_Transacciones);                  
-            }                
-        }
-        catch (Exception $ex){               
-           $jsondata['success'] = false;
-           $jsondata['data']= array('message'=>$ex->getMessage());
-           echo json_encode($jsondata);
-           exit();                                                                    
+                throw new Exception($mensaje_Transacciones);
+            }
+        } catch (Exception $ex) {
+            $jsondata['success'] = false;
+            $jsondata['data'] = array('message' => $ex->getMessage());
+            echo json_encode($jsondata);
+            exit();
         }
     }
     //FIN OBTENEMOS TOTAL SS
 
     //Obtenemos los datos del Documento Seleccionado por el Administrador para su visualización PDF
-    function Obtener_Documento($id_ss, $id_documento, $id_estatus, $id_division){
-      
-        try{                    
+    function Obtener_Documento($id_ss, $id_documento, $id_estatus, $id_division)
+    {
+
+        try {
             $cnn = new Conexion();
             $conn = $cnn->getConexion();
 
-            if( $cnn === false )
-            {
+            if ($cnn === false) {
                 throw new Exception($cnn->getError());
             }
 
-//           $jsondata['success'] = false;
-//           $jsondata['data']= array('message'=>'en obtener ss id');
-//           echo json_encode($jsondata);
-//           exit();  
-           
-//            $tsql = "SELECT a.id_ss, a.id_documento, a.id_estatus, c.id_alumno, a.id_version, 
-//                a.fecha_recepcion_doc, d.descripcion_documento, b.descripcion_estatus
-//                FROM servicio_social_docs a 
-//                        INNER JOIN estatus b ON a.id_estatus = b.id_estatus
-//                        INNER JOIN servicio_social c ON a.id_ss = c.id_ss
-//                        INNER JOIN documentos d ON a.id_documento = d.id_documento
-//                WHERE a.id_ss = ? AND a.id_estatus = ? AND a.id_documento = ?;";
-//                       
-//            /* Valor de los parámetros. */
-//            $params = array($id_ss, $id_estatus, $id_documento);
+            //           $jsondata['success'] = false;
+            //           $jsondata['data']= array('message'=>'en obtener ss id');
+            //           echo json_encode($jsondata);
+            //           exit();  
+
+            //            $tsql = "SELECT a.id_ss, a.id_documento, a.id_estatus, c.id_alumno, a.id_version, 
+            //                a.fecha_recepcion_doc, d.descripcion_documento, b.descripcion_estatus
+            //                FROM servicio_social_docs a 
+            //                        INNER JOIN estatus b ON a.id_estatus = b.id_estatus
+            //                        INNER JOIN servicio_social c ON a.id_ss = c.id_ss
+            //                        INNER JOIN documentos d ON a.id_documento = d.id_documento
+            //                WHERE a.id_ss = ? AND a.id_estatus = ? AND a.id_documento = ?;";
+            //                       
+            //            /* Valor de los parámetros. */
+            //            $params = array($id_ss, $id_estatus, $id_documento);
             $tsql = "SELECT a.id_ss, a.id_documento, a.id_estatus, c.id_alumno, a.id_version, 
                 a.fecha_recepcion_doc, d.descripcion_documento, b.descripcion_estatus
                 FROM servicio_social_docs a 
@@ -194,53 +189,47 @@ class d_administrador_Aprobar_Servicio_Social {
 									AND c.id_division = ?";
             /* Valor de los parámetros. */
             $params = array($id_ss, $id_documento, $id_division);
-            
+
             /* Preparamos la sentencia a ejecutar */
             $stmt = $conn->prepare($tsql);
-            /*Verificamos el contenido de la ejecución*/                        
-            if($stmt){        
+            /*Verificamos el contenido de la ejecución*/
+            if ($stmt) {
                 /*Ejecutamos el Query*/
-                $result = $stmt->execute($params);                                 
-                if ($result){                    
-                    if($stmt->rowCount() > 0){                                                
+                $result = $stmt->execute($params);
+                if ($result) {
+                    if ($stmt->rowCount() > 0) {
                         $jsondata['success'] = true;
                         $jsondata['data']['message'] = 'Registros encontrados';
                         $jsondata['data']['registros'] = array();
 
-                        while($row = $stmt->fetch(PDO::FETCH_OBJ)){
+                        while ($row = $stmt->fetch(PDO::FETCH_OBJ)) {
                             $jsondata['data']['registros'][] = $row;
                         }
-                        $stmt=null;
-                        $conn=null;
+                        $stmt = null;
+                        $conn = null;
                         echo json_encode($jsondata);
                         exit();
-                    }
-                    else{
+                    } else {
                         $mensaje_Transacciones = "No hay Documento por Autorizar.<br/>";
-                        throw new Exception($mensaje_Transacciones);                                                                                
+                        throw new Exception($mensaje_Transacciones);
                     }
-                }
-                else{
+                } else {
                     $error = $stmt->errorInfo();
                     $mensaje_Transacciones = "Error en los parámetros para obtener los Documentos por Autorizar.<br/>"  . $error[2];
-                    throw new Exception($mensaje_Transacciones);                  
-                }                
-            }
-            else{
+                    throw new Exception($mensaje_Transacciones);
+                }
+            } else {
                 $error = $stmt->errorInfo();
                 $mensaje_Transacciones = "Error en la sentencia SQL para obtener los Documentos por Autorizar.<br/>"  . $error[2];
-                throw new Exception($mensaje_Transacciones);                  
-            }                
+                throw new Exception($mensaje_Transacciones);
+            }
+        } catch (Exception $ex) {
+            $jsondata['success'] = false;
+            $jsondata['data'] = array('message' => $ex->getMessage());
+            echo json_encode($jsondata);
+            exit();
         }
-        catch (Exception $ex){               
-           $jsondata['success'] = false;
-           $jsondata['data']= array('message'=>$ex->getMessage());
-           echo json_encode($jsondata);
-           exit();                                                                    
-        }          
     } //Fin Obtener Documento
-    
-    
-}
 
-?>
+
+}

@@ -1,17 +1,19 @@
 <?php
 
 header('Content-Type: text/html; charset=UTF-8');
-require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE/_Datos/Conexion.php');
-require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE/_Datos/d_Usuario_Bitacora.php');
-require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE/_Entidades/Bitacora.php');
-require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE/_Datos/d_Alumno_Mi_Servicio.php');
-require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE/_Datos/d_Alumno_Mis_Reportes.php');
-require_once ($_SERVER["DOCUMENT_ROOT"] .'/CTYSS_DIE/_Datos/d_Alumno_Mi_Titulacion_Por_Propuesta.php');
+require_once($_SERVER["DOCUMENT_ROOT"] . '/CTYSS_DIE/_Datos/Conexion.php');
+require_once($_SERVER["DOCUMENT_ROOT"] . '/CTYSS_DIE/_Datos/d_Usuario_Bitacora.php');
+require_once($_SERVER["DOCUMENT_ROOT"] . '/CTYSS_DIE/_Entidades/Bitacora.php');
+require_once($_SERVER["DOCUMENT_ROOT"] . '/CTYSS_DIE/_Datos/d_Alumno_Mi_Servicio.php');
+require_once($_SERVER["DOCUMENT_ROOT"] . '/CTYSS_DIE/_Datos/d_Alumno_Mis_Reportes.php');
+require_once($_SERVER["DOCUMENT_ROOT"] . '/CTYSS_DIE/_Datos/d_Alumno_Mi_Titulacion_Por_Propuesta.php');
 
-class d_alumno_Pendientes{
-	function Obtener_Pendientes_Alumno($id_estatus, $id_alumno){
-		try{
-			$jsondata['success'] = true;
+class d_alumno_Pendientes
+{
+    function Obtener_Pendientes_Alumno($id_estatus, $id_alumno)
+    {
+        try {
+            $jsondata['success'] = true;
             $jsondata['data']['message'] = '';
             $jsondata['data']['registros'] = array();
 
@@ -35,12 +37,11 @@ class d_alumno_Pendientes{
 
             echo json_encode($jsondata);
             exit();
-		}
-		catch (Exception $ex){               
-           $jsondata['success'] = false;
-           $jsondata['data']= array('message'=>$ex->getMessage());
-           echo json_encode($jsondata);
-           exit();                                                                    
+        } catch (Exception $ex) {
+            $jsondata['success'] = false;
+            $jsondata['data'] = array('message' => $ex->getMessage());
+            echo json_encode($jsondata);
+            exit();
         }
-	}
+    }
 }
