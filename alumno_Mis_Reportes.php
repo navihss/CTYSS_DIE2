@@ -23,12 +23,12 @@ if (
     <!--        <title>TODO supply a title</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="css/jquery-ui.css" rel="stylesheet">
+        <link href="./assets/libs/jquery-ui-1.11.4/jquery-ui.css" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="menu/estilo_menu.css" /> 
-        <script src="js/jquery-1.12.4.min.js"></script>
-        <script src="js/jquery-ui.min.js"></script>-->
-    <script src="js/expresiones_reg.js"></script>
-    <script src="js/ruta_documentos.js"></script>
+        <script src="./assets/libs/jquery-1.12-4/jquery-1.12.4.min.js"></script>
+        <script src="./assets/libs/jquery-ui-1.11.4/jquery-ui.min.js"></script>-->
+    <script src="./assets/js/expresiones_reg.js"></script>
+    <script src="./assets/js/ruta_documentos.js"></script>
 
     <script>
         $(document).ready(function() {
@@ -534,19 +534,19 @@ if (
                 <p>
                     <label for="fecha_Inicio_rpt" class="label">Fecha de Inicio:</label>
                     <input type="text" name="fecha_Inicio_rpt" id="fecha_Inicio_rpt" readonly />
-                    <span id="aviso_Fecha_Inicio" class="dato_Invalido"><img src="css/images/error.ico" /></span>
+                    <span id="aviso_Fecha_Inicio" class="dato_Invalido"><img src="./assets/images/ui/error.ico" /></span>
                 </p>
                 <p>
                     <label for="fecha_Termino_rpt" class="label">Fecha de Término:</label>
                     <input type="text" name="fecha_Termino_rpt" id="fecha_Termino_rpt" readonly />
-                    <span id="aviso_Fecha_Termino" class="dato_Invalido"><img src="css/images/error.ico" /></span>
+                    <span id="aviso_Fecha_Termino" class="dato_Invalido"><img src="./assets/images/ui/error.ico" /></span>
                 </p>
                 <p>
                     <label for="horas_realizadas" class="label">Horas realizadas en bimestre:</label>
                     <input type="text" name="horas_realizadas" class="entrada_Dato" id="horas_realizadas"
                         maxlength="3" placeholder="160"
                         title="Capture únicamente números enteros" class="entrada_Dato" autocomplete="off" />
-                    <span id="aviso_horas_realizadas" class="dato_Invalido"><img src="css/images/error.ico" /></span>
+                    <span id="aviso_horas_realizadas" class="dato_Invalido"><img src="./assets/images/ui/error.ico" /></span>
                 </p>
                 <div style="padding-top: 10px;">
                     <p>
@@ -586,7 +586,7 @@ if (
         <span id="ventanaAviso"></span>
     </div>
     <div id="ventanaProcesando" data-role="header">
-        <img id="cargador" src="css/images/engrane2.gif" /><br>
+        <img id="cargador" src="./assets/images/ui/engrane2.gif" /><br>
         Procesando su transacción....!<br>
         Espere por favor.
     </div>

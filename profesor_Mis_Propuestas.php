@@ -23,12 +23,12 @@ if (
     <!--        <title>TODO supply a title</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="css/jquery-ui.css" rel="stylesheet">
+        <link href="./assets/libs/jquery-ui-1.11.4/jquery-ui.css" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="menu/estilo_menu.css" /> 
-        <script src="js/jquery-1.12.4.min.js"></script>
-        <script src="js/jquery-ui.min.js"></script>-->
-    <script src="js/expresiones_reg.js"></script>
-    <script src="js/ruta_documentos.js"></script>
+        <script src="./assets/libs/jquery-1.12-4/jquery-1.12.4.min.js"></script>
+        <script src="./assets/libs/jquery-ui-1.11.4/jquery-ui.min.js"></script>-->
+    <script src="./assets/js/expresiones_reg.js"></script>
+    <script src="./assets/js/ruta_documentos.js"></script>
 
     <style type="text/css">
         .dia {
@@ -1426,14 +1426,14 @@ if (
                         <label for="tipo_propuesta" class="label">Tipo propuesta:</label>
                         <select name="tipo_propuesta" id="tipo_propuesta">
                         </select>
-                        <span id="aviso_Tipo_Propuesta" class="dato_Invalido"><img src="css/images/error.ico" /></span>
+                        <span id="aviso_Tipo_Propuesta" class="dato_Invalido"><img src="./assets/images/ui/error.ico" /></span>
                     </p>
                     <p>
                         <label for="titulo_prop" class="label">Título:</label>
                         <textarea type="text" name="titulo_prop" id="titulo_prop" value=''
                             style="max-height: 2em; max-width: 510px;" maxlength="500" placeholder="" style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();"
                             title="Capture únicamente letras, números y los caráctres , ; . : ¿? ( ) - # _" class="entrada_Dato" autocomplete="off"></textarea>
-                        <span id="aviso_Titulo_Propuesta" class="dato_Invalido"><img src="css/images/error.ico" /></span>
+                        <span id="aviso_Titulo_Propuesta" class="dato_Invalido"><img src="./assets/images/ui/error.ico" /></span>
                     </p>
                     <p>
                         <label for="aceptar_inscripciones" class="label" style="color: white; background-color: red;">Aceptar Inscripciones de Alumnos ?</label>
@@ -1449,7 +1449,7 @@ if (
                             </tbody>
                         </table>
 
-                        <span id="aviso_Horarios" class="dato_Invalido"><img src="css/images/error.ico" /></span>
+                        <span id="aviso_Horarios" class="dato_Invalido"><img src="./assets/images/ui/error.ico" /></span>
 
                     </div>
                     <br>
@@ -1481,7 +1481,7 @@ if (
                             <tbody>
                             </tbody>
                         </table>
-                        <span id="aviso_Requerimientos" class="dato_Invalido"><img src="css/images/error.ico" /></span>
+                        <span id="aviso_Requerimientos" class="dato_Invalido"><img src="./assets/images/ui/error.ico" /></span>
 
                     </div>
                     <button type="button" id="btn_Anterior" class="ui-button ui-corner-all ui-widget prevtab2">Anterior</button>
@@ -1497,7 +1497,7 @@ if (
                                 maxlength="500" placeholder="" style="resize:none;max-height: 20em; height: 20em;text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();"
                                 title="Capture únicamente letras, números y los caráctres , ; . : ¿? ( ) - # _" class="entrada_Dato" autocomplete="off" />
                             </textarea>
-                            <span id="aviso_Organismos" class="dato_Invalido"><img src="css/images/error.ico" /></span>
+                            <span id="aviso_Organismos" class="dato_Invalido"><img src="./assets/images/ui/error.ico" /></span>
                         </p>
                     </div>
                     <button type="button" id="btn_Anterior" class="ui-button ui-corner-all ui-widget prevtab3">Anterior</button>
@@ -1577,7 +1577,7 @@ if (
     </div>
 
     <div id="ventanaProcesando" data-role="header">
-        <img id="cargador" src="css/images/engrane2.gif" /><br>
+        <img id="cargador" src="./assets/images/ui/engrane2.gif" /><br>
         Procesando su transacción....!<br>
         Espere por favor.
     </div>

@@ -26,11 +26,11 @@ Objetivo:       Interfaz para Aprobar los documentos para Ceremonia Coordinació
     <!--        <title>TODO supply a title</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="css/jquery-ui.css" rel="stylesheet">
+        <link href="./assets/libs/jquery-ui-1.11.4/jquery-ui.css" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="menu/estilo_menu.css" /> 
-        <script src="js/jquery-1.12.4.min.js"></script>
-        <script src="js/jquery-ui.min.js"></script>-->
-    <script src="js/expresiones_reg.js"></script>
+        <script src="./assets/libs/jquery-1.12-4/jquery-1.12.4.min.js"></script>
+        <script src="./assets/libs/jquery-ui-1.11.4/jquery-ui.min.js"></script>-->
+    <script src="./assets/js/expresiones_reg.js"></script>
 
     <script>
         $(document).ready(function() {
@@ -602,7 +602,7 @@ Objetivo:       Interfaz para Aprobar los documentos para Ceremonia Coordinació
         <span id="ventanaMensajeConfirma"></span>
     </div>
     <div id="ventanaProcesando" data-role="header">
-        <img id="cargador" src="css/images/engrane2.gif" /><br>
+        <img id="cargador" src="./assets/images/ui/engrane2.gif" /><br>
         Procesando su transacción....!<br>
         Espere por favor.
     </div>

@@ -22,11 +22,11 @@ if (
 <!--        <title>TODO supply a title</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="css/jquery-ui.css" rel="stylesheet">
+        <link href="./assets/libs/jquery-ui-1.11.4/jquery-ui.css" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="menu/estilo_menu.css" /> 
-        <script src="js/jquery-1.12.4.min.js"></script>
-        <script src="js/jquery-ui.min.js"></script>-->
-<script src="js/expresiones_reg.js"></script>
+        <script src="./assets/libs/jquery-1.12-4/jquery-1.12.4.min.js"></script>
+        <script src="./assets/libs/jquery-ui-1.11.4/jquery-ui.min.js"></script>-->
+<script src="./assets/js/expresiones_reg.js"></script>
 
 <script>
     $(document).ready(function() {
@@ -242,13 +242,13 @@ if (
                     <label for="contrasena" class="label">Contraseña Nueva:</label>
                     <input type="password" name="contrasena" id="contrasena" maxlength="15" placeholder="" class="entrada_Dato"
                         title="Capture únicamente números, sin espacios" autocomplete="off" />
-                    <span id="statusContrasena" class="dato_Invalido"><img src="css/images/error.ico" /></span>
+                    <span id="statusContrasena" class="dato_Invalido"><img src="./assets/images/ui/error.ico" /></span>
                 </p>
                 <p>
                     <label for="contrasena2" class="label">Confirme la Contraseña:</label>
                     <input type="password" name="contrasena2" id="contrasena2" maxlength="15" placeholder="" class="entrada_Dato"
                         title="Capture únicamente números, sin espacios" autocomplete="off" />
-                    <span id="statusContrasena2" class="dato_Invalido"><img src="css/images/error.ico" /></span>
+                    <span id="statusContrasena2" class="dato_Invalido"><img src="./assets/images/ui/error.ico" /></span>
                 </p>
 
                 <div style="margin-top: 10px;">
@@ -270,7 +270,7 @@ if (
     <span id="ventanaAviso"></span>
 </div>
 <div id="ventanaProcesando" data-role="header">
-    <img id="cargador" src="css/images/engrane2.gif" /><br>
+    <img id="cargador" src="./assets/images/ui/engrane2.gif" /><br>
     Procesando su transacción....!<br>
     Espere por favor.
 </div>

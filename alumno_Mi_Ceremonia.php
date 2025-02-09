@@ -23,12 +23,12 @@ if (
     <!--        <title>TODO supply a title</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="css/jquery-ui.css" rel="stylesheet">
+        <link href="./assets/libs/jquery-ui-1.11.4/jquery-ui.css" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="menu/estilo_menu.css" /> 
-        <script src="js/jquery-1.12.4.min.js"></script>
-        <script src="js/jquery-ui.min.js"></script>-->
-    <script src="js/expresiones_reg.js"></script>
-    <script src="js/ruta_documentos.js"></script>
+        <script src="./assets/libs/jquery-1.12-4/jquery-1.12.4.min.js"></script>
+        <script src="./assets/libs/jquery-ui-1.11.4/jquery-ui.min.js"></script>-->
+    <script src="./assets/js/expresiones_reg.js"></script>
+    <script src="./assets/js/ruta_documentos.js"></script>
 
     <script>
         $(document).ready(function() {
@@ -1079,7 +1079,7 @@ if (
                         <textarea name="sedes" id="sedes" maxlength='500' placeholder='' class="entrada_Dato"
                             style='' onkeyup='javascript:this.value=this.value.toUpperCase();'
                             title='SOLO puede Capturar los siguientes carácteres: A-Z 0-9 , . ; : ¿? ( ) - _ #' autocomplete='off'></textarea>
-                        <span id="statusSede" class="dato_Invalido"><img src="css/images/error.ico" /></span>
+                        <span id="statusSede" class="dato_Invalido"><img src="./assets/images/ui/error.ico" /></span>
                     </p>
                 </div>
                 <div id="div_Diplomado" class="camposTexto datos_Ceremonia">
@@ -1088,7 +1088,7 @@ if (
                         <textarea name="diplomados_cursos" id="diplomados_cursos" maxlength='500' placeholder='' class="entrada_Dato"
                             onkeyup='javascript:this.value=this.value.toUpperCase();'
                             title='SOLO puede Capturar los siguientes carácteres: A-Z 0-9 , . ; : ¿? ( ) - _ #' autocomplete='off'></textarea>
-                        <span id="statusDiplomados" class="dato_Invalido"><img src="css/images/error.ico" /></span>
+                        <span id="statusDiplomados" class="dato_Invalido"><img src="./assets/images/ui/error.ico" /></span>
                     </p>
                 </div>
                 <div id="div_Materias" class="camposTexto datos_Ceremonia">
@@ -1097,7 +1097,7 @@ if (
                         <textarea name="materias" id="materias" maxlength='500' placeholder='' class="entrada_Dato"
                             onkeyup='javascript:this.value=this.value.toUpperCase();'
                             title='SOLO puede Capturar los siguientes carácteres: A-Z 0-9 , . ; : ¿? ( ) - _ #' autocomplete='off'></textarea>
-                        <span id="statusMaterias" class="dato_Invalido"><img src="css/images/error.ico" /></span>
+                        <span id="statusMaterias" class="dato_Invalido"><img src="./assets/images/ui/error.ico" /></span>
                     </p>
                 </div>
                 <div id="div_Progama" class="camposTexto datos_Ceremonia">
@@ -1106,7 +1106,7 @@ if (
                         <input type="text" name="programa_posgrado" id="programa_posgrado" maxlength="100"
                             title="SOLO puede Capturar los siguientes carácteres: A-Z 0-9 , . ; : ¿? ( ) - _ #"
                             style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();" class="entrada_Dato" autocomplete="off" />
-                        <span id="statusPrograma" class="dato_Invalido"><img src="css/images/error.ico" /></span>
+                        <span id="statusPrograma" class="dato_Invalido"><img src="./assets/images/ui/error.ico" /></span>
                     </p>
                 </div>
                 <div id="div_Articulo" class="camposTexto datos_Ceremonia">
@@ -1115,7 +1115,7 @@ if (
                         <input type="text" name="titulo_articulo" id="titulo_articulo" maxlength="100"
                             title="SOLO puede Capturar los siguientes carácteres: A-Z 0-9 , . ; : ¿? ( ) - _ #"
                             style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();" class="entrada_Dato" autocomplete="off" />
-                        <span id="statusArticulo" class="dato_Invalido"><img src="css/images/error.ico" /></span>
+                        <span id="statusArticulo" class="dato_Invalido"><img src="./assets/images/ui/error.ico" /></span>
                     </p>
                 </div>
                 <div id="div_Revista" class="camposTexto datos_Ceremonia">
@@ -1124,7 +1124,7 @@ if (
                         <input type="text" name="nombre_Revista" id="nombre_Revista" maxlength="100"
                             title="SOLO puede Capturar los siguientes carácteres: A-Z 0-9 , . ; : ¿? ( ) - _ #"
                             style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();" class="entrada_Dato" autocomplete="off" />
-                        <span id="statusRevista" class="dato_Invalido"><img src="css/images/error.ico" /></span>
+                        <span id="statusRevista" class="dato_Invalido"><img src="./assets/images/ui/error.ico" /></span>
                     </p>
                 </div>
             </div>
@@ -1143,12 +1143,12 @@ if (
                     <p>
                         <label for="motivoTitulacion" class="label">Motivo:</label>
                         <textarea type="text" name="motivoTitulacion" class="entrada_Dato" id="motivoTitulacion" autocomplete="off" />
-                        <span id="avisoMotivoTitulacion" class="dato_Invalido"><img src="css/images/error.ico"></span>
+                        <span id="avisoMotivoTitulacion" class="dato_Invalido"><img src="./assets/images/ui/error.ico"></span>
                     </p>
                     <p>
                         <label for="fechaEstimada" class="label">Fecha estimada para titulación</label>
                         <input type="text" name="fechaEstimada" class="entrada_Dato" id="fechaEstimada" autocomplete="off" />
-                        <span id="avisoFechaEstimada" class="dato_Invalido"><img src="css/images/error.ico"></span>
+                        <span id="avisoFechaEstimada" class="dato_Invalido"><img src="./assets/images/ui/error.ico"></span>
                     </p>
                 </form>
             </div>
@@ -1217,7 +1217,7 @@ if (
         <span id="ventanaAviso"></span>
     </div>
     <div id="ventanaProcesando" data-role="header">
-        <img id="cargador" src="css/images/engrane2.gif" /><br>
+        <img id="cargador" src="./assets/images/ui/engrane2.gif" /><br>
         Procesando su transacción....!<br>
         Espere por favor.
     </div>

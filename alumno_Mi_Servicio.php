@@ -25,12 +25,12 @@ if (
     <!--        <title>TODO supply a title</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="css/jquery-ui.css" rel="stylesheet">
+        <link href="./assets/libs/jquery-ui-1.11.4/jquery-ui.css" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="menu/estilo_menu.css" /> 
-        <script src="js/jquery-1.12.4.min.js"></script>
-        <script src="js/jquery-ui.min.js"></script>-->
-    <script src="js/expresiones_reg.js"></script>
-    <script src="js/ruta_documentos.js"></script>
+        <script src="./assets/libs/jquery-1.12-4/jquery-1.12.4.min.js"></script>
+        <script src="./assets/libs/jquery-ui-1.11.4/jquery-ui.min.js"></script>-->
+    <script src="./assets/js/expresiones_reg.js"></script>
+    <script src="./assets/js/ruta_documentos.js"></script>
 
     <script>
         $(document).ready(function() {
@@ -1145,12 +1145,12 @@ if (
             <p>
                 <label for="clave" class="label">Id_Servicio:</label>
                 <input type="text" name="clave" id="clave" value="" readonly />
-                <span id="aviso_Clave" class="dato_Invalido"><img src="css/images/error.ico" /></span>
+                <span id="aviso_Clave" class="dato_Invalido"><img src="./assets/images/ui/error.ico" /></span>
             </p>
             <p>
                 <label for="fecha_Inicio" class="label">Fecha de Inicio:</label>
                 <input type="text" name="fecha_Inicio" id="fecha_Inicio" readonly />
-                <span id="aviso_Fecha_Inicio" class="dato_Invalido"><img src="css/images/error.ico" /></span>
+                <span id="aviso_Fecha_Inicio" class="dato_Invalido"><img src="./assets/images/ui/error.ico" /></span>
             </p>
             <p>
                 <label for="duracion" class="label">Duración (meses):</label>
@@ -1175,20 +1175,20 @@ if (
                     <option value="12">23</option>
                     <option value="12">24</option>
                 </select>
-                <span id="aviso_Duracion" class="dato_Invalido"><img src="css/images/error.ico" /></span>
+                <span id="aviso_Duracion" class="dato_Invalido"><img src="./assets/images/ui/error.ico" /></span>
             </p>
             <p>
                 <label for="Tipo_Remuneracion" class="label">Tipo de Apoyo:</label>
                 <select name="Tipo_Remuneracion" id="Tipo_Remuneracion">
                 </select>
-                <span id="aviso_Tipo_Remuneracion" class="dato_Invalido"><img src="css/images/error.ico" /></span>
+                <span id="aviso_Tipo_Remuneracion" class="dato_Invalido"><img src="./assets/images/ui/error.ico" /></span>
             </p>
 
             <p>
                 <label for="percepcion_Mensual" id="lblpercepcion_Mensual" class="label">Percepción mensual:</label>
                 <input type="text" name="percepcion_Mensual" id="percepcion_Mensual" maxlength="10" placeholder="1500.00"
                     title="Capture únicamente números y punto, sin espacios" autocomplete="off" class="entrada_Dato" />
-                <span id="aviso_Percepcion_Mensual" class="dato_Invalido"><img src="css/images/error.ico" /></span>
+                <span id="aviso_Percepcion_Mensual" class="dato_Invalido"><img src="./assets/images/ui/error.ico" /></span>
             </p>
             <p>
                 <label for="clave_Programa" class="label">Clave del programa:</label>
@@ -1196,7 +1196,7 @@ if (
                     title="Capture la Clave del Programa TAL Y COMO ESTÁ EN LA PÁGINA DGOSE, sin espacios"
                     autocomplete="off" class="entrada_Dato" />
             <div id="cargandoAjax" class="notificacion">
-                <span><img src="css/images/ajax-loader03.gif" />Espere. Verificando si esta Clave de Programa existe!</span>
+                <span><img src="./assets/images/ui/ajax-loader03.gif" />Espere. Verificando si esta Clave de Programa existe!</span>
             </div>
             <div class="notificacion">
                 <span id="descripcion_Programa" class="dato_Invalido"></span>
@@ -1208,26 +1208,26 @@ if (
                 <label for="numero_Creditos" class="label">Número de creditos TOTALES de avance:</label>
                 <input type="text" name="numero_Creditos" id="numero_Creditos" maxlength="3" placeholder="368"
                     title="Capture únicamente números" autocomplete="off" class="entrada_Dato" />
-                <span id="aviso_Numero_Creditos" class="dato_Invalido"><img src="css/images/error.ico" /></span>
+                <span id="aviso_Numero_Creditos" class="dato_Invalido"><img src="./assets/images/ui/error.ico" /></span>
             </p>
             <p>
                 <label for="porcentaje_Avance" class="label">Porcentaje de avance en creditos TOTALES:</label>
                 <input type="text" name="porcentaje_Avance" id="porcentaje_Avance" maxlength="6" placeholder="95.33"
                     title="Capture únicamente números y punto" autocomplete="off" class="entrada_Dato" />
-                <span id="aviso_Porcentaje_Avance" class="dato_Invalido"><img src="css/images/error.ico" /></span>
+                <span id="aviso_Porcentaje_Avance" class="dato_Invalido"><img src="./assets/images/ui/error.ico" /></span>
             </p>
             <p>
                 <label for="promedio" class="label">Promedio:</label>
                 <input type="text" name="promedio" id="promedio" maxlength="5" placeholder="8.72"
                     title="Capture únicamente números y punto" autocomplete="off" class="entrada_Dato" />
-                <span id="aviso_Promedio" class="dato_Invalido"><img src="css/images/error.ico" /></span>
+                <span id="aviso_Promedio" class="dato_Invalido"><img src="./assets/images/ui/error.ico" /></span>
             </p>
             <p>
                 <label for="jefe_Inmediato" class="label">Nombre del Jefe inmediato:</label>
                 <input type="text" name="jefe_Inmediato" id="jefe_Inmediato" maxlength="50" placeholder="JEFE INMEDIATO"
                     title="Capture únicamente letras" autocomplete="off" class="entrada_Dato"
                     style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();" />
-                <span id="aviso_Jefe_Inmediato" class="dato_Invalido"><img src="css/images/error.ico" /></span>
+                <span id="aviso_Jefe_Inmediato" class="dato_Invalido"><img src="./assets/images/ui/error.ico" /></span>
             </p>
 
             Recuerda que tu jefe inmediato debe estar registrado en DGOAE, es el que debes registrar en este apartado y es quien deberá firmar tus reportes.
@@ -1323,7 +1323,7 @@ if (
         <span id="ventanaAviso_Alta_OK"></span>
     </div>
     <div id="ventanaProcesando" data-role="header">
-        <img id="cargador" src="css/images/engrane2.gif" /><br>
+        <img id="cargador" src="./assets/images/ui/engrane2.gif" /><br>
         Procesando su transacción....!<br>
         Espere por favor.
     </div>

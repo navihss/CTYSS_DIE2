@@ -1,0 +1,385 @@
+/* reset browser styles */
+html,
+body,
+div,
+span,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  margin: 0;
+  padding: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+}
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+}
+body {
+  line-height: 1.2;
+}
+ol {
+  padding-left: 1.4em;
+  list-style: decimal;
+}
+ul {
+  padding-left: 1.4em;
+  list-style: square;
+}
+
+/* end reset browser styles */
+
+body {
+  margin: 0 auto;
+  background-color: white;
+  color: black;
+  font-family: Helvetica, sans-serif, Verdana, Arial;
+  font-size: 0.9em;
+  border: 1px solid white;
+}
+
+.encabezado {
+  /*position: fixed;*/
+  width: 100%;
+  text-align: center;
+}
+
+#escudo {
+  width: 920px;
+  height: 60px;
+}
+
+#contenido_Cuenta_Nueva {
+  width: 50%;
+  margin: auto;
+  margin-top: 5px;
+  margin-bottom: 0px;
+  background-color: gainsboro;
+  box-shadow: 5px 5px 5px #888888;
+}
+
+#nuevaCuenta p select {
+  width: 62%;
+  height: 2em;
+  border-radius: 5px;
+}
+
+#nuevaCuenta {
+  padding-top: 15px;
+}
+
+#titModulo {
+  padding-top: 5px;
+  background-color: #cccc00;
+  box-shadow: 0px 0px 5px #888888;
+  height: 35px;
+}
+
+h1 {
+  /*        color: rgb(100,100,100);
+        text-shadow: 1px 1px 1px rgb(255,255,255);
+        font-size: 2em;
+	font-weight: normal;
+	padding-bottom: 5px;	
+	margin: 25px 0;
+        text-align: center;*/
+
+  color: rgb(100, 100, 100);
+  font-size: 2em;
+  font-weight: normal;
+  text-align: center;
+}
+
+p {
+  margin-bottom: 5px;
+}
+
+.label {
+  display: inline-block;
+  width: 20%;
+  vertical-align: top;
+  text-align: left;
+  margin-right: 20px;
+  padding-left: 5px;
+  margin-left: 5px;
+  font-size: 1em;
+  font-weight: normal;
+  padding-bottom: 5px;
+  color: #333333;
+}
+
+input[type="submit"],
+input[type="reset"] {
+  /*margin-right: 150px;*/
+  /*padding: 10px 25px;*/
+  /*font-size: 1em;*/
+  width: 100px;
+  /*color: black;*/
+  /*background: read;*/
+  /*border-radius: 5px;*/
+  /*box-shadow: 0 0 4px white;*/
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+textarea {
+  border-radius: 5px;
+  /*border: none;*/
+  /*background-color: rgba(255,255,255,.5);*/
+  /*color: rgba(255,255,255,1);*/
+  /*font-size: 1em;*/
+  /*box-shadow: 12px 12px 5px rgba(255,255,255,.75);*/
+  width: 60%;
+  padding: 5px;
+}
+
+input[type="text"]:focus,
+input[type="date"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+input[type="number"]:focus,
+textarea:focus {
+  background-color: beige;
+  color: black;
+}
+
+.faltaInfo {
+  /*        margin-left: 22%;*/
+  /*padding: 10px 25px;*/
+  color: red;
+  display: none;
+}
+
+#barraHerramienta {
+  height: 50px;
+  /*    margin-right: 60px; */
+  width: 100%;
+  margin: 0 auto;
+  /*border: 1px #800000 solid;*/
+}
+
+#barraHerramienta div {
+  width: 50%;
+  margin: 0 auto;
+  /*float: right;*/
+  text-align: center;
+  /*border: 1px goldenrod solid;*/
+}
+
+#cargandoAjax,
+#ventanaProcesando {
+  display: none;
+}
+
+#cargandoAjax {
+  font-size: 0.8em;
+  /*display: block;*/
+  padding-left: 25%;
+}
+
+.notificacion {
+  padding-left: 25%;
+}
+
+.btn {
+  background-color: #800000;
+  color: white;
+  font-weight: bold;
+  /*padding: 6px 20px;*/
+  height: 2em;
+  margin-top: 0.5em;
+  border: none;
+  width: 100px;
+}
+
+.btn:hover {
+  opacity: 0.75;
+  cursor: pointer;
+  background-color: #daa520;
+}
+
+/*div principal del datepicker*/
+.ui-datepicker {
+  width: auto;
+  background: white;
+}
+
+/*Tabla con los días del mes*/
+.ui-datepicker table {
+  font-size: 13px;
+}
+
+/*La cabecera*/
+.ui-datepicker .ui-datepicker-header {
+  font-size: 12px;
+  background: red;
+}
+
+/*Para los días de la semana: Sa Mo ... */
+.ui-datepicker th {
+  color: black;
+}
+
+/*Para items con los días del mes por defecto */
+.ui-datepicker .ui-state-default {
+  background: #ffffff;
+}
+
+/*Para el item del día del mes seleccionado */
+.ui-datepicker .ui-state-active {
+  background: orange;
+  color: #ffffff;
+}
+
+/*quitamos el botón close de jquery-ui modal*/
+.no-close .ui-dialog-titlebar-close {
+  display: none;
+}
+.no-titlebar .ui-dialog-titlebar {
+  display: none;
+}
+
+.ventanaConfirmaUsuario .ui-widget-content {
+  font-weight: bold;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.ventanaConfirmaUsuario .ui-dialog-titlebar {
+  background: #ff8c00;
+  color: white;
+}
+
+.ventanaConfirmaUsuario.ui-widget-content.ui-dialog {
+  border: 2px solid #d3d3d3;
+  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.5);
+}
+
+.ventanaMensajes .ui-dialog-titlebar {
+  background: #b22222;
+  color: white;
+}
+
+.ventanaMensajes.ui-widget-content.ui-dialog {
+  border: 2px solid #d3d3d3;
+  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.5);
+}
+
+#ventanaProcesando {
+  text-align: center;
+  font-weight: bold;
+  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.5);
+}
+
+#cargador {
+  padding-top: 10px;
+}
+
+.dato_Invalido {
+  height: 15px;
+  width: 15px;
+  vertical-align: middle;
+}
+/* bloqueo de pantalla mientras se ejecuta ajax */
+/*#div_carga{
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+	background: url(images/Titlebar.png) repeat;
+	display:none;
+	z-index:1;
+}
+
+#cargador{
+    position:absolute;
+    top:50%;
+    left: 50%;
+    margin-top: -25px;
+    margin-left: -25px;
+}*/

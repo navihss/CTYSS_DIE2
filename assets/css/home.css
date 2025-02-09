@@ -1,0 +1,658 @@
+/* reset browser styles */
+html,
+body,
+div,
+span,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  margin: 0;
+  padding: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+}
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+}
+body {
+  line-height: 1em;
+}
+ol {
+  padding-left: 1em;
+  list-style: decimal;
+}
+ul {
+  padding-left: 1em;
+  list-style: square;
+}
+/* end reset browser styles */
+
+/* ventana HOME ***************************************************************/
+body {
+  margin: 0 auto;
+  background-color: white;
+  color: black;
+  font-family: Helvetica, sans-serif, Verdana, Arial;
+  font-size: 0.75em;
+  /*border: 1px solid red;*/
+  width: 98%;
+  height: 650px;
+}
+
+.area_de_trabajo {
+  max-width: 1024px;
+  text-align: center;
+  /*border: 1px solid blue;*/
+  /*centramos el area de trabajo en body*/
+  width: 100%;
+  margin: auto;
+}
+
+.encabezado {
+  width: 100%;
+  height: auto;
+  min-height: 112px;
+  max-width: 1024px;
+  left: 0;
+  top: 0;
+  /*border: 2px solid violet;*/
+}
+
+.logo {
+  height: 60px;
+  width: 100%;
+}
+
+.datos_Usuario {
+  width: 15%;
+  min-height: 4em;
+  background-color: #800000;
+  color: white;
+  font-size: 0.9em;
+  /*border: 1px #0088ff solid;*/
+  min-width: 100px;
+  float: left;
+}
+
+.menu_Aplicativo {
+  width: 84%;
+  /*border: 1px #97be10 solid;*/
+  padding-top: 5px;
+  float: left;
+}
+
+.contenido {
+  clear: both;
+  /*border: 1px goldenrod solid;*/
+  text-align: left;
+  /*padding: 10px;*/
+  padding-top: 0;
+  margin-top: 0;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/*----- CSS para Descripción del Módulo Abierto y los botones de Guardar/Agregar */
+.encabezado_Formulario {
+  clear: both;
+  width: 100%;
+  height: 2.5em;
+  /*border: 1px graytext dotted;*/
+  background-color: #c5c946;
+}
+.descripcion_Modulo {
+  width: 70%;
+  float: left;
+  height: 1.5em;
+  padding-left: 10px;
+  padding-top: 0.5em;
+  /*border: 1px solid #0088ff;*/
+  font-size: 1.2em;
+  font-weight: bold;
+  color: #666;
+  text-align: left;
+  /*background-color: #b8db44;*/
+}
+.barra_Herramientas {
+  width: 28%;
+  height: 2.3em;
+  /*padding-top: .5em;*/
+  float: left;
+  text-align: right;
+  /*border: 1px solid  tomato;*/
+  /*background-color: #b8db44;*/
+}
+.barra_Herramientas_exportables {
+  width: 100%;
+  height: 2.3em;
+  /*padding-top: .5em;*/
+  float: left;
+  text-align: right;
+  background-color: #b8db44;
+}
+.barra_Parametros {
+  box-sizing: border-box;
+  clear: both;
+  width: 100%;
+  /*border: 1px solid #0088ff;*/
+  padding: 5px;
+  text-align: left;
+}
+.contenido_Formulario {
+  clear: both;
+  width: 60%;
+  margin: auto;
+  max-height: 690px;
+  padding-top: 10px;
+  /*border: 1px solid #97be10;*/
+}
+
+/*CSS para los calendarios ****************************************************/
+/*div principal del datepicker*/
+.ui-datepicker {
+  width: 180px;
+  background: white;
+}
+
+/*Tabla con los días del mes*/
+.ui-datepicker table {
+  font-size: 12px;
+}
+
+/*La cabecera*/
+.ui-datepicker .ui-datepicker-header {
+  font-size: 12px;
+  background: red;
+}
+
+/*Para los días de la semana: Sa Mo ... */
+.ui-datepicker th {
+  color: black;
+}
+
+/*Para items con los días del mes por defecto */
+.ui-datepicker .ui-state-default {
+  background: #ffffff;
+}
+
+/*Para el item del día del mes seleccionado */
+.ui-datepicker .ui-state-active {
+  background: orange;
+  color: #ffffff;
+}
+
+.ui-datepicker .ui-state-highlight {
+  /*background: orangered;*/
+}
+
+/*quitamos el botón close de jquery-ui modal*/
+.no-close .ui-dialog-titlebar-close {
+  display: none;
+}
+.no-titlebar .ui-dialog-titlebar {
+  display: none;
+}
+
+/*color de fondo de las ventanas*/
+/*.ui-dialog
+{
+background: #000000;
+}*/
+/*Para cambiar el contenido del cuadro de diálogo, tamaño de fuente, color de fuente, ...*/
+/*.ui-dialog .ui-widget-content
+{
+color: #FFFFFF;
+font-family: arial;
+}*/
+
+/*Para cambiar el fondo de la cabecera*/
+/*.ui-dialog .ui-widget-header
+{
+background: red;
+}*/
+
+.ventanaConfirmaUsuario .ui-widget-content {
+  font-weight: bold;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.ventanaConfirmaUsuario .ui-dialog-titlebar {
+  background: #ff8c00;
+  color: white;
+}
+
+.ventanaConfirmaUsuario.ui-widget-content.ui-dialog {
+  border: 2px solid #d3d3d3;
+  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.5);
+}
+
+.ventanaMensajes .ui-dialog-titlebar {
+  background: #b22222;
+  color: white;
+}
+
+.ventanaMensajes.ui-widget-content.ui-dialog {
+  border: 2px solid #d3d3d3;
+  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.5);
+}
+
+/*Para cambiar el contenido de la cabecera, tamaño de fuente, color de fuente, ...*/
+/*.ui-dialog .ui-dialog-titlebar
+{
+color: #FFFFFF;
+font-family: arial;
+}*/
+
+/*CSS pantallas de mensaje y procesamiento ************************************/
+#cargandoAjax,
+#ventanaProcesando {
+  display: none;
+}
+#ventanaProcesando {
+  text-align: center;
+  font-weight: bold;
+  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+}
+
+#cargandoAjax {
+  color: red;
+}
+
+#cargador {
+  padding-top: 10px;
+}
+.dato_Invalido {
+  display: none;
+  color: red;
+}
+
+.dato_Invalido img {
+  height: 15px;
+  width: 15px;
+  vertical-align: middle;
+}
+
+.notificacion {
+  padding-left: 21%;
+  text-align: left;
+}
+
+.notaVoBo {
+  width: 410px;
+  height: 130px;
+  text-transform: uppercase;
+}
+
+/*CSS para los link de los archivos PDF ***************************************/
+a:link.link_pdf {
+  color: green;
+}
+a:hover.link_pdf {
+  color: red;
+}
+a:visited.link_pdf {
+  color: green;
+}
+
+/*CSS para los link información de Usuario datos generales *******************
+a:link.link_infoGenerales{
+    color: green;
+}
+a:hover.link_infoGenerales{
+    color:red;
+}
+a:visited.link_infoGenerales {
+    color:green;
+}*/
+
+/*CSS para los formularios ****************************************************/
+
+.btn_Herramientas {
+  background-color: #800000;
+  color: white;
+  font-weight: bold;
+  padding: 7px 0px;
+  /*margin-top: 1em;*/
+  border: none;
+  width: 100px;
+}
+
+.btn_Herramientas:hover {
+  opacity: 0.75;
+  cursor: pointer;
+  background-color: #daa520;
+}
+
+.contenido_Formulario p span {
+  padding-left: 10px;
+}
+
+.label {
+  display: inline-block;
+  width: 100px;
+  vertical-align: top;
+  /*margin-right: 5px;*/
+  padding-left: 5px;
+  margin-left: 10px;
+  font-size: 1em;
+  font-weight: normal;
+  padding-bottom: 5px;
+  color: #333333;
+}
+
+.contenido_Formulario p {
+  margin-bottom: 5px;
+  width: 100%;
+  text-align: left;
+}
+
+.contenido_Formulario textarea {
+  width: 70.4%;
+  /*max-height: 2em;*/
+  text-transform: uppercase;
+}
+
+.contenido_Formulario input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+textarea {
+  border-radius: 5px;
+  /*border: none;*/
+  /*background-color: rgba(255,255,255,.5);*/
+  /*color: rgba(255,255,255,1);*/
+  /*font-size: 1em;*/
+  /*box-shadow: 12px 12px 5px rgba(255,255,255,.75);*/
+  width: 70%;
+  padding: 4px;
+}
+
+.contenido_Formulario input[type="text"]:focus,
+input[type="date"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+input[type="number"]:focus,
+textarea:focus,
+select:focus {
+  background-color: beige;
+  color: black;
+}
+
+.contenido_Formulario select {
+  border-radius: 5px;
+  /*border: none;*/
+  /*background-color: rgba(255,255,255,.5);*/
+  /*color: rgba(255,255,255,1);*/
+  /*font-size: 1em;*/
+  /*box-shadow: 12px 12px 5px rgba(255,255,255,.75);*/
+  width: 72%;
+  padding: 4px;
+}
+
+.etiqueta_Parametro {
+  background-color: black;
+  color: white;
+  padding: 6px;
+  text-align: left;
+}
+.combo_Parametro {
+  border-radius: 5px;
+  width: 25%;
+  padding: 4px;
+}
+
+.combo_Parametro:focus {
+  background-color: beige;
+  color: black;
+}
+
+.input_Parametro {
+  border-radius: 5px;
+  width: 150px;
+  padding: 4px;
+  text-transform: uppercase;
+}
+
+.input_Parametro:focus {
+  background-color: beige;
+  color: black;
+}
+
+/* para la ventana auxiliar Servicio Social que utiliza el administrador*/
+input[type="text"].ventanaInformativa {
+  width: 54%;
+}
+textarea.ventanaInformativa {
+  width: 54%;
+}
+#tabla_Mi_Servicio .ventanaInformativa {
+  width: 500px;
+}
+
+/*recuadro de sombra para algunos formularios **********************************/
+.sombra_Formulario {
+  padding-top: 0px;
+  overflow-y: auto;
+  background-color: gainsboro;
+  box-shadow: 5px 5px 5px #888888;
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
+
+/*CSS para la tabla de Registros de las ventanas home de cada módulo***********/
+
+.titulo_filtros {
+  float: left;
+  padding-left: 10px;
+  padding-top: 0.1em;
+  /*border: 1px solid #0088ff;*/
+  font-size: 1.2em;
+  font-weight: bold;
+  color: #042262;
+  text-align: left;
+}
+
+.tabla_Registros {
+  width: 100%;
+  color: #333333;
+  border-width: 1px;
+  border-color: #729ea5;
+  border-collapse: collapse;
+  overflow-y: auto;
+  max-height: 470px;
+}
+
+.tabla_Registros caption {
+  color: white;
+  background-color: #800000;
+  text-align: left;
+  font-weight: bold;
+  padding-left: 5px;
+  height: 1.7em;
+  padding-top: 10px;
+}
+
+.tabla_Registros th {
+  background-color: #acc8cc;
+  border-width: 1px;
+  padding: 8px;
+  border-style: solid;
+  border-color: #729ea5;
+  text-align: center;
+}
+
+.tabla_Registros tr {
+  background-color: #ffffff;
+}
+
+.tabla_Registros td {
+  border-width: 1px;
+  padding: 8px;
+  border-style: solid;
+  border-color: #729ea5;
+}
+
+.tabla_Registros tr:hover {
+  background-color: #ffff99;
+}
+
+.tabla_Registros tfoot td {
+  color: black;
+  background-color: #acc8cc;
+}
+
+/*CSS para las ventanas de Envio de documentos*********************************/
+.btnOpcion {
+  font-family: Arial;
+  color: #ffffff;
+  font-size: 11px;
+  background: #0088ff;
+  padding: 5px 5px 5px 5px;
+  border: solid #a3a5a8 1px;
+  text-decoration: none;
+  margin-left: 5px;
+}
+
+.btnOpcion:hover {
+  background: #a3a5a8;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.resultado_Carga_De_Archivo {
+  padding-top: 20px;
+}
+
+.informacion_Archivo_A_Cargar {
+  padding-top: 20px;
+}
+
+.tag_file {
+  width: 500px;
+  border: 1px solid black;
+  background-color: beige;
+  font-weight: bold;
+}
+
+/*CSS para la apariencia de button para los Datos generales del Contacto ******/
+.btn_Ver_DatosGenerales {
+  background-color: red;
+  color: #666666;
+  font-family: Arial;
+  font-size: 11px;
+  padding: 6px 24px;
+  text-decoration: none;
+}
+/*Se utiliza para los textarea según el tipo de Ceremonia seleccionada***********/
+.datos_Ceremonia {
+  margin-top: 5px;
+}
+
+.datos_Ceremonia textarea {
+  margin-top: 5px;
+  height: 8em;
+  width: 94%;
+  max-width: 94%;
+  margin-left: 10px;
+  text-transform: uppercase;
+}
+
+.datos_Ceremonia label {
+  margin-left: 10px;
+  background-color: black;
+  color: white;
+  font-weight: bold;
+}
+
+.datos_Ceremonia input[type="text"] {
+  margin-top: 5px;
+  height: 4em;
+  width: 94%;
+  max-width: 94%;
+  margin-left: 10px;
+  text-transform: uppercase;
+}

@@ -3,29 +3,7 @@
 
 <head>
 	<title>Encriptación</title>
-	<script>
-		function Encrip_Dato(form) {
-			document.getElementById('dato1').innerHTML = 'Dato a encriptar';
-			document.getElementById('accionSeleccionada').setAttribute('value', '1');
-		}
-
-		function Desencrip_Dato(form) {
-			document.getElementById('dato1').innerHTML = 'Dato a desencriptar';
-			document.getElementById('accionSeleccionada').setAttribute('value', '2');
-		}
-
-		function valida_Datos() {
-
-			var dat1 = document.getElementById('d1').value;
-			if (dat1 === '') {
-				alert('Debe capturar un dato válido.');
-				return false;
-			}
-		}
-	</script>
-
-	<link rel="stylesheet" type="text/css" href="seguridad.css">
-
+	<link rel="stylesheet" type="text/css" href="../assets/css/seguridad.css">
 </head>
 
 <body>
@@ -53,6 +31,27 @@
 			<br>
 		</form>
 	</div>
+
+	<script>
+		function Encrip_Dato(form) {
+			document.getElementById('dato1').innerHTML = 'Dato a encriptar';
+			document.getElementById('accionSeleccionada').setAttribute('value', '1');
+		}
+
+		function Desencrip_Dato(form) {
+			document.getElementById('dato1').innerHTML = 'Dato a desencriptar';
+			document.getElementById('accionSeleccionada').setAttribute('value', '2');
+		}
+
+		function valida_Datos() {
+
+			var dat1 = document.getElementById('d1').value;
+			if (dat1 === '') {
+				alert('Debe capturar un dato válido.');
+				return false;
+			}
+		}
+	</script>
 </body>
 
 </html>

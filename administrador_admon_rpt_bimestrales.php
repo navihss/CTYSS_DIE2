@@ -24,11 +24,11 @@ if (
     <!--        <title>TODO supply a title</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="css/jquery-ui.css" rel="stylesheet">
+        <link href="./assets/libs/jquery-ui-1.11.4/jquery-ui.css" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="menu/estilo_menu.css" /> 
-        <script src="js/jquery-1.12.4.min.js"></script>
-        <script src="js/jquery-ui.min.js"></script>-->
-    <script src="js/expresiones_reg.js"></script>
+        <script src="./assets/libs/jquery-1.12-4/jquery-1.12.4.min.js"></script>
+        <script src="./assets/libs/jquery-ui-1.11.4/jquery-ui.min.js"></script>-->
+    <script src="./assets/js/expresiones_reg.js"></script>
 
     <script>
         $(document).ready(function() {
@@ -618,19 +618,19 @@ if (
             <p>
                 <label for="fecha_Inicio_rpt" class="label">Fecha de Inicio:</label>
                 <input type="text" name="fecha_Inicio_rpt" id="fecha_Inicio_rpt" class="input_Parametro" style="width:250px;" readonly />
-                <span id="aviso_Fecha_Inicio" class="dato_Invalido"><img src="css/images/error.ico" /></span>
+                <span id="aviso_Fecha_Inicio" class="dato_Invalido"><img src="./assets/images/ui/error.ico" /></span>
             </p>
             <p>
                 <label for="fecha_Termino_rpt" class="label">Fecha de Término:</label>
                 <input type="text" name="fecha_Termino_rpt" id="fecha_Termino_rpt" class="input_Parametro" style="width:250px;" readonly />
-                <span id="aviso_Fecha_Termino" class="dato_Invalido"><img src="css/images/error.ico" /></span>
+                <span id="aviso_Fecha_Termino" class="dato_Invalido"><img src="./assets/images/ui/error.ico" /></span>
             </p>
             <p>
                 <label for="horas_obligatorias" class="label">Horas Programadas:</label>
                 <input type="text" name="horas_obligatorias" class="entrada_Dato input_Parametro" id="horas_obligatorias"
                     maxlength="3" placeholder="160" style="width:250px;"
                     title="Capture únicamente números enteros" class="entrada_Dato" autocomplete="off" />
-                <span id="aviso_horas_obligatorias" class="dato_Invalido"><img src="css/images/error.ico" /></span>
+                <span id="aviso_horas_obligatorias" class="dato_Invalido"><img src="./assets/images/ui/error.ico" /></span>
             </p>
             <br>
             <p style="padding-left:15px;">
@@ -651,7 +651,7 @@ if (
         <span id="ventanaAviso"></span>
     </div>
     <div id="ventanaProcesando" data-role="header">
-        <img id="cargador" src="css/images/engrane2.gif" /><br>
+        <img id="cargador" src="./assets/images/ui/engrane2.gif" /><br>
         Procesando su transacción....!<br>
         Espere por favor.
     </div>

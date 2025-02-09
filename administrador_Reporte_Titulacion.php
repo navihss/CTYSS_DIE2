@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <?php
 header('Content-Type: text/html; charset=UTF-8');
 header("Cache-Control: no-cache");
@@ -8,11 +9,12 @@ if (!isset($_SESSION["id_tipo_usuario"]) and !isset($_SESSION["id_usuario"])) {
     header('Location: index.php');
 }
 ?>
+
 <html>
 
 <head>
-    <link href="css/bitacora.css" rel="stylesheet">
-    <script src="js/expresiones_reg.js"></script>
+    <link href="./assets/css/bitacora.css" rel="stylesheet">
+    <script src="./assets/js/expresiones_reg.js"></script>
 
     <script>
         $(document).ready(function() {
@@ -348,7 +350,7 @@ if (!isset($_SESSION["id_tipo_usuario"]) and !isset($_SESSION["id_usuario"])) {
     </div>
 
     <div id="ventanaProcesando" data-role="header">
-        <img id="cargador" src="css/images/engrane2.gif" /><br>
+        <img id="cargador" src="./assets/images/ui/engrane2.gif" /><br>
         Procesando su transacción...<br>
         Espere por favor.
     </div>

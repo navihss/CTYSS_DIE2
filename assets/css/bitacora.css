@@ -1,0 +1,70 @@
+.caja_1_2 {
+  width: 220px;
+  float: left;
+}
+
+.caja_3_4 {
+  width: 150px;
+  float: left;
+}
+
+#ventanaAsistente fieldset {
+  height: 300px;
+  padding: 5px;
+  padding-top: 10px;
+  padding-left: 10px;
+  line-height: 1.5em;
+}
+
+.caja_1_2 legend {
+  background-color: black;
+  color: white;
+  font-weight: bold;
+  height: 1.5em;
+  width: 135px;
+  padding-left: 5px;
+  padding-top: 5px;
+}
+
+.caja_3_4 legend {
+  background-color: black;
+  color: white;
+  font-weight: bold;
+  height: 1.5em;
+  width: 100px;
+  padding-left: 5px;
+  padding-top: 5px;
+}
+
+#ventanaAsistente fieldset div {
+  overflow-y: auto;
+  height: 280px;
+  max-height: 280px;
+}
+
+#ventanaAsistente fieldset p input[type="text"] {
+  border-radius: 5px;
+  width: 80px;
+  padding: 4px;
+}
+
+#ventanaAsistente fieldset p input[type="text"]:focus {
+  background-color: beige;
+  color: black;
+}
+
+#ventanaAsistente fieldset p input[type="button"] {
+  background-color: #0088ff;
+  color: white;
+  text-align: center;
+  height: 30px;
+  width: 15px;
+  cursor: pointer;
+  border-color: #0088ff;
+}
+
+#ventanaAsistente fieldset p input[type="button"]:hover {
+  background-color: #8cd3de;
+  color: black;
+  border-color: #8cd3de;
+}

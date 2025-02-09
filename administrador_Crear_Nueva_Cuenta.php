@@ -23,11 +23,11 @@ if (
 <!--        <title>TODO supply a title</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="css/jquery-ui.css" rel="stylesheet">
+        <link href="./assets/libs/jquery-ui-1.11.4/jquery-ui.css" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="menu/estilo_menu.css" /> 
-        <script src="js/jquery-1.12.4.min.js"></script>
-        <script src="js/jquery-ui.min.js"></script>-->
-<script src="js/expresiones_reg.js"></script>
+        <script src="./assets/libs/jquery-1.12-4/jquery-1.12.4.min.js"></script>
+        <script src="./assets/libs/jquery-ui-1.11.4/jquery-ui.min.js"></script>-->
+<script src="./assets/js/expresiones_reg.js"></script>
 
 <script>
     var cuentaCreada = false;
@@ -581,7 +581,7 @@ if (
                     <label for="tipo_Usuario" class="label">Tipo de Usuario:</label>
                     <select name="tipo_Usuario" id="tipo_Usuario">
                     </select>
-                    <span id="statusTipo_Usuario" class="dato_Invalido"><img src="css/images/error.ico" /></span>
+                    <span id="statusTipo_Usuario" class="dato_Invalido"><img src="./assets/images/ui/error.ico" /></span>
                 </p>
 
                 <p>
@@ -589,26 +589,26 @@ if (
                     <input type="text" name="nombre" id="nombre" maxlength="" maxlength="50"
                         title="Capture únicamente letras" class="entrada_Dato"
                         style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();" autocomplete="off" />
-                    <span id="statusNombre" class="dato_Invalido"><img src="css/images/error.ico" /></span>
+                    <span id="statusNombre" class="dato_Invalido"><img src="./assets/images/ui/error.ico" /></span>
                 </p>
                 <p>
                     <label for="apellidoPaterno" class="label">Apellido Paterno:</label>
                     <input type="text" name="apellidoPaterno" id="apellidoPaterno" maxlength="50"
                         title="Capture únicamente letras" class="entrada_Dato"
                         style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();" autocomplete="off" />
-                    <span id="statusApellidoPaterno" class="dato_Invalido"><img src="css/images/error.ico" /></span>
+                    <span id="statusApellidoPaterno" class="dato_Invalido"><img src="./assets/images/ui/error.ico" /></span>
                 </p>
                 <p>
                     <label for="apellidoMaterno" class="label">Apellido Materno:</label>
                     <input type="text" name="apellidoMaterno" id="apellidoMaterno" maxlength="50"
                         title="Capture únicamente letras"
                         style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();" class="entrada_Dato" autocomplete="off" />
-                    <span id="statusApellidoMaterno" class="dato_Invalido"><img src="css/images/error.ico" /></span>
+                    <span id="statusApellidoMaterno" class="dato_Invalido"><img src="./assets/images/ui/error.ico" /></span>
                 </p>
                 <p>
                     <label for="fechaNacimiento" class="label alumno_ent">Fecha de nacimiento:</label>
                     <input type="text" name="fechaNacimiento" id="fechaNacimiento" autocomplete="off" title="dd/mm/aaaa" class="alumno_ent" readonly />
-                    <span id="statusFechaNacimiento" class="dato_Invalido"><img src="css/images/error.ico" /></span>
+                    <span id="statusFechaNacimiento" class="dato_Invalido"><img src="./assets/images/ui/error.ico" /></span>
                 </p>
                 <p>
                     <label for="genero" class="label">Genero:</label>
@@ -616,39 +616,39 @@ if (
                         <option value="2">Femenino</option>
                         <option value="1">Masculino</option>
                     </select>
-                    <span id="statusGenero" class="dato_Invalido"><img src="css/images/error.ico" /></span>
+                    <span id="statusGenero" class="dato_Invalido"><img src="./assets/images/ui/error.ico" /></span>
                 </p>
                 <p>
                     <label for="carrera" class="label alumno_ent">Carrera:</label>
                     <select name="carrera" id="carrera" class="alumno_ent">
                     </select>
-                    <span id="statusCarrera" class="dato_Invalido"><img src="css/images/error.ico" /></span>
+                    <span id="statusCarrera" class="dato_Invalido"><img src="./assets/images/ui/error.ico" /></span>
                 </p>
 
                 <p>
                     <label for="puesto" class="label admin_coordinador">Puesto:</label>
                     <select name="puesto" id="puesto" class="admin_coordinador">
                     </select>
-                    <span id="statusPuesto" class="dato_Invalido"><img src="css/images/error.ico" /></span>
+                    <span id="statusPuesto" class="dato_Invalido"><img src="./assets/images/ui/error.ico" /></span>
                 </p>
                 <p>
                     <label for="coordinacion" class="label coordinador">Coordinación:</label>
                     <select name="coordinacion" id="coordinacion" class="coordinador">
                     </select>
-                    <span id="statusCoordinacion" class="dato_Invalido"><img src="css/images/error.ico" /></span>
+                    <span id="statusCoordinacion" class="dato_Invalido"><img src="./assets/images/ui/error.ico" /></span>
                 </p>
                 <p>
                     <label for="departamento" class="label departamento">Departamento:</label>
                     <select name="departamento" id="departamento" class="departamento">
                     </select>
-                    <span id="statusDepartamento" class="dato_Invalido"><img src="css/images/error.ico" /></span>
+                    <span id="statusDepartamento" class="dato_Invalido"><img src="./assets/images/ui/error.ico" /></span>
                 </p>
 
                 <p>
                     <label for="correo" class="label">Dirección de correo electrónico:</label>
                     <input type="email" name="correo" id="correo" maxlength="100" placeholder="miCorreo@dominio.com"
                         title="Capture su dirección de correo TAL Y COMO LA DIÓ DE ALTA CON SU PROVEEDOR" class="entrada_Dato" autocomplete="off" />
-                    <span id="statusCorreo" class="dato_Invalido"><img src="css/images/error.ico" /></span>
+                    <span id="statusCorreo" class="dato_Invalido"><img src="./assets/images/ui/error.ico" /></span>
                 </p>
                 <p>
                     <label for="es_externo" class="label profesor">Es externo a la FI:</label>
@@ -667,7 +667,7 @@ if (
                     <input type="text" name="clave" id="clave" maxlength="18" placeholder="086198516"
                         title="Capture la Clave del Usuario sin guiones (solo letras y números)" autocomplete="off" class="entrada_Dato" />
                 <div id="cargandoAjax" class="notificacion">
-                    <span><img src="css/images/ajax-loader03.gif" />Espere. Verificando si este Usuario está Disponible!</span>
+                    <span><img src="./assets/images/ui/ajax-loader03.gif" />Espere. Verificando si este Usuario está Disponible!</span>
                 </div>
                 <div class="notificacion">
                     <span id="statusClave" class="dato_Invalido"></span>
@@ -677,7 +677,7 @@ if (
                     <label for="contrasena" class="label">Contraseña:</label>
                     <input type="text" name="contrasena" id="contrasena" readonly maxlength="15" placeholder=""
                         title="Capture únicamente letras y números, sin espacios" autocomplete="off" class="entrada_Dato" />
-                    <span id="statusContrasena" class="dato_Invalido"><img src="css/images/error.ico" /></span>
+                    <span id="statusContrasena" class="dato_Invalido"><img src="./assets/images/ui/error.ico" /></span>
                 </p>
 
                 <div style="padding-top: 15px;">
@@ -702,7 +702,7 @@ if (
     <span id="ventanaAviso"></span>
 </div>
 <div id="ventanaProcesando" data-role="header">
-    <img id="cargador" src="css/images/engrane2.gif" /><br>
+    <img id="cargador" src="./assets/images/ui/engrane2.gif" /><br>
     Procesando su transacción....!<br>
     Espere por favor.
 </div>

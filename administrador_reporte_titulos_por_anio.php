@@ -26,7 +26,7 @@ if (
         }
     </style>
 
-    <script src="js/expresiones_reg.js"></script>
+    <script src="./assets/js/expresiones_reg.js"></script>
 
 
     <script>
@@ -489,10 +489,10 @@ if (
         <div>
             <div>
                 <form action="" method="post" target="_blank" id="FormularioExportacion">
-                    <a href="javascript:openFormulario();" name="modal"><img src="css/images/embudo.png" /> </a>|
-                    <a href="javascript:enviar_formulario('word','estadisticas',2,this.titulo_grafica)"><img src="css/images/office_word.png" /></a> |
-                    <a href="javascript:enviar_formulario('excel','estadisticas',2,this.titulo_grafica)"><img src="css/images/office_excel.png" /></a> |
-                    <a href="javascript:enviar_formulario('pdf','estadisticas',2,this.titulo_grafica)"><img src="css/images/Oficina_PDF.png" /></a>
+                    <a href="javascript:openFormulario();" name="modal"><img src="./assets/images/ui/embudo.png" /> </a>|
+                    <a href="javascript:enviar_formulario('word','estadisticas',2,this.titulo_grafica)"><img src="./assets/images/ui/office_word.png" /></a> |
+                    <a href="javascript:enviar_formulario('excel','estadisticas',2,this.titulo_grafica)"><img src="./assets/images/ui/office_excel.png" /></a> |
+                    <a href="javascript:enviar_formulario('pdf','estadisticas',2,this.titulo_grafica)"><img src="./assets/images/ui/Oficina_PDF.png" /></a>
                     <input type="hidden" id="datos_a_enviar" name="datos_a_enviar" />
                 </form>
             </div>
@@ -579,7 +579,7 @@ if (
         <span id="ventanaAviso"></span>
     </div>
     <div id="ventanaProcesando" data-role="header">
-        <img id="cargador" src="css/images/engrane2.gif" /><br>
+        <img id="cargador" src="./assets/images/ui/engrane2.gif" /><br>
         Procesando su transacción....!<br>
         Espere por favor.
     </div>

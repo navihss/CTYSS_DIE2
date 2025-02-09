@@ -22,11 +22,11 @@ if (
 <!--        <title>TODO supply a title</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="css/jquery-ui.css" rel="stylesheet">
+        <link href="./assets/libs/jquery-ui-1.11.4/jquery-ui.css" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="menu/estilo_menu.css" /> 
-        <script src="js/jquery-1.12.4.min.js"></script>
-        <script src="js/jquery-ui.min.js"></script>-->
-<script src="js/expresiones_reg.js"></script>
+        <script src="./assets/libs/jquery-1.12-4/jquery-1.12.4.min.js"></script>
+        <script src="./assets/libs/jquery-ui-1.11.4/jquery-ui.min.js"></script>-->
+<script src="./assets/js/expresiones_reg.js"></script>
 
 <script>
     $(document).ready(function() {
@@ -369,27 +369,27 @@ if (
                         <input type="text" name="nombre" id="nombre" value='' maxlength="50"
                             title="Capture únicamente letras en MAYÚSCULA" autocomplete="off"
                             style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();" class="entrada_Dato" readonly />
-                        <span id="aviso_Nombre" class="dato_Invalido"><img src="css/images/error.ico" /></span>
+                        <span id="aviso_Nombre" class="dato_Invalido"><img src="./assets/images/ui/error.ico" /></span>
                     </p>
                     <p>
                         <label for="apellido_Paterno" class="label">Apellido Paterno:</label>
                         <input type="text" name="apellido_Paterno" id="apellido_Paterno" value='' maxlength="50"
                             title="Capture únicamente letras en MAYÚSCULA" autocomplete="off"
                             style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();" class="entrada_Dato" readonly />
-                        <span id="aviso_Apellido_Paterno" class="dato_Invalido"><img src="css/images/error.ico" /></span>
+                        <span id="aviso_Apellido_Paterno" class="dato_Invalido"><img src="./assets/images/ui/error.ico" /></span>
                     </p>
                     <p>
                         <label for="apellido_Materno" class="label">Apellido Materno:</label>
                         <input type="text" name="apellido_Materno" id="apellido_Materno" value='' maxlength="50"
                             title="Capture únicamente letras en MAYÚSCULA" autocomplete="off"
                             style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();" class="entrada_Dato" readonly />
-                        <span id="aviso_Apellido_Materno" class="dato_Invalido"><img src="css/images/error.ico" /></span>
+                        <span id="aviso_Apellido_Materno" class="dato_Invalido"><img src="./assets/images/ui/error.ico" /></span>
                     </p>
                     <p>
                         <label for="correo_Electronico" class="label">e-mail:</label>
                         <input type="text" name="correo_Electronico" id="correo_Electronico" maxlength="100" placeholder="miCorreo@dominio.com"
                             title="Capture su dirección de correo TAL Y COMO LA DIÓ DE ALTA CON SU PROVEEDOR" autocomplete="off" class="entrada_Dato" />
-                        <span id="aviso_Correo_Electronico" class="dato_Invalido"><img src="css/images/error.ico" /></span>
+                        <span id="aviso_Correo_Electronico" class="dato_Invalido"><img src="./assets/images/ui/error.ico" /></span>
                     </p>
 
                     <p>
@@ -398,31 +398,31 @@ if (
                             <option value="2">Femenino</option>
                             <option value="1">Masculino</option>
                         </select>
-                        <span id="aviso_Genero" class="dato_Invalido"><img src="css/images/error.ico" /></span>
+                        <span id="aviso_Genero" class="dato_Invalido"><img src="./assets/images/ui/error.ico" /></span>
                     </p>
                     <p>
                         <label for="grado" class="label">Grado de estudio:</label>
                         <select name="grado" id="grado" disabled>
                         </select>
-                        <span id="aviso_Grado" class="dato_Invalido"><img src="css/images/error.ico" /></span>
+                        <span id="aviso_Grado" class="dato_Invalido"><img src="./assets/images/ui/error.ico" /></span>
                     </p>
                     <p>
                         <label id="etiqueta_Coordinacion" for="coordinacion" class="label">Coordinación:</label>
                         <select name="coordinacion" id="coordinacion" disabled>
                         </select>
-                        <span id="aviso_Coordinacion" class="dato_Invalido"><img src="css/images/error.ico" /></span>
+                        <span id="aviso_Coordinacion" class="dato_Invalido"><img src="./assets/images/ui/error.ico" /></span>
                     </p>
                     <p>
                         <label for="puesto" class="label">Puesto:</label>
                         <select name="puesto" id="puesto" disabled>
                         </select>
-                        <span id="aviso_Puesto" class="dato_Invalido"><img src="css/images/error.ico" /></span>
+                        <span id="aviso_Puesto" class="dato_Invalido"><img src="./assets/images/ui/error.ico" /></span>
                     </p>
 
                     <p>
                         <label for="fecha_alta" class="label">Fecha de Alta:</label>
                         <input type="text" name="fecha_alta" id="fecha_alta" placeholder="dd-mm-aaaa" readonly />
-                        <span id="aviso_Fecha_Alta" class="dato_Invalido"><img src="css/images/error.ico" /></span>
+                        <span id="aviso_Fecha_Alta" class="dato_Invalido"><img src="./assets/images/ui/error.ico" /></span>
                     </p>
                 </div>
             </div>
@@ -441,7 +441,7 @@ if (
     <span id="ventanaAviso"></span>
 </div>
 <div id="ventanaProcesando" data-role="header">
-    <img id="cargador" src="css/images/engrane2.gif" /><br>
+    <img id="cargador" src="./assets/images/ui/engrane2.gif" /><br>
     Procesando su transacción....!<br>
     Espere por favor.
 </div>

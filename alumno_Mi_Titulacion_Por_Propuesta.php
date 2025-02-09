@@ -23,12 +23,12 @@ if (
     <!--        <title>TODO supply a title</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="css/jquery-ui.css" rel="stylesheet">
+        <link href="./assets/libs/jquery-ui-1.11.4/jquery-ui.css" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="menu/estilo_menu.css" /> 
-        <script src="js/jquery-1.12.4.min.js"></script>
-        <script src="js/jquery-ui.min.js"></script>-->
-    <script src="js/expresiones_reg.js"></script>
-    <script src="js/ruta_documentos.js"></script>
+        <script src="./assets/libs/jquery-1.12-4/jquery-1.12.4.min.js"></script>
+        <script src="./assets/libs/jquery-ui-1.11.4/jquery-ui.min.js"></script>-->
+    <script src="./assets/js/expresiones_reg.js"></script>
+    <script src="./assets/js/ruta_documentos.js"></script>
 
     <script>
         $(document).ready(function() {
@@ -1002,12 +1002,12 @@ if (
                     <p>
                         <label for="motivoTitulacion" class="label">Motivo:</label>
                         <textarea type="text" name="motivoTitulacion" class="entrada_Dato" id="motivoTitulacion" autocomplete="off" />
-                        <span id="avisoMotivoTitulacion" class="dato_Invalido"><img src="css/images/error.ico"></span>
+                        <span id="avisoMotivoTitulacion" class="dato_Invalido"><img src="./assets/images/ui/error.ico"></span>
                     </p>
                     <p>
                         <label for="fechaEstimada" class="label">Fecha estimada para titulación</label>
                         <input type="text" name="fechaEstimada" class="entrada_Dato" id="fechaEstimada" autocomplete="off" />
-                        <span id="avisoFechaEstimada" class="dato_Invalido"><img src="css/images/error.ico"></span>
+                        <span id="avisoFechaEstimada" class="dato_Invalido"><img src="./assets/images/ui/error.ico"></span>
                     </p>
                 </form>
             </div>
@@ -1051,7 +1051,7 @@ if (
         <span id="ventanaAviso"></span>
     </div>
     <div id="ventanaProcesando" data-role="header">
-        <img id="cargador" src="css/images/engrane2.gif" /><br>
+        <img id="cargador" src="./assets/images/ui/engrane2.gif" /><br>
         Procesando su transacción....!<br>
         Espere por favor.
     </div>

@@ -23,11 +23,11 @@ if (
     <!--        <title>TODO supply a title</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="css/jquery-ui.css" rel="stylesheet">
+        <link href="./assets/libs/jquery-ui-1.11.4/jquery-ui.css" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="menu/estilo_menu.css" /> 
-        <script src="js/jquery-1.12.4.min.js"></script>
-        <script src="js/jquery-ui.min.js"></script>-->
-    <script src="js/expresiones_reg.js"></script>
+        <script src="./assets/libs/jquery-1.12-4/jquery-1.12.4.min.js"></script>
+        <script src="./assets/libs/jquery-ui-1.11.4/jquery-ui.min.js"></script>-->
+    <script src="./assets/js/expresiones_reg.js"></script>
 
     <script>
         $(document).ready(function() {
@@ -282,10 +282,10 @@ if (
         <div>
             <div>
                 <form action="" method="post" target="_blank" id="FormularioExportacion">
-                    <a href="javascript:openFormulario();" name="modal"><img src="css/images/embudo.png" />
-                        <a href="javascript:enviar_formulario('word','ReporteSS',1,'Pride')"><img src="css/images/office_word.png" /></a> |
-                        <a href="javascript:enviar_formulario('excel','ReporteSS',1,'Pride')"><img src="css/images/office_excel.png" /></a> |
-                        <a href="javascript:enviar_formulario('pdf','ReporteSS',1,'Pride')"><img src="css/images/Oficina_PDF.png" /></a>
+                    <a href="javascript:openFormulario();" name="modal"><img src="./assets/images/ui/embudo.png" />
+                        <a href="javascript:enviar_formulario('word','ReporteSS',1,'Pride')"><img src="./assets/images/ui/office_word.png" /></a> |
+                        <a href="javascript:enviar_formulario('excel','ReporteSS',1,'Pride')"><img src="./assets/images/ui/office_excel.png" /></a> |
+                        <a href="javascript:enviar_formulario('pdf','ReporteSS',1,'Pride')"><img src="./assets/images/ui/Oficina_PDF.png" /></a>
                         <input type="hidden" id="datos_a_enviar" name="datos_a_enviar" />
                 </form>
             </div>
@@ -352,7 +352,7 @@ if (
         <span id="ventanaAviso"></span>
     </div>
     <div id="ventanaProcesando" data-role="header">
-        <img id="cargador" src="css/images/engrane2.gif" /><br>
+        <img id="cargador" src="./assets/images/ui/engrane2.gif" /><br>
         Procesando su transacción....!<br>
         Espere por favor.
     </div>

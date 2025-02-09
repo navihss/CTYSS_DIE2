@@ -1,20 +1,150 @@
+<!DOCTYPE html>
+
 <?php
 header('Content-Type: text/html; charset=UTF-8');
 ?>
 
-<!DOCTYPE html>
 <html>
 
 <head>
-    <!--        <meta http-equiv="Expires" content="0" /> 
-        <meta http-equiv="Pragma" content="no-cache" />-->
+    <!--
+        <meta http-equiv="Expires" content="0" /> 
+        <meta http-equiv="Pragma" content="no-cache" />
+    -->
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
     <title>Nueva Cuenta de Usuario</title>
-    <link href="css/jquery-ui.css" rel="stylesheet">
-    <link href="css/nuevaCuenta.css" rel="stylesheet">
-    <script src="js/jquery-1.12.4.min.js"></script>
-    <script src="js/jquery-ui.min.js"></script>
-    <script src="js/expresiones_reg.js"></script>
+
+    <link href="./assets/libs/jquery-ui-1.11.4/jquery-ui.min.js" rel="stylesheet">
+    <link href="./assets/css/nuevaCuenta.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="encabezado">
+        <div id="divLogo">
+            <img id="escudo" src="./assets/images/banners/banner_DIE2.jpg" alt="Escudo" />
+        </div>
+    </div>
+
+    <div id="contenido_Cuenta_Nueva">
+        <div id="titModulo">
+            <h1>Crear una Cuenta</h1>
+        </div>
+        <div id="formNuevaCuenta">
+            <form name="nuevaCuenta" id="nuevaCuenta" method="" action="">
+                <p>
+                    <label for="nombre" class="label">Nombre:</label>
+                    <input type="text" name="nombre" id="nombre" maxlength="50"
+                        title="Capture únicamente letras"
+                        style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();" autocomplete="off" />
+                    <span id="statusNombre" class='faltaInfo'><img src="./assets/images/ui/error.ico" class="dato_Invalido" /></span>
+                </p>
+                <p>
+                    <label for="apellidoPaterno" class="label">Apellido Paterno:</label>
+                    <input type="text" name="apellidoPaterno" id="apellidoPaterno" maxlength="50"
+                        title="Capture únicamente letras"
+                        style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();" autocomplete="off" />
+                    <span id="statusApellidoPaterno" class="faltaInfo"><img src="./assets/images/ui/error.ico" class="dato_Invalido" /></span>
+                </p>
+                <p>
+                    <label for="apellidoMaterno" class="label">Apellido Materno:</label>
+                    <input type="text" name="apellidoMaterno" id="apellidoMaterno" maxlength="50"
+                        title="Capture únicamente letras"
+                        style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();" autocomplete="off" />
+                    <span id="statusApellidoMaterno" class="faltaInfo"><img src="./assets/images/ui/error.ico" class="dato_Invalido" /></span>
+                </p>
+                <p>
+                    <label for="fechaNacimiento" class="label">Fecha de nacimiento:</label>
+                    <input type="text" name="fechaNacimiento" id="fechaNacimiento" title="dd/mm/aaaa" readonly />
+                    <span id="statusFechaNacimiento" class="faltaInfo"><img src="./assets/images/ui/error.ico" class="dato_Invalido" /></span>
+                </p>
+                <p>
+                    <label for="genero" class="label">Genero:</label>
+                    <select name="genero" id="genero">
+                        <option value="2">Femenino</option>
+                        <option value="1">Masculino</option>
+                    </select>
+                    <span id="statusGenero" class="faltaInfo"><img src="./assets/images/ui/error.ico" class="dato_Invalido" /></span>
+                </p>
+                <p>
+                    <label for="carrera" class="label">Carrera:</label>
+                    <select name="carrera" id="carrera">
+                    </select>
+                    <span id="statusCarrera" class="faltaInfo"><img src="./assets/images/ui/error.ico" class="dato_Invalido" /></span>
+                </p>
+
+                <p>
+                    <label for="correo" class="label">Dirección de correo electrónico:</label>
+                    <input type="email" name="correo" id="correo" maxlength="100" placeholder="miCorreo@dominio.com"
+                        title="Capture su dirección de correo TAL Y COMO LA DIÓ DE ALTA CON SU PROVEEDOR" autocomplete="off" />
+                    <span id="statusCorreo" class="faltaInfo"><img src="./assets/images/ui/error.ico" class="dato_Invalido" /></span>
+                </p>
+                <p>
+                    <label for="clave" class="label">Usuario:</label>
+                    <input type="text" name="clave" id="clave" maxlength="9" placeholder="086198516"
+                        title="Capture su Número de Cuenta de Alumno sin guiones" autocomplete="off" />
+                <div id="cargandoAjax" class="faltaInfo">
+                    <span><img src="./assets/images/ui/ajax-loader03.gif" />Espere. Verificando si este Usuario está Disponible!</span>
+                </div>
+                <div class="notificacion">
+                    <span id="statusClave" class="faltaInfo"></span>
+                </div>
+                </p>
+                <p>
+                    <label for="contrasena" class="label">Contraseña:</label>
+                    <input type="password" name="contrasena" id="contrasena" maxlength="15" placeholder=""
+                        title="Capture únicamente letras y números, sin espacios" autocomplete="off" />
+                    <span id="statusContrasena" class="faltaInfo"><img src="./assets/images/ui/error.ico" class="dato_Invalido" /></span>
+                </p>
+                <p>
+                    <label for="contrasena2" class="label">Vuelve a escribir la Contraseña:</label>
+                    <input type="password" name="contrasena2" id="contrasena2" maxlength="15" placeholder=""
+                        title="Capture únicamente letras y números, sin espacios" autocomplete="off" />
+                    <span id="statusContrasena2" class="faltaInfo"><img src="./assets/images/ui/error.ico" class="dato_Invalido" /></span>
+                </p>
+                <p>
+                    <label for="aviso_privacidad" class="label"></label>
+                    <input type="checkbox" name="aviso_privacidad" id="aviso_privacidad" /><a id="enlace_privacidad" href="" style="padding-left: 10px;">Aviso de Privacidad y Términos de Uso</a>
+                </p>
+
+                <div id="barraHerramienta">
+                    <div>
+                        <input type="submit" name="enviar" id="enviar" value="Crear cuenta" class="btn">
+                        <input type="reset" name="limpiar" id="limpiar" value="Limpiar" class="btn">
+                        <input type="button" name="regresar" id="regresar" value="Regresar" class="btn">
+                    </div>
+                </div>
+                <input type="hidden" id="Id_Tipo_Usuario" name="Id_Tipo_Usuario" value="5">
+                <input type="hidden" id="Tipo_Movimiento" name="Tipo_Movimiento" value="AGREGAR">
+                <input type="hidden" id="Id_Usuario" name="Id_Usuario" value="0">
+                <input type="hidden" id="De_Alta_OK" name="De_Alta_OK" value="0">
+            </form>
+        </div>
+    </div>
+    <div id="ventanaAvisoPrivacidad">
+        <?php
+        $file = fopen($_SERVER["DOCUMENT_ROOT"] . '/CTYSS_DIE/Config/aviso_privacidad_terminosDeUso.txt', "r") or exit("Error al leer el archivo de Aviso de Privacitad y Términos de Uso.!");
+        while (!feof($file)) {
+            echo fgets($file) . "<br />";
+        }
+        fclose($file);
+        ?>
+    </div>
+    <div id='ventanaConfirmacion'>
+        Desea crear la Cuenta ?
+    </div>
+    <div id="ventanaAvisos">
+        <span id="ventanaAviso" name="ventanaAviso"></span>
+    </div>
+    <div id="ventanaProcesando">
+        <img id="cargador" src="./assets/images/ui/engrane2.gif" /><br>
+        Procesando su transacción....!<br>
+        Espere por favor.
+    </div>
+
+    <script src="./assets/libs/jquery-1.12-4/jquery-1.12.4.min.js"></script>
+    <script src="./assets/libs/jquery-ui-1.11.4/jquery-ui.min.js"></script>
+    <script src="./assets/js/expresiones_reg.js"></script>
 
     <script type="text/javascript">
         if (history.forward(1)) {
@@ -447,130 +577,6 @@ header('Content-Type: text/html; charset=UTF-8');
 
         }); //end ready
     </script>
-</head>
-
-<body>
-    <div class="encabezado">
-        <div id="divLogo">
-            <img id="escudo" src="css/images/banner_DIE2.jpg" alt="Escudo" />
-        </div>
-    </div>
-
-    <div id="contenido_Cuenta_Nueva">
-        <div id="titModulo">
-            <h1>Crear una Cuenta</h1>
-        </div>
-        <div id="formNuevaCuenta">
-            <form name="nuevaCuenta" id="nuevaCuenta" method="" action="">
-                <p>
-                    <label for="nombre" class="label">Nombre:</label>
-                    <input type="text" name="nombre" id="nombre" maxlength="50"
-                        title="Capture únicamente letras"
-                        style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();" autocomplete="off" />
-                    <span id="statusNombre" class='faltaInfo'><img src="css/images/error.ico" class="dato_Invalido" /></span>
-                </p>
-                <p>
-                    <label for="apellidoPaterno" class="label">Apellido Paterno:</label>
-                    <input type="text" name="apellidoPaterno" id="apellidoPaterno" maxlength="50"
-                        title="Capture únicamente letras"
-                        style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();" autocomplete="off" />
-                    <span id="statusApellidoPaterno" class="faltaInfo"><img src="css/images/error.ico" class="dato_Invalido" /></span>
-                </p>
-                <p>
-                    <label for="apellidoMaterno" class="label">Apellido Materno:</label>
-                    <input type="text" name="apellidoMaterno" id="apellidoMaterno" maxlength="50"
-                        title="Capture únicamente letras"
-                        style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();" autocomplete="off" />
-                    <span id="statusApellidoMaterno" class="faltaInfo"><img src="css/images/error.ico" class="dato_Invalido" /></span>
-                </p>
-                <p>
-                    <label for="fechaNacimiento" class="label">Fecha de nacimiento:</label>
-                    <input type="text" name="fechaNacimiento" id="fechaNacimiento" title="dd/mm/aaaa" readonly />
-                    <span id="statusFechaNacimiento" class="faltaInfo"><img src="css/images/error.ico" class="dato_Invalido" /></span>
-                </p>
-                <p>
-                    <label for="genero" class="label">Genero:</label>
-                    <select name="genero" id="genero">
-                        <option value="2">Femenino</option>
-                        <option value="1">Masculino</option>
-                    </select>
-                    <span id="statusGenero" class="faltaInfo"><img src="css/images/error.ico" class="dato_Invalido" /></span>
-                </p>
-                <p>
-                    <label for="carrera" class="label">Carrera:</label>
-                    <select name="carrera" id="carrera">
-                    </select>
-                    <span id="statusCarrera" class="faltaInfo"><img src="css/images/error.ico" class="dato_Invalido" /></span>
-                </p>
-
-                <p>
-                    <label for="correo" class="label">Dirección de correo electrónico:</label>
-                    <input type="email" name="correo" id="correo" maxlength="100" placeholder="miCorreo@dominio.com"
-                        title="Capture su dirección de correo TAL Y COMO LA DIÓ DE ALTA CON SU PROVEEDOR" autocomplete="off" />
-                    <span id="statusCorreo" class="faltaInfo"><img src="css/images/error.ico" class="dato_Invalido" /></span>
-                </p>
-                <p>
-                    <label for="clave" class="label">Usuario:</label>
-                    <input type="text" name="clave" id="clave" maxlength="9" placeholder="086198516"
-                        title="Capture su Número de Cuenta de Alumno sin guiones" autocomplete="off" />
-                <div id="cargandoAjax" class="faltaInfo">
-                    <span><img src="css/images/ajax-loader03.gif" />Espere. Verificando si este Usuario está Disponible!</span>
-                </div>
-                <div class="notificacion">
-                    <span id="statusClave" class="faltaInfo"></span>
-                </div>
-                </p>
-                <p>
-                    <label for="contrasena" class="label">Contraseña:</label>
-                    <input type="password" name="contrasena" id="contrasena" maxlength="15" placeholder=""
-                        title="Capture únicamente letras y números, sin espacios" autocomplete="off" />
-                    <span id="statusContrasena" class="faltaInfo"><img src="css/images/error.ico" class="dato_Invalido" /></span>
-                </p>
-                <p>
-                    <label for="contrasena2" class="label">Vuelve a escribir la Contraseña:</label>
-                    <input type="password" name="contrasena2" id="contrasena2" maxlength="15" placeholder=""
-                        title="Capture únicamente letras y números, sin espacios" autocomplete="off" />
-                    <span id="statusContrasena2" class="faltaInfo"><img src="css/images/error.ico" class="dato_Invalido" /></span>
-                </p>
-                <p>
-                    <label for="aviso_privacidad" class="label"></label>
-                    <input type="checkbox" name="aviso_privacidad" id="aviso_privacidad" /><a id="enlace_privacidad" href="" style="padding-left: 10px;">Aviso de Privacidad y Términos de Uso</a>
-                </p>
-
-                <div id="barraHerramienta">
-                    <div>
-                        <input type="submit" name="enviar" id="enviar" value="Crear cuenta" class="btn">
-                        <input type="reset" name="limpiar" id="limpiar" value="Limpiar" class="btn">
-                        <input type="button" name="regresar" id="regresar" value="Regresar" class="btn">
-                    </div>
-                </div>
-                <input type="hidden" id="Id_Tipo_Usuario" name="Id_Tipo_Usuario" value="5">
-                <input type="hidden" id="Tipo_Movimiento" name="Tipo_Movimiento" value="AGREGAR">
-                <input type="hidden" id="Id_Usuario" name="Id_Usuario" value="0">
-                <input type="hidden" id="De_Alta_OK" name="De_Alta_OK" value="0">
-            </form>
-        </div>
-    </div>
-    <div id="ventanaAvisoPrivacidad">
-        <?php
-        $file = fopen($_SERVER["DOCUMENT_ROOT"] . '/CTYSS_DIE/Config/aviso_privacidad_terminosDeUso.txt', "r") or exit("Error al leer el archivo de Aviso de Privacitad y Términos de Uso.!");
-        while (!feof($file)) {
-            echo fgets($file) . "<br />";
-        }
-        fclose($file);
-        ?>
-    </div>
-    <div id='ventanaConfirmacion'>
-        Desea crear la Cuenta ?
-    </div>
-    <div id="ventanaAvisos">
-        <span id="ventanaAviso" name="ventanaAviso"></span>
-    </div>
-    <div id="ventanaProcesando">
-        <img id="cargador" src="css/images/engrane2.gif" /><br>
-        Procesando su transacción....!<br>
-        Espere por favor.
-    </div>
 </body>
 
 </html>

@@ -1,3 +1,5 @@
+<!DOCTYPE html>
+
 <?php
 header("Cache-Control: no-cache");
 header("Pragma: nocache");
@@ -19,7 +21,6 @@ if (!isset($_SESSION["id_tipo_usuario"]) and !isset($_SESSION["id_usuario"])) {
 }
 ?>
 
-<!DOCTYPE html>
 <html lang="es">
 
 <head>
@@ -29,25 +30,209 @@ if (!isset($_SESSION["id_tipo_usuario"]) and !isset($_SESSION["id_usuario"])) {
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Expires" content="0" />
     <meta http-equiv="Pragma" content="no-cache" />
+    
+    <title></title>
+    
+    <!--<link href="./assets/libs/jquery-ui-1.11.4/jquery-ui.css" rel="stylesheet">-->
+    <link href="./assets/libs/jquery-ui-1.12.1/jquery-ui.css" rel="stylesheet">
+    <link href="./assets/css/menu.css" rel="stylesheet">
+    <link href="./assets/css/home.css" rel="stylesheet">
+    <link href="./assets/css/styleuno.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <div class="area_de_trabajo">
+        <div id="encabezado">
+            <div id="">
+                <img class="logo" src="./assets/images/banners/banner_DIE2.jpg" alt="Escudo" />
+            </div>
+        </div>
+        <div class="datos_Usuario" id="datos_Usuario">
+            <li><span><button id="myBtn"><?php echo $_SESSION['nombre_usuario'] ?></button></span></li>
+            <li><span><?php echo $_SESSION['descripcion_division'] ?></span></li>
+            <li><span><?php echo $_SESSION['descripcion_tipo_usuario'] ?></span></li>
+            <li><span><?php echo $_SESSION['id_usuario'] ?></span></li>
+        </div>
+
+        <!-- The Modal -->
+        <div id="myModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <p>Nombre: <?php echo $_SESSION['nombre_usuario'] ?></p>
+                <p>No.Cuenta: <?php echo $_SESSION['id_usuario'] ?></p>
+                <p>Telefono(s): <?php echo $_SESSION['telefono_fijo_alumno'] ?> <br> <?php echo $_SESSION['telefono_celular_alumno'] ?></p>
+                <p>Correo: <?php echo $_SESSION['correo_usuario_sesion'] ?> </p>
+            </div>
+        </div>
+
+        <div id="menu" class="menu_Aplicativo">
+            <ul class="nav">
+                <!--Se agrega el botón para regresar a la página principal. El icono se encuentra en las imagenes de la carpeta css-->
+                <li><a href="home.php">Ir a página principal <img src="./assets/images/ui/icon_home.jpg"></a> <!--Icono para regresar a pantalla principal--></li>
+                <li>
+                    <a href="#" class="menuAlumno">Mi Perfil<span class="flecha">&#9660</span></a>
+                    <ul>
+                        <li><a href="#" id="mi_Perfil_Alumno">Mis Datos<span class="flecha">&#9660</span></a></li>
+                        <li><a href="#" id="mis_Carreras">Mis Carreras<span class="flecha">&#9660</span></a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#" class="menuAlumno">Mi Servicio Social<span class="flecha">&#9660</span></a>
+                    <ul>
+                        <li><a href="#" id="mi_Servicio_Social">Mi Servicio Social<span class="flecha">&#9660</span></a></li>
+                        <li><a href="#" id="mis_Reportes_Bimestrales">Mis Reportes Bimestrales<span class="flecha">&#9660</span></a></li>
+                        <li><a href="#" id="mi_Carta_Terminacion">Mi Carta de Terminación<span class="flecha">&#9660</span></a></li>
+                    </ul>
+                </li>
+                <!--Se agrega botón de pendientes para el alumno-->
+                <li>
+                    <a href="#" id="mis_Pendientes" class="menuAlumno">Mis pendientes<span class="flecha">&#9660</span></a>
+                </li>
+
+                <li>
+                    <a href="#" class="menuAlumno">Mi Titulación<span class="flecha">&#9660</span></a>
+                    <ul>
+                        <li><a href="#" id="mi_Titulacion_Por_Propuesta">Inscripción a Propuesta por Examen<span class="flecha">&#9660</span> </a></li>
+                        <li><a href="#" id="mi_Jurado">Solicitar Jurado<span class="flecha">&#9660</span></a></li>
+                        <li><a href="#" id="mi_Titulacion_Por_Ceremonia">Inscripción a Propuesta por Ceremonia<span class="flecha">&#9660</span></a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#" id="alumno_Cambio_Contrasena" class="menuAlumno"> Cambio de Contraseña<span class="flecha">&#9660</span></a>
+                </li>
+                <li>
+                    <a href="#" class="menuProfesor">Mi Perfil<span class="flecha">&#9660</span></a>
+                    <ul>
+                        <li><a href="#" id="prof_Mi_Perfil" class="menuProfesor">Mis Datos<span class="flecha">&#9660</span></a></li>
+                        <li><a href="#" id="prof_Mis_Docs" class="menuProfesor">Mis Documentos<span class="flecha">&#9660</span></a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#" id="prof_Mis_Propuestas" class="menuProfesor">Mis Propuestas<span class="flecha">&#9660</span></a>
+                </li>
+                <li>
+                    <a href="#" id="prof_Aceptar_Alumnos" class="menuProfesor">Aceptación y Baja de Alumnos<span class="flecha">&#9660</span></a>
+                </li>
+                <li>
+                    <a href="#" id="prof_Mis_Pendientes" class="menuProfesor">Mis Pendientes<span class="flecha">&#9660</span></a>
+                </li>
+
+                <li>
+                    <a href="#" id="coord_Mi_Perfil" class="menuCoordinador">Mi Perfil<span class="flecha">&#9660</span></a>
+                </li>
+                <li>
+                    <a href="#" id='coord_Aprobar_Propuesta' class="menuCoordinador">Aprobar Propuestas<span class="flecha">&#9660</span></a>
+                </li>
+                <li>
+                    <a href="#" id='coord_Aprobar_Jurado' class="menuCoordinador">Definir Jurado<span class="flecha">&#9660</span></a>
+                </li>
+                <li>
+                    <a href="#" id='coord_Aprobar_Ceremonia' class="menuCoordinador">Ceremonias por Aprobar<span class="flecha">&#9660</span></a>
+                </li>
+                <li>
+                    <a href="#" id='coord_Mis_Pendientes' class="menuCoordinador">Mis Pendientes<span class="flecha">&#9660</span></a>
+                </li>
+                <li>
+                    <a href="#" id='jefedpto_Mi_Perfil' class="menuJefeDepartamento">Mi Perfil<span class="flecha">&#9660</span></a>
+                </li>
+                <li>
+                    <a href="#" id='jefedpto_Aprobar_Propuesta' class="menuJefeDepartamento">Aprobar Propuestas<span class="flecha">&#9660</span></a>
+                </li>
+                <li>
+                    <a href="#" id='jefedpto_Aprobar_Jurado' class="menuJefeDepartamento">Definir Jurado<span class="flecha">&#9660</span></a>
+                </li>
+                <li>
+                    <a href="#" id='jefedpto_Mis_Pendientes' class="menuJefeDepartamento">Mis Pendientes<span class="flecha">&#9660</span></a>
+                </li>
+                <li>
+                    <a href="#" class="menuAdministrador">Mi Perfil<span class="flecha">&#9660</span></a>
+                    <ul>
+                        <li><a href="#" id="mi_Perfil_Administrador">Mis Datos<span class="flecha">&#9660</span></a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#" class="menuAdministrador">Aprobación de Documentos<span class="flecha">&#9660</span></a>
+                    <ul>
+                        <li><a href="#" id="autorizar_Servicio_Social">Para el Servicio Social<span class="flecha">&#9660</span></a></li>
+                        <li><a href="#" id="autorizar_Reportes_Bimestrales">Reportes Bimestrales<span class="flecha">&#9660</span></a></li>
+                        <li><a href="#" id="autorizar_Carta_Terminacion">Cartas de Término<span class="flecha">&#9660</span></a></li>
+                        <li><a href="#" id="asignar_Coordinadores">Asignar Coordinadores a Propuestas<span class="flecha">&#9660</span></a></li>
+                        <li><a href="#" id="asignar_Jurado_Definitivo">Asignar Jurado Definitivo<span class="flecha">&#9660</span></a></li>
+                        <li><a href="#" id="autorizar_Ceremonia">Documentos por Ceremonia<span class="flecha">&#9660</span></a>
+                        <li>
+                            <a href="#" id="">Solicitudes de Baja<span class="flecha">&#9660</span></a>
+                            <ul>
+                                <li><a href="#" id="autorizar_Solicitud_Baja_Servicio_Social">De Servicio Social<span class="flecha">&#9660</span></a></li>
+                                <li><a href="#" id="autorizar_Solicitud_Baja_Ceremonia">De Titulación por Ceremonia<span class="flecha">&#9660</span></a></li>
+                            </ul>
+                        </li>
+
+                        <li><a href="#" id=autorizar_Reportes_Estadisticas>Pride<span class="flecha">&#9660</span></a></li>
+                        <li><a href="#" id=autorizar_Reportes_Titulados>Estadisticas<span class="flecha">&#9660</span></a></li>
+                        <li><a href="#" id=autorizar_Reportes_formatos>Formatos<span class="flecha">&#9660</span></a></li>
+                        <li>
+                            <a href="#" id="">Reportes por Servicio Social<span class="flecha">&#9660</span></a>
+                            <ul>
+                                <li><a href="#" id="profesores">Por Alumnos<span class="flecha">&#9660</span></a></li>
+                                <li><a href="#" id="historico">Por Programas<span class="flecha">&#9660</span></a></li>
+                            </ul>
+                        </li>
+
+                        <li>
+                            <a href="#" id="">Tipos De Titulaci&oacuten<span class="flecha">&#9660</span></a>
+                            <ul>
+                                <li><a href="#" id="t_alumnos">Alumnos<span class="flecha">&#9660</span></a></li>
+                                <li><a href="#" id="t_ceremonias">Ceremonia<span class="flecha">&#9660</span></a></li>
+                            </ul>
+                        </li>
+
+                    </ul>
+                </li>
+                <!--Se agrega menú de pendientes para el administrador-->
+                <li>
+                    <a href="#" id="admon_Mis_Pendientes" class="menuAdministrador">Mis pendientes<span class="flecha">&#9660</span></a>
+                </li>
+                <li>
+                    <a href="#" class="menuAdministrador">Administración<span class="flecha">&#9660</span></a>
+                    <ul>
+                        <li><a href="#" id="Nueva_Cuenta_Usuario">Crear Nueva Cuenta de Usuario<span class="flecha">&#9660</span></a></li>
+                        <li><a href="#" id="Cambio_Contrasena">Cambio de Contraseña<span class="flecha">&#9660</span></a></li>
+                        <li><a href="#" id="admon_rpt_bimestrales">Admon. Rpt. Bimestrales<span class="flecha">&#9660</span></a></li>
+                        <li><a href="#" id="admon_Coord_Dptos">Admon. Coord. y Dptos<span class="flecha">&#9660</span></a></li>
+                        <li><a href="#" id="admon_Contadores">Admon. Contadores<span class="flecha">&#9660</span></a></li>
+                        <li><a href="#" id="Programas_Serv_Social">Programas para Servicio Social<span class="flecha">&#9660</span></a></li>
+                        <li><a href="#" id="Reporte_Titulacion_Proceso">Reporte. Titulación en proceso.<span class="flecha">&#9660</span></a></li>
+                    </ul>
+                <li><a href="#" id="mi_Bitacora" class="">Mi Bitácora<span class="flecha">&#9660</span></a></li>
+                <li><a href="#" id="cerrar_Mi_Sesion" class="">Cerrar Mi Sesión<span class="flecha">&#9660</span></a></li>
+            </ul>
+        </div> <!-- fin menu-->
+    </div> <!-- fin encabezado-->
+
+    <div id="contenido">
+        <div id="nuevo_Contenido"></div>
+        <div id="tmp_nuevo_Contenido"></div>
+        <input type="hidden" id="id_tpo_usuario" name="id_tpo_usuario" value="<?php echo $_SESSION['id_tipo_usuario'] ?>">
+        <input type="hidden" id="id_division" name="id_division" value="<?php echo $_SESSION['id_division'] ?>">
+        <br style="clear: both;">
+        <!--
+        <footer id="pie">
+            <h1>Pie de página</h1>
+        </footer>
+        -->
+    </div> <!-- fin area de trabajo-->
 
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script src="js/jquery-1.12.4.min.js"></script>
+    <script src="./assets/libs/jquery-1.12-4/jquery-1.12.4.min.js"></script>
+    <!--<script src="./assets/libs/jquery-ui-1.11.4/jquery-ui.min.js"></script>-->
+    <script src="./assets/libs/jquery-ui-1.12.1/jquery-ui.min.js"></script>
 
-    <!--<link href="css/jquery-ui.css" rel="stylesheet">-->
-    <link href="jquery-ui-1.12.1/jquery-ui.css" rel="stylesheet">
-    <!--<script src="js/jquery-ui.min.js"></script>-->
-    <script src="jquery-ui-1.12.1/jquery-ui.min.js"></script>
-
-    <title></title>
-    <link rel="stylesheet" href="css/menu.css">
-    <link rel="stylesheet" href="css/home.css">
-    <link rel="stylesheet" href="css/styleuno.css">
     <script type="text/javascript">
         if (history.forward(1)) {
             location.replace(history.forward(1));
         }
     </script>
-
 
     <script>
         $(document).ready(function() {
@@ -463,170 +648,7 @@ if (!isset($_SESSION["id_tipo_usuario"]) and !isset($_SESSION["id_usuario"])) {
 
         }); //fin jquery
     </script>
-</head>
 
-<body>
-
-    <div class="area_de_trabajo">
-        <div id="encabezado">
-            <div id="">
-                <img class="logo" src="css/images/banner_DIE2.jpg" alt="Escudo" />
-            </div>
-            <!-- The Modal -->
-        </div>
-        <div class="datos_Usuario" id="datos_Usuario">
-            <li><span><button id="myBtn"><?php echo $_SESSION['nombre_usuario'] ?></button></span></li>
-            <li><span><?php echo $_SESSION['descripcion_division'] ?></span></li>
-            <li><span><?php echo $_SESSION['descripcion_tipo_usuario'] ?></span></li>
-            <li><span><?php echo $_SESSION['id_usuario'] ?></span></li>
-        </div>
-        <!-- The Modal -->
-        <div id="myModal" class="modal">
-            <!-- Modal content -->
-            <div class="modal-content">
-                <span class="close">&times;</span>
-                <p>Nombre: <?php echo $_SESSION['nombre_usuario'] ?></p>
-                <p>No.Cuenta: <?php echo $_SESSION['id_usuario'] ?></p>
-                <p>Telefono(s): <?php echo $_SESSION['telefono_fijo_alumno'] ?> <br> <?php echo $_SESSION['telefono_celular_alumno'] ?></p>
-                <p>Correo: <?php echo $_SESSION['correo_usuario_sesion'] ?> </p>
-            </div>
-        </div>
-        <div id="menu" class="menu_Aplicativo">
-            <ul class="nav">
-                <!--Se agrega el botón para regresar a la página principal. El icono se encuentra en las imagenes de la carpeta css-->
-                <li><a href="home.php">Ir a página principal <img src="css/images/icon_home.jpg"></a> <!--Icono para regresar a pantalla principal--></li>
-                <li>
-                    <a href="#" class="menuAlumno">Mi Perfil<span class="flecha">&#9660</span></a>
-                    <ul>
-                        <li><a href="#" id="mi_Perfil_Alumno">Mis Datos<span class="flecha">&#9660</span></a></li>
-                        <li><a href="#" id="mis_Carreras">Mis Carreras<span class="flecha">&#9660</span></a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#" class="menuAlumno">Mi Servicio Social<span class="flecha">&#9660</span></a>
-                    <ul>
-                        <li><a href="#" id="mi_Servicio_Social">Mi Servicio Social<span class="flecha">&#9660</span></a></li>
-                        <li><a href="#" id="mis_Reportes_Bimestrales">Mis Reportes Bimestrales<span class="flecha">&#9660</span></a></li>
-                        <li><a href="#" id="mi_Carta_Terminacion">Mi Carta de Terminación<span class="flecha">&#9660</span></a></li>
-                    </ul>
-                </li>
-                <!--Se agrega botón de pendientes para el alumno-->
-                <li>
-                    <a href="#" id="mis_Pendientes" class="menuAlumno">Mis pendientes<span class="flecha">&#9660</span></a>
-                </li>
-
-                <li>
-                    <a href="#" class="menuAlumno">Mi Titulación<span class="flecha">&#9660</span></a>
-                    <ul>
-                        <li><a href="#" id="mi_Titulacion_Por_Propuesta">Inscripción a Propuesta por Examen<span class="flecha">&#9660</span> </a></li>
-                        <li><a href="#" id="mi_Jurado">Solicitar Jurado<span class="flecha">&#9660</span></a></li>
-                        <li><a href="#" id="mi_Titulacion_Por_Ceremonia">Inscripción a Propuesta por Ceremonia<span class="flecha">&#9660</span></a></li>
-                    </ul>
-                </li>
-                <li><a href="#" id="alumno_Cambio_Contrasena" class="menuAlumno"> Cambio de Contraseña<span class="flecha">&#9660</span></a>
-                </li>
-                <li>
-                    <a href="#" class="menuProfesor">Mi Perfil<span class="flecha">&#9660</span></a>
-                    <ul>
-                        <li><a href="#" id="prof_Mi_Perfil" class="menuProfesor">Mis Datos<span class="flecha">&#9660</span></a></li>
-                        <li><a href="#" id="prof_Mis_Docs" class="menuProfesor">Mis Documentos<span class="flecha">&#9660</span></a></li>
-                    </ul>
-                </li>
-                <li><a href="#" id="prof_Mis_Propuestas" class="menuProfesor">Mis Propuestas<span class="flecha">&#9660</span></a>
-                </li>
-                <li><a href="#" id="prof_Aceptar_Alumnos" class="menuProfesor">Aceptación y Baja de Alumnos<span class="flecha">&#9660</span></a>
-                </li>
-                <li><a href="#" id="prof_Mis_Pendientes" class="menuProfesor">Mis Pendientes<span class="flecha">&#9660</span></a>
-                </li>
-
-                <li><a href="#" id="coord_Mi_Perfil" class="menuCoordinador">Mi Perfil<span class="flecha">&#9660</span></a>
-                </li>
-                <li><a href="#" id='coord_Aprobar_Propuesta' class="menuCoordinador">Aprobar Propuestas<span class="flecha">&#9660</span></a>
-                </li>
-                <li><a href="#" id='coord_Aprobar_Jurado' class="menuCoordinador">Definir Jurado<span class="flecha">&#9660</span></a>
-                </li>
-                <li><a href="#" id='coord_Aprobar_Ceremonia' class="menuCoordinador">Ceremonias por Aprobar<span class="flecha">&#9660</span></a>
-                </li>
-                <li><a href="#" id='coord_Mis_Pendientes' class="menuCoordinador">Mis Pendientes<span class="flecha">&#9660</span></a>
-                </li>
-                <li><a href="#" id='jefedpto_Mi_Perfil' class="menuJefeDepartamento">Mi Perfil<span class="flecha">&#9660</span></a>
-                </li>
-                <li><a href="#" id='jefedpto_Aprobar_Propuesta' class="menuJefeDepartamento">Aprobar Propuestas<span class="flecha">&#9660</span></a>
-                </li>
-                <li><a href="#" id='jefedpto_Aprobar_Jurado' class="menuJefeDepartamento">Definir Jurado<span class="flecha">&#9660</span></a>
-                </li>
-                <li><a href="#" id='jefedpto_Mis_Pendientes' class="menuJefeDepartamento">Mis Pendientes<span class="flecha">&#9660</span></a>
-                </li>
-                <li><a href="#" class="menuAdministrador">Mi Perfil<span class="flecha">&#9660</span></a>
-                    <ul>
-                        <li><a href="#" id="mi_Perfil_Administrador">Mis Datos<span class="flecha">&#9660</span></a></li>
-                    </ul>
-                </li>
-                <li><a href="#" class="menuAdministrador">Aprobación de Documentos<span class="flecha">&#9660</span></a>
-                    <ul>
-                        <li><a href="#" id="autorizar_Servicio_Social">Para el Servicio Social<span class="flecha">&#9660</span></a></li>
-                        <li><a href="#" id="autorizar_Reportes_Bimestrales">Reportes Bimestrales<span class="flecha">&#9660</span></a></li>
-                        <li><a href="#" id="autorizar_Carta_Terminacion">Cartas de Término<span class="flecha">&#9660</span></a></li>
-                        <li><a href="#" id="asignar_Coordinadores">Asignar Coordinadores a Propuestas<span class="flecha">&#9660</span></a></li>
-                        <li><a href="#" id="asignar_Jurado_Definitivo">Asignar Jurado Definitivo<span class="flecha">&#9660</span></a></li>
-                        <li><a href="#" id="autorizar_Ceremonia">Documentos por Ceremonia<span class="flecha">&#9660</span></a>
-                        <li><a href="#" id="">Solicitudes de Baja<span class="flecha">&#9660</span></a>
-                            <ul>
-                                <li><a href="#" id="autorizar_Solicitud_Baja_Servicio_Social">De Servicio Social<span class="flecha">&#9660</span></a></li>
-                                <li><a href="#" id="autorizar_Solicitud_Baja_Ceremonia">De Titulación por Ceremonia<span class="flecha">&#9660</span></a></li>
-                            </ul>
-                        </li>
-
-                        <li><a href="#" id=autorizar_Reportes_Estadisticas>Pride<span class="flecha">&#9660</span></a></li>
-                        <li><a href="#" id=autorizar_Reportes_Titulados>Estadisticas<span class="flecha">&#9660</span></a></li>
-                        <li><a href="#" id=autorizar_Reportes_formatos>Formatos<span class="flecha">&#9660</span></a></li>
-                        <li><a href="#" id="">Reportes por Servicio Social<span class="flecha">&#9660</span></a>
-                            <ul>
-                                <li><a href="#" id="profesores">Por Alumnos<span class="flecha">&#9660</span></a></li>
-                                <li><a href="#" id="historico">Por Programas<span class="flecha">&#9660</span></a></li>
-                            </ul>
-                        </li>
-
-                        <li><a href="#" id="">Tipos De Titulaci&oacuten<span class="flecha">&#9660</span></a>
-                            <ul>
-                                <li><a href="#" id="t_alumnos">Alumnos<span class="flecha">&#9660</span></a></li>
-                                <li><a href="#" id="t_ceremonias">Ceremonia<span class="flecha">&#9660</span></a></li>
-                            </ul>
-                        </li>
-
-                    </ul>
-                </li>
-                <!--Se agrega menú de pendientes para el administrador-->
-                <li>
-                    <a href="#" id="admon_Mis_Pendientes" class="menuAdministrador">Mis pendientes<span class="flecha">&#9660</span></a>
-                </li>
-                <li><a href="#" class="menuAdministrador">Administración<span class="flecha">&#9660</span></a>
-                    <ul>
-                        <li><a href="#" id="Nueva_Cuenta_Usuario">Crear Nueva Cuenta de Usuario<span class="flecha">&#9660</span></a></li>
-                        <li><a href="#" id="Cambio_Contrasena">Cambio de Contraseña<span class="flecha">&#9660</span></a></li>
-                        <li><a href="#" id="admon_rpt_bimestrales">Admon. Rpt. Bimestrales<span class="flecha">&#9660</span></a></li>
-                        <li><a href="#" id="admon_Coord_Dptos">Admon. Coord. y Dptos<span class="flecha">&#9660</span></a></li>
-                        <li><a href="#" id="admon_Contadores">Admon. Contadores<span class="flecha">&#9660</span></a></li>
-                        <li><a href="#" id="Programas_Serv_Social">Programas para Servicio Social<span class="flecha">&#9660</span></a></li>
-                        <li><a href="#" id="Reporte_Titulacion_Proceso">Reporte. Titulación en proceso.<span class="flecha">&#9660</span></a></li>
-                    </ul>
-                <li><a href="#" id="mi_Bitacora" class="">Mi Bitácora<span class="flecha">&#9660</span></a></li>
-                <li><a href="#" id="cerrar_Mi_Sesion" class="">Cerrar Mi Sesión<span class="flecha">&#9660</span></a></li>
-            </ul>
-        </div> <!-- fin menu-->
-    </div> <!-- fin encabezado-->
-    <div id="contenido">
-        <div id="nuevo_Contenido">
-        </div>
-        <div id="tmp_nuevo_Contenido">
-        </div>
-        <input type="hidden" id="id_tpo_usuario" name="id_tpo_usuario" value="<?php echo $_SESSION['id_tipo_usuario'] ?>">
-        <input type="hidden" id="id_division" name="id_division" value="<?php echo $_SESSION['id_division'] ?>">
-        <br style="clear: both;">
-        <!--    <footer id="pie">
-<h1>Pie de página</h1>
-</footer>-->
-    </div> <!-- fin area de trabajo-->
     <script>
         // Get the modal
         var modal = document.getElementById('myModal');

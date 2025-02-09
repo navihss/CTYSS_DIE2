@@ -24,11 +24,11 @@ if (
     <!--        <title>TODO supply a title</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="css/jquery-ui.css" rel="stylesheet">
+        <link href="./assets/libs/jquery-ui-1.11.4/jquery-ui.css" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="menu/estilo_menu.css" /> 
-        <script src="js/jquery-1.12.4.min.js"></script>
-        <script src="js/jquery-ui.min.js"></script>-->
-    <script src="js/expresiones_reg.js"></script>
+        <script src="./assets/libs/jquery-1.12-4/jquery-1.12.4.min.js"></script>
+        <script src="./assets/libs/jquery-ui-1.11.4/jquery-ui.min.js"></script>-->
+    <script src="./assets/js/expresiones_reg.js"></script>
 
     <script>
         $(document).ready(function() {
@@ -668,14 +668,14 @@ if (
                         <input type="text" name="id_programa_SS" id="id_programa_SS" value='' maxlength="20"
                             title="" autocomplete="off" placeholder="2016-171/15-357"
                             style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();" class="entrada_Dato" />
-                        <span id="aviso_Id_Programa" class="dato_Invalido"><img src="css/images/error.ico" /></span>
+                        <span id="aviso_Id_Programa" class="dato_Invalido"><img src="./assets/images/ui/error.ico" /></span>
                     </p>
                     <p>
                         <label for="descripcion_programa_SS" class="label">Descripción:</label>
                         <textarea type="text" name="descripcion_programa_SS" id="descripcion_programa_SS" value='' maxlength="300"
                             title="Capture únicamente letras en MAYÚSCULA" autocomplete="off" placeholder="ACTUALIZACIÓN ADMINISTRATIVA Y ORGANIZATIVA"
                             onkeyup="javascript:this.value=this.value.toUpperCase();" class="entrada_Dato"></textarea>
-                        <span id="aviso_Descripcion_Programa" class="dato_Invalido"><img src="css/images/error.ico" /></span>
+                        <span id="aviso_Descripcion_Programa" class="dato_Invalido"><img src="./assets/images/ui/error.ico" /></span>
                     </p>
                     <p>
                         <label for="dependencia" class="label">Dependencia:</label>
@@ -700,28 +700,28 @@ if (
                         <textarea type="text" name="subdireccion" id="subdireccion" value='' maxlength="200"
                             title="Capture únicamente letras en MAYÚSCULA" autocomplete="off" placeholder=""
                             onkeyup="javascript:this.value=this.value.toUpperCase();" class="entrada_Dato"></textarea>
-                        <span id="aviso_Subdireccion" class="dato_Invalido"><img src="css/images/error.ico" /></span>
+                        <span id="aviso_Subdireccion" class="dato_Invalido"><img src="./assets/images/ui/error.ico" /></span>
                     </p>
                     <p>
                         <label for="responsable" class="label">Responsable:</label>
                         <input type="text" name="responsable" id="responsable" value='' maxlength="200"
                             title="Capture únicamente letras en MAYÚSCULA" autocomplete="off" placeholder=""
                             style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();" class="entrada_Dato" />
-                        <span id="aviso_Responsable" class="dato_Invalido"><img src="css/images/error.ico" /></span>
+                        <span id="aviso_Responsable" class="dato_Invalido"><img src="./assets/images/ui/error.ico" /></span>
                     </p>
                     <p>
                         <label for="cargo_Responsable" class="label">Cargo:</label>
                         <textarea type="text" name="cargo_Responsable" id="cargo_Responsable" value='' maxlength="200"
                             title="Capture únicamente letras en MAYÚSCULA" autocomplete="off" placeholder=""
                             onkeyup="javascript:this.value=this.value.toUpperCase();" class="entrada_Dato"></textarea>
-                        <span id="aviso_Cargo" class="dato_Invalido"><img src="css/images/error.ico" /></span>
+                        <span id="aviso_Cargo" class="dato_Invalido"><img src="./assets/images/ui/error.ico" /></span>
                     </p>
                     <p>
                         <label for="oficina_seccion" class="label">Oficina/Sección:</label>
                         <input type="text" name="oficina_seccion" id="oficina_seccion" value='' maxlength="200"
                             title="Capture únicamente letras en MAYÚSCULA" autocomplete="off" placeholder=""
                             style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();" class="entrada_Dato" />
-                        <span id="aviso_Oficina" class="dato_Invalido"><img src="css/images/error.ico" /></span>
+                        <span id="aviso_Oficina" class="dato_Invalido"><img src="./assets/images/ui/error.ico" /></span>
                     </p>
 
                 </div>
@@ -730,21 +730,21 @@ if (
                         <label for="correo_Electronico" class="label">e-mail:</label>
                         <input type="text" name="correo_Electronico" id="correo_Electronico" maxlength="100" placeholder="miCorreo@dominio.com"
                             title="Capture su dirección de correo TAL Y COMO LA DIÓ DE ALTA CON SU PROVEEDOR" autocomplete="off" class="entrada_Dato" />
-                        <span id="aviso_Correo_Electronico" class="dato_Invalido"><img src="css/images/error.ico" /></span>
+                        <span id="aviso_Correo_Electronico" class="dato_Invalido"><img src="./assets/images/ui/error.ico" /></span>
                     </p>
                     <p>
                         <label for="telefono_Servicio_Social" class="label">Teléfono Servicio Social:</label>
                         <input type="text" name="telefono_Servicio_Social" id="telefono_Servicio_Social" value='' maxlength="100"
                             title="Capture solamente letras y números" autocomplete="off" placeholder="55 555 555 ext. 55"
                             style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();" class="entrada_Dato" />
-                        <span id="aviso_Telefono_Servicio_Social" class="dato_Invalido"><img src="css/images/error.ico" /></span>
+                        <span id="aviso_Telefono_Servicio_Social" class="dato_Invalido"><img src="./assets/images/ui/error.ico" /></span>
                     </p>
                     <p>
                         <label for="telefono_Dependencia" class="label">Teléfono Dependencia:</label>
                         <input type="text" name="telefono_Dependencia" id="telefono_Dependencia" value='' maxlength="100"
                             title="Capture solamente letras y números" autocomplete="off" placeholder="55 555 555 ext. 55"
                             style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();" class="entrada_Dato" />
-                        <span id="aviso_Telefono_Dependencia" class="dato_Invalido"><img src="css/images/error.ico" /></span>
+                        <span id="aviso_Telefono_Dependencia" class="dato_Invalido"><img src="./assets/images/ui/error.ico" /></span>
                     </p>
 
                 </div>
@@ -755,44 +755,44 @@ if (
                         <input type="text" name="calle_Numero" id="calle_Numero" value='' maxlength="100" placeholder="AV. UNIVERSIDAD #3000"
                             title="Capture solamente letras y números" autocomplete="off"
                             style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();" class="entrada_Dato" />
-                        <span id="aviso_Calle_Numero" class="dato_Invalido"><img src="css/images/error.ico" /></span>
+                        <span id="aviso_Calle_Numero" class="dato_Invalido"><img src="./assets/images/ui/error.ico" /></span>
                     </p>
                     <p>
                         <label for="colonia" class="label">Colonia:</label>
                         <input type="text" name="colonia" id="colonia" value='' maxlength="100" placeholder="CIUDAD UNIVERSITARIA"
                             title="Capture solamente letras y números" autocomplete="off" style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();" class="entrada_Dato" />
-                        <span id="aviso_Colonia" class="dato_Invalido"><img src="css/images/error.ico" /></span>
+                        <span id="aviso_Colonia" class="dato_Invalido"><img src="./assets/images/ui/error.ico" /></span>
                     </p>
                     <p>
                         <label for="delegacion_Municipio" class="label">Delegación / Municipio:</label>
                         <input type="text" name="delegacion_Municipio" id="delegacion_Municipio" value='' maxlength="100" placeholder="CD.DE MÉXICO"
                             title="Capture solamente letras" autocomplete="off" style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();" class="entrada_Dato" />
-                        <span id="aviso_Delegacion_Municipio" class="dato_Invalido"><img src="css/images/error.ico" /></span>
+                        <span id="aviso_Delegacion_Municipio" class="dato_Invalido"><img src="./assets/images/ui/error.ico" /></span>
                     </p>
                     <p>
                         <label for="codigo_Postal" class="label">Código Postal:</label>
                         <input type="text" name="codigo_Postal" id="codigo_Postal" value='' maxlength="5" placeholder="04510"
                             title="Capture solamente números" autocomplete="off" class="entrada_Dato" />
-                        <span id="aviso_Codigo_Postal" class="dato_Invalido"><img src="css/images/error.ico" /></span>
+                        <span id="aviso_Codigo_Postal" class="dato_Invalido"><img src="./assets/images/ui/error.ico" /></span>
                     </p>
                     <p>
                         <label for="num_exterior" class="label">Número Exterior:</label>
                         <input type="text" name="num_exterior" id="num_exterior" value='' maxlength="50" placeholder="120-A"
                             title="" autocomplete="off" class="entrada_Dato" />
-                        <span id="aviso_Num_Exterior" class="dato_Invalido"><img src="css/images/error.ico" /></span>
+                        <span id="aviso_Num_Exterior" class="dato_Invalido"><img src="./assets/images/ui/error.ico" /></span>
                     </p>
                     <p>
                         <label for="num_interior" class="label">Número Interior:</label>
                         <input type="text" name="num_interior" id="num_interior" value='' maxlength="50" placeholder="10-A"
                             title="" autocomplete="off" class="entrada_Dato" />
-                        <span id="aviso_Num_Interior" class="dato_Invalido"><img src="css/images/error.ico" /></span>
+                        <span id="aviso_Num_Interior" class="dato_Invalido"><img src="./assets/images/ui/error.ico" /></span>
                     </p>
 
                     <p>
                         <label for="estado" class="label">Estado:</label>
                         <select name="estado" id="estado" class="select">
                         </select>
-                        <span id="aviso_Estado" class="dato_Invalido"><img src="css/images/error.ico" /></span>
+                        <span id="aviso_Estado" class="dato_Invalido"><img src="./assets/images/ui/error.ico" /></span>
                     </p>
                 </div>
 
@@ -817,7 +817,7 @@ if (
                             <tbody>
                             </tbody>
                         </table>
-                        <span id="aviso_Aplican" class="dato_Invalido" <img src="css/images/error.ico" /></span>
+                        <span id="aviso_Aplican" class="dato_Invalido" <img src="./assets/images/ui/error.ico" /></span>
                     </div>
 
                 </div>
@@ -837,7 +837,7 @@ if (
         <span id="ventanaAviso"></span>
     </div>
     <div id="ventanaProcesando" data-role="header">
-        <img id="cargador" src="css/images/engrane2.gif" /><br>
+        <img id="cargador" src="./assets/images/ui/engrane2.gif" /><br>
         Procesando su transacción....!<br>
         Espere por favor.
     </div>
