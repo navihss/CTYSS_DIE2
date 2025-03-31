@@ -14,17 +14,9 @@ require_once($_SERVER["DOCUMENT_ROOT"] . '/CTYSS_DIE/_Datos/d_coord_jdpto_Aproba
 require_once($_SERVER["DOCUMENT_ROOT"] . '/CTYSS_DIE/_Entidades/Bitacora.php');
 require_once($_SERVER["DOCUMENT_ROOT"] . '/CTYSS_DIE/_Datos/d_mail.php');
 require_once($_SERVER["DOCUMENT_ROOT"] . '/CTYSS_DIE/_Entidades/Mail.php');
-require_once($_SERVER["DOCUMENT_ROOT"] . '/CTYSS_DIE/Logger.php');
 
 class d_Alumno_Mi_Jurado
 {
-    private $logger;
-
-    public function __construct()
-    {
-        $logFilePath = $_SERVER["DOCUMENT_ROOT"] . "/CTYSS_DIE/logs/application.log";
-        $this->logger = new Logger($logFilePath);
-    }
 
     public function Obtener_Profesores($id_division)
     {
@@ -83,7 +75,6 @@ class d_Alumno_Mi_Jurado
             return $arr;
         } catch (Exception $ex) {
             // En caso de error, regresa array vacío
-            $this->logger->error($ex->getMessage());
             return [];
         }
     }
@@ -320,31 +311,35 @@ class d_Alumno_Mi_Jurado
             $checkVoboStmt->execute([$id_propuesta, $id_version]);
 
             if ($checkVoboStmt->rowCount() === 0) {
-                // Buscar coordinador/jefe válido
-                $validUserSql = "SELECT id_usuario
-                                FROM usuarios
-                                WHERE id_tipo_usuario IN (2,3,4)
-                                LIMIT 1";
-                $stmtValid = $conn->prepare($validUserSql);
-                $stmtValid->execute();
-                $validUserRow = $stmtValid->fetch(PDO::FETCH_OBJ);
-
-                $validUserId = null;
-                if ($validUserRow) {
-                    $validUserId = $validUserRow->id_usuario;
+                // Buscar el coordinador que ya aprobó la propuesta inicialmente
+                $coordSql = "SELECT pv.id_usuario
+                             FROM propuesta_vobo pv
+                             INNER JOIN usuarios u ON pv.id_usuario = u.id_usuario
+                             WHERE pv.id_propuesta = ?
+                               AND pv.version_propuesta = ?
+                               AND u.id_tipo_usuario = 3"; // 3 = Coordinador
+                $stmtCoord = $conn->prepare($coordSql);
+                $stmtCoord->execute([$id_propuesta, $id_version]);
+                $coordRow = $stmtCoord->fetch(PDO::FETCH_OBJ);
+            
+                $coordId = null;
+                if ($coordRow) {
+                    // Si SÍ existe un registro de Coordinador en propuesta_vobo
+                    $coordId = $coordRow->id_usuario;
                 } else {
-                    $validUserId = 1;
+                    // Si NO se encontró un coordinador, asignar ID=1 (admin u otro)
+                    $coordId = 1;
                 }
-
-                // CAMBIO: Usar id_division en lugar de valor fijo 1
+            
+                // Insertar registros en jurado_vobo con el ID del coordinador encontrado
                 $insertVoboSql = "INSERT INTO jurado_vobo 
-                                (id_propuesta, version, num_profesor,
-                                id_usuario, id_estatus, id_division)
-                                VALUES (?, ?, ?, ?, 12, ?)"; 
+                                 (id_propuesta, version, num_profesor,
+                                  id_usuario, id_estatus, id_division)
+                                 VALUES (?, ?, ?, ?, 12, ?)";
                 $stmtVobo = $conn->prepare($insertVoboSql);
-
+            
                 for ($i = 1; $i <= 5; $i++) {
-                    $stmtVobo->execute([$id_propuesta, $id_version, $i, $validUserId, $id_division]);
+                    $stmtVobo->execute([$id_propuesta, $id_version, $i, $coordId, $id_division]);
                 }
             }
 
