@@ -54,4 +54,13 @@ switch ($tipo_Movimiento) {
         $titulo_propuesta = $_POST['titulo_propuesta'];
         echo $obj_d_Alumno_Mi_Jurado->Actualizar_Sinodales($id_propuesta, $id_version, $id_sinodales, $id_alumno, $titulo_propuesta, $id_division);
         break;
+    case "OBTENER_PROFESORES_DISPONIBLES":
+        $id_division = isset($_SESSION["id_division"]) ? $_SESSION["id_division"] : 1;
+        $profesores = $obj_d_Alumno_Mi_Jurado->Obtener_Profesores($id_division);
+    
+        $jsondata['success'] = true;
+        $jsondata['data']['message'] = 'Profesores disponibles';
+        $jsondata['data']['profesores'] = $profesores;
+        echo json_encode($jsondata);
+        break;
 }

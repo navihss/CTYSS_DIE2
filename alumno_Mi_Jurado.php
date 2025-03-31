@@ -149,78 +149,66 @@ if (
                 $('#id_Version').val($(this).data("id_version"));
                 $('#titulo_propuesta').val($(this).data("titulo_propuesta"));
                 $('#Tipo_Movimiento').val('ACTUALIZAR');
-                Obtener_Jurado($(this).data("id_propuesta"), $(this).data("id_version"));
+                //Obtener_Jurado($(this).data("id_propuesta"), $(this).data("id_version"));
                 $('#ventanaJurado').dialog('open');
             });
 
+            function cargarProfesoresDisponibles() {
+                return $.ajax({
+                    data: { Tipo_Movimiento: 'OBTENER_PROFESORES_DISPONIBLES' },
+                    url: '_Negocio/n_Alumno_Mi_Jurado.php',
+                    type: 'POST',
+                    dataType: 'json'
+                });
+            }
+
             //OBTENEMOS LOS SINODALES
-            function Obtener_Jurado(id_propuesta, id_version) {
-                $('#ventanaProcesando').dialog('open');
+            function Obtener_Jurado(id_propuesta, id_version){
                 var datos = {
                     Tipo_Movimiento: 'OBTENER_MIS_SINODALES',
                     id_propuesta: id_propuesta,
                     id_version: id_version
                 };
                 $.ajax({
-                        data: datos,
-                        type: "POST",
-                        dataType: "json",
-                        url: "_Negocio/n_Alumno_Mi_Jurado.php"
-                    })
-                    .done(function(respuesta, textStatus, jqXHR) {
-                        var html_table = '<TABLE class="tabla_Registros">';
-                        html_table = html_table + '<TR><TH style="text-align:center;" >No.</TH>\n\
-                                                      <TH>Sinodal Propuesto</TH>\n\
-                                                      <TH>Sinodal Definitivo</TH></TR>';
-                        if (respuesta.success == true) {
-                            var nombre_textarea = '';
-                            var data_textarea = '';
-                            var solo_lectura = '';
+                    data: datos,
+                    type: "POST",
+                    dataType: "json",
+                    url: "_Negocio/n_Alumno_Mi_Jurado.php"
+                })
+                .done(function(respuesta){
+                    var html_table = '<table class="tabla_Registros">';
+                    html_table += '<tr><th>No.</th><th>Sinodal Propuesto</th><th>Sinodal Definitivo</th></tr>';
 
-                            $.each(respuesta.data.registros, function(key, value) {
-                                if ($('#id_Estatus').val() == '3') {
-                                    solo_lectura = ' readonly ';
-                                }
-                                nombre_textarea = ' id="Sinodal_' + value['num_profesor'] + '" ';
-                                data_textarea = " data-num_profesor = " + value['num_profesor'] + " ";
-                                html_table += '<TR><TD style="text-align:center; vertical-align:middle;width:50px;">' + value['num_profesor'] + '</TD>';
-                                html_table += '<TD><input type="text" maxlength="100" class="input_Parametro" ' +
-                                    'style="width:300px; text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();" ' +
-                                    'title="Capture únicamente letras y puntos" ' + solo_lectura +
-                                    nombre_textarea + data_textarea +
-                                    ' value="' + esNulo(value['nombre_sinodal_propuesto']) + '" autocomplete="off"\n\
-                                            placeholder="ING. ADOLFO GÚZMAN ARENAS"></TD>';
-                                html_table += '<TD style="vertical-align:middle;width:300px;">' + esNulo(value['sinodal_definitivo']) + '</TD></TR>';
+                    if(respuesta.success){
+                        $.each(respuesta.data.registros, function(k, val){
+                            html_table += '<tr>';
+                            html_table += '<td>'+ val.num_profesor +'</td>';
+
+                            // col 2: el select
+                            html_table += '<td><select class="select_sinodal" data-num_prof="'+ val.num_profesor +'">';
+                            html_table += '<option value="">--Seleccione Profesor--</option>';
+                            var actual = val.id_usuario || '';
+                            $.each(window.profesores, function(i, p){
+                                var sel = (p.id_usuario == actual) ? 'selected' : '';
+                                html_table += '<option value="'+ p.id_usuario +'" '+ sel +'>'+ p.nombre_completo +'</option>';
                             });
-                            html_table += '</TABLE>';
-                            $('#tabla_Sinodales').html(html_table);
-                            $('#ventanaProcesando').dialog('close');
+                            html_table += '</select></td>';
 
-                            //                               $.each(respuesta.data.registros, function( key, value ) {
-                            //                                   sinodal = "#Sinodal_" + (parseInt(key) + 1);
-                            //                                   $(sinodal).val(value['nombre_sinodal_propuesto']);
-                            //                               })
-                        } else {
-                            html_table = html_table + '<TR><TD style="text-align:center;" colspan="3">' + respuesta.data.message + '</TD></TR>';
-                            html_table = html_table + '</TABLE>'
-                            $('#tabla_Sinodales').empty();
-                            $('#tabla_Sinodales').html(html_table);
-                            $('#ventanaProcesando').dialog('close');
-                        }
-                    })
-                    .fail(function(jqXHR, textStatus, errorThrown) {
-                        var html_table = '<TABLE class="tabla_Registros">';
-                        html_table = html_table + '<TR><TH>No.</TH>\n\
-                                                              <TH>Sinodal Propuesto</TH>\n\
-                                                              <TH>Sinodal Definitivo</TH></TR>';
+                            // col 3: sinodal_definitivo (por si acaso)
+                            html_table += '<td>'+ (val.sinodal_definitivo || '') +'</td>';
 
-                        html_table = html_table + '<TR><TD style="text-align:center;" colspan="3">' + textStatus + '. ' + errorThrown + '</TD></TR>';
-                        html_table = html_table + '</TABLE>';
-                        $('#tabla_Sinodales').empty();
-                        $('#tabla_Sinodales').html(html_table);
-                        $('#ventanaProcesando').dialog('close');
-                    });
-            } //fin Obtenemos los Sinodales
+                            html_table += '</tr>';
+                        });
+                    } else {
+                        html_table += '<tr><td colspan="3">'+ respuesta.data.message +'</td></tr>';
+                    }
+                    html_table += '</table>';
+                    $('#tabla_Sinodales').html(html_table);
+                })
+                .fail(function(a,b,c){
+                    alert("Error al obtener sinodales: "+b+" - "+c);
+                });
+                } //fin Obtenemos los Sinodales
 
             //VALIDACIONES 
             function validaDatos() {
@@ -332,11 +320,17 @@ if (
                     at: 'center top'
                 },
                 open: function() {
-                    if ($('#id_Estatus').val() == 11 || $('#id_Estatus').val() == 0) {
-                        $("#btn_Guardar").button("option", "disabled", false);
-                    } else {
-                        $("#btn_Guardar").button("option", "disabled", true);
-                    }
+                    $('#ventanaProcesando').dialog('open');
+                    cargarProfesoresDisponibles().done(function(resp){
+                        if(resp.success){
+                            window.profesores = resp.data.profesores;
+                            // AHORA sí cargar sinodales
+                            Obtener_Jurado($('#Id_Propuesta').val(), $('#id_Version').val());
+                        } else {
+                            alert("No se pudo cargar la lista de profesores");
+                        }
+                        $('#ventanaProcesando').dialog('close');
+                    });
                 },
                 close: function() {
                     $('#ventanaJurado input[type=text]').each(function() {
@@ -358,21 +352,24 @@ if (
                         $('#ventanaProcesando').dialog('open');
 
                         // Por Ajax Actualizamos a los Sinodales
-                        var nom_sinodal = '';
-                        var control = '';
-                        var json_registros = '';
-                        var i = 0;
-                        for (i = 1; i <= 5; i++) {
-                            control = '#Sinodal_' + i;
-                            nom_sinodal = $(control).val();
-                            json_registros += i + ':' + nom_sinodal + '|';
+                        var registros = '';
+                        $('.select_sinodal').each(function(){
+                            var num = $(this).data('num_prof');
+                            var idu = $(this).val() || '0';
+                            var label = $(this).find('option:selected').text();
+                            if(idu == '0'){
+                                registros += num + ':Sin asignar|';
+                            } else {
+                                registros += num + ':' + idu + ':' + label + '|';
+                            }
+                        });
+                        if(registros.endsWith('|')){
+                            registros = registros.slice(0, -1);
                         }
-                        json_registros = json_registros.substr(0, json_registros.length - 1);
-                        //                            json_registros += '}';
-                        $('#id_sinodales').val(json_registros);
+                        $('#id_sinodales').val(registros);
 
                         var formDatos = $('#frm_MJ').serialize();
-
+                        console.log(formDatos);
                         $.ajax({
                                 data: formDatos,
                                 type: "POST",
@@ -382,7 +379,7 @@ if (
                             .done(function(respuesta, textStatus, jqXHR) {
                                 $('#ventanaProcesando').dialog('close');
                                 if (respuesta.success == true) {
-                                    $("#btn_Guardar").button("option", "disabled", true);
+                                    //$("#btn_Guardar").button("option", "disabled", true);
                                     Obtener_Mi_Propuesta($('#Id_Usuario').val(), $('#Id_Carrera').val());
 
                                 } else {
@@ -392,6 +389,9 @@ if (
                                 $('#ventanaAvisos').dialog('open');
                             })
                             .fail(function(jqXHR, textStatus, errorThrown) {
+                                console.log(jqXHR);
+                                console.log(textStatus);
+                                console.log(errorThrown);
                                 $('#ventanaProcesando').dialog('close');
                                 $('#ventanaAviso').html('La solicitud ha fallado <br>' + textStatus + '. ' + errorThrown);
                                 $('#ventanaAvisos').dialog('open');
