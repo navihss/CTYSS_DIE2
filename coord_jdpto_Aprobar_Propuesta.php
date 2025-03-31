@@ -228,8 +228,6 @@ if (
                         url: "_Negocio/n_profesor_Mis_Propuestas.php"
                     })
                     .done(function(respuesta, textStatus, jqXHR) {
-                        console.log(respuesta["data"]["registros"]["Propuesta_ProfesorId_Tipo_Propuesta"] === "3");
-
                         if (respuesta.success == true) {
                             var $propuesta_html = '';
                             var dias_de_asesoria = '';
@@ -443,21 +441,6 @@ if (
                                             var correo_profesor = $('#correo_profesor').val();
                                             var titulo_propuesta = $('#titulo_propuesta').val();
                                             var desc_corta_doc = $('#desc_corta_doc').val();
-
-                                            console.log(id_propuesta_doc);
-                                            console.log(id_documento_doc);
-                                            console.log(id_version_doc);
-                                            console.log(id_estatus);
-                                            console.log(id_usuario);
-                                            console.log(nota);
-                                            console.log(fecha_registrada);
-                                            console.log(tipo_Mov);
-                                            console.log(id_profesor);
-                                            console.log(correo_profesor);
-                                            console.log(titulo_propuesta);
-                                            console.log(desc_corta_doc);
-
-
 
                                             actualiza_Estatus_Prop(tipo_Mov, id_propuesta_doc, id_documento_doc, id_version_doc,
                                                 id_estatus, id_usuario, nota, fecha_registrada, id_profesor, correo_profesor, titulo_propuesta, desc_corta_doc);

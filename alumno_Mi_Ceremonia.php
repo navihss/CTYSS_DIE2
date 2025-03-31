@@ -107,7 +107,6 @@ if (
                             //recorremos cada registro
                             $.each(respuesta.data.registros, function(key, value) {
 
-                                console.log(value['id_estatus']);
                                 if (value['id_estatus'] != 4 && value['id_estatus'] != 13 && value['id_estatus'] != 14 && value['id_estatus'] != 15) {
                                     deshabilitaAgregar = true;
                                 }
@@ -148,10 +147,6 @@ if (
                                     var id_ceremonia = value['id_ceremonia'];
                                     var tipo = value['descripcion_tipo_propuesta'];
                                     var condicion = value['llenofechaestimada'];
-                                    console.log(id_alumno);
-                                    console.log(id_ceremonia);
-                                    console.log(tipo);
-                                    console.log(condicion);
                                     /*
                                     $('#fechaEstimadaTitulacionMotivo').dialog({
                                       buttons:{

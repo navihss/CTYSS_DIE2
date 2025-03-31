@@ -810,10 +810,6 @@ if (
                                 }
                                 $('#ventanaAviso_Alta_OK').html(respuesta.data.message);
                                 $('#ventanaAvisos_Alta_OK').dialog('open');
-
-                                console.log(jotason);
-
-
                             })
                             .fail(function(jqXHR, textStatus, errorThrown) {
 

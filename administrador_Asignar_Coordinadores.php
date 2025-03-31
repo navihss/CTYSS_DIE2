@@ -78,7 +78,6 @@ if (
                     Tipo_Movimiento: tipo_movimiento,
                     id_division: $('#Id_Division').val()
                 };
-                console.log(datos);
                 $.ajax({
                         data: datos,
                         type: 'POST',
@@ -216,11 +215,8 @@ if (
                             $id_version + "_" +
                             $desc_corta_doc + ".pdf" + "?" + tiempo;
                         var new_Object = $('#obj_PDF_doc').clone(false);
-                        console.log(new_Object);
                         new_Object.attr("type", "application/pdf");
                         new_Object.attr("data", fileName);
-                        console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAA");
-                        console.log(new_Object);
                         $("#obj_PDF_doc").replaceWith(new_Object);
                         $('#btn_autorizar_Doc').prop('disabled', '');
                         $('#btn_rechazar_Doc').prop('disabled', '');
@@ -261,10 +257,7 @@ if (
                         url: "_Negocio/n_profesor_Mis_Propuestas.php"
                     })
                     .done(function(respuesta, textStatus, jqXHR) {
-                        console.log(respuesta["data"]["registros"]["Propuesta_ProfesorId_Tipo_Propuesta"] === "3");
-
                         if (respuesta.success == true) {
-                            console.log('Entro aqui con respuesta success');
                             var $propuesta_html = '';
                             var dias_de_asesoria = '';
                             var horarios_asesoria = respuesta.data.registros.Propuesta_Profesorhorarios;
@@ -754,7 +747,6 @@ if (
 
                             html_table += '<TR><TH>OBJETIVO</TH><TH>DEFINICIÓN DEL PROBLEMA</TH><TH>MÉTODO</TH><TH>TEMAS A UTILIZAR</TH><TH>RESULTADOS ESPERADOS</TH></TR>';
                             //recorremos cada registro
-                            console.log(respuesta.data.registros.length);
                             $.each(respuesta.data.registros, function(key, value) {
 
                                 html_table += '<TR>';

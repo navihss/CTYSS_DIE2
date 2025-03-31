@@ -86,8 +86,6 @@ if (!isset($_SESSION["id_tipo_usuario"]) and !isset($_SESSION["id_usuario"])) {
                     dataType: "json",
                     url: "_Negocio/n_Usuario_Bitacora.php"
                 }).done(function(respuesta, textStatus, jqXHR) {
-                    console.log(respuesta);
-
                     var html_table = '<TABLE>';
                     html_table += '<THEAD><TR><TH style="width:10%;">No. registro</TH>\n\
         <TH style="width:10%;">No. cuenta</TH>\n\

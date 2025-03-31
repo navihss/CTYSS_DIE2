@@ -462,8 +462,6 @@ if (
 
                         var formDatos = $('#frm_Jurado_Definitivo').serializeArray();
                         //var formDatos = $('#frm_Jurado_Definitivo').serialize();
-                        console.log("FormDatos");
-                        console.log(formDatos);
 
 
 
@@ -477,14 +475,8 @@ if (
                             })
 
                             .done(function(respuesta, textStatus, jqXHR) {
-
-                                console.log("HOLA");
                                 $('#ventanaProcesando').dialog('close');
-                                console.log(textStatus);
-                                console.log(respuesta);
-                                console.log(respuesta.success);
                                 if (respuesta.success == true) {
-                                    console.log("entra al if");
                                     $("#btn_Guardar").button("option", "disabled", true);
                                     Obtener_Jurados_Pendientes();
                                 } else {
@@ -494,11 +486,6 @@ if (
                                 $('#ventanaAvisos').dialog('open');
                             })
                             .fail(function(jqXHR, textStatus, errorThrown) {
-                                console.log(jqXHR);
-                                console.log("----------------")
-                                console.log(textStatus);
-                                console.log("----------------")
-                                console.log(errorThrown);
                                 $('#ventanaProcesando').dialog('close');
                                 $('#ventanaAviso').html('La solicitud ha fallado <br>' + textStatus + '. ' + errorThrown);
                                 $('#ventanaAvisos').dialog('open');

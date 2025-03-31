@@ -279,7 +279,6 @@ Objetivo:       Interfaz para aprobar las Cartas de Terminación
                                             value['numero_reporte_bi'] + '_' +
                                             value['id_version'] + '_Reporte_Bimestral.pdf';
                                         fecha_ = new Date();
-                                        console.log(nom_file);
                                         ruta_doc = ruta_docs_reportes_bimestrales + nom_file + '?' + fecha_;
                                         html_table += '<TR>';
                                         html_table += '<TD>' + value['id_alumno'] + '</TD>';

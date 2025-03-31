@@ -369,7 +369,6 @@ if (
                         $('#id_sinodales').val(registros);
 
                         var formDatos = $('#frm_MJ').serialize();
-                        console.log(formDatos);
                         $.ajax({
                                 data: formDatos,
                                 type: "POST",
@@ -389,9 +388,6 @@ if (
                                 $('#ventanaAvisos').dialog('open');
                             })
                             .fail(function(jqXHR, textStatus, errorThrown) {
-                                console.log(jqXHR);
-                                console.log(textStatus);
-                                console.log(errorThrown);
                                 $('#ventanaProcesando').dialog('close');
                                 $('#ventanaAviso').html('La solicitud ha fallado <br>' + textStatus + '. ' + errorThrown);
                                 $('#ventanaAvisos').dialog('open');

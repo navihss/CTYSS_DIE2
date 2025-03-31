@@ -110,7 +110,6 @@ if (
                         if (respuesta.success == true) {
                             //recorremos cada registro
                             $.each(respuesta.data.registros, function(key, value) {
-                                console.log(value['id_estatus'])
                                 if (value['id_estatus'] != 4 && value['id_estatus'] != 13 && value['id_estatus'] != 14 && value['id_estatus'] != 15) {
                                     deshabilitaAgregar = true;
                                 }
@@ -160,8 +159,6 @@ if (
                                 // Mostrar modal para los alumnos que no estén titulados y aún no hayan llenado los datos para poner fecha estimada de titulación y motivo.
                                 if (value['id_estatus'] != 7 && value['id_estatus'] != 6 && value['id_estatus'] != 13 && value['id_estatus'] != 14 && value['id_estatus'] != 15 && !value['llenofechaestimada']) {
                                     var id_inscripcion = value['id_inscripcion'];
-
-                                    console.log(id_inscripcion);
                                     /*
                                     $('#fechaEstimadaTitulacionMotivo').dialog({
                                       buttons:{

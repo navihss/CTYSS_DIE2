@@ -229,9 +229,6 @@ if (
                         html_table = html_table + '<TR><TH>Id</TH>\n\
                                                       <TH>' + tit_columna + '</TH>\n\
                                                       <TH>Seleccionado</TH></TR>';
-                        console.log("HOLAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-                        console.log(respuesta.data.registros);
-                        console.log(respuesta.success);
                         if (respuesta.success == true) {
                             var radio = "";
                             //recorremos cada registro

@@ -1063,7 +1063,6 @@ if (
                 posicion = claveProg.indexOf('/');
                 if (posicion > -1) {
                     digitosPrograma = claveProg.substring(posicion + 1, posicion + 4);
-                    console.log('El valor del programa es : ' + digitosPrograma);
 
                     if (digitosPrograma == '081') {
                         return true;

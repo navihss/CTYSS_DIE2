@@ -35,7 +35,6 @@ if (
                         url: "_Negocio/n_administrador_Pendientes.php"
                     })
                     .done(function(respuesta, textStatus, jqXHR) {
-                        console.log(textStatus)
                         var html_table = '<TABLE style="width:50%;">';
                         html_table += '<TR><TH> Pendientes </TH>\n\
                         <TH>Cantidad</TH>\n\
@@ -45,11 +44,8 @@ if (
                             var i = 0;
                             var totalConcepto;
                             //recorremos cada registro
-                            console.log(respuesta.data.registros)
                             $.each(respuesta.data.registros, function(key, value) {
                                 var $link_irA = '';
-                                console.log("Valor del Registro (" + key + ") : " + value['total2']);
-                                console.log("Valor de I: " + i);
 
                                 if (i == 0) {
                                     $link_irA = '<a class="IrA link_pdf" href="#" data-archivophp=\'administrador_Aprobar_Servicio_Social.php\'>Ver Pendientes</a>';

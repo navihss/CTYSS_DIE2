@@ -248,8 +248,6 @@ class d_Alumno_Mi_Jurado
             exit();
 
         } catch (Exception $ex) {
-            $this->logger->error($ex->getMessage());
-
             $jsondata['success'] = false;
             $jsondata['data'] = ['message' => $ex->getMessage()];
             echo json_encode($jsondata);
@@ -360,8 +358,6 @@ class d_Alumno_Mi_Jurado
             return true;
 
         } catch (Exception $ex) {
-            $this->logger->error($ex->getMessage());
-
             if (isset($conn) && $closeConnection) {
                 $conn->rollBack();
                 $conn = null;

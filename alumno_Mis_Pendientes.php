@@ -41,7 +41,6 @@ if (
                             var $i = 0;
                             var totalConcepto;
                             //recorremos cada registro
-                            console.log(respuesta.data.registros);
                             $.each(respuesta.data.registros, function(key, value) {
                                 var $link_irA = '';
 

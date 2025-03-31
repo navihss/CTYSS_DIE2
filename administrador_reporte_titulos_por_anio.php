@@ -170,7 +170,6 @@ if (
                             queryObject = queryObject.replace(/'/g, '"');
                             //queryObject = jQuery.parseJSON(JSON.stringify(queryObject));
                             queryObject = jQuery.parseJSON(queryObject);
-                            console.log("cadena: " + queryObject);
 
 
                             //google.charts.load("current", {packages: ["bar"]});
@@ -282,8 +281,7 @@ if (
                 // Wait for the chart to finish drawing before calling the getImageURI() method.
                 google.visualization.events.addListener(chart, 'ready', function() {
                     chart_div.innerHTML = '<img src="' + chart.getImageURI() + '" >';
-                    //$('#chart_div').html('<img src="' + chart.getImageURI() + '" >'); 	
-                    console.log(chart_div.innerHTML);
+                    //$('#chart_div').html('<img src="' + chart.getImageURI() + '" >');
                 });
 
                 chart.draw(data, options);
