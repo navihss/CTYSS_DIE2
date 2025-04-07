@@ -30,351 +30,264 @@ if (
     <script src="./assets/js/expresiones_reg.js"></script>
 
     <script>
-        $(document).ready(function() {
+        $(document).ready(function(){
 
-            //OBTENEMOS EL JURADO DEL ALUMNO
-            function Obtener_Jurados_Pendientes(id_usuario) {
-                var datos = {
-                    Tipo_Movimiento: 'OBTENER_JURADOS_PENDIENTES',
-                    id_usuario: id_usuario
-                };
-                $.ajax({
-                        data: datos,
-                        type: "POST",
-                        dataType: "json",
-                        url: "_Negocio/n_coord_jdpto_Aprobar_Jurado.php"
-                    })
-                    .done(function(respuesta, textStatus, jqXHR) {
-                        var html_table = '<TABLE style="width:100%;">';
-                        html_table = html_table + '<TR><TH>Propuesta</TH>\n\
-                                                      <TH>Profesor</TH>\n\
-                                                      <TH>Título Propuesta</TH>\n\
-                                                      <TH>Jurado-Fecha Alta</TH>\n\
-                                                      <TH>Acción</TH></TR>';
-                        if (respuesta.success == true) {
-                            var $btn_Revisar = "";
-                            //recorremos cada registro
-                            $.each(respuesta.data.registros, function(key, value) {
-                                $btn_Revisar = '<button class="btn_Revisar btnOpcion" data-id_propuesta=\'' + value['id_propuesta'] + '\' ' +
-                                    ' data-id_profesor= \'' + value['id_profesor'] + '\'' +
-                                    ' data-id_version=' + value['version'] + ' ' +
-                                    ' data-titulo_propuesta = \'' + value['titulo_propuesta'] + '\'' +
-                                    ' data-id_estatus= ' + value['id_estatus'] + '>Revisar Jurado</button>';
-                                html_table = html_table + '<TR>';
-                                html_table = html_table + '<TD>' + value['id_propuesta'] + '</TD>';
-                                html_table = html_table + '<TD style="text-align:left;">' + value['nombre'] + '</TD>';
-                                html_table = html_table + '<TD style="text-align:left;">' + value['titulo_propuesta'] + '</TD>';
-                                html_table = html_table + '<TD style="text-align:left;">' + esNulo(value['fecha_propuesto']) + '</TD>';
-                                html_table = html_table + '<TD>' + $btn_Revisar + '</TD>';
-                                html_table = html_table + '</TR>';
-                            });
-                            html_table = html_table + '</TABLE>';
-                            $('#tabla_Jurados_Pendientes').empty();
-                            $('#tabla_Jurados_Pendientes').html(html_table);
-                        } else {
-                            html_table = html_table + '<TR><TD colspan="5" style="text-align:center;">' + respuesta.data.message + '</TD></TR>';
-                            html_table = html_table + '</TABLE>'
-                            $('#tabla_Jurados_Pendientes').empty();
-                            $('#tabla_Jurados_Pendientes').html(html_table);
-                        }
-                    })
-                    .fail(function(jqXHR, textStatus, errorThrown) {
-                        var html_table = '<TABLE class="tabla_Registros">';
-                        html_table = html_table + '<TR><TH>Propuesta</TH>\n\
-                                                           <TH>Profesor</TH>\n\
-                                                           <TH>Título Propuesta</TH>\n\
-                                                           <TH>Jurado-Fecha Alta</TH>\n\
-                                                           <TH>Acción</TH></TR>';
-                        html_table = html_table + '<TR><TD colspan="5">' + textStatus + '. ' + errorThrown + '</TD></TR>';
-                        html_table = html_table + '</TABLE>';
-
-                        $('#tabla_Jurados_Pendientes').empty();
-                        $('#tabla_Jurados_Pendientes').html(html_table);
-                    });
-            } //fin Obtenemos el jurado del Alumno    
-
-            $('#tabla_Jurados_Pendientes').on("click", "button.btn_Revisar", function(e) {
-                e.preventDefault();
-                $('#Id_Propuesta').val($(this).data("id_propuesta"));
-                $('#id_Estatus').val($(this).data("id_estatus"));
-                $('#id_Version').val($(this).data("id_version"));
-                $('#titulo_propuesta').val($(this).data("titulo_propuesta"));
-                $('#Tipo_Movimiento').val('ACTUALIZAR_VoBo');
-                Obtener_Sinodales($('#Id_Usuario').val(), $(this).data("id_propuesta"), $(this).data("id_version"));
-                $('#ventanaJurado').dialog('open');
-            });
-
-            //OBTENEMOS LOS SINODALES
-            function Obtener_Sinodales(id_usuario, id_propuesta, id_version) {
-                $('#ventanaProcesando').dialog('open');
-                var datos = {
-                    Tipo_Movimiento: 'OBTENER_JURADOS_SELECCIONADO',
-                    id_propuesta: id_propuesta,
-                    id_version: id_version,
-                    id_usuario: id_usuario
-                };
-                $.ajax({
-                        data: datos,
-                        type: "POST",
-                        dataType: "json",
-                        url: "_Negocio/n_coord_jdpto_Aprobar_Jurado.php"
-                    })
-                    .done(function(respuesta, textStatus, jqXHR) {
-                        var html_table = '<TABLE class="tabla_Registros">';
-                        html_table = html_table + '<TR><TH>Sinodal Propuesto</TH>\n\
-                                                      <TH>Aceptado</TH>\n\
-                                                      <TH>Nota</TH></TR>';
-                        if (respuesta.success == true) {
-                            var nombre_checkbox = '';
-                            var nombre_textarea = '';
-                            var data_checkbox = '';
-                            var data_textarea = '';
-
-                            $.each(respuesta.data.registros, function(key, value) {
-                                var solo_lectura = '';
-                                if (value['num_profesor'] == 6) {
-                                    solo_lectura = ' checked disabled ';
-                                }
-                                nombre_checkbox = " id=chk_Sinodal_" + value['num_profesor'] + " " + solo_lectura + ' ';
-                                data_checkbox = " data-num_profesor = " + value['num_profesor'] + " ";
-                                nombre_textarea = " id=txt_Sinodal_" + value['num_profesor'] + " ";
-                                data_textarea = " data-num_profesor = " + value['num_profesor'] + " data-chk = 0 ";
-
-                                html_table += '<TR><TD style="vertical-align:top;width:150px;">' + value['nombre_sinodal_propuesto'] + '</TD>';
-                                html_table += '<TD style="text-align:center; vertical-align:top;width:30px;"><input type="checkbox" ' + nombre_checkbox + data_checkbox + '></TD>';
-                                html_table += "<TD><textarea  " +
-                                    "maxlength='500' placeholder='' style='height:4em; width:550px; text-transform:uppercase;' onkeyup='javascript:this.value=this.value.toUpperCase();' " +
-                                    "title='SOLO puede Capturar los siguientes carácteres: A-Z 0-9 , . ; : ¿? ( ) - _ #' autocomplete='off' " +
-                                    nombre_textarea + data_textarea + ">" + "</textarea></TD></TR>";
-                            });
-                            html_table += '</TABLE>';
-                            $('#tabla_VoBo').html(html_table);
-                            $('#ventanaJurado').dialog('open');
-                            $('#ventanaProcesando').dialog('close');
-                        } else {
-                            html_table = html_table + '<TR><TD style="text-align:center;" colspan="3">' + respuesta.data.message + '</TD></TR>';
-                            html_table = html_table + '</TABLE>'
-                            $('#tabla_VoBo').empty();
-                            $('#tabla_VoBo').html(html_table);
-                            $('#ventanaJurado').dialog('open');
-                            $('#ventanaProcesando').dialog('close');
-                        }
-                    })
-                    .fail(function(jqXHR, textStatus, errorThrown) {
-                        $('#ventanaProcesando').dialog('close');
-                        var html_table = '<TABLE class="tabla_Registros">';
-                        html_table = html_table + '<TR><TH>Sinodal Propuesto</TH>\n\
-                                                                  <TH>VoBo</TH>\n\
-                                                                  <TH>Nota</TH></TR>';
-                        html_table = html_table + '<TR><TD colspan="3">' + textStatus + '. ' + errorThrown + '</TD></TR>';
-                        html_table = html_table + '</TABLE>';
-                        $('#tabla_VoBo').empty();
-                        $('#tabla_VoBo').html(html_table);
-                        $('#ventanaJurado').dialog('open');
-                    });
-            } //fin Obtenemos los Sinodales
-
-            //VALIDACIONES 
-            function validaDatos() {
-                //RECORREMOS LOS CHECKBOX, SI 'NO' ESTA MARCADO DEBERA DE TENER UNA NOTA
-                var datosValidos = true;
-                var lista_VoBo = '';
-                var refnom_textarea = '';
-
-                $("input:checkbox").each(function(index) {
-                    if (!($(this).prop('checked'))) {
-                        refnom_textarea = '#txt_Sinodal_' + $(this).data('num_profesor');
-                        if ($(refnom_textarea).val() == '') {
-                            datosValidos = false;
-                        }
-                    }
-                });
-                $("input:checkbox").each(function(index) {
-                    refnom_textarea = '#txt_Sinodal_' + $(this).data('num_profesor');
-                    if (!$(refnom_textarea).val().match(miExpReg_Nota_Aceptacion)) {
-                        datosValidos = false;
-                    }
-                });
-
-                return datosValidos;
+        // 1) Mostrar lista de Jurados Pendientes (estatus=12)
+        function Obtener_Jurados_Pendientes(id_usuario) {
+            var datos = {
+                Tipo_Movimiento: 'OBTENER_JURADOS_PENDIENTES',
+                id_usuario: id_usuario
             };
-            //FIN VALIDACIONES PARA GUARDAR
+            $.ajax({
+                data: datos,
+                type: "POST",
+                dataType: "json",
+                url: "_Negocio/n_coord_jdpto_Aprobar_Jurado.php"
+            })
+            .done(function(respuesta){
+                var html_table = '<table style="width:100%;">'
+                            + '<tr><th>Propuesta</th><th>Profesor</th><th>Título</th><th>Fecha Alta</th><th>Acción</th></tr>';
+                if(respuesta.success){
+                    $.each(respuesta.data.registros, function(i, v){
+                        html_table += '<tr>'
+                                    + ' <td>'+v.id_propuesta+'</td>'
+                                    + ' <td>'+(v.nombre || '')+'</td>'
+                                    + ' <td>'+(v.titulo_propuesta || '')+'</td>'
+                                    + ' <td>'+(v.fecha_propuesto || '')+'</td>'
+                                    + ' <td><button class="btn_Revisar"'
+                                    + '     data-id_propuesta="'+ v.id_propuesta +'"'
+                                    + '     data-id_version="'+ v.version +'"'
+                                    + '     data-titulo_propuesta="'+ v.titulo_propuesta +'"'
+                                    + '     data-id_estatus="'+ v.id_estatus +'">'
+                                    + '     Revisar Jurado</button></td>'
+                                    + '</tr>';
+                    });
+                } else {
+                    html_table += '<tr><td colspan="5">'+respuesta.data.message+'</td></tr>';
+                }
+                html_table += '</table>';
+                $('#tabla_Jurados_Pendientes').html(html_table);
+            })
+            .fail(function(jqXHR, textStatus, errorThrown){
+                var tbl = '<table><tr><th>Error</th></tr>'
+                        + '<tr><td>'+ textStatus + ' ' + errorThrown +'</td></tr></table>';
+                $('#tabla_Jurados_Pendientes').html(tbl);
+            });
+        }
 
-            $('#ventanaJurado').dialog({
-                buttons: [{
-                    id: "btn_Guardar",
-                    text: "Guardar",
-                    click: function() {
-                        if (validaDatos()) {
-                            $('#ventanaConfirmacion').dialog('open');
-                        } else {
-                            $('#ventanaAviso').html("Si NO ACEPTÓ a un Sinodal deberá capturar los Motivos. Y SOLO puede Capturar los siguientes carácteres: A-Z 0-9 , . ; : ¿? ( ) - _ #");
-                            $('#ventanaAvisos').dialog('open');
-                        }
+        // 2) Al hacer click en "Revisar Jurado"
+        $('#tabla_Jurados_Pendientes').on("click", ".btn_Revisar", function(e){
+            e.preventDefault();
+            $('#Id_Propuesta').val($(this).data("id_propuesta"));
+            $('#id_Estatus').val($(this).data("id_estatus"));
+            $('#id_Version').val($(this).data("id_version"));
+            $('#titulo_propuesta').val($(this).data("titulo_propuesta"));
+            $('#Tipo_Movimiento').val('ACTUALIZAR_VoBo');
+
+            // Primero, obtener la lista de profesores/coord/jefes (select)
+            Obtener_Profesores().done(function(rsp){
+                if(rsp.success){
+                    // guardamos en variable global
+                    window.listaProf = rsp.data.profesores;
+                    // ahora obtener sinodales
+                    Obtener_Sinodales($('#Id_Usuario').val(), $('#Id_Propuesta').val(), $('#id_Version').val());
+                } else {
+                    alert('No fue posible obtener la lista de sinodales posibles');
+                }
+            });
+        });
+
+        // 2.1) Obtener lista de profesores/coord/jefes
+        function Obtener_Profesores(){
+            return $.ajax({
+                url: "_Negocio/n_coord_jdpto_Aprobar_Jurado.php",
+                type: "POST",
+                dataType: "json",
+                data: { Tipo_Movimiento: "OBTENER_PROFESORES_COORD" }
+            });
+        }
+
+        // 3) Obtener Sinodales (estatus=12) para mostrarlos en la ventana
+        function Obtener_Sinodales(id_usuario, id_propuesta, id_version){
+            $('#ventanaProcesando').dialog('open');
+            var datos = {
+                Tipo_Movimiento: 'OBTENER_JURADOS_SELECCIONADO',
+                id_usuario: id_usuario,
+                id_propuesta: id_propuesta,
+                id_version: id_version
+            };
+            $.ajax({
+                data: datos,
+                type: "POST",
+                dataType: "json",
+                url: "_Negocio/n_coord_jdpto_Aprobar_Jurado.php"
+            })
+            .done(function(rsp){
+                var html_table = '<table class="tabla_Registros">'
+                            + ' <tr>'
+                            + '   <th>Sinodal Propuesto</th>'
+                            + '   <th>Aceptado</th>'
+                            + '   <th>Reemplazar Por</th>'
+                            + '   <th>Nota</th>'
+                            + ' </tr>';
+
+                if(rsp.success){
+                    $.each(rsp.data.registros, function(i, sin){
+                        var n = sin.num_profesor;
+                        html_table += '<tr>'
+                                    + ' <td>'+(sin.nombre_sinodal_propuesto || '')+'</td>'
+                                    + ' <td style="text-align:center;">'
+                                    + '   <input type="checkbox" class="chkAcepta" data-num="'+n+'" checked>'
+                                    + ' </td>'
+                                    + ' <td>'+ construirSelect(n) +'</td>'
+                                    + ' <td><textarea id="txtNota_'+n+'" style="width:300px;height:2em;"></textarea></td>'
+                                    + '</tr>';
+                    });
+                } else {
+                    html_table += '<tr><td colspan="4">'+ rsp.data.message +'</td></tr>';
+                }
+                html_table += '</table>';
+                $('#tabla_VoBo').html(html_table);
+                $('#ventanaJurado').dialog('open');
+            })
+            .fail(function(jqXHR, textStatus, errorThrown){
+                var msg = '<tr><td colspan="4">Error: '+ textStatus +' '+ errorThrown +'</td></tr>';
+                $('#tabla_VoBo').html('<table>'+ msg +'</table>');
+                $('#ventanaJurado').dialog('open');
+            })
+            .always(function(){
+                $('#ventanaProcesando').dialog('close');
+            });
+        }
+
+        // 3.1) Construir <select> para "Reemplazar Por"
+        function construirSelect(num){
+            var s = '<select id="selReemp_'+num+'" data-num="'+num+'">';
+            s += ' <option value="0">-- Sin Cambio --</option>';
+            $.each(window.listaProf, function(k,p){
+                s += '<option value="'+ p.id_usuario +'">'+ p.nombre_completo +'</option>';
+            });
+            s += '</select>';
+            return s;
+        }
+
+        // 4) Validación: si se rechaza un sinodal, forzar que haya nota
+        function validaDatos(){
+            var valido = true;
+            $('.chkAcepta').each(function(){
+                var n = $(this).data('num');
+                if(!$(this).prop('checked')){
+                    // si NO se acepta, checar nota
+                    var nota = $('#txtNota_'+n).val().trim();
+                    if(nota===''){
+                        valido=false;
                     }
-                }, {
-                    id: "btn_Cancelar",
-                    text: "Cerrar",
-                    click: function() {
-                        $('#ventanaJurado input[type=text]').each(function() {
-                            $(this).val('');
-                        });
-                        $('#ventanaJurado span').each(function() {
-                            $(this).hide();
-                        });
+                }
+            });
+            return valido;
+        }
 
+        // 5) Dialogo "ventanaJurado"
+        $('#ventanaJurado').dialog({
+            autoOpen:false,
+            modal:true,
+            width:850,
+            buttons:[
+                {
+                    id:"btn_Guardar",
+                    text:"Guardar",
+                    click:function(){
+                        if(!validaDatos()){
+                            $('#ventanaAviso').html("Si rechazas un sinodal, escribe la nota.").show();
+                            $('#ventanaAvisos').dialog('open');
+                            return;
+                        }
+                        $('#ventanaConfirmacion').dialog('open');
+                    }
+                },
+                {
+                    id:"btn_Cerrar",
+                    text:"Cerrar",
+                    click:function(){
                         $(this).dialog('close');
                     }
-                }],
-                title: 'Jurado',
-                modal: true,
-                autoOpen: false,
-                //                   resizable : true,
-                draggable: true,
-                height: 'auto',
-                width: '850',
-                dialogClass: 'no-close',
-                show: 'slide',
-                hide: 'slide',
-                closeOnEscape: false,
-                position: {
-                    at: 'center top'
+                }
+            ]
+        });
+
+        // 6) Diálogo de Confirmación
+        $('#ventanaConfirmacion').dialog({
+            autoOpen:false,
+            modal:true,
+            buttons:{
+                "Aceptar":function(){
+                    $(this).dialog('close');
+                    $('#ventanaProcesando').dialog('open');
+
+                    // Armar la cadena: "num_prof, aceptado, id_reemp, nota"
+                    var cad='';
+                    $('.chkAcepta').each(function(){
+                        var n = $(this).data('num');
+                        var ok = $(this).prop('checked') ? 1 : 0;
+                        var reemp = $('#selReemp_'+n).val() || "0";
+                        var nota = $('#txtNota_'+n).val().replace("|"," ");
+                        cad += n + ',' + ok + ',' + reemp + ',' + nota + '|';
+                    });
+                    if(cad.endsWith('|')){
+                        cad = cad.slice(0, -1);
+                    }
+                    $('#lista_VoBo').val(cad);
+
+                    // Disparamos Ajax para guardar
+                    var formDatos = $('#frm_VoBo').serialize();
+                    $.ajax({
+                        data: formDatos,
+                        type:"POST",
+                        dataType:"json",
+                        url: "_Negocio/n_coord_jdpto_Aprobar_Jurado.php"
+                    })
+                    .done(function(rsp){
+                        $('#ventanaProcesando').dialog('close');
+                        $('#ventanaAviso').html(rsp.data.message);
+                        $('#ventanaAvisos').dialog('open');
+                        if(rsp.success){
+                            // recargamos
+                            Obtener_Jurados_Pendientes($('#Id_Usuario').val());
+                            $('#ventanaJurado').dialog('close');
+                        }
+                    })
+                    .fail(function(jqXHR, textStatus, errorThrown){
+                        $('#ventanaProcesando').dialog('close');
+                        $('#ventanaAviso').html("Error: "+ textStatus +' '+ errorThrown);
+                        $('#ventanaAvisos').dialog('open');
+                    });
                 },
-                close: function() {
-                    $('#ventanaJurado input[type=text]').each(function() {
-                        $(this).val('');
-                    });
-                    $('#ventanaJurado span').each(function() {
-                        $(this).hide();
-                    });
+                "Cancelar":function(){
                     $(this).dialog('close');
                 }
-            });
+            }
+        });
 
-            $('#ventanaConfirmacion').dialog({
-                buttons: {
-                    "Aceptar": function() {
-                        $(this).dialog('close');
-                        //                            $('#ventanaProcesando').dialog({ dialogClass: 'no-close' });
-                        //                            $('#ventanaProcesando').dialog({ dialogClass: 'no-titlebar'});
-                        $('#ventanaProcesando').dialog('open');
-
-                        // Por Ajax Actualizamos el VoBo de los Sinodales
-                        var ok_ = 0;
-                        var num_prof = 0;
-                        var nota = '';
-                        var cadena_VoBo = '';
-
-                        $("input:checkbox").each(function(index) {
-                            ok_ = 0;
-                            num_prof = $(this).data('num_profesor');
-                            nota = $('#txt_Sinodal_' + $(this).data('num_profesor')).val();
-                            if ($(this).prop('checked')) {
-                                ok_ = 1;
-                            }
-                            cadena_VoBo += num_prof + ',' + ok_ + ',' + nota + '|';
-                        });
-
-                        cadena_VoBo = cadena_VoBo.substr(0, cadena_VoBo.length - 1);
-
-                        $('#lista_VoBo').val(cadena_VoBo);
-
-                        var formDatos = $('#frm_VoBo').serialize();
-
-                        $.ajax({
-                                data: formDatos,
-                                type: "POST",
-                                dataType: "json",
-                                url: "_Negocio/n_coord_jdpto_Aprobar_Jurado.php"
-                            })
-                            .done(function(respuesta, textStatus, jqXHR) {
-                                $('#ventanaProcesando').dialog('close');
-                                if (respuesta.success == true) {
-                                    $("#btn_Guardar").button("option", "disabled", true);
-                                    Obtener_Jurados_Pendientes($('#Id_Usuario').val());
-                                } else {
-                                    $("#btn_Guardar").button("option", "disabled", false);
-                                }
-                                $('#ventanaAviso').html(respuesta.data.message);
-                                $('#ventanaAvisos').dialog('open');
-                            })
-                            .fail(function(jqXHR, textStatus, errorThrown) {
-                                $('#ventanaProcesando').dialog('close');
-                                $('#ventanaAviso').html('La solicitud ha fallado <br>' + textStatus + '. ' + errorThrown);
-                                $('#ventanaAvisos').dialog('open');
-                            });
-                    },
-                    "Cancelar": function() {
-                        $(this).dialog('close');
-                    }
-                },
-                title: 'Jurado',
-                modal: true,
-                autoOpen: false,
-                resizable: true,
-                draggable: true,
-                dialogClass: 'no-close ventanaConfirmaUsuario',
-                closeOnEscape: false
-            });
-
-            $('#ventanaAvisos').dialog({
-                buttons: {
-                    "Aceptar": function() {
-                        $(this).dialog('close');
-                    }
-                },
-                title: 'Aviso',
-                modal: true,
-                autoOpen: false,
-                resizable: true,
-                draggable: true,
-                dialogClass: 'no-close ventanaMensajes',
-                closeOnEscape: false
-            });
-
-            $('#ventanaProcesando').dialog({
-                title: '',
-                modal: true,
-                autoOpen: false,
-                resizable: true,
-                draggable: false,
-                dialogClass: 'no-close no-titlebar',
-                closeOnEscape: false
-            });
-
-            function esNulo(valor_) {
-                if (valor_ == null) {
-                    return '';
-                } else {
-                    return valor_;
+        // 7) Diálogo Avisos
+        $('#ventanaAvisos').dialog({
+            autoOpen:false,
+            modal:true,
+            buttons:{
+                "Ok": function(){
+                    $(this).dialog('close');
                 }
             }
+        });
 
-            function f5(that, val) {
-                if (val) {
-                    that.on("keydown", function(e) {
-                        var code = (e.keyCode ? e.keyCode : e.which);
-                        if (code == 116 || code == 8) {
-                            e.preventDefault();
-                        }
-                    })
-                } else {
-                    that.off("keydown");
-                }
-            }
+        // 8) Diálogo Procesando
+        $('#ventanaProcesando').dialog({
+            autoOpen:false,
+            modal:true,
+            dialogClass:'no-close no-titlebar'
+        });
 
-            $('#tabla_VoBo').on("focus", "input:text, textarea", function(e) {
-                e.preventDefault();
-                f5($(document), false);
-            });
-            $('#tabla_VoBo').on("blur", "input:text, textarea", function(e) {
-                e.preventDefault();
-                f5($(document), true);
-            });
-
-            f5($(document), true);
-            Obtener_Jurados_Pendientes($('#Id_Usuario').val());
-
+        // Cargar la lista al inicio
+        Obtener_Jurados_Pendientes($('#Id_Usuario').val());
         });
     </script>
 
@@ -383,40 +296,39 @@ if (
         <header>
             Mi Pefil
         </header>-->
-    <div>
-        <div class="encabezado_Formulario">
-            <div class="descripcion_Modulo">
-                <p>Aprobar Jurado</p>
-            </div>
-        </div>
-        <div id="tabla_Jurados_Pendientes" class="tabla_Registros">
+    <div class="encabezado_Formulario">
+        <div class="descripcion_Modulo">
+            <p>Aprobar Jurado (Coordinador)</p>
         </div>
     </div>
-    <div id='ventanaJurado' name="ventanaJurado">
-        <form id="frm_VoBo" name="frm_VoBo" method="" action="" autocomplete="off">
-            <div id='tabla_VoBo'>
-            </div>
 
-            <input type="hidden" id="Id_Propuesta" name="Id_Propuesta" value="">
-            <input type="hidden" id="Tipo_Movimiento" name="Tipo_Movimiento" value="">
-            <input type="hidden" id="Id_Usuario" name="Id_Usuario" value="<?php echo $_SESSION['id_usuario']; ?>">
-            <input type="hidden" id="id_Estatus" name="id_Estatus" value="0">
-            <input type="hidden" id="id_Version" name="id_Version" value="0">
-            <input type="hidden" id="lista_VoBo" name="lista_VoBo" value="0">
+    <div id="tabla_Jurados_Pendientes" class="tabla_Registros"></div>
+
+    <div id="ventanaJurado" style="display:none;">
+        <form id="frm_VoBo" method="post" action="">
+            <input type="hidden" id="Id_Propuesta"     name="Id_Propuesta">
+            <input type="hidden" id="Tipo_Movimiento"  name="Tipo_Movimiento">
+            <input type="hidden" id="Id_Usuario"       name="Id_Usuario" value="<?php echo $_SESSION['id_usuario'];?>">
+            <input type="hidden" id="id_Estatus"       name="id_Estatus" value="0">
+            <input type="hidden" id="id_Version"       name="id_Version" value="0">
+            <input type="hidden" id="lista_VoBo"       name="lista_VoBo" value="0">
             <input type="hidden" id="titulo_propuesta" name="titulo_propuesta" value="0">
+
+            <div id="tabla_VoBo"></div>
         </form>
     </div>
 
-    <div id='ventanaConfirmacion'>
-        Desea Actualizar sus observaciones ?
+    <div id="ventanaConfirmacion" style="display:none;">
+        ¿Desea Actualizar sus observaciones?
     </div>
-    <div id="ventanaAvisos">
+
+    <div id="ventanaAvisos" style="display:none;">
         <span id="ventanaAviso"></span>
     </div>
 
-    <div id="ventanaProcesando" data-role="header">
-        <img id="cargador" src="./assets/images/ui/engrane2.gif" /><br>
-        Procesando su transacción....!<br>
+    <div id="ventanaProcesando" style="display:none;">
+        <img src="./assets/images/ui/engrane2.gif"/><br>
+        Procesando su transacción...<br>
         Espere por favor.
     </div>
     <!--Se quita el botón de home-->

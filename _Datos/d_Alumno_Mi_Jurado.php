@@ -212,13 +212,23 @@ class d_Alumno_Mi_Jurado
                         s.id_usuario,
                         CASE 
                         WHEN s.id_usuario IS NULL THEN 'Sin asignar'
-                        ELSE 
-                            COALESCE(u.nombre_usuario, '') || ' ' ||
-                            COALESCE(u.apellido_paterno_usuario, '') || ' ' ||
-                            COALESCE(u.apellido_materno_usuario, '')
-                        END AS sinodal_definitivo
+                        ELSE COALESCE(u.nombre_usuario, '') || ' ' ||
+                                COALESCE(u.apellido_paterno_usuario, '') || ' ' ||
+                                COALESCE(u.apellido_materno_usuario, '')
+                        END AS sinodal_definitivo,
+
+                        -- Nuevo: Para saber si el coordinador lo dejó en 16, 19, 12, etc.
+                        COALESCE(b.id_estatus, 0) AS vobo_estatus,
+                        COALESCE(b.nota, '')      AS vobo_nota
+
                     FROM sinodales s
-                    LEFT JOIN usuarios u ON s.id_usuario = u.id_usuario
+                    LEFT JOIN usuarios u 
+                    ON s.id_usuario = u.id_usuario
+                    LEFT JOIN jurado_vobo b 
+                    ON s.id_propuesta = b.id_propuesta
+                    AND s.version      = b.version
+                    AND s.num_profesor = b.num_profesor
+
                     WHERE s.id_propuesta = ?
                     AND s.version      = ?
                     ORDER BY s.num_profesor";
@@ -458,11 +468,10 @@ class d_Alumno_Mi_Jurado
             
             // ============== ACTUALIZAR LA TABLA jurado (estatus, etc.) ==============
             $tsql = "UPDATE jurado
-                    SET id_estatus         = ?,
-                        fecha_propuesto    = ?,
-                        id_alumno_registro = ?
-                    WHERE id_propuesta = ?
-                    AND version      = ?";
+                     SET id_estatus         = ?,
+                         fecha_propuesto    = ?,
+                         id_alumno_registro = ?
+                     WHERE id_propuesta=? AND version=?";
             
             $stmt = $conn->prepare($tsql);
             if ($stmt) {
@@ -487,29 +496,77 @@ class d_Alumno_Mi_Jurado
             }
             
             // ============== ACTUALIZAR LA TABLA jurado_vobo (mismo estatus) ==============
-            $tsql = "UPDATE jurado_vobo
-                    SET id_estatus = ?
-                    WHERE id_propuesta = ?
-                    AND version      = ?";
-            
-            $stmt = $conn->prepare($tsql);
-            if ($stmt) {
-                $result = $stmt->execute([
-                    $nuevo_estatus,
-                    $id_propuesta,
-                    $id_version
-                ]);
-                if ($result) {
-                    $mensaje_Transacciones .= "Estatus de VoBo Coord/Dpto Actualizado. OK.<br/>";
-                } else {
-                    $error = $stmt->errorInfo();
-                    $mensaje_Transacciones .= "No se actualizó VoBo Coord/Dpto: " . $error[2] . "<br>";
-                    throw new Exception($mensaje_Transacciones);
+            /***********************************************************************
+             * (1) Recorrer cada sinodal y actualizar jurado_vobo de manera selectiva
+             ***********************************************************************/
+            $arr_sinodales = preg_split("/[|]/", $id_sinodales);
+            foreach ($arr_sinodales as $linea) {
+
+                // Parseamos la cadena "num_profesor:id_usuario:nombre..."
+                $partes = explode(":", $linea);
+                $num_profesor = (int)$partes[0]; 
+
+                // 1) Obtener estatus actual en jurado_vobo (este sinodal)
+                $sqlEstatus = "SELECT id_estatus
+                            FROM jurado_vobo
+                            WHERE id_propuesta=? 
+                                AND version=? 
+                                AND num_profesor=?";
+                $stmtE = $conn->prepare($sqlEstatus);
+                $stmtE->execute([$id_propuesta, $id_version, $num_profesor]);
+                $rowE = $stmtE->fetch(\PDO::FETCH_OBJ);
+
+                // Checamos si existe o si viene nulo
+                if (!$rowE) {
+                    // Si no hay fila, lo normal es que ya exista; 
+                    // pero si no, podrías insertarla. (Normalmente no pasa)
+                    continue;
                 }
+
+                $estatusActual = (int)$rowE->id_estatus;
+
+                // 2) Si ya está en 16,17,18 => NO lo tocamos;
+                //    Si está en 12 o 19 => lo ponemos en 12
+                if (in_array($estatusActual, [12, 19])) {
+                    $updVobo = "UPDATE jurado_vobo
+                                SET id_estatus=12
+                                WHERE id_propuesta=? 
+                                AND version=? 
+                                AND num_profesor=?";
+                    $stmtU = $conn->prepare($updVobo);
+                    $stmtU->execute([$id_propuesta, $id_version, $num_profesor]);
+                }
+            }
+
+            /***************************************************************
+             * (2) Revisar si sigue habiendo sinodales en 12/19. 
+             *     Si es así => jurado.id_estatus=12 
+             *     (Así marcas que aún "sigue" en manos del alumno.)
+             ***************************************************************/
+            $sqlPend = "SELECT COUNT(*) AS c 
+                        FROM jurado_vobo
+                        WHERE id_propuesta=? 
+                        AND version=? 
+                        AND id_estatus IN (12,19)";
+            $stmtP = $conn->prepare($sqlPend);
+            $stmtP->execute([$id_propuesta, $id_version]);
+            $rowP = $stmtP->fetch(\PDO::FETCH_OBJ);
+            $cant = (int)($rowP->c ?? 0);
+
+            if ($cant > 0) {
+                // => Queda al menos un sinodal con estatus=12 o 19,
+                //    entonces forzamos jurado.id_estatus=12 
+                $updJuradoSql = "UPDATE jurado
+                                SET id_estatus=12
+                                WHERE id_propuesta=? 
+                                AND version=?";
+                $stmtJ = $conn->prepare($updJuradoSql);
+                $stmtJ->execute([$id_propuesta, $id_version]);
             } else {
-                $error = $stmt->errorInfo();
-                $mensaje_Transacciones .= "Error en el SQL (jurado_vobo): " . $error[2] . "<br>";
-                throw new Exception($mensaje_Transacciones);
+                // => No hay sinodales con 12 o 19
+                //    Lo dejamos con el estatus que le hayas puesto antes (16,17,etc.)
+                //    O podrías verificar si hay uno en 16 y setear 16...
+                //    Ya depende de tu política.
             }
 
             $conn->commit();

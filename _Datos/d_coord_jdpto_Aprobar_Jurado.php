@@ -22,46 +22,51 @@ class d_coord_jdpto_Aprobar_Jurado
     //OBTENEMOS LAS PROPUESTAS POR AUTORIZAR
     function Obtener_Jurados_Por_Autorizar($id_usuario)
     {
-
         try {
             $cnn = new Conexion();
             $conn = $cnn->getConexion();
-
             if ($cnn === false) {
                 throw new Exception($cnn->getError());
             }
 
-            $tsql = " SELECT a.id_propuesta, a.version, a.fecha_propuesto, 
-                            a.id_estatus, b.descripcion_estatus,
-                            d.version_propuesta, e.descripcion_para_nom_archivo, c.id_profesor, c.titulo_propuesta,
-                            (f.apellido_paterno_usuario || ' ' || 
-                            f.apellido_materno_usuario || ' ' || f.nombre_usuario) as nombre
-                    FROM jurado a
-                            INNER JOIN estatus b ON a.id_estatus = b.id_estatus
-                            INNER JOIN propuestas_profesor c ON a.id_propuesta = c.id_propuesta
-                            INNER JOIN propuesta_version d ON c.id_propuesta = d.id_propuesta
-                            INNER JOIN documentos e ON d.id_documento = e.id_documento
-                            INNER JOIN usuarios f ON c.id_profesor = f.id_usuario
-                    WHERE d.id_documento = 4 AND d.id_estatus = 3 AND a.id_estatus = 12 AND
-                    ? IN (SELECT g.id_usuario
-				FROM jurado_vobo g
-				WHERE a.id_propuesta = g.id_propuesta AND a.version = g.version AND id_usuario = ? AND g.id_estatus =12 )			
-                    ORDER BY a.fecha_propuesto;";
+            $tsql = " SELECT a.id_propuesta, a.version, a.fecha_propuesto,
+                             a.id_estatus, b.descripcion_estatus,
+                             d.version_propuesta, e.descripcion_para_nom_archivo,
+                             c.id_profesor, c.titulo_propuesta,
+                             (f.apellido_paterno_usuario || ' ' ||
+                              f.apellido_materno_usuario || ' ' ||
+                              f.nombre_usuario) as nombre
+                      FROM jurado a
+                           INNER JOIN estatus b ON a.id_estatus = b.id_estatus
+                           INNER JOIN propuestas_profesor c ON a.id_propuesta = c.id_propuesta
+                           INNER JOIN propuesta_version d ON c.id_propuesta = d.id_propuesta
+                           INNER JOIN documentos e ON d.id_documento = e.id_documento
+                           INNER JOIN usuarios f ON c.id_profesor = f.id_usuario
+                      WHERE d.id_documento = 4
+                        AND d.id_estatus = 3
+                        AND a.id_estatus = 12
+                        AND ? IN (
+                            SELECT g.id_usuario
+                            FROM jurado_vobo g
+                            WHERE a.id_propuesta = g.id_propuesta
+                              AND a.version = g.version
+                              AND id_usuario = ?
+                              AND g.id_estatus = 12
+                        )
+                      ORDER BY a.fecha_propuesto;";
 
-            /* Preparamos la sentencia a ejecutar */
             $stmt = $conn->prepare($tsql);
             $params = array($id_usuario, $id_usuario);
-            /*Verificamos el contenido de la ejecución*/
-            if ($stmt) {
-                /*Ejecutamos el Query*/
+
+            if($stmt){
                 $result = $stmt->execute($params);
-                if ($result) {
-                    if ($stmt->rowCount() > 0) {
+                if($result){
+                    if($stmt->rowCount()>0){
                         $jsondata['success'] = true;
-                        $jsondata['data']['message'] = 'Registros encontrados';
+                        $jsondata['data']['message']   = 'Registros encontrados';
                         $jsondata['data']['registros'] = array();
 
-                        while ($row = $stmt->fetch(PDO::FETCH_OBJ)) {
+                        while($row = $stmt->fetch(\PDO::FETCH_OBJ)){
                             $jsondata['data']['registros'][] = $row;
                         }
                         $stmt = null;
@@ -74,17 +79,17 @@ class d_coord_jdpto_Aprobar_Jurado
                     }
                 } else {
                     $error = $stmt->errorInfo();
-                    $mensaje_Transacciones = "No se pudo obtener los Jurados por Autorizar.<br/>" . $error[2];
+                    $mensaje_Transacciones = "No se pudo obtener los Jurados por Autorizar.<br/>".$error[2];
                     throw new Exception($mensaje_Transacciones);
                 }
             } else {
                 $error = $stmt->errorInfo();
-                $mensaje_Transacciones = "Error en la sentencia SQL para obtener Jurados por Autorizar.<br/>"  . $error[2];
+                $mensaje_Transacciones = "Error en la sentencia SQL.<br/>".$error[2];
                 throw new Exception($mensaje_Transacciones);
             }
-        } catch (Exception $ex) {
+        } catch(Exception $ex){
             $jsondata['success'] = false;
-            $jsondata['data'] = array('message' => $ex->getMessage());
+            $jsondata['data']     = array('message' => $ex->getMessage());
             echo json_encode($jsondata);
             exit();
         }
@@ -166,37 +171,38 @@ class d_coord_jdpto_Aprobar_Jurado
     //OBTENEMOS EL JURADO SELECCIONADO PARA VoBo
     function Obtener_Jurado_Seleccionado($id_usuario, $id_propuesta, $id_version)
     {
-
         try {
             $cnn = new Conexion();
             $conn = $cnn->getConexion();
-
-            if ($cnn === false) {
+            if($cnn===false){
                 throw new Exception($cnn->getError());
             }
 
             $tsql = " SELECT a.id_propuesta, a.version, a.num_profesor, a.nombre_sinodal_propuesto,
-                            b.id_usuario, b.nota, aceptado, b.id_estatus, b.fecha_verificado
-                    FROM sinodales a
-                            INNER JOIN jurado_vobo b ON a.id_propuesta = b.id_propuesta 
-                                    AND a.version = b.version AND a.num_profesor = b.num_profesor
-                    WHERE b.id_usuario = ? AND b.id_estatus=12 AND a.id_propuesta= ? AND a.version = ?
-                    ORDER BY a.version, a.num_profesor;";
+                             b.id_usuario, b.nota, b.aceptado, b.id_estatus, b.fecha_verificado
+                      FROM sinodales a
+                           INNER JOIN jurado_vobo b
+                           ON a.id_propuesta = b.id_propuesta
+                              AND a.version = b.version
+                              AND a.num_profesor = b.num_profesor
+                      WHERE b.id_usuario   = ?
+                        AND b.id_estatus   = 12
+                        AND a.id_propuesta = ?
+                        AND a.version      = ?
+                      ORDER BY a.version, a.num_profesor;";
 
-            /* Preparamos la sentencia a ejecutar */
             $stmt = $conn->prepare($tsql);
             $params = array($id_usuario, $id_propuesta, $id_version);
-            /*Verificamos el contenido de la ejecución*/
-            if ($stmt) {
-                /*Ejecutamos el Query*/
+
+            if($stmt){
                 $result = $stmt->execute($params);
-                if ($result) {
-                    if ($stmt->rowCount() > 0) {
+                if($result){
+                    if($stmt->rowCount()>0){
                         $jsondata['success'] = true;
-                        $jsondata['data']['message'] = 'Registros encontrados';
+                        $jsondata['data']['message']   = 'Registros encontrados';
                         $jsondata['data']['registros'] = array();
 
-                        while ($row = $stmt->fetch(PDO::FETCH_OBJ)) {
+                        while($row = $stmt->fetch(\PDO::FETCH_OBJ)){
                             $jsondata['data']['registros'][] = $row;
                         }
                         $stmt = null;
@@ -209,17 +215,17 @@ class d_coord_jdpto_Aprobar_Jurado
                     }
                 } else {
                     $error = $stmt->errorInfo();
-                    $mensaje_Transacciones = "No se pudo obtener la información de este Jurado.<br/>" . $error[2];
+                    $mensaje_Transacciones = "No se pudo obtener la información de este Jurado.<br/>".$error[2];
                     throw new Exception($mensaje_Transacciones);
                 }
             } else {
                 $error = $stmt->errorInfo();
-                $mensaje_Transacciones = "Error en la sentencia SQL para obtener la información de este Jurado.<br/>"  . $error[2];
+                $mensaje_Transacciones = "Error SQL para obtener info del Jurado.<br/>".$error[2];
                 throw new Exception($mensaje_Transacciones);
             }
-        } catch (Exception $ex) {
+        } catch(Exception $ex){
             $jsondata['success'] = false;
-            $jsondata['data'] = array('message' => $ex->getMessage());
+            $jsondata['data']     = array('message' => $ex->getMessage());
             echo json_encode($jsondata);
             exit();
         }
@@ -230,49 +236,26 @@ class d_coord_jdpto_Aprobar_Jurado
     //OBTENER SI TODOS LOS COORD/DPTO YA REVISARON A LOS SINODALES
     function N_Documentos_Por_Revisar($id_propuesta, $id_version)
     {
-        $mensaje_Transacciones = 0;
-        $conn = '';
-        $resultado = '';
         try {
-            $cnn = new Conexion();
+            $cnn  = new Conexion();
             $conn = $cnn->getConexion();
-
-            if ($conn === false) {
+            if($conn===false){
                 throw new Exception($cnn->getError());
             }
 
-            $tsql = " SELECT count(id_estatus) as pendientes
+            $sql = "SELECT COUNT(id_estatus) AS pendientes
                     FROM jurado_vobo
-                    WHERE id_propuesta = ? AND version= ? AND id_estatus = 12;";  //12. En VoBo Coord/Dpto
-            /* Valor de los parámetros. */
-            $params = array($id_propuesta, $id_version);
-            /* Preparamos la sentencia a ejecutar */
-            $stmt = $conn->prepare($tsql);
-            if ($stmt) {
-                /*Ejecutamos el Query*/
-                $result = $stmt->execute($params);
-                if ($result) {
-                    if ($stmt->rowCount() > 0) {
-                        $row = $stmt->fetch(PDO::FETCH_ASSOC);
-                        $resultado = $row['pendientes'];
-                        return $resultado;
-                        $conn = null;
-                        exit();
-                    } else {
-                        $mensaje_Transacciones = 0;
-                        throw new Exception($mensaje_Transacciones);
-                    }
-                }
-            } else {
-                $error = $stmt->errorInfo();
-                $mensaje_Transacciones = 0;
-                throw new Exception($mensaje_Transacciones);
+                    WHERE id_propuesta=?
+                      AND version=?
+                      AND id_estatus=12";
+            $stmt = $conn->prepare($sql);
+            $stmt->execute([$id_propuesta, $id_version]);
+            if($row = $stmt->fetch(\PDO::FETCH_ASSOC)){
+                return $row['pendientes'];
             }
-            exit();
-        } catch (Exception $ex) {
-            $conn = null;
-            return ('');
-            exit();
+            return '';
+        } catch(Exception $ex){
+            return '';
         }
     }
     //FIN OBTENER SI TODOS LOS COORD/DPTO YA REVISARON A LOS SINODALES
@@ -282,221 +265,270 @@ class d_coord_jdpto_Aprobar_Jurado
     //ACTUALIZAMOS EL ESTATUS DEL VoBo
     function Actualizar_VoBo($id_propuesta, $id_version, $id_usuario, $vobo_usuario, $titulo_propuesta, $id_division)
     {
-
         $mensaje_Transacciones = '';
-        $conn = '';
-        $jsondata = array();
+        $jsondata = [];
+        $conn = null;
 
         try {
             $cnn = new Conexion();
             $conn = $cnn->getConexion();
-
-            if ($conn === false) {
+            if($conn===false){
                 throw new Exception($cnn->getError());
             }
-
-            /*Iniciar la transacción. */
             $conn->beginTransaction();
 
-            //OBTENEMOS SI TODOS LOS COORD/DPTO YA REVISARON A TODOS LOS SINODALES
-            $obj_ = new d_coord_jdpto_Aprobar_Jurado();
-            $pendientes = $obj_->N_Documentos_Por_Revisar($id_propuesta, $id_version);
-            if ($pendientes == '') {
-                $mensaje_Transacciones .= "No se pudo Obtener el Número de Sinodales por Valorar.";
+            // 1) Contamos cuántos COORD/DPTO tienen estatus=12
+            $pendientes = $this->N_Documentos_Por_Revisar($id_propuesta, $id_version);
+            if($pendientes===''){
+                $mensaje_Transacciones .= "No se pudo obtener el número de Sinodales pendientes.";
                 throw new Exception($mensaje_Transacciones);
             }
-            //FIN OBTENEMOS SI TODOS LOS COORD/DPTO YA REVISARON A TODOS LOS SINODALES
-            //*********************************************************************            
 
-            //OBTENEMOS CORREO Y USUARIO DE LOS COORD/JDPTO QUE REVISARON LA PROPUESTA
+            // 2) Obtenemos correos y usuarios (bitácora/correos)
             $obj_ = new d_coord_jdpto_Aprobar_Propuesta();
             $datos_prop = $obj_->Obtener_Usr_Mail_Propuesta($id_propuesta, 4, $id_version);
-            if ($datos_prop == '') {
-                $mensaje_Transacciones .= "No se pudo Obtener los Correos de Coordinadores/Jefes de Dpto.";
+            if($datos_prop==''){
+                $mensaje_Transacciones .= "No se pudo obtener los Correos de Coordinadores/Jefes de Dpto.";
                 throw new Exception($mensaje_Transacciones);
             }
-            $arr_datos_prop = preg_split("/[|]/", $datos_prop);
-            $arr_coord_dpto_id_usuarios = $arr_datos_prop[0];
-            $arr_coord_dpto_correos = $arr_datos_prop[1];
-            //FIN OBTENEMOS CORREO Y USUARIO DE LOS COORD/JDPTO QUE REVISARON LA PROPUESTA
-            //*********************************************************************            
+            $arr_datos_prop  = preg_split("/[|]/", $datos_prop);
+            $arr_coord_users = $arr_datos_prop[0];  // IDs
+            $arr_coord_mails = $arr_datos_prop[1];  // Correos
 
-            //             $jsondata['success'] = false;
-            //            $jsondata['data']['message'] = $pendientes;
-            //            echo json_encode($jsondata);
-            //            exit(); 
+            // 3) Parseamos la cadena "1,1,0,nota|2,0,15,nota..."
+            $arr_vobo = explode('|', $vobo_usuario);
+            $renglones = count($arr_vobo);
 
-            $arr_vobo_por_usuario = preg_split("/[|]/", $vobo_usuario);
-            $renglones = count($arr_vobo_por_usuario);
+            // 4) Preparamos update en jurado_vobo
+            $sqlVobo = "UPDATE jurado_vobo
+                        SET aceptado=:ac,
+                            nota=:nt,
+                            fecha_verificado=:fv,
+                            id_estatus=:newSt
+                        WHERE id_propuesta=:ip
+                          AND version=:ve
+                          AND num_profesor=:np
+                          AND id_usuario=:usr";
+            $stmtVobo = $conn->prepare($sqlVobo);
 
-            //*********************************************************************                        
-            //ACTUALIZAMOS LA ACEPTACION/RECHAZO DEL COORD/DPTO
-            $tsql4 = " UPDATE jurado_vobo SET 
-                aceptado = ?,
-                nota = ?, 
-                fecha_verificado = ?,
-                id_estatus = 2
-                WHERE id_propuesta = ? AND version = ? AND num_profesor = ? AND id_usuario = ?;";
+            $tipoUsuario = (isset($_SESSION['id_tipo_usuario'])) ? $_SESSION['id_tipo_usuario'] : 0;
+            $fecha_verif = date('d-m-Y H:i:s');
 
-            for ($i = 0; $i < $renglones; $i++) {
-                $stmt4 = $conn->prepare($tsql4);
-                if ($stmt4) {
-                    $arr_vobo_usuario = preg_split("/[,]/", $arr_vobo_por_usuario[$i]);
-                    $result4 = $stmt4->execute(array(
-                        $arr_vobo_usuario[1],
-                        $arr_vobo_usuario[2],
-                        date('d-m-Y H:i:s'),
-                        $id_propuesta,
-                        $id_version,
-                        $arr_vobo_usuario[0],
-                        $id_usuario
-                    ));
-                    if ($result4) {
-                        if ($stmt4->rowCount() > 0) {
-                            $mensaje_Transacciones .= "VoBo Actualizado. OK.<br/>";
-                        } else {
-                            $error = $stmt4->errorInfo();
-                            $mensaje_Transacciones .= "Error al Actualizar el VoBo del Sinodal.<br>"  . $error[2] . '<br>';
-                            throw new Exception($mensaje_Transacciones);
-                        }
+            // Contador de rechazados
+            $countRechazados = 0;
+
+            foreach($arr_vobo as $linea){
+                $part = explode(',', $linea);
+                $numProf = (int)$part[0];
+                $aceptado = (int)$part[1];
+                $idReemp = (count($part)>=3) ? (int)$part[2] : 0;
+                $nota    = (count($part)>=4) ? trim($part[3]) : '';
+
+                // Si no se acepta y hay reemplazo => reasignar sinodales
+                if($aceptado==0 && $idReemp>0){
+                    $sqlReemp = "UPDATE sinodales
+                                 SET id_usuario=:newu,
+                                     nombre_sinodal_propuesto=(
+                                       SELECT (apellido_paterno_usuario || ' ' ||
+                                               apellido_materno_usuario || ' ' ||
+                                               nombre_usuario)
+                                       FROM usuarios
+                                       WHERE id_usuario=:newu
+                                     )
+                                 WHERE id_propuesta=:ip
+                                   AND version=:ve
+                                   AND num_profesor=:np";
+                    $stmtR = $conn->prepare($sqlReemp);
+                    $stmtR->execute([
+                        ':newu'=>$idReemp,
+                        ':ip'=>$id_propuesta,
+                        ':ve'=>$id_version,
+                        ':np'=>$numProf
+                    ]);
+                }
+
+                // Determinamos el estatus para jurado_vobo según rol
+                $newEstatus = 2; // default para roles != 3
+                if($tipoUsuario==3){
+                    if($aceptado==0){
+                        $newEstatus = 19; // Aprob. Parcial
+                        $countRechazados++;
                     } else {
-                        $error = $stmt4->errorInfo();
-                        $mensaje_Transacciones .= "No se Actualizó el VoBo del Sinodal.<br/>"  . $error[2] . '<br>';
-                        throw new Exception($mensaje_Transacciones);
+                        $newEstatus = 16; // Aprobado por Coord
                     }
+                }
+
+                // Update en jurado_vobo
+                $stmtVobo->execute([
+                    ':ac'    => $aceptado,
+                    ':nt'    => $nota,
+                    ':fv'    => $fecha_verif,
+                    ':newSt' => $newEstatus,
+                    ':ip'    => $id_propuesta,
+                    ':ve'    => $id_version,
+                    ':np'    => $numProf,
+                    ':usr'   => $id_usuario
+                ]);
+            }
+
+            // 5) Ajustamos estatus en "jurado"
+            $pendientes_VoBo = $pendientes - $renglones;
+            $sqlJ = '';
+
+            if($tipoUsuario==3){
+                // Coordinador => si hay rechazados => 19, si no => 16
+                if($countRechazados>0){
+                    $sqlJ="UPDATE jurado SET id_estatus=19 WHERE id_propuesta=? AND version=?;";
                 } else {
-                    $error = $stmt4->errorInfo();
-                    $mensaje_Transacciones .= "Error en la sentencia SQL para Actualizar el VoBo del Sinodal.<br/>"  . $error[2] . '<br>';
-                    throw new Exception($mensaje_Transacciones);
+                    $sqlJ="UPDATE jurado SET id_estatus=16 WHERE id_propuesta=? AND version=?;";
+                }
+            } else {
+                // Rol distinto => si ya no hay pendientes, subimos a 2
+                if($pendientes_VoBo==0){
+                    $sqlJ="UPDATE jurado SET id_estatus=2 WHERE id_propuesta=? AND version=?;";
                 }
             }
 
-            $pendientes_VoBo = ($pendientes - $renglones);
-
-            //ACTUALIZAMOS EL ESTATUS DEL JURADO
-            if (($pendientes_VoBo) == '0') { //YA TODOS REVISARON A LOS SINODALES
-                $tsql1 = " UPDATE jurado SET " .
-                    "id_estatus =  2 " .    //2. Por Autorizar Admon.
-                    "WHERE id_propuesta = ? AND " .
-                    "version = ?;";
-                /* Valor de los parámetros. */
-                $params1 = array($id_propuesta, $id_version);
-                /* Preparamos la sentencia a ejecutar */
-                $stmt1 = $conn->prepare($tsql1);
-                if ($stmt1) {
-                    /*Ejecutamos el Query*/
-                    $result1 = $stmt1->execute($params1);
-                    if ($result1) {
-                        if ($stmt1->rowCount() > 0) {
-                            $mensaje_Transacciones .= "Estatus del Jurado Actualizado. OK.<br/>";
-                        } else {
-                            $error = $stmt1->errorInfo();
-                            $mensaje_Transacciones .= "No se pudo Actualizar el Estatus del Jurado.<br>"  . $error[2] . '<br>';
-                            throw new Exception($mensaje_Transacciones);
-                        }
-                    } else {
-                        $error = $stmt1->errorInfo();
-                        $mensaje_Transacciones .= "No se pudo actualizar el Estatus del Jurado.<br/>"  . $error[2] . '<br>';
-                        throw new Exception($mensaje_Transacciones);
-                    }
-                } else {
-                    $error = $stmt1->errorInfo();
-                    $mensaje_Transacciones .= "Error en la sentencia SQL para Actualizar el Estatus del Jurado.<br/>"  . $error[2] . '<br>';
-                    throw new Exception($mensaje_Transacciones);
+            if($sqlJ!=''){
+                $stmtJ = $conn->prepare($sqlJ);
+                $ok = $stmtJ->execute([$id_propuesta, $id_version]);
+                if(!$ok){
+                    throw new Exception("No se pudo actualizar estatus del jurado.");
                 }
             }
-            //FIN ACTUALIZAMOS EL ESTATUS DEL JURADO
-            //*********************************************************************            
 
             $conn->commit();
 
-            //CONFIGURAMOS PARA LA BITACORA Y CORREOS
-            //MOVIMIENTO DEL COORD/JDPTO
+            // 6) Correos y bitácora (igual que antes)
             $respuesta_mail = '';
             $id_tema_evento1 = 85; // Definir Jurado
             $id_tipo_evento1 = 55; // Revisión
-            $descripcion_evento1 = '';
-            //AGREGAMOS A LA BITÁCORA QUE EL COORD/JDPTO YA REVISO AL JURADO PROPUESTO
-            $descripcion_evento1 = "Revisé y dí el VoBo al Jurado de la Propuesta No. " . $id_propuesta . " Versión " . $id_version .
-                " ** Con Título " . $titulo_propuesta;
+            $descEvento = "Revisé y dí el VoBo al Jurado de la Prop. No. "
+                        . $id_propuesta." Versión ".$id_version
+                        ." ** Título: ".$titulo_propuesta;
 
             $obj_Bitacora = new d_Usuario_Bitacora();
-            $obj_miBitacora = new Bitacora();
+            $miBitacora = new Bitacora();
+            $miBitacora->set_Fecha_Evento(date('d-m-Y H:i:s'));
+            $miBitacora->set_Id_Tema_Bitacora($id_tema_evento1);
+            $miBitacora->set_Id_Tipo_Evento($id_tipo_evento1);
+            $miBitacora->set_Id_Usuario_Genera($id_usuario);
+            $miBitacora->set_Id_Usuario_Destinatario('');
+            $miBitacora->set_Descripcion_Evento($descEvento);
+            $miBitacora->set_Id_Division($id_division);
 
-            $descripcionEvento = $descripcion_evento1;
-            $obj_miBitacora->set_Fecha_Evento(date('d-m-Y H:i:s'));
-            $obj_miBitacora->set_Id_Tema_Bitacora($id_tema_evento1);
-            $obj_miBitacora->set_Id_Tipo_Evento($id_tipo_evento1);
-            $obj_miBitacora->set_Id_Usuario_Genera($id_usuario);
-            $obj_miBitacora->set_Id_Usuario_Destinatario('');
-            $obj_miBitacora->set_Descripcion_Evento($descripcionEvento);
-            $obj_miBitacora->set_Id_Division($id_division);
+            $resultado_Bitacora = $obj_Bitacora->Agregar($miBitacora);
 
-            $resultado_Bitacora = '';
-            $resultado_Bitacora = $obj_Bitacora->Agregar($obj_miBitacora);
+            // Si $pendientes_VoBo == 0 => mandar aviso final
+            if($pendientes_VoBo==0){
+                $id_tema_evento2 = 118;
+                $id_tipo_evento2 = 50;
+                $descCorreo = "Coordinadores y Jefes de Dpto. han concluido la Revisión y VoBo de la "
+                            . "Propuesta No. ".$id_propuesta." Versión ".$id_version
+                            . "<br>** Título: ".$titulo_propuesta;
 
-            if (($pendientes_VoBo) == '0') { //YA TODOS REVISARON A LOS SINODALES
-                //AVISAMOS QUE TERMINO LA REVISIÓN Y VoBo DEL JURADO
-                $id_tema_evento2 = 118; // Asignar Jurado Definitivo
-                $id_tipo_evento2 = 50; // Envio de mail
-                $descripcion_correo2 = '';
-                //AGREGAMOS A LA BITÁCORA LA TERMINACIÓN DE LA REVISIÓN
-                $descripcion_correo2 = "Coordinadores y Jefes de Dpto., han concluído la Revisión y VoBo de la Propuesta No. " . $id_propuesta . " Versión " . $id_version .
-                    "<br> ** Con Título " . $titulo_propuesta;
+                $arr_ids   = preg_split("/[,]/", $arr_coord_users);
+                $renglones2= count($arr_ids);
 
-                $destinatarios_bitacora = $arr_coord_dpto_id_usuarios;
-                $destinatarios_correo = $arr_coord_dpto_correos;
-
-                $arr_destinatarios_bitacora = preg_split("/[,]/", $destinatarios_bitacora);
-
-                $renglones = count($arr_destinatarios_bitacora);
-
-                for ($i = 0; $i < $renglones; $i++) {
+                for($i=0;$i<$renglones2;$i++){
                     sleep(1);
-                    $obj_miBitacora = new Bitacora();
-
-                    $descripcionEvento = $descripcion_correo2;
-                    $obj_miBitacora->set_Fecha_Evento(date('d-m-Y H:i:s'));
-                    $obj_miBitacora->set_Id_Tema_Bitacora($id_tema_evento2);
-                    $obj_miBitacora->set_Id_Tipo_Evento($id_tipo_evento2);
-                    $obj_miBitacora->set_Id_Usuario_Genera(1);
-                    $obj_miBitacora->set_Id_Usuario_Destinatario($arr_destinatarios_bitacora[$i]);
-                    $obj_miBitacora->set_Descripcion_Evento($descripcionEvento);
-                    $obj_miBitacora->set_Id_Division($id_division);
-
-                    $resultado_Bitacora = '';
-                    $resultado_Bitacora = $obj_Bitacora->Agregar($obj_miBitacora);
+                    $b2 = new Bitacora();
+                    $b2->set_Fecha_Evento(date('d-m-Y H:i:s'));
+                    $b2->set_Id_Tema_Bitacora($id_tema_evento2);
+                    $b2->set_Id_Tipo_Evento($id_tipo_evento2);
+                    $b2->set_Id_Usuario_Genera(1);
+                    $b2->set_Id_Usuario_Destinatario($arr_ids[$i]);
+                    $b2->set_Descripcion_Evento($descCorreo);
+                    $b2->set_Id_Division($id_division);
+                    $resultado_Bitacora = $obj_Bitacora->Agregar($b2);
                 }
 
-                //Mandamos los correos
-                $obj = new d_mail();
-                $mi_mail = new Mail();
-                $mensaje = $descripcion_correo2;
+                // Mandamos correos
+                $dmail = new d_mail();
+                $mail_ = new Mail();
+                $mail_->set_Correo_Destinatarios($arr_coord_mails);
+                $mail_->set_Asunto('AVISO REVISIÓN Y VoBo DE JURADO PROPUESTO');
+                $mail_->set_Mensaje($descCorreo);
+                $mail_->set_Correo_Copia_Oculta('');
 
-                $mi_mail->set_Correo_Destinatarios($destinatarios_correo);
-                $mi_mail->set_Asunto('AVISO REVISIÓN Y VoBo DE JURADO PROPUESTO');
-                $mi_mail->set_Mensaje($mensaje);
-
-                $mi_mail->set_Correo_Copia_Oculta('');
-
-                $respuesta_mail = $obj->Envair_Mail($mi_mail);
+                $respuesta_mail = $dmail->Envair_Mail($mail_);
             }
 
-            $conn = null;
             $jsondata['success'] = true;
             $jsondata['data']['message'] = $mensaje_Transacciones . $resultado_Bitacora . $respuesta_mail;
             echo json_encode($jsondata);
             exit();
-        } catch (Exception $ex) {
-            $conn->rollBack();
-            $conn = null;
+
+        } catch(Exception $ex){
+            if($conn && $conn->inTransaction()){
+                $conn->rollBack();
+            }
             $jsondata['success'] = false;
             $jsondata['data']['message'] = $ex->getMessage();
-            echo json_encode($jsondata);
-            exit();
+            return json_encode($jsondata);
         }
     }
     //FIN ACTUALIZAMOS EL ESTATUS DEL VoBo
+
+    function Obtener_Profesores_Division($id_division)
+    {
+        try {
+            $cnn = new Conexion();
+            $conn = $cnn->getConexion();
+            if($conn===false){
+                throw new Exception($cnn->getError());
+            }
+
+            $sql = "SELECT
+                        u.id_usuario,
+                        COALESCE(
+                          CASE 
+                            WHEN p.id_usuario IS NOT NULL THEN
+                              (SELECT g.descripcion_grado_estudio 
+                               FROM grados_estudio g 
+                               WHERE g.id_grado_estudio = p.id_grado_estudio)
+                            WHEN jc.id_usuario IS NOT NULL THEN
+                              (SELECT g.descripcion_grado_estudio 
+                               FROM grados_estudio g 
+                               WHERE g.id_grado_estudio = jc.id_grado_estudio)
+                            WHEN jd.id_usuario IS NOT NULL THEN
+                              (SELECT g.descripcion_grado_estudio 
+                               FROM grados_estudio g 
+                               WHERE g.id_grado_estudio = jd.id_grado_estudio)
+                            ELSE ''
+                          END
+                        ,'') 
+                        || ' ' || u.nombre_usuario || ' ' || u.apellido_paterno_usuario || ' '
+                        || COALESCE(u.apellido_materno_usuario,'')
+                        AS nombre_completo
+                    FROM usuarios u
+                    LEFT JOIN profesores p          ON p.id_usuario = u.id_usuario
+                    LEFT JOIN jefes_coordinacion jc ON jc.id_usuario= u.id_usuario
+                    LEFT JOIN jefes_departamento jd ON jd.id_usuario= u.id_usuario
+                    WHERE u.id_tipo_usuario IN (2,3,4)
+                      AND u.activo_usuario = '1'
+                      AND u.id_division=:id_division
+                    ORDER BY u.apellido_paterno_usuario, u.nombre_usuario";
+
+            $stmt = $conn->prepare($sql);
+            $stmt->bindValue(':id_division', (int)$id_division, \PDO::PARAM_INT);
+            $stmt->execute();
+
+            $arr = [];
+            while($row = $stmt->fetch(\PDO::FETCH_ASSOC)){
+                $arr[] = [
+                    'id_usuario' => $row['id_usuario'],
+                    'nombre_completo' => trim($row['nombre_completo'])
+                ];
+            }
+            $stmt = null;
+            $conn = null;
+            return $arr;
+        } catch(Exception $ex){
+            // en caso de error, regresa array vacío
+            return [];
+        }
+    }
 
 }
 

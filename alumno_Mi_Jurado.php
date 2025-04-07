@@ -163,7 +163,7 @@ if (
             }
 
             //OBTENEMOS LOS SINODALES
-            function Obtener_Jurado(id_propuesta, id_version){
+            function Obtener_Jurado(id_propuesta, id_version) {
                 var datos = {
                     Tipo_Movimiento: 'OBTENER_MIS_SINODALES',
                     id_propuesta: id_propuesta,
@@ -177,15 +177,19 @@ if (
                 })
                 .done(function(respuesta){
                     var html_table = '<table class="tabla_Registros">';
-                    html_table += '<tr><th>No.</th><th>Sinodal Propuesto</th><th>Sinodal Definitivo</th></tr>';
+                    html_table += '<tr><th>No.</th><th>Sinodal Propuesto</th><th>Definitivo</th><th>Nota Rechazo</th></tr>';
 
                     if(respuesta.success){
                         $.each(respuesta.data.registros, function(k, val){
                             html_table += '<tr>';
-                            html_table += '<td>'+ val.num_profesor +'</td>';
 
-                            // col 2: el select
-                            html_table += '<td><select class="select_sinodal" data-num_prof="'+ val.num_profesor +'">';
+                            var disabledAttr = '';
+                            if (val.vobo_estatus == 16) {
+                                disabledAttr = 'disabled';
+                            }
+
+                            html_table += '<td>'+ val.num_profesor +'</td>';
+                            html_table += '<td><select class="select_sinodal" data-num_prof="'+ val.num_profesor +'" '+disabledAttr+'>';
                             html_table += '<option value="">--Seleccione Profesor--</option>';
                             var actual = val.id_usuario || '';
                             $.each(window.profesores, function(i, p){
@@ -194,8 +198,8 @@ if (
                             });
                             html_table += '</select></td>';
 
-                            // col 3: sinodal_definitivo (por si acaso)
-                            html_table += '<td>'+ (val.sinodal_definitivo || '') +'</td>';
+                            html_table += '<td>'+(val.sinodal_definitivo || '')+'</td>';
+                            html_table += '<td style="color:red;">'+ (val.vobo_nota || '') +'</td>';
 
                             html_table += '</tr>';
                         });
@@ -208,7 +212,7 @@ if (
                 .fail(function(a,b,c){
                     alert("Error al obtener sinodales: "+b+" - "+c);
                 });
-                } //fin Obtenemos los Sinodales
+            } //fin Obtenemos los Sinodales
 
             //VALIDACIONES 
             function validaDatos() {

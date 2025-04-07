@@ -29,26 +29,49 @@ $tipo_Movimiento = $_POST['Tipo_Movimiento'];
 
 $obj_d_Aprobar_Jurado = new d_coord_jdpto_Aprobar_Jurado();
 
-switch ($tipo_Movimiento) {
-    case "OBTENER_JURADOS_PENDIENTES": //Obtenemos los Jurados pendientes de aprobar
-        $id_usuario = $_POST['id_usuario'];
+switch($tipo_Movimiento){
 
-        echo  $obj_d_Aprobar_Jurado->Obtener_Jurados_Por_Autorizar($id_usuario);
+    case "OBTENER_JURADOS_PENDIENTES":
+        $id_usuario = $_POST['id_usuario'];
+        echo $obj_d_Aprobar_Jurado->Obtener_Jurados_Por_Autorizar($id_usuario);
         break;
 
-    case "OBTENER_JURADOS_SELECCIONADO": //Obtenemos los Jurados seleccionado
-        $id_usuario = $_POST['id_usuario'];
+    case "OBTENER_JURADOS_SELECCIONADO":
+        $id_usuario   = $_POST['id_usuario'];
         $id_propuesta = $_POST['id_propuesta'];
-        $id_version = $_POST['id_version'];
-        echo  $obj_d_Aprobar_Jurado->Obtener_Jurado_Seleccionado($id_usuario, $id_propuesta, $id_version);
+        $id_version   = $_POST['id_version'];
+        echo $obj_d_Aprobar_Jurado->Obtener_Jurado_Seleccionado($id_usuario, $id_propuesta, $id_version);
         break;
 
-    case "ACTUALIZAR_VoBo": //Actualizar el VoBo del Coordinador/Dpto
-        $id_propuesta = $_POST['Id_Propuesta'];
-        $id_version = $_POST['id_Version'];
-        $id_usuario = $_POST['Id_Usuario'];
-        $vobo_usuario = $_POST['lista_VoBo'];
+    // NUEVO: Para llenar el <select> "Reemplazar Por"
+    case "OBTENER_PROFESORES_COORD":
+        $profesores = $obj_d_Aprobar_Jurado->Obtener_Profesores_Division($id_division);
+        $jsondata['success'] = true;
+        $jsondata['data']['message'] = 'Profesores disponibles';
+        $jsondata['data']['profesores'] = $profesores;
+        echo json_encode($jsondata);
+        break;
+
+    case "ACTUALIZAR_VoBo":
+        $id_propuesta     = $_POST['Id_Propuesta'];
+        $id_version       = $_POST['id_Version'];
+        $id_usuario       = $_POST['Id_Usuario'];
+        $vobo_usuario     = $_POST['lista_VoBo']; // "1,1,0,nota|2,0,15,nota2..."
         $titulo_propuesta = $_POST['titulo_propuesta'];
-        echo  $obj_d_Aprobar_Jurado->Actualizar_VoBo($id_propuesta, $id_version, $id_usuario, $vobo_usuario, $titulo_propuesta, $id_division);
+
+        echo $obj_d_Aprobar_Jurado->Actualizar_VoBo(
+             $id_propuesta,
+             $id_version,
+             $id_usuario,
+             $vobo_usuario,
+             $titulo_propuesta,
+             $id_division
+        );
+        break;
+
+    default:
+        $json['success'] = false;
+        $json['data']['message'] = 'Movimiento no reconocido.';
+        echo json_encode($json);
         break;
 }
