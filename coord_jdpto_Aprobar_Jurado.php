@@ -45,26 +45,63 @@ if (
                 url: "_Negocio/n_coord_jdpto_Aprobar_Jurado.php"
             })
             .done(function(respuesta){
-                var html_table = '<table style="width:100%;">'
-                            + '<tr><th>Propuesta</th><th>Profesor</th><th>Título</th><th>Fecha Alta</th><th>Acción</th></tr>';
-                if(respuesta.success){
-                    $.each(respuesta.data.registros, function(i, v){
-                        html_table += '<tr>'
-                                    + ' <td>'+v.id_propuesta+'</td>'
-                                    + ' <td>'+(v.nombre || '')+'</td>'
-                                    + ' <td>'+(v.titulo_propuesta || '')+'</td>'
-                                    + ' <td>'+(v.fecha_propuesto || '')+'</td>'
-                                    + ' <td><button class="btn_Revisar"'
-                                    + '     data-id_propuesta="'+ v.id_propuesta +'"'
-                                    + '     data-id_version="'+ v.version +'"'
-                                    + '     data-titulo_propuesta="'+ v.titulo_propuesta +'"'
-                                    + '     data-id_estatus="'+ v.id_estatus +'">'
-                                    + '     Revisar Jurado</button></td>'
-                                    + '</tr>';
-                    });
-                } else {
-                    html_table += '<tr><td colspan="5">'+respuesta.data.message+'</td></tr>';
+                if(!respuesta.success){
+                    var html_table = '<table style="width:100%;">'
+                                   + '  <tr><th>Propuesta</th><th>Profesor</th><th>Título</th><th>Fecha Alta</th><th>Acción</th></tr>'
+                                   + '  <tr><td colspan="5">'+ respuesta.data.message +'</td></tr>'
+                                   + '</table>';
+                    $('#tabla_Jurados_Pendientes').html(html_table);
+                    return;
                 }
+
+                var hayRechazados = false;
+                $.each(respuesta.data.registros, function(i, v){
+                    if (v.id_estatus == '20') {
+                        hayRechazados = true;
+                        return false;
+                    }
+                });
+
+                var html_table = '<table style="width:100%;">'
+                               + '  <tr>'
+                               + '    <th>Propuesta</th>'
+                               + '    <th>Profesor</th>'
+                               + '    <th>Título</th>'
+                               + '    <th>Fecha Alta</th>';
+                if (hayRechazados) {
+                    html_table += '    <th>Estatus</th>';
+                }
+                html_table += '    <th>Acción</th>'
+                            + '  </tr>';
+
+
+                $.each(respuesta.data.registros, function(i, v){
+                    html_table += '<tr>'
+                                + ' <td>'+v.id_propuesta+'</td>'
+                                + ' <td>'+(v.nombre || '')+'</td>'
+                                + ' <td>'+(v.titulo_propuesta || '')+'</td>'
+                                + ' <td>'+(v.fecha_propuesto || '')+'</td>';
+                    
+                    if (hayRechazados) {
+                        if (v.id_estatus == '20') {
+                            html_table += '  <td><span style="color:red;font-weight:bold;">' + v.descripcion_estatus +'</span></td>';
+                        } else {
+                            html_table += '  <td></td>';
+                        }
+                    }
+
+                    html_table += '  <td>'
+                                + '    <button class="btn_Revisar"'
+                                + '      data-id_propuesta="'+ v.id_propuesta +'"'
+                                + '      data-id_version="'+ v.version +'"'
+                                + '      data-id_estatus="'+ v.id_estatus +'"'
+                                + '      data-titulo_propuesta="'+ v.titulo_propuesta +'">'
+                                + '      Revisar Jurado'
+                                + '    </button>'
+                                + '  </td>'
+                                + '</tr>';
+                });
+                
                 html_table += '</table>';
                 $('#tabla_Jurados_Pendientes').html(html_table);
             })
@@ -116,6 +153,9 @@ if (
                 id_propuesta: id_propuesta,
                 id_version: id_version
             };
+            var estatus = $('#id_Estatus').val();
+            var esRechazado = (estatus === '20');
+
             $.ajax({
                 data: datos,
                 type: "POST",
@@ -135,12 +175,38 @@ if (
                     $.each(rsp.data.registros, function(i, sin){
                         var n = sin.num_profesor;
                         html_table += '<tr>'
-                                    + ' <td>'+(sin.nombre_sinodal_propuesto || '')+'</td>'
-                                    + ' <td style="text-align:center;">'
-                                    + '   <input type="checkbox" class="chkAcepta" data-num="'+n+'" checked>'
-                                    + ' </td>'
-                                    + ' <td>'+ construirSelect(n) +'</td>'
-                                    + ' <td><textarea id="txtNota_'+n+'" style="width:300px;height:2em;"></textarea></td>'
+                                    + '  <td>' + (sin.nombre_sinodal_propuesto||'') + '</td>'
+                                    + '  <td style="text-align:center;">';
+                        
+                        if(esRechazado){
+                            html_table += '<input type="checkbox" disabled checked>';
+                        } else {
+                            html_table += '<input type="checkbox" class="chkAcepta" data-num="'+n+'" checked>';
+                        }
+
+                        html_table += '  </td>'
+                                    + '  <td>';
+
+                        if(esRechazado){
+                            html_table += '<select disabled>';
+                        } else {
+                            html_table += '<select id="selReemp_'+n+'" data-num="'+n+'">';
+                        }
+
+                        html_table += '  <option value="0">-- Sin Cambio --</option>';
+                        $.each(window.listaProf, function(k,p){
+                            html_table += '<option value="'+ p.id_usuario +'">'+ p.nombre_completo +'</option>';
+                        });
+                        html_table += '</select></td>';
+
+                        html_table += '  <td>';
+                        if(esRechazado){
+                            html_table += '<textarea style="width:300px;height:2em;" readonly></textarea>';
+                        } else {
+                            html_table += '<textarea id="txtNota_'+n+'" style="width:300px;height:2em;"></textarea>';
+                        }
+
+                        html_table += '  </td>'
                                     + '</tr>';
                     });
                 } else {
@@ -148,6 +214,13 @@ if (
                 }
                 html_table += '</table>';
                 $('#tabla_VoBo').html(html_table);
+
+                if(esRechazado){
+                    $('#btn_Guardar').hide();
+                } else {
+                    $('#btn_Guardar').show();
+                }
+
                 $('#ventanaJurado').dialog('open');
             })
             .fail(function(jqXHR, textStatus, errorThrown){

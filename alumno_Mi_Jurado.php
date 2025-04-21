@@ -184,7 +184,7 @@ if (
                             html_table += '<tr>';
 
                             var disabledAttr = '';
-                            if (val.vobo_estatus == 16) {
+                            if (val.vobo_estatus == 16 || val.vobo_estatus == 18) {
                                 disabledAttr = 'disabled';
                             }
 
@@ -328,13 +328,20 @@ if (
                     cargarProfesoresDisponibles().done(function(resp){
                         if(resp.success){
                             window.profesores = resp.data.profesores;
-                            // AHORA sí cargar sinodales
                             Obtener_Jurado($('#Id_Propuesta').val(), $('#id_Version').val());
                         } else {
                             alert("No se pudo cargar la lista de profesores");
                         }
                         $('#ventanaProcesando').dialog('close');
                     });
+
+                    var st = parseInt($('#id_Estatus').val() || '0', 10);
+                    console.log("Estatus: " + st);
+                    if (st === 16 || st === 18) {
+                        $('#btn_Guardar').hide();
+                    } else {
+                        $('#btn_Guardar').show();
+                    }
                 },
                 close: function() {
                     $('#ventanaJurado input[type=text]').each(function() {

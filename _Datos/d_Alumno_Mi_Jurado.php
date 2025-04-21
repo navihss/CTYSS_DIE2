@@ -526,8 +526,8 @@ class d_Alumno_Mi_Jurado
                 $estatusActual = (int)$rowE->id_estatus;
 
                 // 2) Si ya está en 16,17,18 => NO lo tocamos;
-                //    Si está en 12 o 19 => lo ponemos en 12
-                if (in_array($estatusActual, [12, 19])) {
+                //    Si está en 12, 19, 20 => lo ponemos en 12
+                if (in_array($estatusActual, [12, 19, 20])) {
                     $updVobo = "UPDATE jurado_vobo
                                 SET id_estatus=12
                                 WHERE id_propuesta=? 
@@ -547,7 +547,7 @@ class d_Alumno_Mi_Jurado
                         FROM jurado_vobo
                         WHERE id_propuesta=? 
                         AND version=? 
-                        AND id_estatus IN (12,19)";
+                        AND id_estatus IN (12,19,20)";
             $stmtP = $conn->prepare($sqlPend);
             $stmtP->execute([$id_propuesta, $id_version]);
             $rowP = $stmtP->fetch(\PDO::FETCH_OBJ);

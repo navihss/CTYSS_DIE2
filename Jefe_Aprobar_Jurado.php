@@ -47,9 +47,11 @@ if (
                         // Interpretar estatus
                         var descEstatus = '';
                         switch(v.id_estatus) {
+                            case '12': descEstatus = 'En Vobo Coord.'; break;
                             case '16': descEstatus = 'Aprobado por Coordinador'; break;
                             case '17': descEstatus = 'En Revisión (Jefe)'; break;
                             case '19': descEstatus = 'Aprobación Parcial'; break;
+                            case '20': descEstatus = 'Rechazado por Jefe'; break;
                             default:   descEstatus = v.descripcion_estatus || 'Desconocido';
                         }
 

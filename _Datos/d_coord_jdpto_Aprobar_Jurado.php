@@ -44,14 +44,14 @@ class d_coord_jdpto_Aprobar_Jurado
                            INNER JOIN usuarios f ON c.id_profesor = f.id_usuario
                       WHERE d.id_documento = 4
                         AND d.id_estatus = 3
-                        AND a.id_estatus = 12
+                        AND a.id_estatus IN (12, 20)
                         AND ? IN (
                             SELECT g.id_usuario
                             FROM jurado_vobo g
                             WHERE a.id_propuesta = g.id_propuesta
                               AND a.version = g.version
                               AND id_usuario = ?
-                              AND g.id_estatus = 12
+                              AND g.id_estatus IN (12, 20)
                         )
                       ORDER BY a.fecha_propuesto;";
 
@@ -119,10 +119,10 @@ class d_coord_jdpto_Aprobar_Jurado
                                 INNER JOIN propuesta_version d ON c.id_propuesta = d.id_propuesta
                                 INNER JOIN documentos e ON d.id_documento = e.id_documento
                                 INNER JOIN usuarios f ON c.id_profesor = f.id_usuario
-                        WHERE d.id_documento = 4 AND d.id_estatus = 3 AND a.id_estatus = 12 AND
+                        WHERE d.id_documento = 4 AND d.id_estatus = 3 AND a.id_estatus IN (12, 20) AND
                         ? IN (SELECT g.id_usuario
                     FROM jurado_vobo g
-                    WHERE a.id_propuesta = g.id_propuesta AND a.version = g.version AND id_usuario = ? AND g.id_estatus =12 )";
+                    WHERE a.id_propuesta = g.id_propuesta AND a.version = g.version AND id_usuario = ? AND g.id_estatus IN (12, 20) )";
             }
             else if($tipoUsuario==2) { // Jefe
                 $tsql = "
@@ -204,7 +204,7 @@ class d_coord_jdpto_Aprobar_Jurado
                               AND a.version = b.version
                               AND a.num_profesor = b.num_profesor
                       WHERE b.id_usuario   = ?
-                        AND b.id_estatus   = 12
+                        AND b.id_estatus IN (12, 20)
                         AND a.id_propuesta = ?
                         AND a.version      = ?
                       ORDER BY a.version, a.num_profesor;";
@@ -466,8 +466,8 @@ class d_coord_jdpto_Aprobar_Jurado
                     $stmtAll->execute([$fecha_verif, $id_propuesta, $id_version]);
                 }
                 else if($accion_jefe=='rechazo'){
-                    // Rechazo total => devolver al alumno en 12
-                    $sqlJ="UPDATE jurado SET id_estatus=12 WHERE id_propuesta=? AND version=?;";
+                    // RECHAZO => estatus=20 en jurado
+                    $sqlJ="UPDATE jurado SET id_estatus=20 WHERE id_propuesta=? AND version=?;";
                     $stmtJ = $conn->prepare($sqlJ);
                     $stmtJ->execute([$id_propuesta, $id_version]);
 
@@ -489,7 +489,7 @@ class d_coord_jdpto_Aprobar_Jurado
                     ]);
 
                     $sqlAll = "UPDATE jurado_vobo
-                            SET id_estatus=12,
+                            SET id_estatus=20,
                                 fecha_verificado=?,
                                 nota=?
                             WHERE id_propuesta=?
