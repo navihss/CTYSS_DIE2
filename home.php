@@ -617,7 +617,7 @@ if (!isset($_SESSION["id_tipo_usuario"]) and !isset($_SESSION["id_usuario"])) {
             $('#jefedpto_Aprobar_Jurado').click(function(event) {
                 event.preventDefault();
                 $('div.ui-dialog').remove();
-                $('#tmp_nuevo_Contenido').load('coord_jdpto_Aprobar_Jurado.php');
+                $('#tmp_nuevo_Contenido').load('Jefe_Aprobar_Jurado.php');
                 $('#nuevo_Contenido').replaceWith($('#tmp_nuevo_Contenido'));
             });
             $('#jefedpto_Mis_Pendientes').click(function(event) {

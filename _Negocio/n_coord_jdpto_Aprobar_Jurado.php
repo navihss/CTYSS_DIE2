@@ -43,7 +43,6 @@ switch($tipo_Movimiento){
         echo $obj_d_Aprobar_Jurado->Obtener_Jurado_Seleccionado($id_usuario, $id_propuesta, $id_version);
         break;
 
-    // NUEVO: Para llenar el <select> "Reemplazar Por"
     case "OBTENER_PROFESORES_COORD":
         $profesores = $obj_d_Aprobar_Jurado->Obtener_Profesores_Division($id_division);
         $jsondata['success'] = true;
@@ -52,12 +51,25 @@ switch($tipo_Movimiento){
         echo json_encode($jsondata);
         break;
 
+    case "OBTENER_JURADOS_PENDIENTES_JEFE":
+        $id_usuario = $_POST['id_usuario'];
+        echo $obj_d_Aprobar_Jurado->Obtener_Jurados_Para_Jefe($id_usuario);
+        break;
+    
+    case "OBTENER_JURADOS_SELECCIONADO_JEFE":
+        $id_propuesta = $_POST['id_propuesta'];
+        $id_version   = $_POST['id_version'];
+        echo $obj_d_Aprobar_Jurado->Obtener_Jurado_Seleccionado_Jefe($id_propuesta, $id_version);
+        break;
+
     case "ACTUALIZAR_VoBo":
         $id_propuesta     = $_POST['Id_Propuesta'];
         $id_version       = $_POST['id_Version'];
         $id_usuario       = $_POST['Id_Usuario'];
-        $vobo_usuario     = $_POST['lista_VoBo']; // "1,1,0,nota|2,0,15,nota2..."
+        $vobo_usuario     = (isset($_POST['lista_VoBo'])) ? $_POST['lista_VoBo'] : '';
         $titulo_propuesta = $_POST['titulo_propuesta'];
+
+        $accion_jefe = (isset($_POST['accion_jefe'])) ? $_POST['accion_jefe'] : ''; //("revision", "final", "rechazo")
 
         echo $obj_d_Aprobar_Jurado->Actualizar_VoBo(
              $id_propuesta,
@@ -65,7 +77,8 @@ switch($tipo_Movimiento){
              $id_usuario,
              $vobo_usuario,
              $titulo_propuesta,
-             $id_division
+             $id_division,
+             $accion_jefe
         );
         break;
 

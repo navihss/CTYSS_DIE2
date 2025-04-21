@@ -74,7 +74,11 @@ if (
                                 };
 
                                 if ($i == 1) {
-                                    $link_irA = '<a class="IrA link_pdf" href="#" data-archivophp=\'coord_jdpto_Aprobar_Jurado.php\'>Ver Pendientes</a>';
+                                    var archivoPhp = 'coord_jdpto_Aprobar_Jurado.php';
+                                    if (id_tipousuario == 2) {
+                                        archivoPhp = 'Jefe_Aprobar_Jurado.php';
+                                    }
+                                    $link_irA = '<a class="IrA link_pdf" href="#" data-archivophp="' + archivoPhp + '">Ver Pendientes</a>';
                                     totalConcepto = 'Total de Jurados';
 
                                     html_table += '<TR>';

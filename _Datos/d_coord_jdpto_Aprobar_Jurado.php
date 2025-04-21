@@ -98,7 +98,7 @@ class d_coord_jdpto_Aprobar_Jurado
 
     //*********************************************************************                
     //OBTENEMOS EL TOTAL DE JURADOS PROPUESTAS POR AUTORIZAR
-    function Obtener_Total_Jurados_Por_Autorizar($id_usuario)
+    function Obtener_Total_Jurados_Por_Autorizar($id_usuario, $tipoUsuario=3)
     {
 
         try {
@@ -109,18 +109,36 @@ class d_coord_jdpto_Aprobar_Jurado
                 throw new Exception($cnn->getError());
             }
 
-            $tsql = " SELECT count(a.id_propuesta) as total1
-                    FROM jurado a
-                            INNER JOIN estatus b ON a.id_estatus = b.id_estatus
-                            INNER JOIN propuestas_profesor c ON a.id_propuesta = c.id_propuesta
-                            INNER JOIN propuesta_version d ON c.id_propuesta = d.id_propuesta
-                            INNER JOIN documentos e ON d.id_documento = e.id_documento
-                            INNER JOIN usuarios f ON c.id_profesor = f.id_usuario
-                    WHERE d.id_documento = 4 AND d.id_estatus = 3 AND a.id_estatus = 12 AND
-                    ? IN (SELECT g.id_usuario
-				FROM jurado_vobo g
-				WHERE a.id_propuesta = g.id_propuesta AND a.version = g.version AND id_usuario = ? AND g.id_estatus =12 )";
+            $tsql = "";
 
+            if($tipoUsuario==3) { // Coordinador
+                $tsql = " SELECT count(a.id_propuesta) as total1
+                        FROM jurado a
+                                INNER JOIN estatus b ON a.id_estatus = b.id_estatus
+                                INNER JOIN propuestas_profesor c ON a.id_propuesta = c.id_propuesta
+                                INNER JOIN propuesta_version d ON c.id_propuesta = d.id_propuesta
+                                INNER JOIN documentos e ON d.id_documento = e.id_documento
+                                INNER JOIN usuarios f ON c.id_profesor = f.id_usuario
+                        WHERE d.id_documento = 4 AND d.id_estatus = 3 AND a.id_estatus = 12 AND
+                        ? IN (SELECT g.id_usuario
+                    FROM jurado_vobo g
+                    WHERE a.id_propuesta = g.id_propuesta AND a.version = g.version AND id_usuario = ? AND g.id_estatus =12 )";
+            }
+            else if($tipoUsuario==2) { // Jefe
+                $tsql = "
+                    SELECT count(a.id_propuesta) as total1
+                    FROM jurado a
+                    WHERE a.id_estatus = 16
+                    AND ? IN (
+                        SELECT g.id_usuario
+                        FROM propuesta_vobo g
+                        WHERE a.id_propuesta=g.id_propuesta
+                        AND a.version=g.version_propuesta
+                        AND g.id_usuario=?
+                    )
+                ";
+            }
+            
             /* Preparamos la sentencia a ejecutar */
             $stmt = $conn->prepare($tsql);
             $params = array($id_usuario, $id_usuario);
@@ -263,7 +281,7 @@ class d_coord_jdpto_Aprobar_Jurado
 
     //*********************************************************************                
     //ACTUALIZAMOS EL ESTATUS DEL VoBo
-    function Actualizar_VoBo($id_propuesta, $id_version, $id_usuario, $vobo_usuario, $titulo_propuesta, $id_division)
+    function Actualizar_VoBo($id_propuesta, $id_version, $id_usuario, $vobo_usuario, $titulo_propuesta, $id_division, $accion_jefe='')
     {
         $mensaje_Transacciones = '';
         $jsondata = [];
@@ -295,111 +313,196 @@ class d_coord_jdpto_Aprobar_Jurado
             $arr_coord_users = $arr_datos_prop[0];  // IDs
             $arr_coord_mails = $arr_datos_prop[1];  // Correos
 
-            // 3) Parseamos la cadena "1,1,0,nota|2,0,15,nota..."
-            $arr_vobo = explode('|', $vobo_usuario);
-            $renglones = count($arr_vobo);
-
-            // 4) Preparamos update en jurado_vobo
-            $sqlVobo = "UPDATE jurado_vobo
-                        SET aceptado=:ac,
-                            nota=:nt,
-                            fecha_verificado=:fv,
-                            id_estatus=:newSt
-                        WHERE id_propuesta=:ip
-                          AND version=:ve
-                          AND num_profesor=:np
-                          AND id_usuario=:usr";
-            $stmtVobo = $conn->prepare($sqlVobo);
-
             $tipoUsuario = (isset($_SESSION['id_tipo_usuario'])) ? $_SESSION['id_tipo_usuario'] : 0;
             $fecha_verif = date('d-m-Y H:i:s');
+            $pendientes_VoBo = 0;
 
-            // Contador de rechazados
-            $countRechazados = 0;
 
-            foreach($arr_vobo as $linea){
-                $part = explode(',', $linea);
-                $numProf = (int)$part[0];
-                $aceptado = (int)$part[1];
-                $idReemp = (count($part)>=3) ? (int)$part[2] : 0;
-                $nota    = (count($part)>=4) ? trim($part[3]) : '';
+            // ===================================================
+            // A) COORDINADOR (tipo=3), usa la lógica original
+            // ===================================================
+            if($tipoUsuario==3 && $accion_jefe==''){
+                $arr_vobo = explode('|', $vobo_usuario);
+                $renglones = count($arr_vobo);
 
-                // Si no se acepta y hay reemplazo => reasignar sinodales
-                if($aceptado==0 && $idReemp>0){
-                    $sqlReemp = "UPDATE sinodales
-                                 SET id_usuario=:newu,
-                                     nombre_sinodal_propuesto=(
-                                       SELECT (apellido_paterno_usuario || ' ' ||
-                                               apellido_materno_usuario || ' ' ||
-                                               nombre_usuario)
-                                       FROM usuarios
-                                       WHERE id_usuario=:newu
-                                     )
-                                 WHERE id_propuesta=:ip
-                                   AND version=:ve
-                                   AND num_profesor=:np";
-                    $stmtR = $conn->prepare($sqlReemp);
-                    $stmtR->execute([
-                        ':newu'=>$idReemp,
-                        ':ip'=>$id_propuesta,
-                        ':ve'=>$id_version,
-                        ':np'=>$numProf
-                    ]);
-                }
+                // 4) Preparamos update en jurado_vobo
+                $sqlVobo = "UPDATE jurado_vobo
+                            SET aceptado=:ac,
+                                nota=:nt,
+                                fecha_verificado=:fv,
+                                id_estatus=:newSt
+                            WHERE id_propuesta=:ip
+                            AND version=:ve
+                            AND num_profesor=:np
+                            AND id_usuario=:usr";
+                $stmtVobo = $conn->prepare($sqlVobo);
 
-                // Determinamos el estatus para jurado_vobo según rol
-                $newEstatus = 2; // default para roles != 3
-                if($tipoUsuario==3){
+                // Contador de rechazados
+                $countRechazados = 0;
+
+                foreach($arr_vobo as $linea){
+                    $part = explode(',', $linea);
+                    $numProf = (int)$part[0];
+                    $aceptado = (int)$part[1];
+                    $idReemp = (count($part)>=3) ? (int)$part[2] : 0;
+                    $nota    = (count($part)>=4) ? trim($part[3]) : '';
+
+                    // Si no se acepta y hay reemplazo => reasignar sinodales
+                    if($aceptado==0 && $idReemp>0){
+                        $sqlReemp = "UPDATE sinodales
+                                    SET id_usuario=:newu,
+                                        nombre_sinodal_propuesto=(
+                                        SELECT (apellido_paterno_usuario || ' ' ||
+                                                apellido_materno_usuario || ' ' ||
+                                                nombre_usuario)
+                                        FROM usuarios
+                                        WHERE id_usuario=:newu
+                                        )
+                                    WHERE id_propuesta=:ip
+                                    AND version=:ve
+                                    AND num_profesor=:np";
+                        $stmtR = $conn->prepare($sqlReemp);
+                        $stmtR->execute([
+                            ':newu'=>$idReemp,
+                            ':ip'=>$id_propuesta,
+                            ':ve'=>$id_version,
+                            ':np'=>$numProf
+                        ]);
+                    }
+
+                    // Determinamos el estatus para jurado_vobo según rol
+                    $newEstatus = 2; // default para roles != 3
+                    
                     if($aceptado==0){
                         $newEstatus = 19; // Aprob. Parcial
                         $countRechazados++;
                     } else {
                         $newEstatus = 16; // Aprobado por Coord
                     }
+
+                    // Update en jurado_vobo
+                    $stmtVobo->execute([
+                        ':ac'    => $aceptado,
+                        ':nt'    => $nota,
+                        ':fv'    => $fecha_verif,
+                        ':newSt' => $newEstatus,
+                        ':ip'    => $id_propuesta,
+                        ':ve'    => $id_version,
+                        ':np'    => $numProf,
+                        ':usr'   => $id_usuario
+                    ]);
                 }
 
-                // Update en jurado_vobo
-                $stmtVobo->execute([
-                    ':ac'    => $aceptado,
-                    ':nt'    => $nota,
-                    ':fv'    => $fecha_verif,
-                    ':newSt' => $newEstatus,
-                    ':ip'    => $id_propuesta,
-                    ':ve'    => $id_version,
-                    ':np'    => $numProf,
-                    ':usr'   => $id_usuario
-                ]);
-            }
-
-            // 5) Ajustamos estatus en "jurado"
-            $pendientes_VoBo = $pendientes - $renglones;
-            $sqlJ = '';
-
-            if($tipoUsuario==3){
+                // 5) Ajustamos estatus en "jurado"
+                $sqlJ = '';
+                $pendientes_VoBo = $pendientes - $renglones;
                 // Coordinador => si hay rechazados => 19, si no => 16
                 if($countRechazados>0){
                     $sqlJ="UPDATE jurado SET id_estatus=19 WHERE id_propuesta=? AND version=?;";
                 } else {
                     $sqlJ="UPDATE jurado SET id_estatus=16 WHERE id_propuesta=? AND version=?;";
                 }
-            } else {
-                // Rol distinto => si ya no hay pendientes, subimos a 2
-                if($pendientes_VoBo==0){
-                    $sqlJ="UPDATE jurado SET id_estatus=2 WHERE id_propuesta=? AND version=?;";
-                }
-            }
 
-            if($sqlJ!=''){
                 $stmtJ = $conn->prepare($sqlJ);
                 $ok = $stmtJ->execute([$id_propuesta, $id_version]);
                 if(!$ok){
-                    throw new Exception("No se pudo actualizar estatus del jurado.");
+                    throw new Exception("No se pudo actualizar estatus del jurado (Coord).");
                 }
             }
 
+            // ===================================================
+            // B) JDPTO (tipo=2), con $accion_jefe
+            // ===================================================
+            else if($tipoUsuario==2 && $accion_jefe!=''){
+                // Decide 17 (revisión), 18 (final) o volver 12 (rechazo).
+                if($accion_jefe=='revision'){
+                    // Poner jurado en 17
+                    $sqlJ="UPDATE jurado SET id_estatus=17 WHERE id_propuesta=? AND version=?;";
+                    $stmtJ = $conn->prepare($sqlJ);
+                    $stmtJ->execute([$id_propuesta, $id_version]);
+
+                    // Actualizar su jurado_vobo a 17
+                    $sqlV="UPDATE jurado_vobo
+                           SET id_estatus=17,
+                               fecha_verificado=:fv
+                           WHERE id_propuesta=:ip
+                             AND version=:ve
+                             AND id_usuario=:usr;";
+                    $stmtV = $conn->prepare($sqlV);
+                    $stmtV->execute([
+                        ':fv'=>$fecha_verif,
+                        ':ip'=>$id_propuesta,
+                        ':ve'=>$id_version,
+                        ':usr'=>$id_usuario
+                    ]);
+                }
+                else if($accion_jefe=='final'){
+                    // Aprobación definitiva 18
+                    $sqlJ="UPDATE jurado SET id_estatus=18 WHERE id_propuesta=? AND version=?;";
+                    $stmtJ = $conn->prepare($sqlJ);
+                    $stmtJ->execute([$id_propuesta, $id_version]);
+
+                    $sqlV="UPDATE jurado_vobo
+                           SET id_estatus=18,
+                               fecha_verificado=:fv
+                           WHERE id_propuesta=:ip
+                             AND version=:ve
+                             AND id_usuario=:usr;";
+                    $stmtV = $conn->prepare($sqlV);
+                    $stmtV->execute([
+                        ':fv'=>$fecha_verif,
+                        ':ip'=>$id_propuesta,
+                        ':ve'=>$id_version,
+                        ':usr'=>$id_usuario
+                    ]);
+
+                    $sqlAll = "UPDATE jurado_vobo
+                            SET id_estatus=18,
+                                fecha_verificado=?
+                            WHERE id_propuesta=?
+                                AND version=?
+                                AND id_estatus = 16";
+                    $stmtAll = $conn->prepare($sqlAll);
+                    $stmtAll->execute([$fecha_verif, $id_propuesta, $id_version]);
+                }
+                else if($accion_jefe=='rechazo'){
+                    // Rechazo total => devolver al alumno en 12
+                    $sqlJ="UPDATE jurado SET id_estatus=12 WHERE id_propuesta=? AND version=?;";
+                    $stmtJ = $conn->prepare($sqlJ);
+                    $stmtJ->execute([$id_propuesta, $id_version]);
+
+                    // Registrar nota en jurado_vobo
+                    $nota = (isset($_POST['nota_rechazo'])) ? $_POST['nota_rechazo'] : 'Rechazado por Jefe de Dpto.';
+                    $sqlV="UPDATE jurado_vobo
+                           SET nota=:nt,
+                               fecha_verificado=:fv
+                           WHERE id_propuesta=:ip
+                             AND version=:ve
+                             AND id_usuario=:usr;";
+                    $stmtV = $conn->prepare($sqlV);
+                    $stmtV->execute([
+                        ':nt'=>$nota,
+                        ':fv'=>$fecha_verif,
+                        ':ip'=>$id_propuesta,
+                        ':ve'=>$id_version,
+                        ':usr'=>$id_usuario
+                    ]);
+
+                    $sqlAll = "UPDATE jurado_vobo
+                            SET id_estatus=12,
+                                fecha_verificado=?,
+                                nota=?
+                            WHERE id_propuesta=?
+                                AND version=?
+                                AND id_estatus = 16";
+                    $stmtAll = $conn->prepare($sqlAll);
+                    $stmtAll->execute([$fecha_verif, $nota, $id_propuesta, $id_version]);
+                }
+            }
+            
             $conn->commit();
 
-            // 6) Correos y bitácora (igual que antes)
+            // 6) Correos y bitácora
             $respuesta_mail = '';
             $id_tema_evento1 = 85; // Definir Jurado
             $id_tipo_evento1 = 55; // Revisión
@@ -409,16 +512,15 @@ class d_coord_jdpto_Aprobar_Jurado
 
             $obj_Bitacora = new d_Usuario_Bitacora();
             $miBitacora = new Bitacora();
-            $miBitacora->set_Fecha_Evento(date('d-m-Y H:i:s'));
+            $miBitacora->set_Fecha_Evento($fecha_verif);
             $miBitacora->set_Id_Tema_Bitacora($id_tema_evento1);
             $miBitacora->set_Id_Tipo_Evento($id_tipo_evento1);
             $miBitacora->set_Id_Usuario_Genera($id_usuario);
             $miBitacora->set_Id_Usuario_Destinatario('');
             $miBitacora->set_Descripcion_Evento($descEvento);
             $miBitacora->set_Id_Division($id_division);
-
             $resultado_Bitacora = $obj_Bitacora->Agregar($miBitacora);
-
+            
             // Si $pendientes_VoBo == 0 => mandar aviso final
             if($pendientes_VoBo==0){
                 $id_tema_evento2 = 118;
@@ -530,6 +632,129 @@ class d_coord_jdpto_Aprobar_Jurado
         }
     }
 
+    //OBTENER JURADOS PARA JEFE DE DEPARTAMENTO
+    public function Obtener_Jurados_Para_Jefe($id_usuario)
+    {
+        try {
+            $cnn = new Conexion();
+            $conn = $cnn->getConexion();
+            if ($conn===false) {
+                throw new Exception($cnn->getError());
+            }
+
+            // Buscar jurados con estatus=16 (Aprobado Coord) o 19 (Rechazo Parcial)
+            // y que correspondan a un id_usuario que sea JDPTO
+            $tsql = "
+                SELECT a.id_propuesta,
+                       a.version,
+                       a.fecha_propuesto,
+                       a.id_estatus,
+                       b.descripcion_estatus,
+                       c.id_profesor,
+                       c.titulo_propuesta,
+                       (f.apellido_paterno_usuario || ' ' ||
+                        f.apellido_materno_usuario || ' ' ||
+                        f.nombre_usuario) as nombre
+                FROM jurado a
+                     INNER JOIN estatus b          ON a.id_estatus = b.id_estatus
+                     INNER JOIN propuestas_profesor c ON a.id_propuesta = c.id_propuesta
+                     INNER JOIN usuarios f         ON c.id_profesor = f.id_usuario
+                WHERE a.id_estatus = 16
+                  AND ? IN (
+                    SELECT g.id_usuario
+                    FROM propuesta_vobo g
+                    WHERE a.id_propuesta = g.id_propuesta
+                      AND a.version      = g.version_propuesta
+                      AND g.id_usuario  = ?
+                  )
+                ORDER BY a.fecha_propuesto;
+            ";
+
+            $stmt = $conn->prepare($tsql);
+            $params = array($id_usuario, $id_usuario);
+
+            if ($stmt) {
+                $result = $stmt->execute($params);
+                if ($result) {
+                    if ($stmt->rowCount()>0) {
+                        $jsondata['success'] = true;
+                        $jsondata['data']['message'] = 'Jurados para Jefe';
+                        $jsondata['data']['registros'] = array();
+                        while($row = $stmt->fetch(\PDO::FETCH_OBJ)){
+                            $jsondata['data']['registros'][] = $row;
+                        }
+                        echo json_encode($jsondata);
+                        exit();
+                    } else {
+                        throw new Exception("No hay jurados pendientes para Jefe.");
+                    }
+                } else {
+                    $error = $stmt->errorInfo();
+                    throw new Exception("Error al consultar jurados Jefe: ".$error[2]);
+                }
+            } else {
+                $error = $conn->errorInfo();
+                throw new Exception("Error en la sentencia SQL Jefe: ".$error[2]);
+            }
+        } catch(Exception $ex) {
+            $jsondata['success'] = false;
+            $jsondata['data'] = array('message' => $ex->getMessage());
+            echo json_encode($jsondata);
+            exit();
+        }
+    }
+
+    public function Obtener_Jurado_Seleccionado_Jefe($id_propuesta, $id_version)
+    {
+        try {
+            $cnn = new Conexion();
+            $conn = $cnn->getConexion();
+            if ($conn === false) {
+                throw new Exception($cnn->getError());
+            }
+
+            // Obtenemos sinodales en estatus 16 o 19:
+            $tsql = "
+                SELECT a.id_propuesta,
+                    a.version,
+                    a.num_profesor,
+                    a.nombre_sinodal_propuesto,
+                    a.id_usuario,
+                    b.id_estatus,
+                    b.nota,
+                    b.fecha_verificado
+                FROM sinodales a
+                    INNER JOIN jurado_vobo b
+                        ON a.id_propuesta = b.id_propuesta
+                    AND a.version      = b.version
+                    AND a.num_profesor= b.num_profesor
+                WHERE a.id_propuesta = ?
+                AND a.version = ?
+                AND b.id_estatus = 16
+                ORDER BY a.num_profesor;
+            ";
+
+            $stmt = $conn->prepare($tsql);
+            $stmt->execute([$id_propuesta, $id_version]);
+
+            if ($stmt->rowCount() > 0) {
+                $jsondata['success'] = true;
+                $jsondata['data']['message']   = 'Sinodales para Jefe';
+                $jsondata['data']['registros'] = $stmt->fetchAll(\PDO::FETCH_OBJ);
+            } else {
+                throw new Exception("No se encontraron sinodales en estatus 16/19 para esta propuesta.");
+            }
+
+            echo json_encode($jsondata);
+            exit();
+
+        } catch (Exception $ex) {
+            $jsondata['success'] = false;
+            $jsondata['data'] = ['message' => $ex->getMessage()];
+            echo json_encode($jsondata);
+            exit();
+        }
+    }
 }
 
 //$obj = new d_coord_jdpto_Aprobar_Jurado();

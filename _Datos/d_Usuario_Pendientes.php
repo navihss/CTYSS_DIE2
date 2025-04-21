@@ -24,6 +24,7 @@ class d_Usuario_Pendientes
     {
 
         try {
+            $tipoUsuario = isset($_SESSION['id_tipo_usuario']) ? $_SESSION['id_tipo_usuario'] : 0;
             $jsondata['success'] = true;
             $jsondata['data']['message'] = '';
             $jsondata['data']['registros'] = array();
@@ -35,7 +36,7 @@ class d_Usuario_Pendientes
             $pendientesCeremonias = $obj_coord_jdpto_Aprobar_Ceremonia->Obtener_Total_Ceremonias_Por_Autorizar($id_usuario);
 
             $obj_coord_jdpto_Aprobar_Jurado = new d_coord_jdpto_Aprobar_Jurado();
-            $pendientesJurados = $obj_coord_jdpto_Aprobar_Jurado->Obtener_Total_Jurados_Por_Autorizar($id_usuario);
+            $pendientesJurados = $obj_coord_jdpto_Aprobar_Jurado->Obtener_Total_Jurados_Por_Autorizar($id_usuario, $tipoUsuario);
 
             $totalpendientesPropuestas = $pendientesPropuestas['data']['registros'][0]['total1'];
             $jsondata['data']['registros'][0]['total1'] = $totalpendientesPropuestas;
