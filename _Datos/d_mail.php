@@ -7,72 +7,82 @@
  * Agosto 2016
  */
 header('Content-Type: text/html; charset=UTF-8');
+require_once($_SERVER["DOCUMENT_ROOT"] . '/CTYSS_DIE/assets/libs/PHPMailer/PHPMailer.php');
+require_once($_SERVER["DOCUMENT_ROOT"] . '/CTYSS_DIE/assets/libs/PHPMailer/SMTP.php');
+require_once($_SERVER["DOCUMENT_ROOT"] . '/CTYSS_DIE/assets/libs/PHPMailer/Exception.php');
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+
 require_once($_SERVER["DOCUMENT_ROOT"] . '/CTYSS_DIE/_Datos/Conexion.php');
 require_once($_SERVER["DOCUMENT_ROOT"] . '/CTYSS_DIE/zonaHoraria.php');
-require_once($_SERVER["DOCUMENT_ROOT"] . '/CTYSS_DIE/Php_Mailer524/class.phpmailer.php');
-require_once($_SERVER["DOCUMENT_ROOT"] . '/CTYSS_DIE/Php_Mailer524/class.smtp.php');
 require_once($_SERVER["DOCUMENT_ROOT"] . '/CTYSS_DIE/_Entidades/Mail.php');
 
 class d_mail
 {
-
     //Enviamos el mail
     function Envair_Mail($obj_Mail)
     {
         $resultado = '';
 
-        $mi_mail = new Mail();
-        $mi_mail = $obj_Mail;
+        try {
+            $correo = new PHPMailer(true);
 
-        $correo = new PHPMailer();
-        $correo->CharSet = 'UTF-8';
-        $correo->IsSMTP();
-        $correo->IsHTML(true);
-        $correo->SMTPAuth = true;
-        $correo->SMTPSecure = 'tls';
-        $correo->Timeout = 30;
-        $correo->Host = $mi_mail->get_Host();
-        $correo->Port = $mi_mail->get_Puerto();
-        $correo->Username = $mi_mail->get_Username();
-        $correo->Password = $mi_mail->get_Password();
-        $correo->From = $mi_mail->get_From();
-        $correo->FromName = $mi_mail->get_Fromname();
+            // Configuración básica
+            $correo->CharSet = 'UTF-8';
+            $correo->isSMTP();
+            $correo->SMTPAuth = true;
+            $correo->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
 
-        //            $correo->AddAddress($mi_mail->get_Correo_Destinatarios());            
-        if ($mi_mail->get_Correo_Destinatarios() != '') {
-            $arr_para = preg_split("/[,]/", $mi_mail->get_Correo_Destinatarios());
-            $renglones = count($arr_para);
-            for ($i = 0; $i < $renglones; $i++) {
-                if (!$correo->AddAddress($arr_para[$i])) {
-                    continue;
+            $correo->Host       = $obj_Mail->get_Host();
+            $correo->Port       = $obj_Mail->get_Puerto();
+            $correo->Username   = $obj_Mail->get_Username();
+            $correo->Password   = $obj_Mail->get_Password();
+            $correo->Timeout    = 30;
+
+            // Remitente
+            $correo->setFrom($obj_Mail->get_From(), $obj_Mail->get_Fromname());
+
+            // Destinatarios
+            if ($obj_Mail->get_Correo_Destinatarios() != '') {
+                $arr_para = preg_split("/[,]/", $obj_Mail->get_Correo_Destinatarios());
+                foreach ($arr_para as $email) {
+                    if (trim($email) !== '') {
+                        $correo->addAddress(trim($email));
+                    }
                 }
             }
-        }
 
-
-        if ($mi_mail->get_Correo_Copia_Oculta() != '') {
-            $arr_destinatarios = preg_split("/[,]/", $mi_mail->get_Correo_Copia_Oculta());
-            $renglones = count($arr_destinatarios);
-            for ($i = 0; $i < $renglones; $i++) {
-                //                    $correo->AddBCC($arr_destinatarios[$i]);
-                if (!$correo->AddCC($arr_destinatarios[$i])) {
-                    continue;
+            // Copias Ocultas (BCC)
+            if ($obj_Mail->get_Correo_Copia_Oculta() != '') {
+                $arr_cco = preg_split("/[,]/", $obj_Mail->get_Correo_Copia_Oculta());
+                foreach ($arr_cco as $email) {
+                    if (trim($email) !== '') {
+                        $correo->addBCC(trim($email));
+                    }
                 }
             }
+
+            // Asunto y cuerpo
+            $correo->isHTML(true);
+            $correo->Subject = $obj_Mail->get_Asunto();
+            $correo->Body    = $obj_Mail->get_Mensaje();
+            $correo->AltBody = strip_tags($obj_Mail->get_Mensaje());
+
+            // Enviar correo
+            if ($correo->send()) {
+                $resultado = '<br><b>Correo enviado con éxito a: ' . $obj_Mail->get_Correo_Destinatarios() . '</b><br>';
+            } else {
+                $resultado = '<br>Error al enviar el correo: ' . $correo->ErrorInfo . '<br>';
+            }
+
+        } catch (Exception $e) {
+            $resultado = '<br><b>Excepción al enviar correo:</b> ' . $e->getMessage() . '<br>';
         }
 
-        $correo->Subject = $mi_mail->get_Asunto();
-        $correo->Body = $mi_mail->get_Mensaje();
-        if (!$correo->Send()) {
-            $resultado .= $correo->ErrorInfo;
-            $resultado .= ' *** Error en el envio del correo electrónico <br>';
-            $resultado .= 'To: ' . $mi_mail->get_Correo_Destinatarios() . ' ** ';
-            $resultado .= 'Subject: ' . $mi_mail->get_Asunto() . ' ** ';
-            $resultado .= 'Body: ' . $mi_mail->get_Mensaje();
-        } else {
-            $resultado .= 'Correo envíado. OK';
-        }
         return $resultado;
+
     } //Fin Enviar Mail
 
     //Enviamos el mail

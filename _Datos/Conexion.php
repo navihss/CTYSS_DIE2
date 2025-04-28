@@ -40,7 +40,7 @@ class Conexion
                         $this->error_mensaje = '';
                 } catch (Exception $ex) {
                         $this->cnn = false;
-                        $this->error_mensaje =  $cadena . " Error en los parametros de conexión a la Base de Datos.<br> " . utf8_encode($ex->getMessage());
+                        $this->error_mensaje =  "Error en los parametros de conexión a la Base de Datos.<br> " . utf8_encode($ex->getMessage());
                 }
         }
 
